@@ -1,0 +1,261 @@
+/**
+ * @file wireframe.css
+ * @description Terminal wireframe styles for components
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2025-07-14
+ */
+
+/* CSS Variables for wireframe theme - Consolidated */
+:root {
+  /* Color scheme */
+  --terminal-cyan: #00ffff;
+  --terminal-cyan-bright: #66ffff;
+  --terminal-cyan-dim: #009999;
+  --terminal-cyan-dark: #006666;
+  --text-cyan: var(--terminal-cyan);
+  
+  /* Background colors */
+  --terminal-bg: #000000;
+  --terminal-dark: #0a0a0a;
+  --terminal-medium: #1a1a1a;
+  --terminal-gray-dim: #333333;
+  
+  /* Status colors */
+  --terminal-error: #ff4444;
+  --terminal-error-border: #ff6666;
+  --terminal-error-bg: #220000;
+  --terminal-orange: #ff8800;
+  --terminal-green: #00ff00;
+  --terminal-red: #ff0000;
+  --terminal-red-bright: #ff6666;
+  --terminal-red-dim: #cc0000;
+  
+  /* Effects */
+  --glow-cyan: 0 0 10px rgba(0, 255, 255, 0.5);
+  --glow-cyan-bright: 0 0 15px rgba(0, 255, 255, 0.8);
+  --glow-error: 0 0 10px rgba(255, 68, 68, 0.5);
+  
+  /* Typography */
+  --terminal-font: 'Courier New', monospace;
+  --terminal-font-size: 14px;
+  --terminal-font-size-small: 12px;
+  --terminal-font-size-large: 16px;
+  
+  /* Common patterns */
+  --wireframe-border: 1px solid var(--terminal-cyan);
+  --wireframe-border-bright: 1px solid var(--terminal-cyan-bright);
+  --wireframe-transition: all 0.2s ease;
+  --wireframe-box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.05);
+  --wireframe-box-shadow-hover: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+/* Base wireframe element - common styles */
+.wireframe-base {
+  border: var(--wireframe-border);
+  background-color: var(--terminal-bg);
+  color: var(--text-cyan);
+  font-family: var(--terminal-font);
+  transition: var(--wireframe-transition);
+  box-shadow: var(--wireframe-box-shadow);
+}
+
+.wireframe-base:hover {
+  border: var(--wireframe-border-bright);
+  box-shadow: var(--wireframe-box-shadow-hover);
+}
+
+/* Base wireframe styles - Matching Navbar Quality */
+.wireframe-panel {
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* Panel-specific hover handled by wireframe-base */
+
+.wireframe-panel-title {
+  color: var(--terminal-cyan-bright);
+  margin-bottom: 15px;
+  font-size: var(--terminal-font-size-large);
+  font-weight: bold;
+  text-shadow: var(--glow-cyan);
+  text-transform: lowercase;
+  letter-spacing: 2px;
+}
+
+.wireframe-button {
+  padding: 12px 24px;
+  cursor: pointer;
+  font-size: var(--terminal-font-size);
+  letter-spacing: 1px;
+  text-transform: lowercase;
+  text-shadow: var(--glow-cyan);
+  border-left: 3px solid var(--terminal-cyan);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wireframe-button::before {
+  content: '>';
+  margin-right: 8px;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.wireframe-button:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  color: var(--terminal-cyan-bright);
+  border-left-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.2);
+  text-shadow: var(--glow-cyan-bright);
+}
+
+.wireframe-button:hover::before {
+  opacity: 1;
+  margin-right: 12px;
+}
+
+.wireframe-button:active {
+  background-color: var(--terminal-dark);
+  border-left-width: 4px;
+  transform: translateX(2px);
+}
+
+.wireframe-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.wireframe-input {
+  padding: 10px;
+  font-size: var(--terminal-font-size);
+  letter-spacing: 1px;
+  text-transform: lowercase;
+  border-left: 3px solid var(--terminal-cyan);
+}
+
+.wireframe-input:focus {
+  outline: none;
+  border-left-color: var(--terminal-cyan-bright);
+}
+
+.wireframe-input:hover {
+  background-color: rgba(0, 255, 255, 0.02);
+}
+
+.wireframe-error-panel {
+  border: 1px solid var(--terminal-error-border);
+  background-color: var(--terminal-error-bg);
+  color: var(--terminal-error);
+}
+
+.wireframe-error-panel .wireframe-panel-title {
+  color: var(--terminal-error);
+  text-shadow: var(--glow-error);
+}
+
+/* Loading spinner */
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--terminal-cyan-dim);
+  border-radius: 50%;
+  border-top-color: var(--terminal-cyan);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Table styles */
+.wireframe-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text-cyan);
+  font-family: var(--terminal-font);
+}
+
+.wireframe-table th,
+.wireframe-table td {
+  border: 1px solid var(--terminal-cyan-dim);
+  padding: 10px;
+  text-align: left;
+}
+
+.wireframe-table th {
+  background-color: var(--terminal-medium);
+  color: var(--terminal-cyan-bright);
+  font-weight: bold;
+  text-transform: lowercase;
+}
+
+.wireframe-table tr:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+}
+
+/* Modal styles - Matching Navbar Quality */
+.wireframe-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.wireframe-modal {
+  background-color: var(--terminal-bg);
+  border: 2px solid var(--terminal-cyan);
+  padding: 30px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.wireframe-modal:hover {
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 20px var(--terminal-cyan-dark), inset 0 0 25px rgba(0, 255, 255, 0.15);
+}
+
+.wireframe-modal-title {
+  color: var(--terminal-cyan-bright);
+  margin-bottom: 20px;
+  font-size: var(--terminal-font-size-large);
+  font-weight: bold;
+  text-transform: lowercase;
+  letter-spacing: 2px;
+  text-shadow: var(--glow-cyan);
+}
+
+.wireframe-modal-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+/* Container styles */
+.wireframe-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  padding: 1.5em;
+  padding-bottom: 2.5em; /* Add extra bottom padding for page spacing */
+}
+
+/* Checkbox styles are now handled in select-checkbox-merged.css */

@@ -1,0 +1,150 @@
+/**
+ * Album Preview Component Styles
+ */
+
+.album-preview {
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size);
+}
+
+.album-preview__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid var(--circuit-color-dim);
+}
+
+.album-preview__title {
+  color: var(--circuit-color-bright);
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.album-preview__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.album-preview__item {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  padding: 0.4em;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  background: rgba(0, 255, 255, 0.02);
+}
+
+.album-preview__item:hover {
+  border-color: var(--circuit-color-dim);
+  background: rgba(0, 255, 255, 0.08);
+  transform: translateX(2px);
+}
+
+.album-preview__thumbnail {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: 1px solid var(--circuit-color-dim);
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--terminal-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.album-preview__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.album-preview__no-image {
+  color: var(--circuit-color-dim);
+  font-size: 1.2em;
+  opacity: 0.6;
+}
+
+.album-preview__details {
+  flex: 1;
+  min-width: 0; /* Allow text truncation */
+}
+
+.album-preview__name {
+  color: var(--circuit-color);
+  font-size: 0.9em;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.2em;
+}
+
+.album-preview__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 0.8em;
+  color: var(--circuit-color-dim);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.album-preview__artist {
+  font-weight: 500;
+}
+
+.album-preview__separator {
+  opacity: 0.6;
+}
+
+.album-preview__year,
+.album-preview__type,
+.album-preview__tracks {
+  opacity: 0.8;
+}
+
+.album-preview__type {
+  text-transform: capitalize;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .album-preview__item {
+    gap: 0.5em;
+    padding: 0.3em;
+  }
+  
+  .album-preview__thumbnail {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .album-preview__name {
+    font-size: 0.85em;
+  }
+  
+  .album-preview__meta {
+    font-size: 0.75em;
+    flex-wrap: wrap;
+  }
+}
+
+/* Terminal theme specific adjustments */
+.theme-czxx-terminal .album-preview__item:hover {
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+}
+
+.theme-spotify .album-preview__item:hover {
+  box-shadow: 0 2px 8px rgba(29, 185, 84, 0.2);
+}
+
+.theme-discord .album-preview__item:hover {
+  box-shadow: 0 2px 8px rgba(114, 137, 218, 0.2);
+}

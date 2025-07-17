@@ -1,0 +1,233 @@
+/**
+ * @file TerminalLoader.css
+ * @description Styles for the SVG-based 80s terminal loading bar component
+ * @author GitHub Copilot
+ * @version 2.0.0
+ * @date 2025-07-07
+ */
+
+/* Base container styles */
+.terminal-loader {
+  font-family: var(--terminal-font);
+  color: var(--terminal-cyan);
+  background: var(--terminal-bg);
+  padding: 1em;
+  border: 1px solid var(--terminal-cyan-dim);
+  margin: 0.5em 0;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+}
+
+/* Size variants */
+.terminal-loader-small {
+  padding: 0.5em;
+  font-size: calc(var(--terminal-font-size) * 0.8);
+}
+
+.terminal-loader-medium {
+  padding: 1em;
+  font-size: var(--terminal-font-size);
+}
+
+.terminal-loader-large {
+  padding: 1.5em;
+  font-size: calc(var(--terminal-font-size) * 1.2);
+}
+
+/* Bar loader styles */
+.terminal-loader-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.terminal-loader-bar-container {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background: var(--terminal-dark);
+  border: 1px solid var(--terminal-cyan-dim);
+  overflow: hidden;
+}
+
+.terminal-loader-bar-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.terminal-loader-segment {
+  opacity: 0;
+  animation: segmentAppear 0.3s ease-out forwards;
+}
+
+.terminal-loader-cursor {
+  animation: cursorBlink 0.6s infinite;
+}
+
+/* Dots loader styles */
+.terminal-loader-dots {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.terminal-loader-dots-container {
+  display: flex;
+  gap: 0.2em;
+  flex-wrap: wrap;
+}
+
+.terminal-loader-dot {
+  color: var(--terminal-cyan-dim);
+  font-size: 1.2em;
+  opacity: 0.3;
+  transition: all 0.3s ease;
+}
+
+.terminal-loader-dot.active {
+  color: var(--terminal-cyan);
+  opacity: 1;
+  animation: dotPulse 0.5s ease-out;
+  text-shadow: 0 0 3px var(--terminal-cyan);
+}
+
+/* Blocks loader styles */
+.terminal-loader-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.terminal-loader-blocks-container {
+  display: flex;
+  gap: 0.1em;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.terminal-loader-block {
+  color: var(--terminal-cyan-dim);
+  font-size: 1em;
+  opacity: 0.3;
+  transition: all 0.3s ease;
+  font-family: monospace;
+  line-height: 1;
+}
+
+.terminal-loader-block.active {
+  color: var(--terminal-cyan);
+  opacity: 1;
+  animation: blockGrow 0.4s ease-out;
+  text-shadow: 0 0 2px var(--terminal-cyan);
+}
+
+/* Info section styles */
+.terminal-loader-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  margin-top: 0.5em;
+}
+
+.terminal-loader-message {
+  color: var(--terminal-cyan);
+  font-size: 0.9em;
+  flex: 1;
+}
+
+.terminal-loader-percentage {
+  color: var(--terminal-cyan-bright);
+  font-size: 0.8em;
+  font-weight: bold;
+  text-shadow: 0 0 1px var(--terminal-cyan);
+  min-width: 3em;
+  text-align: right;
+}
+
+/* Animations */
+@keyframes segmentAppear {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes cursorBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes dotPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes blockGrow {
+  0% {
+    transform: scaleY(0.5);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scaleY(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .terminal-loader {
+    padding: 0.5em;
+  }
+
+  .terminal-loader-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
+  }
+
+  .terminal-loader-percentage {
+    text-align: left;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .terminal-loader-segment,
+  .terminal-loader-cursor,
+  .terminal-loader-dot.active,
+  .terminal-loader-block.active {
+    animation: none;
+  }
+
+  .terminal-loader-dot,
+  .terminal-loader-block {
+    transition: none;
+  }
+}

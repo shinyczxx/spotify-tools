@@ -1,0 +1,56 @@
+/**
+ * @file layout.css
+ * @description Layout utilities and spacing for wireframe components
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2025-07-07
+ */
+
+/* Wireframe padding classes */
+.wireframe-padding-small {
+  padding: 10px;
+}
+
+.wireframe-padding-medium {
+  padding: 20px;
+}
+
+.wireframe-padding-large {
+  padding: 30px;
+}
+
+/* Wireframe layout classes */
+.wireframe-layout {
+  display: flex;
+}
+
+.wireframe-column {
+  flex-direction: column;
+}
+
+.wireframe-row {
+  flex-direction: row;
+}
+
+.wireframe-gap-small {
+  gap: 10px;
+}
+
+.wireframe-gap-medium {
+  gap: 20px;
+}
+
+.wireframe-gap-large {
+  gap: 30px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .wireframe-padding-large {
+    padding: 15px;
+  }
+
+  .wireframe-padding-medium {
+    padding: 12px;
+  }
+}

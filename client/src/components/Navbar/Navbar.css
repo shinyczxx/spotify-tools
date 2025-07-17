@@ -1,0 +1,93 @@
+/* Navbar Component Styles */
+.navbar {
+  width: 250px; /* Default width for large screens */
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  padding: 20px 0;
+  background: transparent !important;
+  z-index: 100;
+  justify-content: center;
+  transition: width 0.3s ease; /* Smooth transition when width changes */
+}
+
+.nav-items {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 0;
+  padding: 0;
+}
+
+/* .nav-item styles moved to NavbarItem.css */
+
+.navbar-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin-top: auto;
+  padding: 0;
+}
+
+.navbar-now-playing {
+  width: 100%;
+}
+
+.font-controls {
+  text-align: center;
+}
+
+/* Logout now appears as a nav-item; no extra CSS needed */
+
+.font-controls button {
+  background: transparent;
+  border: none;
+  color: var(--terminal-cyan);
+  cursor: pointer;
+
+  margin: 0 5px;
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size-small);
+  text-transform: lowercase;
+  transition: color 0.3s ease;
+}
+
+.font-controls button:hover {
+  color: var(--terminal-cyan-bright);
+}
+
+.font-size-display {
+  margin: 0 0;
+  font-size: var(--terminal-font-size-small);
+  color: var(--text-dim);
+  text-transform: lowercase;
+}
+
+/* Responsive sidebar width adjustments */
+@media screen and (max-width: 1200px) {
+  .navbar {
+    width: 220px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .navbar {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    width: 180px;
+  }
+}
+
+/* For very small screens, consider a collapsible mobile menu */
+@media screen and (max-width: 576px) {
+  .navbar {
+    width: 160px;
+  }
+}

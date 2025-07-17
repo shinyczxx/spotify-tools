@@ -1,0 +1,92 @@
+/* Navbar Item Styles */
+:root {
+  /* Nav item padding variables */
+  --nav-item-padding: 15px 10px 15px 10px;
+  --nav-item-width: 97%;
+
+  --nav-item-hover-padding: 15px 10px 15px 20px;
+  --nav-item-hover-width: 99%;
+
+  --nav-item-active-padding: 15px 10px 15px 30px;
+  --nav-item-active-width: 100%;
+}
+
+.nav-item {
+  border-top: 1px solid var(--terminal-cyan);
+  border-bottom: 1px solid var(--terminal-cyan);
+  border-right: 1px solid var(--terminal-cyan);
+  padding: var(--nav-item-padding);
+  cursor: pointer;
+  width: var(--nav-item-width);
+  text-align: left;
+  background-color: var(--terminal-bg);
+  transition: all 0.2s ease;
+  font-size: var(--terminal-font-size);
+  letter-spacing: 1px;
+  text-shadow: var(--glow-cyan);
+  text-transform: lowercase;
+  position: relative;
+
+  /* Prevent text selection and insertion cursor */
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.nav-item:hover {
+  transition: all 0.2s ease;
+  padding: var(--nav-item-hover-padding);
+  background-color: var(--terminal-dark);
+  color: var(--terminal-cyan-bright);
+  text-shadow: var(--glow-cyan-bright);
+  background-color: rgba(0, 255, 255, 0.1);
+  color: var(--terminal-cyan-bright);
+  border-color: var(--terminal-cyan-bright);
+  text-shadow: var(--glow-cyan-bright);
+  box-shadow: 0 0 15px var(--terminal-cyan-dark),
+    inset 0 0 20px rgba(0, 255, 255, 0.2);
+
+  width: var(--nav-item-hover-width);
+}
+
+.nav-item.active {
+  border-top: 2px solid var(--terminal-cyan);
+  border-bottom: 2px solid var(--terminal-cyan);
+  border-right: 4px solid var(--terminal-cyan);
+  font-weight: bold;
+  padding: var(--nav-item-active-padding);
+  background-color: var(--terminal-medium);
+  color: var(--terminal-cyan-bright);
+  text-shadow: var(--glow-cyan-bright);
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 15px var(--terminal-cyan-dark),
+    inset 0 0 20px rgba(0, 255, 255, 0.2);
+
+  width: var(--nav-item-active-width);
+}
+
+/* Remove focus outline if nav-item somehow receives focus */
+.nav-item:focus {
+  outline: none;
+}
+
+/* Prevent selection highlight */
+.nav-item::selection {
+  background: transparent;
+}
+
+/* Add arrow prefix before each nav item */
+.nav-item::before {
+  content: ">";
+  margin-right: 10px;
+  transition: margin-right 0.2s ease;
+}
+
+.nav-item:hover::before {
+  margin-right: 17px;
+}
+
+.nav-item.active::before {
+  margin-right: 24px;
+  transition: margin-right 0.2s ease;
+}

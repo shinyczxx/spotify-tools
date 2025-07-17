@@ -1,0 +1,86 @@
+/**
+ * @file gridBackground.css
+ * @description Global grid background with subtle glitch effects
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2025-07-15
+ *
+ * @ChangeLog
+ * - 1.0.0: Initial implementation with toggleable grid and glitch effects
+ */
+
+:root {
+  /* Grid configuration */
+  --grid-size: 40px;
+  --grid-color: rgba(0, 255, 255, 0.15); /* Dim cyan for grid lines */
+  --grid-glitch-color: rgba(0, 255, 255, 0.3); /* Brighter cyan for glitches */
+  --grid-enabled: 1; /* 1 = enabled, 0 = disabled */
+  --grid-glitch-enabled: 0; /* 1 = enabled, 0 = disabled */
+}
+
+/* Global grid background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: var(--grid-enabled);
+  background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  background-position: calc(var(--grid-size) / -2) calc(var(--grid-size) / -2);
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+/* Grid glitch overlay - disabled */
+
+/* Glitch animations removed - keeping clean grid only */
+
+/* Theme integration - these classes can be applied to body for different states */
+.grid-enabled {
+  --grid-enabled: 1;
+}
+
+.grid-disabled {
+  --grid-enabled: 0;
+}
+
+.grid-glitch-enabled {
+  --grid-glitch-enabled: 1;
+}
+
+.grid-glitch-disabled {
+  --grid-glitch-enabled: 0;
+}
+
+/* Size variants for the grid */
+.grid-small {
+  --grid-size: 20px;
+}
+
+.grid-medium {
+  --grid-size: 40px;
+}
+
+.grid-large {
+  --grid-size: 60px;
+}
+
+/* High contrast mode - brighter grid for accessibility */
+.grid-high-contrast {
+  --grid-color: rgba(0, 255, 255, 0.15);
+  --grid-glitch-color: rgba(0, 255, 255, 0.5);
+}
+
+/* Duplicate body::before removed - using main one only */
+
+/* Reduced motion - grid respects user preferences */
+@media (prefers-reduced-motion: reduce) {
+  .grid-glitch-enabled {
+    --grid-glitch-enabled: 0;
+  }
+}

@@ -1,0 +1,11 @@
+/**
+ * @file index.css
+ * @description Main stylesheet that imports all wireframe component styles
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2025-07-07
+ */
+
+@import './base.css';
+@import './layout.css';
+@import './animations.css';

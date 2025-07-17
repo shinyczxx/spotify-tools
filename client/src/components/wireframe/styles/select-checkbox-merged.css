@@ -1,0 +1,143 @@
+/* Merged styles from WireframeSelect.css and WireframeCheckbox.css */
+
+/* --- WireframeSelect styles --- */
+.wireframe-select-container {
+  position: relative;
+  display: inline-block;
+  font-family: var(--terminal-font);
+}
+.wireframe-select-container-small {
+  font-size: calc(var(--terminal-font-size) * 0.8);
+}
+.wireframe-select-container-medium {
+  font-size: var(--terminal-font-size);
+}
+.wireframe-select-container-large {
+  font-size: calc(var(--terminal-font-size) * 1.2);
+}
+.wireframe-select-label {
+  display: block;
+  color: var(--terminal-cyan);
+  font-family: var(--terminal-font);
+  font-size: 0.9em;
+  margin-bottom: 0.5em;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+.wireframe-select {
+  position: relative;
+  display: inline-block;
+  min-width: 120px;
+  outline: none;
+}
+.wireframe-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--terminal-bg);
+  border: 1px solid var(--terminal-cyan);
+  color: var(--terminal-cyan);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  text-transform: lowercase;
+}
+
+/* Additional dropdown styles */
+.wireframe-select-dropdown {
+  background: var(--terminal-bg);
+  border: 1px solid var(--terminal-cyan);
+  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
+  max-height: 200px;
+  overflow-y: auto;
+  border-radius: 0;
+}
+
+.wireframe-select-option {
+  padding: 8px 12px;
+  color: var(--terminal-cyan);
+  background: var(--terminal-bg);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-transform: lowercase;
+}
+
+.wireframe-select-option:hover {
+  background: var(--terminal-cyan-dim);
+  color: var(--terminal-bg);
+}
+
+.wireframe-select-option.selected {
+  background: var(--terminal-cyan);
+  color: var(--terminal-bg);
+}
+
+/* --- WireframeCheckbox styles --- */
+.wireframe-checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5em;
+  cursor: pointer;
+  color: var(--terminal-cyan);
+  font-family: var(--terminal-font);
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+.wireframe-checkbox-container-compact {
+  gap: 0.25em;
+}
+.wireframe-checkbox-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+.wireframe-checkbox {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+.wireframe-checkbox-svg {
+  display: block;
+  color: var(--terminal-cyan);
+  transition: all 0.3s ease;
+  pointer-events: none; /* Ensure clicks pass through to the input */
+}
+.wireframe-checkbox-container-small .wireframe-checkbox-wrapper {
+  width: 14px;
+  height: 14px;
+}
+.wireframe-checkbox-container-small .wireframe-checkbox-svg {
+  width: 14px;
+  height: 14px;
+}
+.wireframe-checkbox-container-medium .wireframe-checkbox-wrapper {
+  width: 16px;
+  height: 16px;
+}
+.wireframe-checkbox-container-medium .wireframe-checkbox-svg {
+  width: 16px;
+  height: 16px;
+}
+.wireframe-checkbox-container-large .wireframe-checkbox-wrapper {
+  width: 18px;
+  height: 18px;
+}
+.wireframe-checkbox-container-large .wireframe-checkbox-svg {
+  width: 18px;
+  height: 18px;
+}

@@ -1,0 +1,251 @@
+@import url('/fonts/fixedsys.css');
+
+:root {
+  --terminal-cyan: #00ffff;
+  --terminal-cyan-bright: #66ffff;
+  --terminal-cyan-dim: #0099cc;
+  --terminal-cyan-dark: #003366;
+  --terminal-bg: #000000;
+  --terminal-dark: #0a0a0a;
+  --terminal-medium: #1a1a1a;
+  --terminal-border: #003366;
+  --text-white: #ffffff;
+  --text-dim: #cccccc;
+  --text-cyan: var(--terminal-cyan);
+  --glow-cyan: 0 0 1px var(--terminal-cyan);
+  --glow-cyan-bright: 0 0 2px var(--terminal-cyan-bright);
+  --terminal-font: 'Fixedsys', 'OCR A Std', 'Courier New', monospace;
+  --terminal-font-size: 14px;
+  --terminal-font-size-small: calc(var(--terminal-font-size) * 0.75);
+  --terminal-font-size-xsmall: calc(var(--terminal-font-size) * 0.66);
+  --terminal-font-size-large: calc(var(--terminal-font-size) * 1.14);
+  --terminal-font-size-xl: calc(var(--terminal-font-size) * 1.43);
+  --terminal-font-size-xxl: calc(var(--terminal-font-size) * 1.71);
+}
+
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+body {
+  font-family: var(--terminal-font);
+  /* background-color: var(--terminal-bg); */
+  color: var(--text-cyan);
+  font-size: var(--terminal-font-size);
+  line-height: 1.3;
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  overflow-x: hidden;
+}
+
+/* App Layout */
+.app {
+  display: flex;
+  height: 100vh;
+  /* background-color: var(--terminal-bg); */
+  color: var(--terminal-cyan);
+  overflow: hidden;
+}
+
+/* Main content layout */
+.main-content {
+  flex: 1;
+  margin-left: 250px; /* Default margin matching navbar width */
+  padding: 40px;
+  overflow-y: auto;
+  transition: margin-left 0.3s ease; /* Smooth transition when margin changes */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: var(--terminal-bg);
+}
+
+/* Responsive main content margin adjustments to match navbar width */
+@media screen and (max-width: 1200px) {
+  .main-content {
+    margin-left: 220px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .main-content {
+    margin-left: 200px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-content {
+    margin-left: 180px;
+    padding: 30px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .main-content {
+    margin-left: 160px;
+    padding: 20px;
+  }
+}
+
+/* Remove legacy button styles, enforce wireframe-button only */
+button,
+.login-btn,
+.logout-btn,
+.toggle-btn,
+.refresh-btn,
+.bordered-button {
+  all: unset;
+}
+
+.wireframe-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: var(--terminal-cyan-dim);
+}
+
+.wireframe-button:disabled:hover {
+  background-color: var(--terminal-bg);
+  color: var(--terminal-cyan);
+  border-color: var(--terminal-cyan-dim);
+  border-left-color: var(--terminal-cyan-dim);
+  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.05);
+  transform: none;
+}
+
+/* Error banner */
+.error-banner {
+  background: rgba(255, 0, 0, 0.2);
+  border: 1px solid #ff4444;
+  color: #ff4444;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  position: fixed;
+  top: 0;
+  left: 250px;
+  right: 0;
+  z-index: 1000;
+  text-transform: lowercase;
+}
+
+.error-banner button {
+  background: none;
+  border: none;
+  color: #ff4444;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+}
+
+/* Code blocks should not be transformed */
+code {
+  text-transform: none !important;
+}
+
+/* CRT Effects */
+.crt-enabled {
+  position: relative;
+}
+
+.crt-enabled::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 255, var(--crt-scanline-opacity, 0.1)) 2px,
+    rgba(0, 255, 255, var(--crt-scanline-opacity, 0.1)) 4px
+  );
+  pointer-events: none;
+  z-index: 1000;
+  animation: scanlines 0.1s linear infinite;
+}
+
+.crt-enabled::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 70%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  pointer-events: none;
+  z-index: 999;
+  border-radius: var(--crt-curvature, 0.02) * 100vh;
+}
+
+@keyframes scanlines {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(4px);
+  }
+}
+
+/* CRT Glow Effects */
+.crt-enabled * {
+  text-shadow: 0 0 calc(var(--crt-glow-intensity, 0.8) * 2px) currentColor,
+    0 0 calc(var(--crt-glow-intensity, 0.8) * 4px) currentColor,
+    0 0 calc(var(--crt-glow-intensity, 0.8) * 8px) currentColor;
+}
+
+/* Adaptive glow based on color brightness */
+.crt-enabled .bright-element {
+  text-shadow: 0 0 calc(var(--crt-glow-intensity, 0.8) * 3px) currentColor,
+    0 0 calc(var(--crt-glow-intensity, 0.8) * 6px) currentColor,
+    0 0 calc(var(--crt-glow-intensity, 0.8) * 12px) currentColor;
+}
+
+.crt-enabled .dim-element {
+  text-shadow: 0 0 calc(var(--crt-glow-intensity, 0.8) * 1px) currentColor;
+}
+
+/* CRT Flicker Effect */
+.crt-enabled.crt-flicker {
+  animation: crtFlicker 0.15s infinite linear alternate;
+}
+
+@keyframes crtFlicker {
+  0% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0.98;
+  }
+  100% {
+    opacity: 0.99;
+  }
+}
+
+/* Disable CRT effects in simple/no animation modes */
+.animation-none .crt-enabled::before,
+.animation-none .crt-enabled::after {
+  display: none;
+}
+
+.animation-simple .crt-enabled::before {
+  animation: none;
+}

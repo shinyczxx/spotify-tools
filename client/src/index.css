@@ -1,0 +1,37 @@
+@import url('/fonts/fixedsys.css');
+@import './styles/gridBackground.css';
+
+:root {
+  --terminal-cyan: #00ffff;
+  --terminal-cyan-dim: #00dddd;
+  --terminal-cyan-bright: #66ffff;
+  --terminal-cyan-dark: #004444;
+  --circuit-color: var(--terminal-cyan); /* Global circuit color */
+  --circuit-color-dim: var(--terminal-cyan-dim);
+  --circuit-color-bright: var(--terminal-cyan-bright);
+  --circuit-color-dark: var(--terminal-cyan-dark);
+  --terminal-bg: #000000;
+  --terminal-dark: #0a0a0a;
+  --terminal-font: 'Fixedsys', 'Courier New', monospace;
+  --terminal-error: #ff4444;
+  --terminal-error-bg: #1a0606;
+  --terminal-error-border: #cc3333;
+  --glow-error: 0 0 10px #ff4444;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+body {
+  background-color: var(--terminal-bg);
+  color: var(--terminal-cyan);
+  font-family: var(--terminal-font);
+  font-size: 14px;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}

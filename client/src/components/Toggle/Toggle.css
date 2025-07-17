@@ -1,0 +1,103 @@
+/* Toggle Component Styles */
+
+.toggle-container {
+  display: flex;
+  border: 2px solid var(--terminal-cyan);
+  border-radius: 0;
+  overflow: hidden;
+  font-family: var(--terminal-font);
+  width: 100%;
+  position: relative;
+}
+
+.toggle-button {
+  flex: 1 1 0%;
+  min-width: 0;
+  padding: 0.75em 1em;
+  border: none;
+  background: transparent;
+  color: var(--terminal-cyan);
+  font-family: var(--terminal-font);
+  font-size: calc(var(--terminal-font-size) * 0.95);
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-right: 1px solid var(--terminal-cyan);
+  outline: none;
+  white-space: nowrap;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-button:last-child {
+  border-right: none;
+}
+
+.toggle-button.selected {
+  flex: 1.2 1 0%;
+  background: var(--terminal-cyan);
+  color: var(--terminal-bg);
+  z-index: 2;
+  font-size: var(--terminal-font-size);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-button.equal,
+.toggle-button.selected.equal {
+  flex: 1 1 0% !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-container.hovering .toggle-button {
+  flex: 1 1 0% !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-button:hover {
+  background: var(--terminal-medium);
+  box-shadow: var(--glow-cyan);
+  z-index: 3;
+}
+
+.toggle-button.selected:hover,
+.toggle-button.selected:focus {
+  background: var(--terminal-cyan-bright);
+  box-shadow: var(--glow-cyan);
+}
+
+.toggle-button:focus {
+  background: var(--terminal-medium);
+  box-shadow: var(--glow-cyan);
+}
+
+.toggle-button .toggle-label {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center center;
+  font-size: inherit;
+}
+
+.toggle-button.right .toggle-label {
+  transform-origin: center center;
+}
+
+.toggle-button.selected .toggle-label {
+  font-size: var(--terminal-font-size);
+  transform: scaleX(1.12);
+}
+
+.toggle-button:not(.selected) .toggle-label {
+  font-size: calc(var(--terminal-font-size) * 0.95);
+  transform: scaleX(0.95);
+}
+
+.toggle-button.equal .toggle-label,
+.toggle-button.selected.equal .toggle-label {
+  font-size: var(--terminal-font-size);
+  transform: scaleX(1);
+}

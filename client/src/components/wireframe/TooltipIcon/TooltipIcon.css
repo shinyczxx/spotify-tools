@@ -1,0 +1,48 @@
+/*
+ * @file TooltipIcon.css
+ * @description Styles for the SVG-based wireframe tooltip icon component, following terminal theme standards.
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2025-07-08
+ *
+ * @ChangeLog
+ * - 1.0.0: Initial implementation
+ */
+
+.wireframe-tooltip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--terminal-font, Fixedsys, Courier New, monospace);
+  font-size: inherit;
+  color: var(--terminal-cyan);
+  text-shadow: var(--glow-cyan);
+  letter-spacing: 1px;
+  text-transform: lowercase;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.wireframe-tooltip-icon:focus {
+  box-shadow: 0 0 0 2px var(--terminal-cyan);
+}
+
+.wireframe-tooltip-icon.inverted {
+  color: var(--terminal-bg);
+}
+
+.tooltip-icon-svg {
+  display: block;
+}
+
+/* Optional: add a subtle hover effect */
+.wireframe-tooltip-icon:hover .tooltip-icon-svg rect {
+  stroke: var(--terminal-cyan-bright);
+  filter: drop-shadow(var(--glow-cyan-bright));
+}

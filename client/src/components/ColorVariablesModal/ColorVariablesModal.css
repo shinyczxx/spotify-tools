@@ -1,0 +1,208 @@
+/**
+ * @file ColorVariablesModal.css
+ * @description Modal overlay styling for color variable editor with circuit board aesthetic
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2024-12-19
+ *
+ * @ChangeLog
+ * - v1.0.0: Initial implementation with responsive modal layout and circuit board styling
+ */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1em;
+}
+
+.modal-container {
+  max-width: 60em;
+  max-height: 80vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  border-bottom: 1px solid var(--primary-color, #00ffff);
+  flex-shrink: 0;
+}
+
+.modal-title {
+  margin: 0;
+  color: var(--primary-color, #00ffff);
+  font-size: 1.25em;
+  font-weight: 600;
+}
+
+.close-button {
+  font-size: 1.5em;
+  line-height: 1;
+  padding: 0.25em 0.5em;
+  min-width: auto;
+}
+
+.color-variables-modal {
+  padding: 1.5em;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-description {
+  margin-bottom: 1.5em;
+  color: var(--text-color, #ffffff);
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.color-category {
+  margin-bottom: 2em;
+}
+
+.category-title {
+  color: var(--primary-color, #00ffff);
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 0 0 1em 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+  gap: 1em;
+}
+
+.color-variable-item {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: 0.75em;
+  border: 1px solid var(--border-color, #333333);
+  border-radius: 0.25em;
+  background-color: var(--background-secondary, #001122);
+}
+
+.color-input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.color-label {
+  color: var(--text-color, #ffffff);
+  font-size: 0.85em;
+  font-weight: 500;
+}
+
+.color-input-wrapper {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+}
+
+.color-picker {
+  width: 3em;
+  height: 2.5em;
+  border: 1px solid var(--border-color, #333333);
+  border-radius: 0.25em;
+  background: transparent;
+  cursor: pointer;
+}
+
+.color-text-input {
+  flex: 1;
+  padding: 0.5em;
+  background-color: var(--input-background, #000811);
+  color: var(--text-color, #ffffff);
+  border: 1px solid var(--border-color, #333333);
+  border-radius: 0.25em;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85em;
+}
+
+.color-text-input:focus {
+  outline: none;
+  border-color: var(--primary-color, #00ffff);
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+.color-preview {
+  width: 3em;
+  height: 3em;
+  border: 1px solid var(--border-color, #333333);
+  border-radius: 0.25em;
+  flex-shrink: 0;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1em;
+  justify-content: flex-end;
+  padding-top: 1.5em;
+  border-top: 1px solid var(--border-color, #333333);
+  margin-top: 1.5em;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 0.5em;
+  }
+
+  .modal-container {
+    max-height: 90vh;
+  }
+
+  .color-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .color-variable-item {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .color-input-wrapper {
+    justify-content: center;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .modal-overlay {
+    animation: none;
+  }
+}
+
+/* Focus management */
+.modal-overlay:focus-within .close-button:focus {
+  outline: 2px solid var(--primary-color, #00ffff);
+  outline-offset: 2px;
+}

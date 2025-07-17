@@ -1,0 +1,65 @@
+/**
+ * @file HoverDisplay.css
+ * @description Styles for the global HoverDisplay component with wireframe theme
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2025-07-06
+ */
+
+.hover-display-trigger {
+  display: inline-block;
+  position: relative;
+}
+
+.hover-display-box {
+  background-color: var(--terminal-bg);
+  border: 2px solid var(--terminal-cyan);
+  color: var(--terminal-cyan);
+  font-family: 'Courier New', monospace;
+  font-size: 0.85em;
+  line-height: 1.4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  animation: hoverDisplayFadeIn 0.2s ease-out forwards;
+  pointer-events: none;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.hover-display-content {
+  padding: 0.75em;
+}
+
+@keyframes hoverDisplayFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) var(--transform-translate, translate(0, 0));
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) var(--transform-translate, translate(0, 0));
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hover-display-box {
+    font-size: 0.8em;
+    max-width: 250px !important;
+  }
+  
+  .hover-display-content {
+    padding: 0.5em;
+  }
+}
+
+@media (max-width: 480px) {
+  .hover-display-box {
+    font-size: 0.75em;
+    max-width: 200px !important;
+  }
+  
+  .hover-display-content {
+    padding: 0.4em;
+  }
+}

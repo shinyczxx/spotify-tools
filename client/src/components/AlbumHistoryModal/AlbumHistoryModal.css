@@ -1,0 +1,199 @@
+/**
+ * @file AlbumHistoryModal.css
+ * @description Styles for the Album History Modal with circuit board theme
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2025-07-15
+ */
+
+.album-history-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+.album-history-modal {
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow: hidden;
+  border-radius: 0;
+  box-shadow: 0 0 20px var(--terminal-cyan), inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.history-modal-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+}
+
+.history-modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  padding: 1em;
+  gap: 1em;
+}
+
+.no-history {
+  text-align: center;
+  color: var(--terminal-text-dim, #888);
+  padding: 2em;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.history-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  min-height: 0;
+  padding-right: 0.5em;
+  /* Custom scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--terminal-cyan) transparent;
+}
+
+.history-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.history-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+  background: var(--terminal-cyan);
+  border-radius: 0;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+  background: var(--terminal-cyan-bright);
+}
+
+.history-entry {
+  border: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
+  background-color: var(--terminal-medium);
+  padding: 1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-left: 3px solid var(--terminal-cyan-dim);
+}
+
+.history-entry:hover {
+  border-color: var(--terminal-cyan);
+  border-left-color: var(--terminal-cyan);
+  background-color: rgba(0, 255, 255, 0.05);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2), inset 0 0 10px rgba(0, 255, 255, 0.1);
+  transform: translateX(2px);
+}
+
+.history-date {
+  color: var(--terminal-cyan);
+  font-family: var(--terminal-font);
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  letter-spacing: 0.5px;
+}
+
+.history-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+  font-size: 0.85em;
+  color: var(--terminal-text);
+}
+
+.album-count {
+  color: var(--terminal-cyan-bright);
+  font-weight: bold;
+}
+
+.playlist-names {
+  color: var(--terminal-text-dim, #888);
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5em;
+  padding-top: 1em;
+  border-top: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
+  flex-shrink: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .album-history-modal-overlay {
+    padding: 0.5em;
+  }
+
+  .album-history-modal {
+    max-height: 90vh;
+  }
+
+  .history-modal-content {
+    padding: 0.75em;
+  }
+
+  .history-entry {
+    padding: 0.75em;
+  }
+
+  .history-details {
+    font-size: 0.8em;
+  }
+}
+
+/* Animation */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.album-history-modal {
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .album-history-modal {
+    animation: none;
+  }
+
+  .history-entry {
+    transition: none;
+  }
+
+  .history-entry:hover {
+    transform: none;
+  }
+}

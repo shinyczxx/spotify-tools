@@ -1,0 +1,19 @@
+/* Fixedsys Excelsior 3.01 Font */
+@font-face {
+  font-family: 'Fixedsys Excelsior';
+  src: url('https://cdn.jsdelivr.net/gh/kika/fixedsys@master/web/fixedsys-excelsior-3.01.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/kika/fixedsys@master/web/fixedsys-excelsior-3.01.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Perfect DOS VGA 437 as fallback */
+@font-face {
+  font-family: 'Perfect DOS VGA 437';
+  src: url('https://cdn.jsdelivr.net/gh/rbanffy/perfect-dos-vga-437@master/fonts/Perfect_DOS_VGA_437.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/rbanffy/perfect-dos-vga-437@master/fonts/Perfect_DOS_VGA_437.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

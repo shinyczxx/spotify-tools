@@ -1,0 +1,730 @@
+/**
+ * @file PlaylistSelector.css
+ * @description Styles for the global PlaylistSelector component with electric blue highlighting and responsive design
+ * @author GitHub Copilot
+ * @version 1.2.0
+ * @date 2025-07-06
+ */
+
+:root {
+  --playlist-grid: 40px 50px 2fr 1.2fr 0.8fr;
+  --album-grid: 40px 50px 2fr 1.2fr 0.8fr;
+}
+
+.album-playlist-select {
+  width: 100%;
+  max-width: 100%; /* Prevent horizontal overflow */
+  margin-top: 1em;
+  border: 1px solid var(--terminal-cyan);
+  border-radius: 0;
+  background-color: var(--terminal-bg);
+  display: flex;
+  flex-direction: column;
+  min-height: 18.75em; /* Convert from 300px to em (300/16 = 18.75) */
+  height: 100%;
+  max-height: none;
+  position: relative;
+  contain: layout;
+  overflow: visible; /* Let children manage their own overflow */
+  transition: all 0.2s ease;
+  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.05);
+  box-sizing: border-box; /* Include borders in width calculation */
+}
+
+.album-playlist-select:hover {
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+/* Selection Summary */
+.select-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  background-color: rgba(0, 255, 255, 0.05);
+  border-bottom: 1px solid var(--terminal-cyan);
+  flex-wrap: wrap;
+  gap: 0.5em;
+  transition: all 0.2s ease;
+}
+
+.select-summary:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  border-bottom-color: var(--terminal-cyan-bright);
+}
+
+.selection-info {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.selection-count {
+  color: var(--terminal-cyan);
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+}
+
+.deselect-all-btn {
+  background-color: transparent;
+  border: 1px solid var(--terminal-orange, #ff8800);
+  color: var(--terminal-orange, #ff8800);
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8em;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.deselect-all-btn:hover {
+  border-color: var(--terminal-orange-bright, #ffaa44);
+  color: var(--terminal-orange-bright, #ffaa44);
+  box-shadow: 0 0 15px rgba(255, 136, 0, 0.4), inset 0 0 20px rgba(255, 136, 0, 0.1);
+  text-shadow: 0 0 5px rgba(255, 136, 0, 0.8);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: wrap;
+}
+
+.create-shuffle-btn,
+.force-refresh-btn {
+  background-color: transparent;
+  border: 2px solid var(--terminal-cyan);
+  color: var(--terminal-cyan);
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.create-shuffle-btn:hover:not(:disabled) {
+  background-color: var(--terminal-cyan);
+  color: var(--terminal-bg);
+  box-shadow: 0 2px 4px rgba(0, 255, 255, 0.3);
+}
+
+.force-refresh-btn {
+  border-color: var(--terminal-orange, #ff8800);
+  color: var(--terminal-orange, #ff8800);
+}
+
+.force-refresh-btn:hover:not(:disabled) {
+  border-color: var(--terminal-orange-bright, #ffaa44);
+  color: var(--terminal-orange-bright, #ffaa44);
+  box-shadow: 0 0 15px rgba(255, 136, 0, 0.4), inset 0 0 20px rgba(255, 136, 0, 0.1);
+  text-shadow: 0 0 5px rgba(255, 136, 0, 0.8);
+}
+
+.create-shuffle-btn:disabled,
+.force-refresh-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Sort Controls */
+.sort-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75em 1em;
+  background-color: rgba(0, 255, 255, 0.05);
+  border-bottom: 1px solid var(--terminal-cyan);
+  font-family: 'Courier New', monospace;
+  color: var(--terminal-cyan);
+  flex-wrap: wrap;
+  gap: 1em;
+  transition: all 0.2s ease;
+}
+
+.sort-controls:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  border-bottom-color: var(--terminal-cyan-bright);
+}
+
+.sort-section {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.items-per-page-section {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.items-per-page-select {
+  background-color: var(--terminal-bg);
+  border: 1px solid var(--terminal-cyan);
+  color: var(--terminal-cyan);
+  padding: 0.25em 0.5em;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.items-per-page-select:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+}
+
+.sort-btn {
+  background-color: transparent;
+  border: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.5));
+  color: var(--terminal-cyan);
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8em;
+  transition: all 0.2s ease;
+}
+
+.sort-btn:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+}
+
+.sort-btn.active {
+  background-color: var(--terminal-cyan);
+  color: var(--terminal-bg);
+}
+
+/* Table Styles */
+.items-table {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Allow flex shrinking */
+  width: 100%;
+  max-width: 100%; /* Prevent horizontal overflow */
+  overflow: hidden; /* Prevent content from spilling out */
+  box-sizing: border-box; /* Include borders in width calculation */
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 40px 50px 1fr 150px 80px 150px;
+  gap: 0.5em;
+  padding: 0.75em;
+  background-color: var(--terminal-medium);
+  color: var(--terminal-cyan);
+  font-weight: bold;
+  font-family: var(--terminal-font, 'Fixedsys', 'Courier New', monospace);
+  font-size: var(--terminal-font-size-large);
+  border-bottom: 2px solid var(--terminal-cyan);
+  flex-shrink: 0;
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  text-shadow: var(--glow-cyan);
+  align-items: center;
+}
+
+.table-header-cell {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Checkbox column should center its content */
+.table-header-cell:first-child {
+  justify-content: center;
+}
+
+/* Dynamic layout based on item type */
+.table-header.playlist-layout,
+.table-row.playlist-layout {
+  display: grid;
+  grid-template-columns: var(--playlist-grid);
+}
+
+.table-header.album-layout,
+.table-row.album-layout {
+  display: grid;
+  grid-template-columns: var(--album-grid);
+}
+
+.table-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: none; /* Remove fixed max-height, let flex: 1 handle sizing */
+  min-height: 7.5em; /* Convert from 120px to em (120/16 = 7.5) for font-size responsiveness */
+  width: 100%;
+  max-width: 100%; /* Prevent horizontal overflow */
+  /* Improve scrolling on all devices */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  /* Custom scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--terminal-cyan) transparent;
+  /* Ensure proper height calculation to leave room for sticky pagination */
+  height: auto;
+  /* Prevent margin collapse issues */
+  margin-bottom: 0;
+  /* Ensure proper sticky context */
+  position: relative;
+  box-sizing: border-box; /* Include borders in width calculation */
+}
+
+.table-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-body::-webkit-scrollbar-thumb {
+  background-color: var(--terminal-cyan);
+  border-radius: 4px;
+  opacity: 0.6;
+}
+
+.table-body::-webkit-scrollbar-thumb:hover {
+  opacity: 1;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 40px 50px 1fr 150px 80px 150px;
+  gap: 0.5em;
+  padding: 0.75em;
+  border-bottom: 1px solid var(--terminal-cyan);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-left: 1px solid transparent;
+  background-color: var(--terminal-bg);
+  width: 100%;
+  max-width: 100%; /* Prevent horizontal overflow */
+  box-sizing: border-box; /* Include borders in width calculation */
+}
+
+/* Dynamic layout based on item type */
+.table-row.playlist-layout {
+  grid-template-columns: var(--playlist-grid);
+}
+
+.table-row.album-layout {
+  grid-template-columns: var(--album-grid);
+}
+
+.table-row:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  border-bottom-color: var(--terminal-cyan-bright);
+  border-left-color: var(--terminal-cyan-bright);
+  box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1);
+  transform: translateX(3px);
+}
+
+.table-row.selected {
+  background-color: rgba(0, 255, 255, 0.15);
+  border-left: 3px solid var(--terminal-cyan-bright);
+  border-bottom-color: var(--terminal-cyan-bright);
+  box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.table-row.selected:hover {
+  background-color: rgba(0, 255, 255, 0.25);
+  border-left-width: 4px;
+  transform: translateX(5px);
+}
+
+.row-checkbox,
+.row-thumbnail,
+.row-name,
+.row-metadata,
+.row-tracks,
+.row-extra {
+  display: flex;
+  align-items: center;
+  color: var(--terminal-cyan);
+  font-family: 'Courier New', monospace;
+  font-size: 0.85em;
+}
+
+/* Custom checkbox styling removed - using WireframeCheckbox component */
+.row-checkbox,
+.header-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  height: 100%;
+  min-height: 2.5em; /* Convert from 40px to em (40/16 = 2.5) for font-size responsiveness */
+}
+
+/* Ensure wireframe checkbox wrapper is properly centered */
+.row-checkbox .wireframe-checkbox-wrapper,
+.header-checkbox .wireframe-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.row-thumbnail img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
+  border-radius: 2px;
+}
+
+.item-name {
+  font-weight: bold;
+  color: var(--terminal-cyan);
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0; /* Allow text to shrink */
+  max-width: 100%; /* Prevent extending past container */
+  width: 100%;
+  display: block;
+}
+
+.row-name {
+  overflow: hidden; /* Ensure container clips overflowing text */
+  min-width: 0; /* Allow flex item to shrink */
+}
+
+.row-metadata,
+.row-extra {
+  color: var(--terminal-text-dim, #888);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-tracks {
+  text-align: center;
+  color: var(--terminal-text-dim, #888);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75em 1em;
+  border-top: 2px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
+  background-color: var(--terminal-bg);
+  font-family: 'Courier New', monospace;
+  flex-shrink: 0; /* Prevent pagination from shrinking */
+  margin-top: auto; /* Push pagination to bottom */
+  position: sticky;
+  bottom: 0;
+  z-index: 1000; /* Higher z-index to ensure it stays on top */
+  min-height: 3.5em; /* Use em units for font-size responsiveness */
+  /* Ensure pagination stays visible on all devices */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  /* Prevent subpixel rendering issues */
+  transform: translateZ(0);
+  /* Ensure full opacity and proper rendering */
+  opacity: 1;
+  will-change: transform;
+  /* Add subtle border for better visibility */
+  border-top: 3px solid var(--terminal-cyan);
+}
+
+.page-btn {
+  background-color: transparent;
+  border: 1px solid var(--terminal-cyan);
+  color: var(--terminal-cyan);
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+  transition: all 0.2s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+  background-color: var(--terminal-cyan);
+  color: var(--terminal-bg);
+}
+
+.page-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.page-info {
+  color: var(--terminal-cyan);
+  font-weight: bold;
+}
+
+/* Shared column classes for dynamic table alignment */
+.col-checkbox {
+  min-width: 36px;
+  width: 40px;
+  max-width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-thumbnail {
+  min-width: 44px;
+  width: 50px;
+  max-width: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-name {
+  min-width: 120px;
+  width: 100%;
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.col-metadata {
+  min-width: 80px;
+  width: 120px;
+  max-width: 180px;
+  display: flex;
+  align-items: center;
+  color: var(--text-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.col-tracks {
+  min-width: 60px;
+  width: 80px;
+  max-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.col-extra {
+  min-width: 100px;
+  width: 150px;
+  max-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Responsive tweaks for shared columns */
+@media (max-width: 768px) {
+  .col-checkbox {
+    min-width: 24px;
+    width: 30px;
+  }
+  .col-thumbnail {
+    min-width: 28px;
+    width: 35px;
+  }
+  .col-name {
+    min-width: 80px;
+  }
+  .col-metadata {
+    min-width: 50px;
+    width: 80px;
+  }
+  .col-tracks {
+    min-width: 40px;
+    width: 60px;
+  }
+  .col-extra {
+    min-width: 60px;
+    width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .col-checkbox {
+    min-width: 18px;
+    width: 24px;
+  }
+  .col-thumbnail {
+    min-width: 20px;
+    width: 30px;
+  }
+  .col-name {
+    min-width: 50px;
+  }
+  .col-metadata {
+    min-width: 30px;
+    width: 50px;
+  }
+  .col-tracks {
+    min-width: 24px;
+    width: 40px;
+  }
+  .col-extra {
+    min-width: 40px;
+    width: 60px;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  :root {
+    padding: 0.5em;
+    position: sticky;
+    bottom: 0;
+    z-index: 100; /* Higher z-index for mobile */
+    background-color: var(--terminal-bg);
+    border-top: 2px solid var(--terminal-cyan);
+    min-height: 50px;
+    /* Ensure pagination is always visible on mobile */
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@media (max-width: 480px) {
+  .album-playlist-select {
+    min-height: 200px;
+    max-height: calc(100vh - 60px); /* Even tighter constraint on very small screens */
+  }
+
+  .sort-section {
+    flex-wrap: wrap;
+    gap: 0.25em;
+  }
+
+  .sort-btn {
+    font-size: 0.7em;
+    padding: 0.2em 0.4em;
+  }
+
+  .items-per-page-select {
+    font-size: 0.7em;
+    padding: 0.2em 0.4em;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 30px 35px 1fr 80px;
+    font-size: 0.75em;
+  }
+
+  .table-header.playlist-layout,
+  .table-row.playlist-layout,
+  .table-header.album-layout,
+  .table-row.album-layout {
+    grid-template-columns: 30px 35px 1fr 80px;
+  }
+
+  .header-metadata,
+  .row-metadata {
+    display: none;
+  }
+
+  .row-thumbnail img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .table-body {
+    max-height: calc(100vh - 200px); /* Reserve space for all controls */
+    min-height: 80px;
+  }
+
+  .pagination {
+    padding: 0.4em;
+    flex-direction: column;
+    gap: 0.4em;
+    position: sticky;
+    bottom: 0;
+    z-index: 100; /* Higher z-index for very small screens */
+    background-color: var(--terminal-bg);
+    border-top: 2px solid var(--terminal-cyan);
+    min-height: 2.8em; /* Convert from 45px to em (45/16 = 2.8) */
+    /* Stronger shadow and positioning for very small screens */
+    box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.3);
+    /* Ensure it's never hidden behind other elements */
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  .page-btn {
+    font-size: 0.8em;
+    padding: 0.4em 0.8em;
+  }
+
+  .deselect-all-btn {
+    font-size: 0.7em;
+    padding: 0.2em 0.4em;
+  }
+}
+
+/* Height-constrained screens (like 700px tall windows) */
+@media (max-height: 800px) {
+  .album-playlist-select {
+    height: 100%;
+    min-height: 12.5em; /* Convert from 200px to em (200/16 = 12.5) */
+  }
+
+  .table-body {
+    min-height: 5em; /* Convert from 80px to em (80/16 = 5) */
+  }
+
+  .pagination {
+    padding: 0.5em;
+    min-height: 3.125em; /* Convert from 50px to em (50/16 = 3.125) */
+    position: sticky;
+    bottom: 0;
+    z-index: 1000;
+    background-color: var(--terminal-bg);
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15);
+    border-top: 3px solid var(--terminal-cyan);
+    /* Ensure visibility on constrained screens */
+    transform: translateZ(0);
+    opacity: 1;
+    will-change: transform;
+  }
+}
+
+@media (max-height: 600px) {
+  .album-playlist-select {
+    height: 100%;
+    min-height: 9.375em; /* Convert from 150px to em (150/16 = 9.375) */
+  }
+
+  .table-body {
+    min-height: 3.75em; /* Convert from 60px to em (60/16 = 3.75) */
+  }
+
+  .pagination {
+    padding: 0.4em;
+    min-height: 2.5em; /* Convert from 40px to em (40/16 = 2.5) */
+    font-size: 0.85em;
+    position: sticky;
+    bottom: 0;
+    z-index: 1000;
+    background-color: var(--terminal-bg);
+    border-top: 3px solid var(--terminal-cyan);
+    box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.2);
+    /* Ensure visibility on very constrained screens */
+    transform: translateZ(0);
+    opacity: 1;
+    will-change: transform;
+  }
+
+  .page-btn {
+    padding: 0.3em 0.6em;
+    font-size: 0.8em;
+  }
+}

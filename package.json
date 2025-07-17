@@ -1,0 +1,29 @@
+{
+  "name": "spotify-client-only",
+  "version": "1.0.0",
+  "description": "React client-only Spotify Web API integration",
+  "main": "client/src/main.tsx",
+  "scripts": {
+    "dev": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "preview": "cd client && npm run preview",
+    "install-client": "cd client && npm install",
+    "install-all": "npm install && npm run install-client",
+    "deploy": "npm run build && cd client && cp dist/404.html dist/404.html",
+    "prepare-deploy": "npm run install-all && npm run build"
+  },
+  "dependencies": {
+    "react-router-dom": "^7.6.3",
+    "spotify-api-lib": "file:../spotify-api-lib",
+    "lastfm-api-lib": "file:../lastfm-api-lib",
+    "pcb-design-lib": "file:../pcb-design-lib"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^24.0.10",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@types/react-router-dom": "^5.3.3",
+    "typescript": "^5.8.3"
+  }
+}

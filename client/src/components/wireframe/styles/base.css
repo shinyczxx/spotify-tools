@@ -1,0 +1,489 @@
+/**
+ * @file base.css
+ * @description Core wireframe styles and custom properties for 80s terminal aesthetic
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2025-07-07
+ */
+
+/* Base wireframe box styles */
+.wireframe-box {
+  border: 1px solid var(--terminal-cyan);
+  background-color: var(--terminal-bg);
+  color: var(--terminal-cyan);
+  position: relative;
+  z-index: 10;
+  transition: all 0.2s ease;
+  box-sizing: border-box; /* Include borders in width calculation */
+}
+
+.wireframe-box:hover {
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.wireframe-default {
+  border: 1px solid var(--terminal-cyan);
+  transition: all 0.2s ease;
+}
+
+.wireframe-double {
+  border: 2px solid var(--terminal-cyan);
+  box-shadow: 0 0 10px var(--terminal-cyan-dark);
+  transition: all 0.2s ease;
+}
+
+.wireframe-double:hover {
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.wireframe-panel {
+  border: 1px solid var(--terminal-cyan);
+  background-color: var(--terminal-bg);
+  position: relative;
+  z-index: 10;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.05);
+  box-sizing: border-box; /* Include borders in width calculation */
+}
+
+.wireframe-panel:hover {
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.wireframe-header {
+  border: 2px solid var(--terminal-cyan);
+  border-bottom: 1px solid var(--terminal-cyan);
+  background-color: var(--terminal-dark);
+  position: relative;
+  z-index: 10;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.1);
+}
+
+.wireframe-error-panel {
+  border: 1px solid var(--terminal-error-border);
+  background-color: var(--terminal-error-bg);
+}
+
+/* Panel specific styles */
+.wireframe-panel-title {
+  color: var(--terminal-cyan-bright);
+  margin-bottom: 15px;
+  font-size: var(--terminal-font-size-large);
+  font-weight: bold;
+  text-shadow: var(--glow-cyan);
+  text-transform: lowercase;
+  letter-spacing: 2px;
+}
+
+.wireframe-panel-header-title {
+  color: var(--terminal-cyan-bright);
+  margin: 0;
+  font-size: var(--terminal-font-size-large);
+  font-weight: bold;
+  text-shadow: var(--glow-cyan);
+  text-transform: lowercase;
+  letter-spacing: 2px;
+}
+
+.wireframe-panel-content {
+  color: var(--text-cyan);
+}
+
+.wireframe-panel-content p {
+  text-transform: lowercase;
+}
+
+.wireframe-panel-content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.wireframe-panel-content li {
+  background: var(--terminal-medium);
+  border: 1px solid var(--terminal-cyan-dim);
+  padding: 10px;
+  margin-bottom: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  color: var(--text-cyan);
+  border-left: 3px solid var(--terminal-cyan);
+  text-transform: lowercase;
+  position: relative;
+}
+
+.wireframe-panel-content li::after {
+  content: '📋';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 0.8em;
+}
+
+.wireframe-panel-content li:hover {
+  background: var(--terminal-medium);
+  border-color: var(--terminal-cyan-bright);
+  transform: translateX(5px);
+}
+
+.wireframe-panel-content li:hover::after {
+  opacity: 0.6;
+}
+
+/* Error Panel Styles */
+.wireframe-error-panel .wireframe-error-panel-title {
+  color: var(--terminal-error);
+  margin-bottom: 15px;
+  font-size: var(--terminal-font-size-large);
+  font-weight: bold;
+  text-shadow: var(--glow-error);
+  text-transform: lowercase;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--terminal-error-border);
+  padding-bottom: 8px;
+}
+
+.wireframe-error-panel .wireframe-error-panel-content {
+  color: var(--terminal-error);
+}
+
+.wireframe-error-panel .wireframe-error-panel-content p {
+  text-transform: lowercase;
+  margin-bottom: 10px;
+}
+
+/* Enhanced Button Styles */
+.wireframe-button {
+  background-color: var(--terminal-medium);
+  border: 1px solid var(--terminal-cyan);
+  color: var(--terminal-cyan);
+  padding: 12px 24px;
+  cursor: pointer;
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size);
+  letter-spacing: 1px;
+  text-transform: lowercase;
+  transition: all 0.3s ease;
+  text-shadow: var(--glow-cyan);
+  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.1);
+  border-left: 3px solid var(--terminal-cyan);
+  position: relative;
+}
+
+.wireframe-button::before {
+  content: '>';
+  margin-right: 8px;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.wireframe-button:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  color: var(--terminal-cyan-bright);
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 15px var(--terminal-cyan-dark);
+}
+
+.wireframe-button:hover::before {
+  opacity: 1;
+  margin-right: 12px;
+}
+
+.wireframe-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.wireframe-button:disabled:hover {
+  background-color: var(--terminal-medium);
+  color: var(--terminal-cyan);
+  border-color: var(--terminal-cyan);
+  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.1);
+}
+
+/* Button variants */
+.wireframe-panel-button {
+  background-color: var(--terminal-gray-dim);
+  border: 1px solid var(--terminal-cyan-dim);
+  padding: 10px 20px;
+}
+
+.wireframe-dropdown-button {
+  text-align: left;
+  padding-right: 40px;
+}
+
+.wireframe-button-full-width {
+  width: 100%;
+}
+
+/* Button arrow styles */
+.wireframe-button-arrow {
+  font-weight: bold;
+  font-family: monospace;
+  transition: all 0.3s ease;
+}
+
+.wireframe-button-arrow-left {
+  margin-right: 8px;
+}
+
+.wireframe-button-arrow-right {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Enhanced Input Styles */
+.wireframe-input {
+  background: var(--terminal-medium);
+  border: 1px solid var(--terminal-cyan);
+  color: var(--text-cyan);
+  padding: 10px;
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size);
+  letter-spacing: 1px;
+  text-transform: lowercase;
+  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.2);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wireframe-input:focus {
+  outline: none;
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 15px var(--terminal-cyan-bright);
+}
+
+.wireframe-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Input variants */
+.wireframe-panel-input {
+  background: var(--terminal-bg);
+  border: 1px solid var(--terminal-cyan-dim);
+}
+
+.wireframe-search-input {
+  border-radius: 0;
+  border-left: 3px solid var(--terminal-cyan);
+}
+
+.wireframe-input-light {
+  background: var(--terminal-medium);
+}
+
+.wireframe-input-dark {
+  background: var(--terminal-bg);
+}
+
+.wireframe-input-full-width {
+  width: 100%;
+}
+
+/* Input label styles */
+.wireframe-input-label {
+  color: var(--terminal-cyan);
+  font-size: var(--terminal-font-size-small);
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.wireframe-input-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wireframe-input-inline .wireframe-input-label {
+  margin-bottom: 0;
+}
+
+.wireframe-input-block {
+  display: block;
+}
+
+/* Dropdown Styles */
+.wireframe-dropdown-container {
+  position: relative;
+  width: 100%;
+}
+
+.wireframe-dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--terminal-gray-dim);
+  border: 1px solid var(--terminal-cyan);
+  border-top: none;
+  overflow: hidden;
+  max-height: 0;
+  transition: all 0.35s ease;
+  z-index: 1000;
+}
+
+.wireframe-dropdown-open {
+  max-height: 200px;
+  border-top: 1px solid var(--terminal-cyan-dim);
+}
+
+.wireframe-dropdown-closing {
+  max-height: 0;
+}
+
+/* Dropdown variants */
+.wireframe-dropdown-panel .wireframe-dropdown-content {
+  background: var(--terminal-bg);
+  border-color: var(--terminal-cyan-dim);
+}
+
+.wireframe-dropdown-compact .wireframe-dropdown-content {
+  padding: 5px;
+}
+
+/* Info Panel Styles */
+.wireframe-info-panel {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.wireframe-info-panel:hover {
+  background-color: rgba(0, 255, 255, 0.05);
+  border-color: var(--terminal-cyan-bright);
+}
+
+.wireframe-info-header {
+  color: var(--terminal-cyan-bright);
+  font-size: var(--terminal-font-size-small);
+  text-transform: lowercase;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.wireframe-info-content {
+  color: var(--terminal-cyan);
+  font-family: var(--terminal-font);
+  word-break: break-all;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wireframe-info-flash {
+  background-color: rgba(0, 255, 255, 0.3);
+  animation: flash 0.15s ease-out;
+}
+
+.wireframe-info-copied {
+  position: absolute;
+  bottom: -25px;
+  right: 0;
+  background: var(--terminal-cyan);
+  color: var(--terminal-bg);
+  padding: 2px 8px;
+  font-size: var(--terminal-font-size-small);
+  text-transform: lowercase;
+  animation: fade-in-out 2s ease-out;
+}
+
+/* Info panel variants */
+.wireframe-info-panel-compact {
+  padding: 5px 10px;
+}
+
+.wireframe-info-panel-highlighted {
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: var(--glow-cyan-bright);
+}
+
+/* Input with Submit Styles */
+.wireframe-input-submit-container {
+  width: 100%;
+}
+
+.wireframe-input-submit-label {
+  color: var(--terminal-cyan);
+  font-size: var(--terminal-font-size-small);
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.wireframe-input-submit-form {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+}
+
+.wireframe-input-submit-input {
+  border-right: none;
+  border-radius: 0;
+  margin: 0;
+}
+
+.wireframe-input-submit-button {
+  border-left: none;
+  border-radius: 0;
+  margin: 0;
+}
+
+/* Input with submit variants */
+.wireframe-input-submit-panel .wireframe-input-submit-input {
+  background: var(--terminal-bg);
+  border-color: var(--terminal-cyan-dim);
+}
+
+.wireframe-input-submit-panel .wireframe-input-submit-button {
+  background: var(--terminal-gray-dim);
+  border-color: var(--terminal-cyan-dim);
+}
+
+.wireframe-input-submit-compact {
+  font-size: var(--terminal-font-size-small);
+}
+
+.wireframe-input-submit-compact .wireframe-input-submit-input,
+.wireframe-input-submit-compact .wireframe-input-submit-button {
+  padding: 6px 12px;
+}
+
+/* Animations */
+@keyframes flash {
+  0% {
+    background-color: rgba(0, 255, 255, 0.3);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}

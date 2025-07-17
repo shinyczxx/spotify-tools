@@ -1,0 +1,178 @@
+/**
+ * @file Dashboard.css
+ * @description Dashboard page layout styles with responsive design
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2025-07-15
+ *
+ * @ChangeLog
+ * - v1.0.0: Initial responsive dashboard layout with consistent spacing
+ */
+
+.dashboard-container {
+  padding: 1.5em;
+  max-width: 100%;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.wireframe-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+  padding-bottom: 0em;
+  border-bottom: 1px solid var(--terminal-cyan-dim);
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.dashboard-user-info {
+  flex: 1;
+  min-width: 200px;
+}
+
+.dashboard-user-name {
+  margin: 0 0 0.3em 0;
+  color: var(--terminal-cyan-bright);
+  font-size: 1.1em;
+}
+
+.dashboard-user-details {
+  margin: 0;
+  opacity: 0.7;
+  font-size: 0.75em;
+}
+
+.dashboard-intro {
+  margin-bottom: 1.5em;
+  opacity: 0.8;
+  line-height: 1.4;
+}
+
+.dashboard-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+  gap: 1.25em;
+  margin-bottom: 2em;
+  max-width: 100%;
+}
+
+/* Constrain logout button width */
+.dashboard-header .wireframe-button {
+  max-width: 10em;
+  box-sizing: border-box;
+}
+
+.dashboard-user-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1em;
+  max-width: 50em;
+  margin: 0 auto;
+}
+
+.dashboard-stat-item {
+  text-align: center;
+  padding: 0.5em;
+}
+
+.dashboard-stat-value {
+  font-size: 1.5em;
+  color: var(--terminal-cyan-bright);
+  font-weight: bold;
+  text-shadow: var(--glow-cyan);
+  margin-bottom: 0.25em;
+}
+
+.dashboard-stat-label {
+  font-size: 0.75em;
+  opacity: 0.7;
+  text-transform: lowercase;
+}
+
+.dashboard-recent-activity {
+  text-align: center;
+}
+
+.dashboard-activity-text {
+  opacity: 0.7;
+  margin-bottom: 1em;
+  font-style: italic;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1em;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .dashboard-nav-grid {
+    grid-template-columns: 1fr;
+    gap: 1em;
+  }
+
+  .dashboard-user-info-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    max-width: 25em;
+  }
+
+  .dashboard-stat-value {
+    font-size: 1.25em;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 0.75em;
+  }
+
+  .dashboard-nav-grid {
+    gap: 0.75em;
+  }
+
+  .dashboard-user-info-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 0.75em;
+    max-width: 20em;
+  }
+}
+
+/* High contrast and accessibility */
+@media (prefers-contrast: high) {
+  .dashboard-stat-value {
+    text-shadow: none;
+  }
+
+  .dashboard-nav-card h3 {
+    text-shadow: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-nav-card {
+    transition: none;
+  }
+
+  .dashboard-nav-card:hover {
+    transform: none;
+  }
+}

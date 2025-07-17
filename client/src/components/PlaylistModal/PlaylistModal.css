@@ -1,0 +1,167 @@
+/**
+ * @file PlaylistModal.css
+ * @description Styles for the reusable playlist modal component
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2025-07-07
+ * 
+ * @ChangeLog
+ * - 1.0.0: Initial implementation with flexible layout and common modal patterns
+ */
+
+/* Modal overlay and container */
+.playlist-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1em;
+}
+
+.playlist-modal {
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modal-slide-in 0.3s ease-out;
+}
+
+@keyframes modal-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Simple modal styling (when not using WireframePanel) */
+.playlist-modal-simple {
+  background-color: var(--terminal-bg);
+  border: 2px solid var(--terminal-cyan);
+  font-family: 'Courier New', monospace;
+}
+
+.playlist-modal-header {
+  background-color: var(--terminal-cyan);
+  color: var(--terminal-bg);
+  padding: 1em;
+  border-bottom: 1px solid var(--terminal-cyan);
+}
+
+.playlist-modal-header h2 {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* Content sections */
+.playlist-modal-content {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.playlist-modal-summary {
+  background-color: rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
+  border-radius: 2px;
+  padding: 0.75em;
+}
+
+.playlist-modal-custom-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.playlist-modal-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.playlist-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.playlist-modal-label {
+  color: var(--terminal-cyan);
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.playlist-modal-preview {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
+  border-radius: 2px;
+  padding: 0.75em;
+}
+
+.playlist-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .playlist-modal-overlay {
+    padding: 0.5em;
+  }
+  
+  .playlist-modal-actions {
+    flex-direction: column;
+    gap: 0.5em;
+  }
+  
+  .playlist-modal-actions button {
+    width: 100%;
+  }
+}
+
+/* Summary content variants */
+.playlist-modal-summary.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5em;
+  align-items: center;
+}
+
+.playlist-modal-summary.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5em;
+}
+
+.playlist-modal-summary .highlight {
+  color: var(--terminal-cyan);
+  font-weight: bold;
+}
+
+.playlist-modal-summary .track-count {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--terminal-cyan);
+}
+
+.playlist-modal-summary .track-description {
+  color: var(--terminal-text-dim, #888);
+  font-size: 0.9em;
+}

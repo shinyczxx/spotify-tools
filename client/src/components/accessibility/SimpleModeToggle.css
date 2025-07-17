@@ -1,0 +1,226 @@
+/**
+ * @file SimpleModeToggle.css
+ * @description Styles for the simple mode toggle component following terminal theme guidelines.
+ * Includes wireframe styling, hover effects, and accessibility features.
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2025-07-09
+ */
+
+.simple-mode-toggle {
+  padding: 20px;
+  min-height: 220px;
+}
+
+.simple-mode-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin-top: 1em;
+}
+
+.toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--terminal-cyan-dim);
+}
+
+.toggle-label {
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size);
+  color: var(--terminal-cyan);
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  text-shadow: var(--glow-cyan);
+  user-select: none;
+}
+
+.performance-mode-select {
+  background: var(--terminal-medium);
+  border: 1px solid var(--terminal-cyan);
+  color: var(--text-cyan);
+  padding: 8px 12px;
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size);
+  letter-spacing: 1px;
+  text-transform: lowercase;
+  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.2);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  min-width: 140px;
+}
+
+.performance-mode-select:focus {
+  outline: none;
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 15px var(--terminal-cyan-bright);
+}
+
+.performance-mode-select option {
+  background: var(--terminal-medium);
+  color: var(--text-cyan);
+  padding: 5px;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 50px;
+  height: 24px;
+  border: 1px solid var(--terminal-cyan);
+  border-radius: 0;
+  background-color: var(--terminal-bg);
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.1);
+}
+
+.toggle-handle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--terminal-cyan);
+  transition: all 0.3s ease;
+  box-shadow: var(--glow-cyan);
+}
+
+.toggle-input:checked + .toggle-switch {
+  background-color: var(--terminal-medium);
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 15px var(--terminal-cyan-dark);
+}
+
+.toggle-input:checked + .toggle-switch .toggle-handle {
+  transform: translateX(26px);
+  background-color: var(--terminal-cyan-bright);
+  box-shadow: var(--glow-cyan-bright);
+}
+
+.toggle-container:hover .toggle-switch {
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 10px var(--terminal-cyan-dark);
+}
+
+.performance-warning {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: rgba(255, 165, 0, 0.1);
+  border: 1px solid #ff9500;
+  color: #ff9500;
+  font-size: calc(var(--terminal-font-size) - 2px);
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 1px #ff9500;
+}
+
+.warning-icon {
+  font-size: 16px;
+  text-shadow: 0 0 2px #ff9500;
+}
+
+.performance-indicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: calc(var(--terminal-font-size) - 1px);
+  border-bottom: 1px solid var(--terminal-cyan-dim);
+}
+
+.indicator-label {
+  color: var(--text-dim);
+  text-transform: lowercase;
+  letter-spacing: 1px;
+}
+
+.indicator-value {
+  font-family: var(--terminal-font);
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.mode-full {
+  color: #00ff88;
+  text-shadow: 0 0 1px #00ff88;
+}
+
+.mode-simple {
+  color: #ffaa00;
+  text-shadow: 0 0 1px #ffaa00;
+}
+
+.mode-none {
+  color: #ff6666;
+  text-shadow: 0 0 1px #ff6666;
+}
+
+.mode-descriptions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-top: 0.5em;
+}
+
+.mode-description {
+  font-size: calc(var(--terminal-font-size) - 2px);
+  color: var(--text-dim);
+  line-height: 1.4;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+}
+
+.mode-description strong {
+  color: var(--terminal-cyan);
+  text-shadow: var(--glow-cyan);
+}
+
+.auto-switch-info {
+  margin-top: 0.5em;
+  padding-top: 0.5em;
+  border-top: 1px solid var(--terminal-cyan-dim);
+}
+
+.auto-switch-info p {
+  font-size: calc(var(--terminal-font-size) - 2px);
+  color: var(--text-dim);
+  line-height: 1.4;
+  margin: 0;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+  font-style: italic;
+}
+
+/* Focus styles for accessibility */
+.toggle-input:focus + .toggle-switch {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--terminal-cyan);
+}
+
+/* Animation disable when simple mode is on */
+[data-performance-mode='simple'] .toggle-switch,
+[data-performance-mode='simple'] .toggle-handle {
+  transition: none !important;
+}
+
+/* Responsive design */
+@media screen and (max-width: 576px) {
+  .simple-mode-toggle {
+    padding: 15px;
+    min-height: 160px;
+  }
+
+  .toggle-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .toggle-container {
+    align-self: flex-end;
+  }
+}

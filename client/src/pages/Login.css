@@ -1,0 +1,188 @@
+/**
+ * @file Login.css
+ * @description Login page responsive layout styles
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2025-07-15
+ *
+ * @ChangeLog
+ * - v1.0.0: Initial responsive login layout with consistent spacing
+ */
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  gap: 2em;
+  max-width: 80em; /* Increased width */
+  margin: 0 auto;
+  padding: 1.5em;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-panel {
+  width: 100%;
+  max-width: 60em; /* Match other panels */
+}
+
+.login-content {
+  text-align: center;
+}
+
+.login-description {
+  margin-bottom: 1.5em;
+  line-height: 1.5;
+  opacity: 0.9;
+  font-size: 1em;
+}
+
+.login-security-note {
+  margin-top: 1em;
+  font-size: 0.75em;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18em, 1fr)); /* Larger min-width */
+  gap: 1.25em;
+  width: 100%;
+}
+
+.feature-box h4 {
+  color: var(--terminal-cyan-bright);
+  margin: 0 0 0.6em 0;
+  font-size: 1em;
+  text-shadow: var(--glow-cyan);
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.8em;
+  line-height: 1.4;
+}
+
+.feature-list li {
+  margin-bottom: 0.3em;
+  color: var(--terminal-text);
+}
+
+.login-footer {
+  width: 100%;
+  max-width: 60em; /* Match other panels */
+}
+
+.footer-content {
+  text-align: center;
+  opacity: 0.7;
+}
+
+.footer-tagline {
+  margin: 0 0 0.6em 0;
+  font-size: 0.75em;
+}
+
+.footer-privacy {
+  margin: 0;
+  font-size: 0.7em;
+  opacity: 0.5;
+}
+
+/* Override wireframe-container on login page */
+.wireframe-container:has(.login-container) {
+  width: 100%;
+  max-width: none;
+  padding: 1em;
+}
+
+/* Ensure all panels have consistent width */
+.login-container > .wireframe-panel,
+.login-container > .wireframe-box {
+  width: 100%;
+  max-width: 60em;
+}
+
+/* Make feature boxes match main panel styling */
+.feature-box {
+  min-height: 8em; /* Consistent height */
+}
+
+/* Constrain button width in login content */
+.login-content .wireframe-button {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .login-container {
+    gap: 1.5em;
+    padding: 1em;
+    min-height: 70vh;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1em;
+  }
+
+  .login-description {
+    font-size: 0.9em;
+  }
+
+  .feature-box h4 {
+    font-size: 0.95em;
+  }
+
+  .feature-list {
+    font-size: 0.75em;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 0.75em;
+    gap: 1.25em;
+  }
+
+  .login-description {
+    font-size: 0.85em;
+    margin-bottom: 1.25em;
+  }
+
+  .feature-box h4 {
+    font-size: 0.9em;
+  }
+
+  .feature-list {
+    font-size: 0.7em;
+  }
+
+  .footer-tagline {
+    font-size: 0.7em;
+  }
+
+  .footer-privacy {
+    font-size: 0.65em;
+  }
+}
+
+/* High contrast and accessibility */
+@media (prefers-contrast: high) {
+  .feature-box h4 {
+    text-shadow: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .login-container {
+    transition: none;
+  }
+}

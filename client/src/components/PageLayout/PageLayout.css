@@ -1,0 +1,129 @@
+/* PageLayout Component Styles */
+.page-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.navbar-sidebar {
+  flex-shrink: 0;
+  width: 250px;
+  min-width: 180px;
+  max-width: 320px;
+  height: 100vh;
+  position: relative;
+  z-index: 2;
+  background: transparent !important;
+  background: transparent !important;
+}
+
+.page-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Reduced from 20px */
+  min-width: 0;
+  margin-top: 20px; /* Reduced from 32px */
+  margin-right: 20px; /* Reduced from 32px */
+  margin-left: 20px; /* Reduced from 32px */
+  /* Remove padding-left, handled by sidebar */
+}
+
+/* Two-column grid layout */
+.page-main-content.two-column {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1.5em;
+  align-items: flex-start;
+  min-height: 0;
+}
+
+.page-col-left {
+  grid-column: 1;
+  align-self: start;
+}
+
+.page-col-right {
+  grid-column: 2;
+  align-self: start;
+}
+
+/* Responsive adjustments for sidebar and content */
+@media screen and (max-width: 1200px) {
+  .navbar-sidebar {
+    width: 220px;
+  }
+  .page-main-content.two-column {
+    grid-template-columns: 1fr 1.5fr;
+    gap: 1.5em;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .navbar-sidebar {
+    width: 200px;
+  }
+  .page-main-content.two-column {
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-sidebar {
+    width: 180px;
+  }
+  .page-main-content {
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+  .page-main-content.two-column {
+    grid-template-columns: 1fr;
+    gap: 0.5em;
+  }
+  .page-col-left,
+  .page-col-right {
+    grid-column: 1;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .navbar-sidebar {
+    width: 160px;
+  }
+  .page-main-content {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 468px) {
+  .page-main-content.two-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+  .page-col-left,
+  .page-col-right {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+/* Compact header styles */
+.compact-header {
+  padding: 0.75em 1.5em !important; /* Reduced padding */
+  min-height: auto !important;
+}
+
+.compact-header h1 {
+  margin: 0.5em 0 !important;
+  font-size: 1.8em !important;
+}

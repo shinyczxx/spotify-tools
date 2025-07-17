@@ -1,0 +1,102 @@
+/**
+ * @file buttonGlitches.css
+ * @description Button glitch effects for wireframe buttons
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2025-07-15
+ */
+
+@keyframes buttonGlitch {
+  0% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  10% {
+    transform: translate(-2px, 1px) skew(1deg);
+    filter: hue-rotate(90deg);
+  }
+  20% {
+    transform: translate(2px, -1px) skew(-1deg);
+    filter: hue-rotate(180deg);
+  }
+  30% {
+    transform: translate(-1px, 2px) skew(0.5deg);
+    filter: hue-rotate(270deg);
+  }
+  40% {
+    transform: translate(1px, -2px) skew(-0.5deg);
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    transform: translate(-2px, -1px) skew(1deg) scale(1.02);
+    filter: hue-rotate(45deg);
+  }
+  60% {
+    transform: translate(2px, 1px) skew(-1deg) scale(0.98);
+    filter: hue-rotate(135deg);
+  }
+  70% {
+    transform: translate(-1px, -2px) skew(0.5deg);
+    filter: hue-rotate(225deg);
+  }
+  80% {
+    transform: translate(1px, 2px) skew(-0.5deg);
+    filter: hue-rotate(315deg);
+  }
+  90% {
+    transform: translate(-2px, 1px) skew(1deg);
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+}
+
+@keyframes buttonPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(0, 255, 255, 0);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(0, 255, 255, 0);
+  }
+}
+
+@keyframes buttonShake {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-1px, 0); }
+  20% { transform: translate(1px, 0); }
+  30% { transform: translate(0, -1px); }
+  40% { transform: translate(0, 1px); }
+  50% { transform: translate(-1px, -1px); }
+  60% { transform: translate(1px, 1px); }
+  70% { transform: translate(-1px, 1px); }
+  80% { transform: translate(1px, -1px); }
+  90% { transform: translate(0, 0); }
+}
+
+/* Button glitch effect class */
+.button-glitch-active {
+  animation: buttonGlitch 0.15s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Alternative single effect for clicks */
+.button-click-glitch {
+  animation: buttonGlitch 0.6s ease-in-out;
+}
+
+.button-click-pulse {
+  animation: buttonPulse 0.4s ease-in-out;
+}
+
+.button-click-shake {
+  animation: buttonShake 0.3s ease-in-out;
+}

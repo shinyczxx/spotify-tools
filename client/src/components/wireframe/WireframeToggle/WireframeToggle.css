@@ -1,0 +1,202 @@
+/**
+ * @file WireframeToggle.css
+ * @description Styles for the wireframe toggle switch component
+ * @author GitHub Copilot
+ * @version 1.0.0
+ * @date 2025-07-15
+ *
+ * @ChangeLog
+ * - 1.0.0: Initial implementation with terminal aesthetic
+ */
+
+.wireframe-toggle-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--terminal-font);
+}
+
+.wireframe-toggle-container.small {
+  font-size: calc(var(--terminal-font-size) * 0.8);
+}
+
+.wireframe-toggle-container.medium {
+  font-size: var(--terminal-font-size);
+}
+
+.wireframe-toggle-container.large {
+  font-size: calc(var(--terminal-font-size) * 1.2);
+}
+
+.wireframe-toggle-label {
+  color: var(--terminal-cyan);
+  font-size: inherit;
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.wireframe-toggle-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.wireframe-toggle-input {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.wireframe-toggle-track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 80px;
+  height: 32px;
+  background: var(--terminal-dark);
+  border: 2px solid var(--terminal-cyan);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  overflow: hidden;
+}
+
+.wireframe-toggle-track:hover {
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 10px var(--terminal-cyan-dark);
+}
+
+.wireframe-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  background: var(--terminal-cyan);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--terminal-cyan-bright);
+  z-index: 2;
+}
+
+.wireframe-toggle-on,
+.wireframe-toggle-off {
+  position: absolute;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.wireframe-toggle-on {
+  left: 6px;
+  color: var(--terminal-cyan);
+  opacity: 0;
+}
+
+.wireframe-toggle-off {
+  right: 6px;
+  color: var(--terminal-cyan);
+  opacity: 1;
+}
+
+/* Checked state */
+.wireframe-toggle-input:checked + .wireframe-toggle-track {
+  background: var(--terminal-medium);
+  border-color: var(--terminal-cyan-bright);
+}
+
+.wireframe-toggle-input:checked + .wireframe-toggle-track .wireframe-toggle-thumb {
+  left: 52px;
+  background: var(--terminal-cyan-bright);
+  box-shadow: -2px 0 4px rgba(0, 255, 255, 0.3);
+}
+
+.wireframe-toggle-input:checked + .wireframe-toggle-track .wireframe-toggle-on {
+  opacity: 1;
+  color: var(--terminal-cyan-bright);
+}
+
+.wireframe-toggle-input:checked + .wireframe-toggle-track .wireframe-toggle-off {
+  opacity: 0;
+}
+
+/* Focus state */
+.wireframe-toggle-input:focus + .wireframe-toggle-track {
+  outline: 2px solid var(--terminal-cyan-bright);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.wireframe-toggle-input:disabled + .wireframe-toggle-track {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: var(--terminal-cyan-dim);
+}
+
+.wireframe-toggle-input:disabled + .wireframe-toggle-track:hover {
+  border-color: var(--terminal-cyan-dim);
+  box-shadow: none;
+}
+
+.wireframe-toggle-input:disabled + .wireframe-toggle-track .wireframe-toggle-thumb {
+  background: var(--terminal-cyan-dim);
+}
+
+/* Size variants */
+.wireframe-toggle-container.small .wireframe-toggle-track {
+  width: 60px;
+  height: 24px;
+}
+
+.wireframe-toggle-container.small .wireframe-toggle-thumb {
+  width: 18px;
+  height: 18px;
+}
+
+.wireframe-toggle-container.small
+  .wireframe-toggle-input:checked
+  + .wireframe-toggle-track
+  .wireframe-toggle-thumb {
+  left: 38px;
+}
+
+.wireframe-toggle-container.small .wireframe-toggle-on,
+.wireframe-toggle-container.small .wireframe-toggle-off {
+  font-size: 8px;
+}
+
+.wireframe-toggle-container.large .wireframe-toggle-track {
+  width: 100px;
+  height: 40px;
+}
+
+.wireframe-toggle-container.large .wireframe-toggle-thumb {
+  width: 32px;
+  height: 32px;
+  top: 2px;
+}
+
+.wireframe-toggle-container.large
+  .wireframe-toggle-input:checked
+  + .wireframe-toggle-track
+  .wireframe-toggle-thumb {
+  left: 64px;
+}
+
+.wireframe-toggle-container.large .wireframe-toggle-on,
+.wireframe-toggle-container.large .wireframe-toggle-off {
+  font-size: 12px;
+}
+
+.wireframe-toggle-container.large .wireframe-toggle-on {
+  left: 8px;
+}
+
+.wireframe-toggle-container.large .wireframe-toggle-off {
+  right: 8px;
+}
