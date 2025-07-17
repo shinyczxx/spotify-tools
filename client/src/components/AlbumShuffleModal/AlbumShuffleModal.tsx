@@ -121,6 +121,8 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
   const handleShuffleAndSelect = async () => {
     if (allRetrievedAlbums.length === 0) return
 
+    console.debug('🎲 Starting shuffle with random seed:', Math.random())
+
     // Filter albums based on type preferences
     let filteredAlbums = allRetrievedAlbums
 
@@ -191,8 +193,10 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
       filtered: filteredAlbums.length,
       shuffled: uniqueShuffledAlbums.length,
       selected: selectionResult.selectedAlbums.length,
+      finalTracksLength: shuffledTracks.length,
       estimatedTracks: selectionResult.totalTracks,
       limitReached: selectionResult.limitReached,
+      firstThreeAlbums: selectionResult.selectedAlbums.slice(0, 3).map(a => a.name),
     })
   }
 
@@ -249,7 +253,7 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
     }
   }
 
-  // Reshuffle albums with glitch effect
+  // Reshuffle albums with glitch effect - ONLY reshuffles, no refetching
   const handleReshuffle = async () => {
     if (allRetrievedAlbums.length === 0) return
 
@@ -259,6 +263,8 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
 
     setIsShuffling(true)
     try {
+      // Force a new shuffle by calling handleShuffleAndSelect directly
+      // This uses existing allRetrievedAlbums without refetching
       await handleShuffleAndSelect()
     } catch (error) {
       console.error('Error reshuffling albums:', error)
@@ -789,7 +795,7 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
           {/* Albums Preview - shows actual shuffled order */}
           {selectedAlbums.length > 0 && (
             <WireframePanel
-              title="playlist will contain:"
+              title="playlist preview (shuffled album order):"
               style={{ borderTop: 'none' }}
               padding="small"
             >
@@ -797,7 +803,7 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
                 albums={selectedAlbums}
                 title={`${
                   selectedAlbums.length
-                } albums in shuffled order (${trackLimitInfo.totalTracks.toLocaleString()} estimated tracks)`}
+                } albums in current shuffle order (${trackLimitInfo.totalTracks.toLocaleString()} estimated tracks)`}
                 maxHeight="250px"
               />
             </WireframePanel>
