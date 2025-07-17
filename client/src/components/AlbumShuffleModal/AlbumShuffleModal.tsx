@@ -84,6 +84,7 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
   const [shuffleButtonGlitch, setShuffleButtonGlitch] = useState(false)
   const [fetchProgress, setFetchProgress] = useState({ current: 0, total: 0 })
   const [isFetching, setIsFetching] = useState(false)
+  const [trackFetchingStatus, setTrackFetchingStatus] = useState<string>('')
 
   // Ref to track if component is mounted to prevent state updates after unmount
   const isMountedRef = useRef(true)
@@ -357,6 +358,55 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
         padding: '20px',
       }}
     >
+      <style>{`
+        @keyframes pulse {
+          0% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.7; transform: scale(1.02); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes shimmer {
+          0% { background-position: -200px 0; }
+          100% { background-position: calc(200px + 100%) 0; }
+        }
+        .loading-progress-bar {
+          width: 100%;
+          height: 4px;
+          background: rgba(0, 255, 255, 0.2);
+          border-radius: 2px;
+          overflow: hidden;
+          margin-top: 0.5em;
+        }
+        .loading-progress-fill {
+          height: 100%;
+          background: linear-gradient(90deg, 
+            transparent, 
+            var(--terminal-cyan), 
+            transparent
+          );
+          background-size: 200px 100%;
+          animation: shimmer 1.5s infinite;
+          width: var(--progress-width, 0%);
+          transition: width 0.3s ease;
+        }
+        .shuffle-button-loading {
+          position: relative;
+          overflow: hidden;
+        }
+        .shuffle-button-loading::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, 
+            transparent, 
+            rgba(0, 255, 255, 0.3), 
+            transparent
+          );
+          animation: shimmer 2s infinite;
+        }
+      `}</style>
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
@@ -429,17 +479,19 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
             </div>
 
             {/* Loading animation on the right side */}
-            {isFetching && (
+            {(isFetching || isShuffling) && (
               <div
                 style={{
-                  width: '120px',
+                  width: '140px',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
                   padding: '1em',
-                  border: '1px solid var(--circuit-color-dim)',
-                  background: 'rgba(0, 255, 255, 0.05)',
+                  border: `1px solid ${isShuffling ? 'var(--terminal-cyan)' : 'var(--circuit-color-dim)'}`,
+                  background: isShuffling ? 'rgba(0, 255, 255, 0.1)' : 'rgba(0, 255, 255, 0.05)',
+                  borderRadius: '4px',
+                  animation: isShuffling ? 'pulse 1.5s ease-in-out infinite' : 'none',
                 }}
               >
                 <LoadingSpinner size="small" />
@@ -447,13 +499,37 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
                   style={{
                     marginTop: '0.5em',
                     fontSize: '0.8em',
-                    color: 'var(--circuit-color-dim)',
+                    color: isShuffling ? 'var(--terminal-cyan)' : 'var(--circuit-color-dim)',
                     textAlign: 'center',
                   }}
                 >
-                  fetching...
-                  <br />
-                  {fetchProgress.current}/{fetchProgress.total}
+                  {isShuffling ? (
+                    <>
+                      shuffling...
+                      <br />
+                      <span style={{ fontSize: '0.7em', opacity: 0.8 }}>
+                        🎲 randomizing
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      fetching...
+                      <br />
+                      {fetchProgress.current}/{fetchProgress.total}
+                      <br />
+                      <span style={{ fontSize: '0.7em', opacity: 0.8 }}>
+                        🎵 loading tracks
+                      </span>
+                      <div className="loading-progress-bar">
+                        <div 
+                          className="loading-progress-fill"
+                          style={{
+                            '--progress-width': `${fetchProgress.total > 0 ? (fetchProgress.current / fetchProgress.total) * 100 : 0}%`
+                          } as React.CSSProperties}
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             )}
@@ -817,7 +893,7 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
                 <WireframeButton
                   onClick={handleReshuffle}
                   disabled={selectedAlbums.length === 0 || isShuffling}
-                  className={shuffleButtonGlitch ? 'button-glitch-active' : ''}
+                  className={`${shuffleButtonGlitch ? 'button-glitch-active' : ''} ${isShuffling ? 'shuffle-button-loading' : ''}`}
                   style={{
                     background: 'var(--terminal-bg)',
                     border: '1px solid var(--terminal-cyan)',
