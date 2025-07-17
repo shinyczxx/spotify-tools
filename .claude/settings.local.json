@@ -19,7 +19,8 @@
       "Bash(cp:*)",
       "Bash(true)",
       "Bash(git reset:*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "Bash(gh repo view:*)"
     ],
     "deny": []
   }
