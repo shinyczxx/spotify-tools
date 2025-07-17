@@ -1,7 +1,7 @@
 /**
  * @file advancedShuffleSettings.test.ts
  * @description Tests for the advanced shuffle settings functionality with Last.fm integration
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-12
  *

@@ -1,7 +1,7 @@
 /**
  * @file usePagination.ts
  * @description Custom hook for pagination logic and state management
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-17
  *

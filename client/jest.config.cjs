@@ -1,7 +1,7 @@
 /**
  * @file jest.config.js
  * @description Jest configuration for Album Shuffle client tests
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-06
  */

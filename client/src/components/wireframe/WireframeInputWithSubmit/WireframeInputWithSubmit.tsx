@@ -1,7 +1,7 @@
 /**
  * @file WireframeInputWithSubmit.tsx
  * @description Combined text input and submit button for wireframe UI, with flexible width ratio and consistent height. Used for forms where input and button should align and fill the parent width.
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 2.0.0
  * @date 2025-07-07
  *

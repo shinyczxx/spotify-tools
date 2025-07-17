@@ -1,7 +1,7 @@
 /**
  * @file mockData.ts
  * @description Mock data for Spotify albums and Last.fm responses for testing advanced shuffle
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-12
  *

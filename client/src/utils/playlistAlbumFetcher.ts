@@ -1,7 +1,7 @@
 /**
  * @file playlistAlbumFetcher.ts
  * @description Utility for fetching albums from playlists with caching and spotify-api-lib support
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-16
  */

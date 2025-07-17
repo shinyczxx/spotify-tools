@@ -1,7 +1,7 @@
 /**
  * @file AlbumHistoryModal.tsx
  * @description Modal component for displaying album history with circuit board theme
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-15
  *

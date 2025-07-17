@@ -1,7 +1,7 @@
 /**
  * @file usePlaylistOperations.ts
  * @description Custom hook for loading playlists, including non-standard playlists, for use in selectors and shufflers.
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-08
  *

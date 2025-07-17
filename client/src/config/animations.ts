@@ -2,7 +2,7 @@
  * @file animations.ts
  * @description Global animation configuration for circuit board and UI animations.
  * Centralized control for timing, easing, and animation parameters.
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-09
  */

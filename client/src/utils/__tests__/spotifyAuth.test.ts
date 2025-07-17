@@ -1,7 +1,7 @@
 /**
  * @file spotifyAuth.test.ts
  * @description Unit tests for Spotify authentication utilities
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-10
  */

@@ -1,7 +1,7 @@
 /**
  * @file Settings.tsx
  * @description Wireframe settings page for album shuffle app
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 5.0.0
  * @date 2025-07-15
  *

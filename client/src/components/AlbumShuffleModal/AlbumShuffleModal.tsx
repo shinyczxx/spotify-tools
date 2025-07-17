@@ -1,7 +1,7 @@
 /**
  * @file AlbumShuffleModal.tsx
  * @description Comprehensive album shuffle modal with organized panel structure
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-15
  *

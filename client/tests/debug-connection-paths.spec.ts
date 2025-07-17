@@ -1,7 +1,7 @@
 /**
  * @file debug-connection-paths.spec.ts
  * @description Simple test to verify debug logging and connection path calculations
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-13
  */

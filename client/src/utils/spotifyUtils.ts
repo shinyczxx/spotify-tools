@@ -1,7 +1,7 @@
 /**
  * @file spotifyUtils.ts
  * @description Utility functions for working with Spotify URLs and track IDs
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-06
  *

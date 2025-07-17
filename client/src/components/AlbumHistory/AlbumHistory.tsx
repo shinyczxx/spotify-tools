@@ -1,7 +1,7 @@
 /**
  * @file AlbumHistory.tsx
  * @description Component for displaying and managing album retrieval history
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-15
  */

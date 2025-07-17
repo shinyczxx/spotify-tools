@@ -1,7 +1,7 @@
 /**
  * @file AnimationTesting.integration.test.tsx
  * @description Integration tests for Animation Testing page
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 2.0.0
  * @date 2025-07-12
  */

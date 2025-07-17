@@ -1,7 +1,7 @@
 /**
  * @file shuffleUtils.ts
  * @description Utilities for shuffling tracks with different algorithms
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-15
  *

@@ -1,7 +1,7 @@
 /**
  * @file themeManager.ts
  * @description Theme management system for dynamic color scheme switching
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-09
  *

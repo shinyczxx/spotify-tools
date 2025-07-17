@@ -1,7 +1,7 @@
 /**
  * @file circuit-connection-accuracy.spec.ts
  * @description Comprehensive Playwright tests for circuit trace connection accuracy across screen sizes
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-13
  */

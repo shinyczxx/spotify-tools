@@ -1,7 +1,7 @@
 /**
  * @file flow-layout-integration.spec.ts
  * @description Integration tests for the new FlowLayout component with real React components
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-01-16
  */

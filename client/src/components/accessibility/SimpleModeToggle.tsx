@@ -2,7 +2,7 @@
  * @file SimpleModeToggle.tsx
  * @description Toggle component for enabling/disabling animations and switching to simple mode.
  * Part of the accessibility panel with circuit board integration.
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-09
  */

@@ -1,9 +1,9 @@
-# 🎵 Album Shuffle Beta
+# 🎵 Spotify Tools
 
 A React-based web application for discovering and shuffling Spotify albums with advanced filtering and Last.fm integration.
 
-[![Deploy to GitHub Pages](https://github.com/yourusername/album-shuffle-beta/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)](https://github.com/yourusername/album-shuffle-beta/actions)
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://yourusername.github.io/album-shuffle/)
+[![Deploy to GitHub Pages](https://github.com/yourusername/spotify-tools/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)](https://github.com/yourusername/spotify-tools/actions)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://yourusername.github.io/spotify-tools/)
 
 ## ✨ Features
 
@@ -26,8 +26,8 @@ A React-based web application for discovering and shuffling Spotify albums with 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/album-shuffle-beta.git
-   cd album-shuffle-beta
+   git clone https://github.com/yourusername/spotify-tools.git
+   cd spotify-tools
    ```
 
 2. **Install dependencies**
@@ -59,7 +59,7 @@ A React-based web application for discovering and shuffling Spotify albums with 
 ## 🏗️ Project Structure
 
 ```
-album-shuffle-beta/
+spotify-tools/
 ├── client/                    # React frontend application
 │   ├── src/
 │   │   ├── components/       # React components
@@ -129,7 +129,7 @@ npm run type-check     # TypeScript checking
    - Source: "GitHub Actions"
 
 4. **Update Spotify App Settings**
-   - Add redirect URI: `https://yourusername.github.io/album-shuffle/callback`
+   - Add redirect URI: `https://yourusername.github.io/spotify-tools/callback`
 
 5. **Push to main branch** - Automatic deployment!
 
@@ -224,8 +224,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Live Demo:** https://yourusername.github.io/album-shuffle/
+**Live Demo:** https://yourusername.github.io/spotify-tools/
 
-**Issues:** https://github.com/yourusername/album-shuffle-beta/issues
+**Issues:** https://github.com/yourusername/spotify-tools/issues
 
-**Discussions:** https://github.com/yourusername/album-shuffle-beta/discussions
+**Discussions:** https://github.com/yourusername/spotify-tools/discussions

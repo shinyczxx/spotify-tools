@@ -1,7 +1,7 @@
 /**
  * @file tableHeaderUtils.tsx
  * @description Utilities and dynamic table header component for rendering configurable table headers with proportional widths, tooltips, and sort support in the terminal theme.
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.1
  * @date 2025-07-08
  *

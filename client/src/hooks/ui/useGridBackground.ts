@@ -1,7 +1,7 @@
 /**
  * @file useGridBackground.ts
  * @description Hook for managing global grid background settings
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-15
  *

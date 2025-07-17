@@ -1,7 +1,7 @@
 /**
  * @file albumHistory.ts
  * @description Types and interfaces for album retrieval history functionality
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-15
  */

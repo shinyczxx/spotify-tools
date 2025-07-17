@@ -1,7 +1,7 @@
 /**
  * @file WireframeButton.test.tsx
  * @description Unit tests for WireframeButton component
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-10
  */

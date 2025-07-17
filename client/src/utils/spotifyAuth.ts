@@ -1,7 +1,7 @@
 /**
  * @file spotifyAuth.ts
  * @description Client-side Spotify OAuth 2.0 PKCE implementation
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-10
  */

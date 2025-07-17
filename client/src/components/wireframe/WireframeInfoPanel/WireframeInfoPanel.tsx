@@ -1,7 +1,7 @@
 /**
  * @file WireframeInfoPanel.tsx
  * @description Panel info component with click-to-copy functionality and visual feedback using terminal styling. Supports custom copy value for clipboard.
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 2.0.0
  * @date 2025-07-07
  *

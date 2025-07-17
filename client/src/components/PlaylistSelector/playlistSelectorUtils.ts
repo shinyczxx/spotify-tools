@@ -1,7 +1,7 @@
 /**
  * @file playlistSelectorUtils.ts
  * @description DEPRECATED: Utility functions moved to utils directory
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.1.0
  * @date 2025-07-17
  *

@@ -1,7 +1,7 @@
 /**
  * @file AlbumPreview.tsx
  * @description Condensed album preview component showing retrieved albums with thumbnails
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-16
  */

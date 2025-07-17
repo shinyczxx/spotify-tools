@@ -1,7 +1,7 @@
 /**
  * @file advancedShuffleSettings.ts
  * @description Advanced shuffle settings interface and algorithms that integrate Last.fm data
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-12
  *

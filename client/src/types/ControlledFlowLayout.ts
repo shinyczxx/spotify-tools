@@ -1,7 +1,7 @@
 /**
  * @file ControlledFlowLayout.ts
  * @description TypeScript types and interfaces for ControlledFlowLayout and related modules
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-14
  *

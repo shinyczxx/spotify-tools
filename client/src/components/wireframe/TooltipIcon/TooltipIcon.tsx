@@ -1,7 +1,7 @@
 /**
  * @file TooltipIcon.tsx
  * @description SVG-based wireframe tooltip icon with customizable symbol, size, tail, direction, and color inversion. Shows a wireframe hover panel on mouse over. Fully theme-compliant and accessible.
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-08
  *

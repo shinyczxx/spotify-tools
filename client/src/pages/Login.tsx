@@ -1,7 +1,7 @@
 /**
  * @file Login.tsx
  * @description Wireframe login page for album shuffle app
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 3.0.0
  * @date 2025-07-15
  *

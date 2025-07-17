@@ -1,7 +1,7 @@
 /**
  * @file sortingUtils.ts
  * @description Utility functions for sorting data structures
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-17
  *

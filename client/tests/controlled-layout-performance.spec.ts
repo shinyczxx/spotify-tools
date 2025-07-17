@@ -1,7 +1,7 @@
 /**
  * @file controlled-layout-performance.spec.ts
  * @description Performance testing for ControlledFlowLayout vs FlowLayout
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-12
  */

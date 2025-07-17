@@ -1,7 +1,7 @@
 /**
  * @file WireframeSelect.tsx
  * @description Wireframe themed select dropdown component with 80s terminal aesthetic
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.1.0
  * @date 2025-07-07
  *

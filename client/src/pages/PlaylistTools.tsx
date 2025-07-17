@@ -1,7 +1,7 @@
 /**
  * @file PlaylistTools.tsx
  * @description Comprehensive playlist tools page with modal-based creation workflow
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 5.0.0
  * @date 2025-07-15
  *

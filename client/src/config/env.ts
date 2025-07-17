@@ -1,7 +1,7 @@
 /**
  * @file config.ts
  * @description Environment configuration that works in both runtime and test environments
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-10
  */

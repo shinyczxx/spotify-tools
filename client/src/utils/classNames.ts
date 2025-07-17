@@ -1,7 +1,7 @@
 /**
  * @file classNames.ts
  * @description Utility functions for CSS class name manipulation
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-17
  *

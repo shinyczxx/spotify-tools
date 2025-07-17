@@ -14,7 +14,7 @@ import { resolve } from 'path'
 export default defineConfig({
   plugins: [react()],
   // GitHub Pages configuration
-  base: process.env.NODE_ENV === 'production' ? '/album-shuffle/' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/spotify-tools/' : '/',
   server: {
     host: '127.0.0.1',
     port: 5175,

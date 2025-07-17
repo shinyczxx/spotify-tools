@@ -1,7 +1,7 @@
 /**
  * @file spotifyApiHelpers.ts
  * @description Helper functions for direct Spotify API calls
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-10
  */

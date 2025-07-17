@@ -76,3 +76,6 @@ client/.vite/
 
 # Test outputs
 test-results.xml
+
+aiDocs/*
+anim-inspo/*wher

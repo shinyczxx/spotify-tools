@@ -1,7 +1,7 @@
 /**
  * @file flowLayoutConfig.ts
  * @description Grid configuration and theme color logic for ControlledFlowLayout
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-14
  *

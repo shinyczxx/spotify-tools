@@ -1,7 +1,7 @@
 /**
  * @file visual-validation-framework.spec.ts
  * @description New visual testing framework for circuit board components
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-01-16
  *

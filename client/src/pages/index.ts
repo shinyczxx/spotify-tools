@@ -1,7 +1,7 @@
 /**
  * @file index.ts
  * @description Export all pages
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 2.1.0
  * @date 2025-01-27
  */

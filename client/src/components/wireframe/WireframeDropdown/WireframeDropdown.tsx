@@ -1,7 +1,7 @@
 /**
  * @file WireframeDropdown.tsx
  * @description Panel dropdown button component for wireframe UI with right-aligned arrow indicator and smooth dropdown transition. Dropdown content is always rendered as a separate element below the button, with built-in open/close animation and delayed unmounting for smooth transitions.
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 2.0.0
  * @date 2025-07-07
  *

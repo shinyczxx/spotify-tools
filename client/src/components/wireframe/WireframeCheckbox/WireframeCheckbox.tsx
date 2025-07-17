@@ -1,7 +1,7 @@
 /**
  * @file WireframeCheckbox.tsx
  * @description SVG-based wireframe themed checkbox component with 80s terminal aesthetic
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 2.1.0
  * @date 2025-07-07
  *

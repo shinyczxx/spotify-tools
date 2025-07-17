@@ -1,7 +1,7 @@
 /**
  * @file advancedShuffleSettings.simple.test.ts
  * @description Simplified tests for the advanced shuffle settings functionality
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-12
  *

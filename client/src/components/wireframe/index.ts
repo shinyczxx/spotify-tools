@@ -1,7 +1,7 @@
 /**
  * @file index.ts
  * @description Main wireframe components export file (optimized, no backward compatibility)
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 2.0.0
  * @date 2025-07-08
  */

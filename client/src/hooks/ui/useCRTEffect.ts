@@ -1,7 +1,7 @@
 /**
  * @file useCRTEffect.ts
  * @description Hook for managing CRT overlay effect settings
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-16
  */

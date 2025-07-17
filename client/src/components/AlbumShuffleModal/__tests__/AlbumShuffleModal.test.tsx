@@ -1,7 +1,7 @@
 /**
  * @file AlbumShuffleModal.test.tsx
  * @description Tests for AlbumShuffleModal checkbox functionality and tooltips
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-15
  */

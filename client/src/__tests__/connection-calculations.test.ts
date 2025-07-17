@@ -1,7 +1,7 @@
 /**
  * @file connection-calculations.test.ts
  * @description Unit tests for connection calculations
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-01-26
  */

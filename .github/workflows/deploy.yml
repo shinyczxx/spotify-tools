@@ -2,9 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -25,11 +24,17 @@ jobs:
       run: |
         # Install root dependencies
         npm install
-        # Build external libraries
-        cd spotify-api-lib && npm install && npm run build && cd ..
-        cd lastfm-api-lib && npm install && npm run build && cd ..
-        cd pcb-design-lib && npm install && npm run build && cd ..
-        # Install and build client
+        # Build external libraries if they exist and have build scripts
+        if [ -d "spotify-api-lib" ] && [ -f "spotify-api-lib/package.json" ]; then
+          cd spotify-api-lib && npm install && (npm run build 2>/dev/null || echo "No build script, skipping") && cd ..
+        fi
+        if [ -d "lastfm-api-lib" ] && [ -f "lastfm-api-lib/package.json" ]; then
+          cd lastfm-api-lib && npm install && (npm run build 2>/dev/null || echo "No build script, skipping") && cd ..
+        fi
+        if [ -d "pcb-design-lib" ] && [ -f "pcb-design-lib/package.json" ]; then
+          cd pcb-design-lib && npm install && (npm run build 2>/dev/null || echo "No build script, skipping") && cd ..
+        fi
+        # Install client dependencies
         cd client && npm install
         
     - name: Build

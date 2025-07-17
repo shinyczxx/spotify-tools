@@ -1,7 +1,7 @@
 /**
  * @file useAsyncAction.ts
  * @description Custom hook for handling async actions with loading states and error handling
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-17
  *

@@ -1,7 +1,7 @@
 /**
  * @file basicTheme.ts
  * @description Basic theme configuration for MVP pages
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-14
  */

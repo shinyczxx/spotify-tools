@@ -1,0 +1,130 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  background-color: #a9c9ff;
+  background-image: linear-gradient(180deg, #a9c9ff 0%, #ffbbec 100%);
+  background-size: 100% 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card {
+  background: #fff;
+  border-radius: 2rem;
+  box-shadow: 0 0 10rem -5rem;
+  overflow: hidden;
+  &__img {
+    position: relative;
+    height: 30rem;
+    width: 30rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > img {
+      width: 10rem;
+      position: relative;
+      z-index: 1;
+      pointer-events: none;
+    }
+  }
+  &__grid-effect {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    &-tile {
+      position: relative;
+      &:before {
+        content: "";
+        color: #a9c9ff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 0.3rem;
+        width: 0.3rem;
+        border-radius: 50%;
+        background: #a9c9ff;
+        transition: 500ms linear all;
+        $bxs: 0 0 0;
+        $gap: 3rem;
+        $coef: -0.3rem;
+        @for $i from 1 through 4 {
+          $bxs: $bxs +
+            #{","}$i *
+            $gap
+            0
+            0
+            $i *
+            $coef#{","}$i *
+            -$gap
+            0
+            0
+            $i *
+            $coef#{","}
+            0
+            $i *
+            -$gap
+            0
+            $i *
+            $coef#{","}
+            0
+            $i *
+            $gap
+            0
+            $i *
+            $coef;
+
+          @for $j from 1 through 4 {
+            $bxs: $bxs +
+              #{","}$i *
+              $gap
+              $j *
+              $gap
+              0
+              $i *
+              $j *
+              1.5 *
+              $coef#{","}$i *
+              $gap
+              $j *
+              -$gap
+              0
+              $i *
+              $j *
+              1.5 *
+              $coef#{","}$i *
+              -$gap
+              $j *
+              $gap
+              0
+              $i *
+              $j *
+              1.5 *
+              $coef#{","}$i *
+              -$gap
+              $j *
+              -$gap
+              0
+              $i *
+              $j *
+              1.5 *
+              $coef;
+          }
+        }
+        box-shadow: $bxs;
+      }
+      &:hover {
+        &:before {
+          height: 3rem;
+          width: 3rem;
+          transition: 70ms linear all;
+        }
+      }
+    }
+  }
+}

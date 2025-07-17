@@ -1,7 +1,7 @@
 /**
  * @file connection-accuracy-multi-screen.spec.ts
  * @description Comprehensive tests for circuit trace connection accuracy across different screen sizes
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-13
  */

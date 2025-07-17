@@ -1,7 +1,7 @@
 /**
  * @file CRTOverlay.tsx
  * @description CRT monitor effect overlay component with toggleable scan lines and flicker
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-16
  *

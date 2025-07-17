@@ -1,7 +1,7 @@
 /**
  * @file lastFmRelated.ts
  * @description Utility for finding related albums using Last.fm data with weighted algorithms
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-12
  *

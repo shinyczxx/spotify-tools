@@ -2,7 +2,7 @@
  * @file FontSizeChanger.tsx
  * @description Font size control component within circuit board panel.
  * Integrates with accessibility settings and terminal theme styling.
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-09
  */

@@ -1,7 +1,7 @@
 /**
  * @file CallbackPage.tsx
  * @description Spotify OAuth callback page with wireframe theme
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 3.0.0
  * @date 2025-07-14
  *

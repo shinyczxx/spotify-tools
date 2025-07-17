@@ -1,7 +1,7 @@
 /**
  * @file circuit-trace-improvements.spec.ts
  * @description Playwright E2E tests for circuit trace connection accuracy and UI improvements
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-13
  */

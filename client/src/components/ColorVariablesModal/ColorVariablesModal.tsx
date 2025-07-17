@@ -1,7 +1,7 @@
 /**
  * @file ColorVariablesModal.tsx
  * @description Modal for editing individual color variables with descriptive names
- * @author GitHub Copilot
+ * @author Caleb Price
  * @version 1.0.0
  * @date 2025-07-15
  */
