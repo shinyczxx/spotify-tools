@@ -30,9 +30,9 @@
     "jest-environment-jsdom": "^29.7.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "spotify-api-lib": "file:../../spotify-api-lib",
-    "lastfm-api-lib": "file:../../lastfm-api-lib",
-    "pcb-design-lib": "file:../../pcb-design-lib"
+    "spotify-api-lib": "file:../spotify-api-lib",
+    "lastfm-api-lib": "file:../lastfm-api-lib",
+    "pcb-design-lib": "file:../pcb-design-lib"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
