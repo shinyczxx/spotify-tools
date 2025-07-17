@@ -35,7 +35,7 @@ export const ENV = {
   SPOTIFY_CLIENT_ID: getEnvVar('VITE_SPOTIFY_CLIENT_ID'),
   SPOTIFY_REDIRECT_URI: getEnvVar('VITE_SPOTIFY_REDIRECT_URI', 
     getEnvVar('PROD', 'false') === 'true' 
-      ? 'https://yourusername.github.io/album-shuffle/callback'
+      ? 'https://shinyczxx.github.io/spotify-tools/callback'
       : 'http://127.0.0.1:5175/callback'
   ),
   MODE: getEnvVar('MODE', 'development'),
