@@ -13,8 +13,8 @@ import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  // GitHub Pages configuration
-  base: process.env.NODE_ENV === 'production' ? '/spotify-tools/' : '/',
+  // GitHub Pages configuration - use root path for custom domain
+  base: '/',
   server: {
     host: '127.0.0.1',
     port: 5175,
