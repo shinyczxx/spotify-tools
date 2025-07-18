@@ -131,7 +131,7 @@ const CallbackPage: React.FC = () => {
 
   return (
     <>
-      <div className="callback-page-container grid-enabled">
+      <div className="callback-page-container wireframe-container grid-enabled">
         <div className="callback-content-wrapper">
           <div className="callback-header">
             <h1>SPOTIFY AUTHENTICATION CALLBACK</h1>
@@ -211,14 +211,20 @@ const CallbackPage: React.FC = () => {
       <style
         dangerouslySetInnerHTML={{
           __html: `
+        /* Reset any inherited styles that might interfere */
         .callback-page-container {
-          min-height: 100vh;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
           display: flex;
-          flex-direction: column;
           justify-content: center;
           align-items: center;
-          padding: 2rem;
+          padding: 1rem;
           box-sizing: border-box;
+          overflow: auto;
+          z-index: 1;
         }
 
         .callback-content-wrapper {
@@ -228,6 +234,7 @@ const CallbackPage: React.FC = () => {
           flex-direction: column;
           align-items: center;
           gap: 2rem;
+          margin: auto;
         }
 
         .callback-header {
@@ -329,7 +336,8 @@ const CallbackPage: React.FC = () => {
           51%, 100% { opacity: 0.3; }
         }
 
-        @media (max-width: 768px) {
+        /* Mobile styles */
+        @media (max-width: 768px), (hover: none) and (pointer: coarse) {
           .callback-page-container {
             padding: 1rem;
           }
@@ -357,6 +365,11 @@ const CallbackPage: React.FC = () => {
           .status-message {
             font-size: 13px;
           }
+        }
+
+        /* Ensure grid background is visible */
+        .callback-page-container.grid-enabled {
+          background-image: var(--grid-pattern);
         }
         `,
         }}

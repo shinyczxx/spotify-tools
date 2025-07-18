@@ -10,6 +10,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { useSpotifyAuth } from '@hooks/auth/useSpotifyAuth'
 import { useCRTEffect } from '@hooks/ui/useCRTEffect'
+import { useGridBackground } from '@hooks/ui/useGridBackground'
 import { BetaWarning } from './components/BetaWarning'
 import CRTOverlay from './components/CRTOverlay'
 import './App.css'
@@ -25,6 +26,10 @@ import PageLayout from './components/PageLayout/PageLayout'
 function App() {
   const { user, accessToken, error, setError, loading } = useSpotifyAuth()
   const { crtSettings } = useCRTEffect()
+  
+  // Initialize grid background globally
+  useGridBackground()
+  
   const navigate = useNavigate()
   const location = useLocation()
   const recentCallbackRef = useRef(false)

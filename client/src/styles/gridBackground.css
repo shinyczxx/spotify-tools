@@ -78,6 +78,26 @@ body::before {
 
 /* Duplicate body::before removed - using main one only */
 
+/* Mobile optimizations */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  :root {
+    --grid-size: 30px; /* Smaller grid on mobile for better visibility */
+  }
+  
+  body::before {
+    /* Ensure grid background is visible on mobile */
+    opacity: var(--grid-enabled);
+    background-attachment: fixed; /* Keep grid stable during scrolling */
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  :root {
+    --grid-size: 25px; /* Even smaller grid for tiny screens */
+  }
+}
+
 /* Reduced motion - grid respects user preferences */
 @media (prefers-reduced-motion: reduce) {
   .grid-glitch-enabled {
