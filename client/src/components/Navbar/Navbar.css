@@ -85,6 +85,174 @@
   }
 }
 
+/* Mobile Menu Button */
+.mobile-menu-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: var(--terminal-bg);
+  border: 1px solid var(--circuit-color);
+  color: var(--circuit-color);
+  padding: 8px 12px;
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-button:hover {
+  background: var(--circuit-color);
+  color: var(--terminal-bg);
+  box-shadow: 0 0 10px var(--circuit-color);
+}
+
+/* Mobile Fullscreen Menu */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 8, 17, 0.95);
+  backdrop-filter: blur(5px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.mobile-menu {
+  background: var(--terminal-bg);
+  border: 2px solid var(--circuit-color);
+  border-radius: 8px;
+  width: 90vw;
+  max-width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 0 20px var(--circuit-color);
+}
+
+.mobile-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--circuit-color-dim);
+}
+
+.mobile-menu-header h2 {
+  margin: 0;
+  color: var(--terminal-cyan);
+  font-family: var(--terminal-font);
+  font-size: 1.2em;
+  text-transform: lowercase;
+}
+
+.mobile-menu-close {
+  background: transparent;
+  border: 1px solid var(--circuit-color);
+  color: var(--circuit-color);
+  padding: 8px 12px;
+  font-family: var(--terminal-font);
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-close:hover {
+  background: var(--terminal-red);
+  border-color: var(--terminal-red);
+  color: var(--terminal-bg);
+}
+
+.mobile-nav-items {
+  padding: 20px;
+}
+
+.mobile-nav-item {
+  padding: 15px 20px;
+  margin: 5px 0;
+  border: 1px solid var(--circuit-color-dim);
+  background: transparent;
+  color: var(--circuit-color);
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size);
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.mobile-nav-item:hover {
+  background: var(--circuit-color);
+  color: var(--terminal-bg);
+  box-shadow: 0 0 10px var(--circuit-color);
+}
+
+.mobile-nav-item.active {
+  background: var(--terminal-cyan);
+  border-color: var(--terminal-cyan);
+  color: var(--terminal-bg);
+  box-shadow: 0 0 15px var(--terminal-cyan);
+}
+
+.mobile-navbar-controls {
+  padding: 20px;
+  border-top: 1px solid var(--circuit-color-dim);
+}
+
+.mobile-font-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--circuit-color);
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size);
+}
+
+.mobile-font-controls .font-btn {
+  background: transparent;
+  border: 1px solid var(--circuit-color);
+  color: var(--circuit-color);
+  padding: 5px 10px;
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size-small);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.mobile-font-controls .font-btn:hover {
+  background: var(--circuit-color);
+  color: var(--terminal-bg);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Hide desktop navbar on mobile - both user agent and screen size based */
+@media screen and (max-width: 768px) {
+  .navbar {
+    display: none;
+  }
+}
+
+/* Additional mobile-specific styles */
+@media (hover: none) and (pointer: coarse) {
+  /* This targets touch devices */
+  .navbar {
+    display: none;
+  }
+}
+
 /* For very small screens, consider a collapsible mobile menu */
 @media screen and (max-width: 576px) {
   .navbar {

@@ -17,6 +17,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { getCachedPlaylistsWithTTL, setCachedPlaylistsWithTTL } from '@utils/playlistCache'
 import { useSpotifyAuth } from '@hooks/auth/useSpotifyAuth'
 import { WireframePanel, WireframeButton, WireframeCheckbox } from '@components/wireframe'
+import { TooltipIcon } from '@components/wireframe/TooltipIcon'
 import { AlbumShuffleModal } from '@components/AlbumShuffleModal'
 import { PlaylistSelector } from '@components/PlaylistSelector'
 import { SpotifyApi } from 'spotify-api-lib'
@@ -475,22 +476,40 @@ const PlaylistTools: React.FC = () => {
         </WireframeButton>
 
         {/* Playlist Combiner Button */}
-        <WireframeButton
-          onClick={() => setActiveModal('playlist-combiner')}
-          disabled={selectedPlaylists.length === 0}
-          title={selectedPlaylists.length === 0 ? 'select at least 1 playlist' : ''}
-          style={{
-            background: 'var(--terminal-bg)',
-            border: '1px solid var(--terminal-cyan)',
-            color: 'var(--terminal-cyan)',
-            fontSize: 'var(--terminal-font-size)',
-            padding: '0.75em 1em',
-            flex: '1',
-            minWidth: 'max-content',
-          }}
-        >
-          playlist combiner
-        </WireframeButton>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5em', flex: '1' }}>
+          <WireframeButton
+            onClick={() => setActiveModal('playlist-combiner')}
+            disabled={selectedPlaylists.length === 0}
+            title={selectedPlaylists.length === 0 ? 'select at least 1 playlist' : ''}
+            style={{
+              background: 'var(--terminal-bg)',
+              border: '1px solid var(--terminal-cyan)',
+              color: 'var(--terminal-cyan)',
+              fontSize: 'var(--terminal-font-size)',
+              padding: '0.75em 1em',
+              flex: '1',
+              minWidth: 'max-content',
+            }}
+          >
+            playlist combiner
+          </WireframeButton>
+          <TooltipIcon
+            contents={
+              <div>
+                <div><strong>Combines multiple playlists with shuffle options:</strong></div>
+                <div>• <strong>Smart Shuffle:</strong> Avoids back-to-back songs from same album</div>
+                <div>• <strong>Random Shuffle:</strong> Complete randomization of all tracks</div>
+                <div>• <strong>No Shuffle:</strong> Keeps original order from playlists</div>
+                <div style={{ marginTop: '0.5em', fontStyle: 'italic' }}>
+                  💡 Tip: Use with a single playlist for full random shuffle!
+                </div>
+              </div>
+            }
+            size={16}
+            direction="right"
+            ariaLabel="Playlist combiner help"
+          />
+        </div>
 
         {/* Blank Space */}
         <div style={{ flex: '1' }}></div>

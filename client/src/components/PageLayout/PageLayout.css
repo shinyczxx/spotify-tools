@@ -70,19 +70,26 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+/* Mobile layout adjustments */
+@media screen and (max-width: 768px), (hover: none) and (pointer: coarse) {
   .navbar-sidebar {
-    width: 180px;
+    display: none; /* Hide sidebar completely on mobile */
   }
+  
+  .page-container {
+    flex-direction: column;
+  }
+  
   .page-main-content {
-    margin-top: 15px;
-    margin-right: 15px;
-    margin-left: 15px;
+    margin: 60px 15px 15px 15px; /* Top margin for mobile menu button */
+    width: calc(100% - 30px);
   }
+  
   .page-main-content.two-column {
     grid-template-columns: 1fr;
-    gap: 0.5em;
+    gap: 1em;
   }
+  
   .page-col-left,
   .page-col-right {
     grid-column: 1;
