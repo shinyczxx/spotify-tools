@@ -27,6 +27,7 @@
   margin-top: 20px; /* Reduced from 32px */
   margin-right: 20px; /* Reduced from 32px */
   margin-left: 20px; /* Reduced from 32px */
+  margin-bottom: 20px; /* Add matching bottom margin for balanced spacing */
   /* Remove padding-left, handled by sidebar */
 }
 
