@@ -260,7 +260,7 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
 
     // Trigger glitch effect
     setShuffleButtonGlitch(true)
-    setTimeout(() => setShuffleButtonGlitch(false), 150) // Quick glitch
+    setTimeout(() => setShuffleButtonGlitch(false), 400) // Longer hacking-style glitch
 
     setIsShuffling(true)
     try {

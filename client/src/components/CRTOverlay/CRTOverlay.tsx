@@ -18,6 +18,7 @@ interface CRTOverlayProps {
   scanlineSize?: 'fine' | 'normal' | 'thick'
   flickerEnabled?: boolean
   movingScanline?: boolean
+  pixelationEnabled?: boolean
   className?: string
 }
 
@@ -27,6 +28,7 @@ export const CRTOverlay: React.FC<CRTOverlayProps> = ({
   scanlineSize = 'normal',
   flickerEnabled = true,
   movingScanline = true,
+  pixelationEnabled = false,
   className = '',
 }) => {
   if (!enabled) return null
@@ -37,6 +39,7 @@ export const CRTOverlay: React.FC<CRTOverlayProps> = ({
     `crt-intensity-${intensity}`,
     `crt-scanlines-${scanlineSize}`,
     flickerEnabled ? 'crt-flicker-enabled' : 'crt-flicker-disabled',
+    pixelationEnabled ? 'crt-heavy-pixelation' : '',
     className,
   ]
     .filter(Boolean)

@@ -9,47 +9,63 @@
 @keyframes buttonGlitch {
   0% {
     transform: translate(0);
-    filter: hue-rotate(0deg);
+    filter: hue-rotate(0deg) saturate(1);
+    text-shadow: none;
   }
-  10% {
-    transform: translate(-2px, 1px) skew(1deg);
-    filter: hue-rotate(90deg);
+  5% {
+    transform: translate(-1px, 0) skew(0deg);
+    filter: hue-rotate(0deg) saturate(1);
+    text-shadow: none;
   }
-  20% {
+  15% {
+    transform: translate(-3px, 2px) skew(2deg) scale(1.01);
+    filter: hue-rotate(90deg) saturate(1.5);
+    text-shadow: 2px 0 #ff0080, -2px 0 #00ffff;
+  }
+  25% {
+    transform: translate(3px, -1px) skew(-1deg) scale(0.99);
+    filter: hue-rotate(180deg) saturate(1.3);
+    text-shadow: -1px 0 #ff0080, 1px 0 #00ffff;
+  }
+  35% {
+    transform: translate(-2px, 3px) skew(1deg);
+    filter: hue-rotate(270deg) saturate(1.2);
+    text-shadow: 3px 0 #ff0080, -3px 0 #00ffff;
+  }
+  45% {
+    transform: translate(2px, -2px) skew(-2deg) scale(1.02);
+    filter: hue-rotate(45deg) saturate(1.4);
+    text-shadow: -2px 0 #ff0080, 2px 0 #00ffff;
+  }
+  55% {
+    transform: translate(-4px, 1px) skew(1.5deg) scale(0.98);
+    filter: hue-rotate(135deg) saturate(1.6);
+    text-shadow: 4px 0 #ff0080, -4px 0 #00ffff;
+  }
+  65% {
+    transform: translate(1px, -3px) skew(-0.5deg);
+    filter: hue-rotate(225deg) saturate(1.1);
+    text-shadow: 1px 0 #ff0080, -1px 0 #00ffff;
+  }
+  75% {
+    transform: translate(-1px, 2px) skew(0.5deg) scale(1.01);
+    filter: hue-rotate(315deg) saturate(1.3);
+    text-shadow: 2px 0 #ff0080, -2px 0 #00ffff;
+  }
+  85% {
     transform: translate(2px, -1px) skew(-1deg);
-    filter: hue-rotate(180deg);
+    filter: hue-rotate(60deg) saturate(1.2);
+    text-shadow: 1px 0 #ff0080, -1px 0 #00ffff;
   }
-  30% {
-    transform: translate(-1px, 2px) skew(0.5deg);
-    filter: hue-rotate(270deg);
-  }
-  40% {
-    transform: translate(1px, -2px) skew(-0.5deg);
-    filter: hue-rotate(0deg);
-  }
-  50% {
-    transform: translate(-2px, -1px) skew(1deg) scale(1.02);
-    filter: hue-rotate(45deg);
-  }
-  60% {
-    transform: translate(2px, 1px) skew(-1deg) scale(0.98);
-    filter: hue-rotate(135deg);
-  }
-  70% {
-    transform: translate(-1px, -2px) skew(0.5deg);
-    filter: hue-rotate(225deg);
-  }
-  80% {
-    transform: translate(1px, 2px) skew(-0.5deg);
-    filter: hue-rotate(315deg);
-  }
-  90% {
-    transform: translate(-2px, 1px) skew(1deg);
-    filter: hue-rotate(0deg);
+  95% {
+    transform: translate(-1px, 0) skew(0deg);
+    filter: hue-rotate(0deg) saturate(1);
+    text-shadow: none;
   }
   100% {
     transform: translate(0);
-    filter: hue-rotate(0deg);
+    filter: hue-rotate(0deg) saturate(1);
+    text-shadow: none;
   }
 }
 
@@ -83,7 +99,7 @@
 
 /* Button glitch effect class */
 .button-glitch-active {
-  animation: buttonGlitch 0.15s ease-in-out;
+  animation: buttonGlitch 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   overflow: hidden;
 }

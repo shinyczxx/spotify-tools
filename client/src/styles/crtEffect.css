@@ -14,7 +14,7 @@
   --crt-intensity: 0.8; /* 0-1 intensity of effects */
   --crt-flicker-enabled: 1; /* 0 = disabled, 1 = enabled */
   --crt-scanline-size: 2px;
-  --crt-scanline-opacity: 0.25;
+  --crt-scanline-opacity: 0.15; /* Reduced for better visibility */
 }
 
 /* Main CRT overlay container */
@@ -30,6 +30,31 @@
   transition: opacity 0.3s ease;
 }
 
+/* CRT Pixelation and blur effect on the entire app */
+.crt-enabled ~ * {
+  filter: 
+    blur(0.3px)
+    contrast(1.1)
+    saturate(1.05)
+    drop-shadow(0.5px 0 0 rgba(255, 0, 0, 0.1))
+    drop-shadow(-0.5px 0 0 rgba(0, 255, 255, 0.1))
+    drop-shadow(0 0.5px 0 rgba(0, 255, 0, 0.05));
+}
+
+/* Optional heavier pixelation effect */
+.crt-overlay.crt-heavy-pixelation ~ * {
+  filter: 
+    blur(0.5px)
+    contrast(1.15)
+    saturate(1.1)
+    drop-shadow(1px 0 0 rgba(255, 0, 0, 0.15))
+    drop-shadow(-1px 0 0 rgba(0, 255, 255, 0.15))
+    drop-shadow(0 1px 0 rgba(0, 255, 0, 0.08));
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
 /* Scanlines effect */
 .crt-overlay::before {
   content: " ";
@@ -40,19 +65,19 @@
   bottom: 0;
   right: 0;
   background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%,
-    rgba(0, 0, 0, var(--crt-scanline-opacity)) 50%
+    rgba(20, 20, 20, 0) 50%,
+    rgba(40, 40, 40, var(--crt-scanline-opacity)) 50%
   ),
   linear-gradient(
     90deg,
-    rgba(255, 0, 0, 0.06),
-    rgba(0, 255, 0, 0.02),
-    rgba(0, 0, 255, 0.06)
+    rgba(180, 140, 120, 0.03),
+    rgba(160, 160, 140, 0.02),
+    rgba(140, 160, 180, 0.03)
   );
   background-size: 100% var(--crt-scanline-size), 3px 100%;
   z-index: 2;
   pointer-events: none;
-  opacity: calc(var(--crt-intensity) * 0.8);
+  opacity: calc(var(--crt-intensity) * 0.6);
 }
 
 /* Flicker effect */
@@ -79,10 +104,10 @@
   background: linear-gradient(
     0deg,
     rgba(0, 0, 0, 0) 0%,
-    rgba(255, 255, 255, 0.2) 10%,
-    rgba(0, 0, 0, 0.1) 100%
+    rgba(200, 180, 160, 0.15) 10%,
+    rgba(60, 60, 60, 0.08) 100%
   );
-  opacity: calc(var(--crt-intensity) * 0.1);
+  opacity: calc(var(--crt-intensity) * 0.08);
   position: absolute;
   bottom: 100%;
   animation: crt-scanline-move 10s linear infinite;
@@ -265,15 +290,15 @@
 
 /* Intensity variants */
 .crt-intensity-low {
-  --crt-intensity: 0.3;
+  --crt-intensity: 0.2;
 }
 
 .crt-intensity-medium {
-  --crt-intensity: 0.6;
+  --crt-intensity: 0.4;
 }
 
 .crt-intensity-high {
-  --crt-intensity: 1.0;
+  --crt-intensity: 0.7;
 }
 
 /* Scanline size variants */

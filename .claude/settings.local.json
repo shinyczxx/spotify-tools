@@ -20,7 +20,8 @@
       "Bash(true)",
       "Bash(git reset:*)",
       "Bash(git rm:*)",
-      "Bash(gh repo view:*)"
+      "Bash(gh repo view:*)",
+      "WebFetch(domain:codepen.io)"
     ],
     "deny": []
   }
