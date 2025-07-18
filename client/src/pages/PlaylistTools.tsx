@@ -58,7 +58,7 @@ const PlaylistTools: React.FC = () => {
 
   // Shuffle settings for playlist combiner
   const [shuffleSettings, setShuffleSettings] = useState<ShuffleSettings>({
-    algorithm: 'smart',
+    algorithm: 'random',
   })
 
   // Search state for playlist selector
@@ -326,14 +326,6 @@ const PlaylistTools: React.FC = () => {
       let finalTracks = uniqueTracks
       if (shuffleSettings.algorithm === 'random') {
         finalTracks = [...uniqueTracks].sort(() => Math.random() - 0.5)
-      } else if (shuffleSettings.algorithm === 'smart') {
-        finalTracks = applySmartShuffle(
-          uniqueTracks.map((track) => ({
-            ...track,
-            albumName: track.album?.name || 'Unknown Album',
-            albumId: track.album?.id || 'unknown',
-          })),
-        )
       }
       // 'none' keeps original order
 
@@ -384,28 +376,6 @@ const PlaylistTools: React.FC = () => {
     }
   }
 
-  const applySmartShuffle = (tracks: ShuffledTrack[]): ShuffledTrack[] => {
-    // Simple smart shuffle: avoid consecutive tracks from same artist
-    const shuffled = [...tracks].sort(() => Math.random() - 0.5)
-
-    // Try to separate tracks from the same artist
-    for (let i = 1; i < shuffled.length; i++) {
-      if (shuffled[i].artists[0]?.name === shuffled[i - 1].artists[0]?.name) {
-        // Find a different track to swap with
-        for (let j = i + 1; j < shuffled.length; j++) {
-          if (shuffled[j].artists[0]?.name !== shuffled[i - 1].artists[0]?.name) {
-            // Swap tracks
-            const temp = shuffled[i]
-            shuffled[i] = shuffled[j]
-            shuffled[j] = temp
-            break
-          }
-        }
-      }
-    }
-
-    return shuffled
-  }
 
   // Table header configurations
   const playlistHeaders: TableHeaderConfig[] = [
@@ -497,8 +467,7 @@ const PlaylistTools: React.FC = () => {
             contents={
               <div>
                 <div><strong>Combines multiple playlists with shuffle options:</strong></div>
-                <div>• <strong>Smart Shuffle:</strong> Avoids back-to-back songs from same album</div>
-                <div>• <strong>Random Shuffle:</strong> Complete randomization of all tracks</div>
+                <div>• <strong>Dumb Shuffle:</strong> Full random shuffle, no Spotify algorithm</div>
                 <div>• <strong>No Shuffle:</strong> Keeps original order from playlists</div>
                 <div style={{ marginTop: '0.5em', fontStyle: 'italic' }}>
                   💡 Tip: Use with a single playlist for full random shuffle!
@@ -506,7 +475,7 @@ const PlaylistTools: React.FC = () => {
               </div>
             }
             size={16}
-            direction="right"
+            direction="left"
             ariaLabel="Playlist combiner help"
           />
         </div>
@@ -555,8 +524,8 @@ const PlaylistTools: React.FC = () => {
               'calc(100vh - 300px)' /* Use height instead of maxHeight for proper flex sizing */,
             display: 'flex',
             flexDirection: 'column',
-            margin: '20px 0',
-            paddingBottom: '20px' /* Add padding to prevent bottom border cutoff */,
+            margin: '0' /* Remove extra margins to match top spacing */,
+            paddingBottom: '0' /* Remove extra padding */,
             overflow: 'visible' /* Allow PlaylistSelector to manage its own overflow */,
           }}
         >
@@ -659,7 +628,7 @@ const PlaylistTools: React.FC = () => {
                     onChange={(e) =>
                       setShuffleSettings((prev) => ({
                         ...prev,
-                        algorithm: e.target.value as 'random' | 'smart' | 'none',
+                        algorithm: e.target.value as 'random' | 'none',
                       }))
                     }
                     style={{
@@ -669,8 +638,7 @@ const PlaylistTools: React.FC = () => {
                       color: 'var(--terminal-cyan)',
                     }}
                   >
-                    <option value="smart">smart shuffle</option>
-                    <option value="random">random shuffle</option>
+                    <option value="random">dumb shuffle</option>
                     <option value="none">no shuffle</option>
                   </select>
                 </label>

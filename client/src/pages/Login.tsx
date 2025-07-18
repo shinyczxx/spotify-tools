@@ -28,7 +28,7 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div className="wireframe-container grid-enabled">
+    <div className="wireframe-container">
       <div className="login-container">
         <BetaWarning variant="box" />
 

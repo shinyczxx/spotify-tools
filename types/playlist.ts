@@ -37,7 +37,7 @@ export interface AlbumShuffleSettings {
 }
 
 export interface ShuffleSettings {
-  algorithm: 'random' | 'smart' | 'none'
+  algorithm: 'random' | 'none'
 }
 
 export type ShuffleAlgorithm = 'random' | 'weighted-newer' | 'weighted-older' | 'chronological' | 'spiral-dance'
