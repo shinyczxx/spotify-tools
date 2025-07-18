@@ -43,14 +43,25 @@ const CallbackPage: React.FC = () => {
 
         setMessage('EXCHANGING AUTHORIZATION CODE FOR TOKENS...')
 
-        // Store the auth code for now - actual implementation would handle token exchange
-        localStorage.setItem('spotify_auth_code', code)
+        // Import the actual auth handler
+        const { handleSpotifyCallback } = await import('../utils/spotifyAuth')
+        const tokens = await handleSpotifyCallback()
 
-        // Simulate some processing time
-        await new Promise((resolve) => setTimeout(resolve, 1500))
+        if (!tokens) {
+          setStatus('error')
+          setMessage('TOKEN EXCHANGE FAILED. PLEASE TRY AGAIN.')
+          return
+        }
+
+        // Store tokens in localStorage
+        localStorage.setItem('spotify_access_token', tokens.accessToken)
+        localStorage.setItem('spotify_refresh_token', tokens.refreshToken)
 
         setStatus('success')
         setMessage('AUTHENTICATION SUCCESSFUL! REDIRECTING TO DASHBOARD...')
+
+        // Clear URL parameters to prevent reprocessing
+        window.history.replaceState({}, document.title, window.location.pathname)
 
         // Redirect to dashboard after a short delay
         setTimeout(() => {

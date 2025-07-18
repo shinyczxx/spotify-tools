@@ -43,6 +43,19 @@ async function generateCodeChallenge(codeVerifier: string): Promise<string> {
 
 // OAuth flow functions
 export async function initiateSpotifyAuth(): Promise<void> {
+  console.log('[Auth] Initiating Spotify OAuth flow')
+  console.log('[Auth] Client ID:', SPOTIFY_CLIENT_ID)
+  console.log('[Auth] Redirect URI:', SPOTIFY_REDIRECT_URI)
+  
+  // Check localStorage availability
+  try {
+    localStorage.setItem('spotify_test', 'test')
+    localStorage.removeItem('spotify_test')
+  } catch (error) {
+    console.error('[Auth] localStorage not available:', error)
+    throw new Error('Your browser has disabled local storage. Please enable cookies and local storage for this site.')
+  }
+
   const codeVerifier = generateRandomString(128)
   const codeChallenge = await generateCodeChallenge(codeVerifier)
   const state = generateRandomString(16)
@@ -50,6 +63,8 @@ export async function initiateSpotifyAuth(): Promise<void> {
   // Store code verifier and state in localStorage
   localStorage.setItem('spotify_code_verifier', codeVerifier)
   localStorage.setItem('spotify_state', state)
+  
+  console.log('[Auth] Stored code verifier and state')
 
   const params = new URLSearchParams({
     client_id: SPOTIFY_CLIENT_ID,
@@ -61,41 +76,54 @@ export async function initiateSpotifyAuth(): Promise<void> {
     scope: SPOTIFY_SCOPES,
   })
 
-  window.location.href = `https://accounts.spotify.com/authorize?${params.toString()}`
+  const authUrl = `https://accounts.spotify.com/authorize?${params.toString()}`
+  console.log('[Auth] Redirecting to:', authUrl)
+  window.location.href = authUrl
 }
 
 export async function handleSpotifyCallback(): Promise<{
   accessToken: string
   refreshToken: string
 } | null> {
+  console.log('[Auth] Processing Spotify callback')
   const urlParams = new URLSearchParams(window.location.search)
   const code = urlParams.get('code')
   const state = urlParams.get('state')
   const error = urlParams.get('error')
+  
+  console.log('[Auth] URL params:', { code: !!code, state: !!state, error })
 
   if (error) {
-    console.error('Spotify auth error:', error)
+    console.error('[Auth] Spotify auth error:', error)
     return null
   }
 
   if (!code || !state) {
-    console.error('Missing code or state parameter')
+    console.error('[Auth] Missing code or state parameter', { code: !!code, state: !!state })
     return null
   }
 
   const storedState = localStorage.getItem('spotify_state')
+  const codeVerifier = localStorage.getItem('spotify_code_verifier')
+  
+  console.log('[Auth] Stored values:', { 
+    storedState: !!storedState, 
+    codeVerifier: !!codeVerifier,
+    stateMatch: state === storedState 
+  })
+  
   if (state !== storedState) {
-    console.error('State mismatch')
+    console.error('[Auth] State mismatch', { received: state, stored: storedState })
     return null
   }
 
-  const codeVerifier = localStorage.getItem('spotify_code_verifier')
   if (!codeVerifier) {
-    console.error('Missing code verifier')
+    console.error('[Auth] Missing code verifier')
     return null
   }
 
   try {
+    console.log('[Auth] Exchanging code for tokens...')
     const response = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
       headers: {
@@ -110,22 +138,31 @@ export async function handleSpotifyCallback(): Promise<{
       }),
     })
 
+    console.log('[Auth] Token exchange response status:', response.status)
+
     if (!response.ok) {
-      throw new Error(`Token exchange failed: ${response.status}`)
+      const errorData = await response.text()
+      console.error('[Auth] Token exchange failed:', errorData)
+      throw new Error(`Token exchange failed: ${response.status} - ${errorData}`)
     }
 
     const data = await response.json()
+    console.log('[Auth] Token exchange successful')
 
     // Clean up stored values
-    localStorage.removeItem('spotify_code_verifier')
-    localStorage.removeItem('spotify_state')
+    try {
+      localStorage.removeItem('spotify_code_verifier')
+      localStorage.removeItem('spotify_state')
+    } catch (storageError) {
+      console.warn('[Auth] Could not clean up localStorage:', storageError)
+    }
 
     return {
       accessToken: data.access_token,
       refreshToken: data.refresh_token,
     }
   } catch (error) {
-    console.error('Error exchanging code for token:', error)
+    console.error('[Auth] Error exchanging code for token:', error)
     return null
   }
 }
