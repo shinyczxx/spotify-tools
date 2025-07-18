@@ -421,7 +421,7 @@ const PlaylistTools: React.FC = () => {
         style={{
           display: 'flex',
           gap: '1em',
-          marginBottom: '1.25em',
+          marginBottom: '0.75em', /* Reduced spacing above buttons */
           alignItems: 'center',
           maxWidth: '100%',
           overflow: 'hidden',
@@ -437,7 +437,7 @@ const PlaylistTools: React.FC = () => {
             border: '1px solid var(--terminal-cyan)',
             color: 'var(--terminal-cyan)',
             fontSize: 'var(--terminal-font-size)',
-            padding: '0.75em 1em',
+            padding: '1em 1em', /* Made buttons taller */
             flex: '1',
             minWidth: 'max-content',
           }}
@@ -456,7 +456,7 @@ const PlaylistTools: React.FC = () => {
               border: '1px solid var(--terminal-cyan)',
               color: 'var(--terminal-cyan)',
               fontSize: 'var(--terminal-font-size)',
-              padding: '0.75em 1em',
+              padding: '1em 1em', /* Made buttons taller */
               flex: '1',
               minWidth: 'max-content',
             }}
@@ -493,7 +493,7 @@ const PlaylistTools: React.FC = () => {
           title="no history"
           style={{
             fontSize: 'var(--terminal-font-size)',
-            padding: '0.75em 1em',
+            padding: '1em 1em', /* Made buttons taller */
             flex: '1',
             minWidth: 'max-content',
             opacity: 0.5,
@@ -524,7 +524,7 @@ const PlaylistTools: React.FC = () => {
               'calc(100vh - 300px)' /* Use height instead of maxHeight for proper flex sizing */,
             display: 'flex',
             flexDirection: 'column',
-            margin: '0' /* Remove extra margins to match top spacing */,
+            margin: '0.75em 0 0 0' /* Equal spacing above selector to match reduced button spacing */,
             paddingBottom: '0' /* Remove extra padding */,
             overflow: 'visible' /* Allow PlaylistSelector to manage its own overflow */,
           }}

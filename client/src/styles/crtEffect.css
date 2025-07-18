@@ -66,13 +66,13 @@
   right: 0;
   background: linear-gradient(
     rgba(20, 20, 20, 0) 50%,
-    rgba(40, 40, 40, var(--crt-scanline-opacity)) 50%
+    rgba(180, 180, 180, var(--crt-scanline-opacity)) 50%
   ),
   linear-gradient(
     90deg,
-    rgba(180, 140, 120, 0.03),
-    rgba(160, 160, 140, 0.02),
-    rgba(140, 160, 180, 0.03)
+    rgba(160, 160, 160, 0.03),
+    rgba(170, 170, 170, 0.02),
+    rgba(150, 150, 150, 0.03)
   );
   background-size: 100% var(--crt-scanline-size), 3px 100%;
   z-index: 2;
@@ -104,8 +104,8 @@
   background: linear-gradient(
     0deg,
     rgba(0, 0, 0, 0) 0%,
-    rgba(200, 180, 160, 0.15) 10%,
-    rgba(60, 60, 60, 0.08) 100%
+    rgba(190, 190, 190, 0.15) 10%,
+    rgba(120, 120, 120, 0.08) 100%
   );
   opacity: calc(var(--crt-intensity) * 0.08);
   position: absolute;

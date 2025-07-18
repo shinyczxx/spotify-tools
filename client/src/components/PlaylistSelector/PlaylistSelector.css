@@ -14,7 +14,7 @@
 .album-playlist-select {
   width: 100%;
   max-width: 100%; /* Prevent horizontal overflow */
-  margin-top: 1em;
+  margin-top: 0; /* Remove gray bar above playlist selector */
   border: 1px solid var(--terminal-cyan);
   border-radius: 0;
   background-color: var(--terminal-bg);

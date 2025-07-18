@@ -167,11 +167,11 @@ code {
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 255, 255, var(--crt-scanline-opacity, 0.1)) 2px,
-    rgba(0, 255, 255, var(--crt-scanline-opacity, 0.1)) 4px
+    rgba(180, 180, 180, var(--crt-scanline-opacity, 0.1)) 2px,
+    rgba(180, 180, 180, var(--crt-scanline-opacity, 0.1)) 4px
   );
   pointer-events: none;
-  z-index: 1000;
+  z-index: 10; /* Lower z-index to allow grid background to show through */
   animation: scanlines 0.1s linear infinite;
 }
 
@@ -189,7 +189,7 @@ code {
     rgba(0, 0, 0, 0.3) 100%
   );
   pointer-events: none;
-  z-index: 999;
+  z-index: 9; /* Lower z-index to allow grid background to show through */
   border-radius: var(--crt-curvature, 0.02) * 100vh;
 }
 

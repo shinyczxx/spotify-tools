@@ -254,8 +254,7 @@
   max-width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
-  padding: 1.5em;
-  padding-bottom: 2.5em; /* Add extra bottom padding for page spacing */
+  padding: 1.5em; /* Equal top and bottom spacing */
 }
 
 /* Checkbox styles are now handled in select-checkbox-merged.css */
