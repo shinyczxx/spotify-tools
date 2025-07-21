@@ -28,6 +28,8 @@
   margin-right: 20px; /* Reduced from 32px */
   margin-left: 20px; /* Reduced from 32px */
   margin-bottom: 20px; /* Add matching bottom margin for balanced spacing */
+  position: relative;
+  z-index: 5; /* Above grid background (z-index: 1) */
   /* Remove padding-left, handled by sidebar */
 }
 
@@ -84,6 +86,8 @@
   .page-main-content {
     margin: 60px 15px 15px 15px; /* Top margin for mobile menu button */
     width: calc(100% - 30px);
+    position: relative;
+    z-index: 5; /* Above grid background */
   }
   
   .page-main-content.two-column {

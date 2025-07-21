@@ -47,6 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({
     { id: 'playlist-tools', label: 'playlist tools' },
     { id: 'getTrackInfo', label: 'track info' },
     { id: 'settings', label: 'settings' },
+    { id: 'github', label: 'view source' },
     { id: 'logout', label: 'logout' },
   ]
 
@@ -58,6 +59,8 @@ const Navbar: React.FC<NavbarProps> = ({
   const handleNavigate = (pageId: string) => {
     if (pageId === 'logout') {
       onLogout()
+    } else if (pageId === 'github') {
+      window.open('https://github.com/shinyczxx/spotify-tools', '_blank')
     } else {
       onNavigate(pageId)
     }

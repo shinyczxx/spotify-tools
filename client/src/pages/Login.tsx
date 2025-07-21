@@ -91,6 +91,14 @@ const Login: React.FC = () => {
             <p className="footer-privacy">
               all data remains on spotify's servers | no personal data stored
             </p>
+            <div className="footer-links">
+              <WireframeButton 
+                onClick={() => window.open('https://github.com/shinyczxx/spotify-tools', '_blank')}
+                variant="default"
+              >
+                view source on github
+              </WireframeButton>
+            </div>
           </div>
         </WireframeBox>
       </div>

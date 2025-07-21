@@ -15,8 +15,7 @@
   "dependencies": {
     "react-router-dom": "^7.6.3",
     "spotify-api-lib": "file:../spotify-api-lib",
-    "lastfm-api-lib": "file:../lastfm-api-lib",
-    "pcb-design-lib": "file:../pcb-design-lib"
+    "lastfm-api-lib": "file:../lastfm-api-lib"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0",

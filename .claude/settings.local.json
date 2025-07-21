@@ -22,7 +22,9 @@
       "Bash(git rm:*)",
       "Bash(gh repo view:*)",
       "WebFetch(domain:codepen.io)",
-      "WebFetch(domain:st.czxx.io)"
+      "WebFetch(domain:st.czxx.io)",
+      "Bash(rm:*)",
+      "Bash(ls:*)"
     ],
     "deny": []
   }

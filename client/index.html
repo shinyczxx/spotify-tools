@@ -20,6 +20,8 @@
         sessionStorage.removeItem('redirect');
         // Use history.replaceState to update the URL without triggering a navigation
         history.replaceState(null, '', redirect);
+        // Log for debugging
+        console.log('GitHub Pages SPA redirect: Restored URL to', redirect);
       }
     </script>
     

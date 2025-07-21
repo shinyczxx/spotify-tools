@@ -43,35 +43,36 @@ const CallbackPage: React.FC = () => {
 
         setMessage('EXCHANGING AUTHORIZATION CODE FOR TOKENS...')
 
-        // Import the actual auth handler
-        const { handleSpotifyCallback } = await import('../utils/spotifyAuth')
-        const tokens = await handleSpotifyCallback()
+        // Wait for tokens to be processed by useSpotifyAuth hook
+        const checkTokens = () => {
+          const storedAccessToken = localStorage.getItem('spotify_access_token')
+          const storedRefreshToken = localStorage.getItem('spotify_refresh_token')
+          
+          if (storedAccessToken && storedRefreshToken) {
+            setStatus('success')
+            setMessage('AUTHENTICATION SUCCESSFUL! REDIRECTING TO DASHBOARD...')
 
-        // Check if tokens exist in localStorage (auth might succeed even if handler returns null)
-        const storedAccessToken = localStorage.getItem('spotify_access_token')
-        const storedRefreshToken = localStorage.getItem('spotify_refresh_token')
+            // Clear URL parameters to prevent reprocessing
+            window.history.replaceState({}, document.title, window.location.pathname)
 
-        if (tokens || (storedAccessToken && storedRefreshToken)) {
-          // Store tokens if we got them from handler
-          if (tokens) {
-            localStorage.setItem('spotify_access_token', tokens.accessToken)
-            localStorage.setItem('spotify_refresh_token', tokens.refreshToken)
+            // Redirect to dashboard after a short delay
+            setTimeout(() => {
+              navigate('/dashboard')
+            }, 2000)
+          } else {
+            // Check again after a short delay (max 5 seconds)
+            setTimeout(() => {
+              const accessToken = localStorage.getItem('spotify_access_token')
+              if (!accessToken) {
+                setStatus('error')
+                setMessage('TOKEN EXCHANGE FAILED. PLEASE TRY AGAIN.')
+              }
+            }, 5000)
           }
-
-          setStatus('success')
-          setMessage('AUTHENTICATION SUCCESSFUL! REDIRECTING TO DASHBOARD...')
-
-          // Clear URL parameters to prevent reprocessing
-          window.history.replaceState({}, document.title, window.location.pathname)
-
-          // Redirect to dashboard after a short delay
-          setTimeout(() => {
-            navigate('/dashboard')
-          }, 2000)
-        } else {
-          setStatus('error')
-          setMessage('TOKEN EXCHANGE FAILED. PLEASE TRY AGAIN.')
         }
+
+        // Check immediately and then after delays to allow useSpotifyAuth to process
+        setTimeout(checkTokens, 1000)
       } catch (error) {
         console.error('Authentication error:', error)
         setStatus('error')

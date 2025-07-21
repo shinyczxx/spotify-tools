@@ -92,20 +92,27 @@
   left: 20px;
   z-index: 1000;
   background: var(--terminal-bg);
-  border: 1px solid var(--circuit-color);
-  color: var(--circuit-color);
-  padding: 8px 12px;
+  border: 1px solid var(--terminal-cyan);
+  color: var(--terminal-cyan);
+  padding: 10px 16px;
   font-family: var(--terminal-font);
   font-size: var(--terminal-font-size);
   cursor: pointer;
-  border-radius: 4px;
+  text-transform: lowercase;
+  letter-spacing: 1px;
   transition: all 0.3s ease;
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
 }
 
 .mobile-menu-button:hover {
-  background: var(--circuit-color);
+  background: var(--terminal-cyan);
   color: var(--terminal-bg);
-  box-shadow: 0 0 10px var(--circuit-color);
+  box-shadow: 0 0 15px var(--terminal-cyan);
+  text-shadow: none;
+}
+
+.mobile-menu-button:active {
+  transform: scale(0.95);
 }
 
 /* Mobile Fullscreen Menu */
@@ -117,7 +124,7 @@
   height: 100vh;
   background: rgba(0, 8, 17, 0.95);
   backdrop-filter: blur(5px);
-  z-index: 2000;
+  z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,13 +133,13 @@
 
 .mobile-menu {
   background: var(--terminal-bg);
-  border: 2px solid var(--circuit-color);
-  border-radius: 8px;
+  border: 2px solid var(--terminal-cyan);
   width: 90vw;
   max-width: 400px;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 0 20px var(--circuit-color);
+  box-shadow: 0 0 30px var(--terminal-cyan);
+  animation: slideIn 0.3s ease;
 }
 
 .mobile-menu-header {
@@ -140,7 +147,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  border-bottom: 1px solid var(--circuit-color-dim);
+  border-bottom: 1px solid var(--terminal-cyan-dim);
+  background: rgba(0, 255, 255, 0.05);
 }
 
 .mobile-menu-header h2 {
@@ -153,20 +161,22 @@
 
 .mobile-menu-close {
   background: transparent;
-  border: 1px solid var(--circuit-color);
-  color: var(--circuit-color);
+  border: 1px solid var(--terminal-red);
+  color: var(--terminal-red);
   padding: 8px 12px;
   font-family: var(--terminal-font);
   font-size: 1.2em;
   cursor: pointer;
-  border-radius: 4px;
   transition: all 0.3s ease;
+  text-shadow: 0 0 5px var(--terminal-red);
 }
 
 .mobile-menu-close:hover {
   background: var(--terminal-red);
   border-color: var(--terminal-red);
   color: var(--terminal-bg);
+  box-shadow: 0 0 15px var(--terminal-red);
+  text-shadow: none;
 }
 
 .mobile-nav-items {
@@ -175,35 +185,40 @@
 
 .mobile-nav-item {
   padding: 15px 20px;
-  margin: 5px 0;
-  border: 1px solid var(--circuit-color-dim);
+  margin: 8px 0;
+  border: 1px solid var(--terminal-cyan-dim);
   background: transparent;
-  color: var(--circuit-color);
+  color: var(--terminal-cyan);
   font-family: var(--terminal-font);
   font-size: var(--terminal-font-size);
   text-transform: lowercase;
   cursor: pointer;
   transition: all 0.3s ease;
-  border-radius: 4px;
   text-align: center;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px var(--terminal-cyan);
 }
 
 .mobile-nav-item:hover {
-  background: var(--circuit-color);
+  background: var(--terminal-cyan);
   color: var(--terminal-bg);
-  box-shadow: 0 0 10px var(--circuit-color);
+  box-shadow: 0 0 15px var(--terminal-cyan);
+  text-shadow: none;
+  border-color: var(--terminal-cyan);
 }
 
 .mobile-nav-item.active {
   background: var(--terminal-cyan);
   border-color: var(--terminal-cyan);
   color: var(--terminal-bg);
-  box-shadow: 0 0 15px var(--terminal-cyan);
+  box-shadow: 0 0 20px var(--terminal-cyan);
+  text-shadow: none;
 }
 
 .mobile-navbar-controls {
   padding: 20px;
-  border-top: 1px solid var(--circuit-color-dim);
+  border-top: 1px solid var(--terminal-cyan-dim);
+  background: rgba(0, 255, 255, 0.05);
 }
 
 .mobile-font-controls {
@@ -211,31 +226,45 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  color: var(--circuit-color);
+  color: var(--terminal-cyan);
   font-family: var(--terminal-font);
   font-size: var(--terminal-font-size);
+  text-transform: lowercase;
 }
 
 .mobile-font-controls .font-btn {
   background: transparent;
-  border: 1px solid var(--circuit-color);
-  color: var(--circuit-color);
+  border: 1px solid var(--terminal-cyan);
+  color: var(--terminal-cyan);
   padding: 5px 10px;
   font-family: var(--terminal-font);
   font-size: var(--terminal-font-size-small);
   cursor: pointer;
-  border-radius: 4px;
   transition: all 0.3s ease;
+  text-shadow: 0 0 5px var(--terminal-cyan);
 }
 
 .mobile-font-controls .font-btn:hover {
-  background: var(--circuit-color);
+  background: var(--terminal-cyan);
   color: var(--terminal-bg);
+  box-shadow: 0 0 10px var(--terminal-cyan);
+  text-shadow: none;
 }
 
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* Hide desktop navbar on mobile - both user agent and screen size based */

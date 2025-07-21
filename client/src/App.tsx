@@ -65,12 +65,15 @@ function App() {
     }
     
     // Map pathnames to page ids used by Navbar
-    if (path.startsWith('/settings')) setCurrentPage('settings')
-    else if (path.startsWith('/gettrackinfo')) setCurrentPage('getTrackInfo')
-    else if (path.startsWith('/playlisttools')) setCurrentPage('playlist-tools')
-    else if (path.startsWith('/albumshuffle')) setCurrentPage('albumshuffle')
-    else if (path.startsWith('/playlistcombiner')) setCurrentPage('playlistcombiner')
-    else setCurrentPage('dashboard')
+    const pageMap: Record<string, string> = {
+      '/settings': 'settings',
+      '/gettrackinfo': 'getTrackInfo',
+      '/playlisttools': 'playlist-tools',
+      '/albumshuffle': 'albumshuffle',
+      '/playlistcombiner': 'playlistcombiner',
+      '/': 'dashboard',
+    }
+    setCurrentPage(pageMap[path] || 'dashboard')
   }, [location.pathname, setError])
 
   // Update CSS variable and localStorage when font size changes
@@ -90,27 +93,14 @@ function App() {
   // Navigation handler for Navbar
   const handleNavigate = (pageId: string) => {
     setCurrentPage(pageId)
-    // Map pageId to route
-    switch (pageId) {
-      case 'settings':
-        navigate('/settings')
-        break
-      case 'getTrackInfo':
-        navigate('/gettrackinfo')
-        break
-      case 'playlist-tools':
-        navigate('/playlisttools')
-        break
-      case 'albumshuffle':
-        navigate('/albumshuffle')
-        break
-      case 'playlistcombiner':
-        navigate('/playlistcombiner')
-        break
-      default:
-        navigate('/')
-        break
+    const routes = {
+      settings: '/settings',
+      getTrackInfo: '/gettrackinfo',
+      'playlist-tools': '/playlisttools',
+      albumshuffle: '/albumshuffle',
+      playlistcombiner: '/playlistcombiner',
     }
+    navigate(routes[pageId] || '/')
   }
 
   // Logout handler
@@ -125,11 +115,17 @@ function App() {
   // Title mapping for each route
   const getTitle = () => {
     const path = location.pathname.toLowerCase()
-    if (path.startsWith('/settings')) return 'Settings'
-    if (path.startsWith('/gettrackinfo')) return 'Track Info'
-    if (path.startsWith('/playlisttools')) return 'Playlist Tools'
-    if (path.startsWith('/albumshuffle')) return 'Album Shuffle'
-    if (path.startsWith('/playlistcombiner')) return 'Playlist Combiner'
+    const titles = {
+      '/settings': 'Settings',
+      '/gettrackinfo': 'Track Info',
+      '/playlisttools': 'Playlist Tools',
+      '/albumshuffle': 'Album Shuffle',
+      '/playlistcombiner': 'Playlist Combiner',
+    }
+    
+    for (const [route, title] of Object.entries(titles)) {
+      if (path.startsWith(route)) return title
+    }
     return 'Dashboard'
   }
 

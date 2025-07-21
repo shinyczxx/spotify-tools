@@ -1,17 +1,27 @@
 {
   "name": "spotify-api-lib",
   "version": "1.0.0",
-  "description": "A TypeScript library for interacting with the Spotify Web API",
+  "description": "A modern, TypeScript-first wrapper for the Spotify Web API with organized endpoint categories and full type safety",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "jest",
     "lint": "eslint src/**/*.ts",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "typecheck": "tsc --noEmit"
   },
   "exports": {
     ".": {
@@ -30,10 +40,31 @@
     "spotify",
     "api",
     "music",
-    "typescript"
+    "typescript",
+    "web-api",
+    "spotify-web-api",
+    "playlists",
+    "tracks",
+    "albums",
+    "artists",
+    "player",
+    "search",
+    "oauth",
+    "streaming"
   ],
-  "author": "Your Name",
+  "author": {
+    "name": "Caleb Price",
+    "url": "https://github.com/yourusername"
+  },
   "license": "MIT",
+  "homepage": "https://github.com/yourusername/spotify-api-lib#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/spotify-api-lib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/spotify-api-lib/issues"
+  },
   "devDependencies": {
     "@types/jest": "^29.5.0",
     "@types/node": "^20.0.0",
