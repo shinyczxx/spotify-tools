@@ -30,29 +30,56 @@ import { SearchEndpoints } from './endpoints/search'
 import { PlayerEndpoints } from './endpoints/player'
 import { UserEndpoints } from './endpoints/user'
 
+// Endpoint classes mapping for optimized initialization
+const ENDPOINT_CLASSES = {
+  playlists: PlaylistEndpoints,
+  tracks: TrackEndpoints,
+  albums: AlbumEndpoints,
+  artists: ArtistEndpoints,
+  search: SearchEndpoints,
+  player: PlayerEndpoints,
+  user: UserEndpoints,
+} as const
+
 export class SpotifyApi {
   private httpClient: SpotifyHttpClient
 
   // Endpoint groups
-  public playlists: PlaylistEndpoints
-  public tracks: TrackEndpoints
-  public albums: AlbumEndpoints
-  public artists: ArtistEndpoints
-  public search: SearchEndpoints
-  public player: PlayerEndpoints
-  public user: UserEndpoints
+  public playlists!: PlaylistEndpoints
+  public tracks!: TrackEndpoints
+  public albums!: AlbumEndpoints
+  public artists!: ArtistEndpoints
+  public search!: SearchEndpoints
+  public player!: PlayerEndpoints
+  public user!: UserEndpoints
 
   constructor(accessToken?: string) {
+    // Validate access token format if provided
+    if (accessToken && !this.isValidTokenFormat(accessToken)) {
+      console.warn('SpotifyApi: Access token format appears invalid')
+    }
+
     this.httpClient = new SpotifyHttpClient(accessToken)
 
-    // Initialize endpoint groups
-    this.playlists = new PlaylistEndpoints(this.httpClient)
-    this.tracks = new TrackEndpoints(this.httpClient)
-    this.albums = new AlbumEndpoints(this.httpClient)
-    this.artists = new ArtistEndpoints(this.httpClient)
-    this.search = new SearchEndpoints(this.httpClient)
-    this.player = new PlayerEndpoints(this.httpClient)
-    this.user = new UserEndpoints(this.httpClient)
+    // Initialize endpoint groups using optimized pattern
+    this.initializeEndpoints()
+  }
+
+  /**
+   * Initialize all endpoint groups
+   */
+  private initializeEndpoints(): void {
+    for (const [name, EndpointClass] of Object.entries(ENDPOINT_CLASSES)) {
+      ;(this as any)[name] = new EndpointClass(this.httpClient)
+    }
+  }
+
+  /**
+   * Basic token format validation
+   */
+  private isValidTokenFormat(token: string): boolean {
+    // Spotify access tokens are typically 100+ characters and alphanumeric with some special chars
+    return typeof token === 'string' && token.length > 50 && /^[A-Za-z0-9_-]+$/.test(token)
   }
 
   /**
@@ -88,5 +115,19 @@ export class SpotifyApi {
    */
   public getHttpClient(): SpotifyHttpClient {
     return this.httpClient
+  }
+
+  /**
+   * Clean up resources and clear tokens
+   */
+  public destroy(): void {
+    this.clearAccessToken()
+    // Clear any cached data if endpoints have cleanup methods
+    Object.values(ENDPOINT_CLASSES).forEach((_, key) => {
+      const endpoint = (this as any)[Object.keys(ENDPOINT_CLASSES)[key]]
+      if (endpoint && typeof endpoint.cleanup === 'function') {
+        endpoint.cleanup()
+      }
+    })
   }
 }

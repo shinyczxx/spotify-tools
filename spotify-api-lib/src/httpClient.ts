@@ -13,7 +13,16 @@ export interface RequestOptions {
   data?: any
   params?: Record<string, any>
   headers?: Record<string, string>
+  retries?: number
 }
+
+export interface SpotifyApiError extends Error {
+  status?: number
+  response?: any
+}
+
+// HTTP status codes that should be retried
+const RETRYABLE_STATUS_CODES = new Set([408, 429, 500, 502, 503, 504])
 
 export class SpotifyHttpClient {
   private client: AxiosInstance
@@ -69,13 +78,14 @@ export class SpotifyHttpClient {
   }
 
   /**
-   * Make an HTTP request to the Spotify API
+   * Make an HTTP request to the Spotify API with improved error handling
    */
   async request<T = any>(endpoint: string, options?: RequestOptions): Promise<T> {
+    const maxRetries = options?.retries ?? 3
     let attempt = 0
-    const maxRetries = 5
-    let lastError: any = null
-    while (attempt < maxRetries) {
+    let lastError: SpotifyApiError | null = null
+
+    while (attempt <= maxRetries) {
       try {
         const config: AxiosRequestConfig = {
           url: endpoint,
@@ -84,30 +94,79 @@ export class SpotifyHttpClient {
           params: options?.params,
           headers: options?.headers,
         }
+        
         const response: AxiosResponse<T> = await this.client.request(config)
         return response.data
       } catch (error: any) {
-        lastError = error
-        // Handle 429 with Retry-After
-        if (error?.response?.status === 429) {
-          let retryAfter = 1
-          const header = error.response.headers?.['retry-after']
-          if (header) {
-            const parsed = parseInt(header, 10)
-            if (!isNaN(parsed)) retryAfter = parsed
-          }
-          console.warn(`Spotify API rate limited. Retrying after ${retryAfter} seconds (attempt ${attempt + 1}/${maxRetries})`)
-          await new Promise((res) => setTimeout(res, retryAfter * 1000))
-          attempt++
-          continue
+        const status = error?.response?.status
+        lastError = this.createSpotifyError(error)
+        
+        // Don't retry on first attempt for non-retryable errors
+        if (attempt === 0 && !this.isRetryableError(status)) {
+          throw lastError
         }
-        // For other errors, do not retry
-        console.error('Spotify API request failed:', error)
-        throw error
+        
+        // Handle rate limiting with exponential backoff
+        if (status === 429) {
+          const retryAfter = this.getRetryAfterDelay(error.response.headers?.['retry-after'])
+          console.warn(`Spotify API rate limited. Retrying after ${retryAfter}ms (attempt ${attempt + 1}/${maxRetries + 1})`)
+          await this.delay(retryAfter)
+        } else if (this.isRetryableError(status)) {
+          // Exponential backoff for other retryable errors
+          const delay = Math.min(1000 * Math.pow(2, attempt), 10000) + Math.random() * 1000
+          console.warn(`Spotify API error ${status}. Retrying after ${delay}ms (attempt ${attempt + 1}/${maxRetries + 1})`)
+          await this.delay(delay)
+        } else {
+          // Non-retryable error
+          throw lastError
+        }
+        
+        attempt++
       }
     }
-    // If we exhausted retries, throw last error
-    throw lastError || new Error('Spotify API request failed after retries')
+    
+    throw lastError || new Error('Spotify API request failed after all retries')
+  }
+
+  /**
+   * Check if an HTTP status code should be retried
+   */
+  private isRetryableError(status?: number): boolean {
+    return status ? RETRYABLE_STATUS_CODES.has(status) : false
+  }
+
+  /**
+   * Get retry delay from Retry-After header or default
+   */
+  private getRetryAfterDelay(retryAfterHeader?: string): number {
+    if (retryAfterHeader) {
+      const parsed = parseInt(retryAfterHeader, 10)
+      if (!isNaN(parsed)) {
+        return parsed * 1000 // Convert seconds to milliseconds
+      }
+    }
+    return 1000 // Default 1 second
+  }
+
+  /**
+   * Create a standardized error object
+   */
+  private createSpotifyError(error: any): SpotifyApiError {
+    const spotifyError: SpotifyApiError = new Error(
+      error?.response?.data?.error?.message || 
+      error?.message || 
+      'Spotify API request failed'
+    )
+    spotifyError.status = error?.response?.status
+    spotifyError.response = error?.response?.data
+    return spotifyError
+  }
+
+  /**
+   * Promise-based delay utility
+   */
+  private delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms))
   }
 
   /**

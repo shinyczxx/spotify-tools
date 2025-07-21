@@ -12,7 +12,12 @@ import { useSpotifyAuth } from '@hooks/auth/useSpotifyAuth'
 import { useCRTEffect } from '@hooks/ui/useCRTEffect'
 import { useGridBackground } from '@hooks/ui/useGridBackground'
 import { BetaWarning } from './components/BetaWarning'
+import { ErrorBanner } from './components/ErrorBanner'
 import CRTOverlay from './components/CRTOverlay'
+import { TIMING, STORAGE_KEYS } from './constants/app'
+import { ROUTES } from './constants/routes'
+import { getFontSizeFromStorage, setFontSize as setAppFontSize, validateFontSize } from './utils/fontSizeUtils'
+import { getPageIdFromPath, getRouteFromPageId, getTitleFromPath, handleSpecialNavigation } from './utils/routeUtils'
 import './App.css'
 
 import Dashboard from './pages/Dashboard'
@@ -35,14 +40,11 @@ function App() {
   const recentCallbackRef = useRef(false)
 
   // Font size state with robust default
-  const [fontSize, setFontSize] = useState<number>(() => {
-    const stored = Number(localStorage.getItem('terminal-font-size'))
-    return stored && stored >= 10 && stored <= 32 ? stored : 14
-  })
+  const [fontSize, setFontSize] = useState<number>(getFontSizeFromStorage)
 
   // Beta banner state
   const [betaBannerDismissed, setBetaBannerDismissed] = useState<boolean>(() => {
-    return localStorage.getItem('beta-banner-dismissed') === 'true'
+    return localStorage.getItem(STORAGE_KEYS.BETA_BANNER_DISMISSED) === 'true'
   })
 
   // Track current page for Navbar highlighting
@@ -53,54 +55,43 @@ function App() {
     const path = location.pathname.toLowerCase()
     
     // Track if we're on or coming from callback page
-    if (path.includes('/callback')) {
+    if (path.includes(ROUTES.CALLBACK)) {
       recentCallbackRef.current = true
-    } else if (recentCallbackRef.current && path.startsWith('/dashboard')) {
+    } else if (recentCallbackRef.current && path.startsWith(ROUTES.DASHBOARD)) {
       // Clear errors when navigating to dashboard from callback
       setError(null)
       // Clear the flag after a delay to allow auth flow to complete
       setTimeout(() => {
         recentCallbackRef.current = false
-      }, 2000)
+      }, TIMING.CALLBACK_CLEAR_DELAY)
     }
     
-    // Map pathnames to page ids used by Navbar
-    const pageMap: Record<string, string> = {
-      '/settings': 'settings',
-      '/gettrackinfo': 'getTrackInfo',
-      '/playlisttools': 'playlist-tools',
-      '/albumshuffle': 'albumshuffle',
-      '/playlistcombiner': 'playlistcombiner',
-      '/': 'dashboard',
-    }
-    setCurrentPage(pageMap[path] || 'dashboard')
+    // Set current page using utility function
+    setCurrentPage(getPageIdFromPath(path))
   }, [location.pathname, setError])
 
   // Update CSS variable and localStorage when font size changes
   useEffect(() => {
-    const safeFontSize = fontSize && fontSize >= 10 && fontSize <= 32 ? fontSize : 14
-    document.documentElement.style.setProperty('--terminal-font-size', `${safeFontSize}px`)
-    localStorage.setItem('terminal-font-size', String(safeFontSize))
+    const safeFontSize = setAppFontSize(fontSize)
     if (fontSize !== safeFontSize) setFontSize(safeFontSize)
   }, [fontSize])
 
   // Handle beta banner dismissal
   const handleDismissBetaBanner = () => {
     setBetaBannerDismissed(true)
-    localStorage.setItem('beta-banner-dismissed', 'true')
+    localStorage.setItem(STORAGE_KEYS.BETA_BANNER_DISMISSED, 'true')
   }
 
   // Navigation handler for Navbar
   const handleNavigate = (pageId: string) => {
-    setCurrentPage(pageId)
-    const routes = {
-      settings: '/settings',
-      getTrackInfo: '/gettrackinfo',
-      'playlist-tools': '/playlisttools',
-      albumshuffle: '/albumshuffle',
-      playlistcombiner: '/playlistcombiner',
+    // Handle special navigation cases (logout, external links)
+    if (handleSpecialNavigation(pageId, navigate, handleLogout)) {
+      return
     }
-    navigate(routes[pageId] || '/')
+    
+    setCurrentPage(pageId)
+    const route = getRouteFromPageId(pageId)
+    navigate(route)
   }
 
   // Logout handler
@@ -112,22 +103,8 @@ function App() {
     window.location.href = '/'
   }
 
-  // Title mapping for each route
-  const getTitle = () => {
-    const path = location.pathname.toLowerCase()
-    const titles = {
-      '/settings': 'Settings',
-      '/gettrackinfo': 'Track Info',
-      '/playlisttools': 'Playlist Tools',
-      '/albumshuffle': 'Album Shuffle',
-      '/playlistcombiner': 'Playlist Combiner',
-    }
-    
-    for (const [route, title] of Object.entries(titles)) {
-      if (path.startsWith(route)) return title
-    }
-    return 'Dashboard'
-  }
+  // Get title for current route
+  const getTitle = () => getTitleFromPath(location.pathname)
 
   return (
     <div className="app" style={{ minHeight: '100vh' }}>
@@ -140,42 +117,17 @@ function App() {
       )}
       
       {/* Only show error banner when user is authenticated and not during authentication flow */}
-      {error && user && !location.pathname.includes('/callback') && !loading && !recentCallbackRef.current && (
-        <div
-          className="error-banner"
-          style={{
-            position: 'fixed',
-            top: betaBannerDismissed ? '0' : '60px', // Adjust for beta banner
-            left: '0',
-            right: '0',
-            backgroundColor: '#FF4444',
-            color: '#FFFFFF',
-            padding: '8px 16px',
-            zIndex: 1000,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <span>{error}</span>
-          <button
-            onClick={() => setError(null as any)}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: '#FFFFFF',
-              fontSize: '18px',
-              cursor: 'pointer',
-            }}
-          >
-            ×
-          </button>
-        </div>
+      {error && user && !location.pathname.includes(ROUTES.CALLBACK) && !loading && !recentCallbackRef.current && (
+        <ErrorBanner
+          error={error}
+          onDismiss={() => setError(null)}
+          topOffset={betaBannerDismissed ? 0 : 60}
+        />
       )}
 
       <Routes>
         {/* OAuth callback route */}
-        <Route path="/callback" element={<CallbackPage />} />
+        <Route path={ROUTES.CALLBACK} element={<CallbackPage />} />
 
         {/* Authenticated routes wrapped in PageLayout */}
         {user && accessToken ? (
@@ -191,11 +143,11 @@ function App() {
                 onLogout={handleLogout}
               >
                 <Routes>
-                  <Route path="/settings" element={<Settings />} />
-                  <Route path="/gettrackinfo" element={<GetTrackInfo />} />
-                  <Route path="/playlisttools" element={<PlaylistTools />} />
-                  <Route path="/albumshuffle" element={<PlaylistTools />} />
-                  <Route path="/playlistcombiner" element={<PlaylistTools />} />
+                  <Route path={ROUTES.SETTINGS} element={<Settings />} />
+                  <Route path={ROUTES.GET_TRACK_INFO} element={<GetTrackInfo />} />
+                  <Route path={ROUTES.PLAYLIST_TOOLS} element={<PlaylistTools />} />
+                  <Route path={ROUTES.ALBUM_SHUFFLE} element={<PlaylistTools />} />
+                  <Route path={ROUTES.PLAYLIST_COMBINER} element={<PlaylistTools />} />
                   <Route path="*" element={<Dashboard />} />
                 </Routes>
               </PageLayout>

@@ -1,6 +1,6 @@
 {
   "name": "spotify-api-lib",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A modern, TypeScript-first wrapper for the Spotify Web API with organized endpoint categories and full type safety",
   "type": "module",
   "main": "dist/index.cjs",

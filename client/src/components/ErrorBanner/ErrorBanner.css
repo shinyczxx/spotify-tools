@@ -1,0 +1,42 @@
+/**
+ * @file ErrorBanner.css
+ * @description Error banner component styles
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-21
+ */
+
+.error-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #FF4444;
+  color: #FFFFFF;
+  padding: 8px 16px;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size);
+}
+
+.error-banner-close {
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.error-banner-close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.error-banner-close:focus {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 2px;
+}

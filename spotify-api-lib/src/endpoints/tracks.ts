@@ -18,80 +18,85 @@ export class TrackEndpoints extends BaseEndpoint {
     offset?: number
     market?: string
   }): Promise<SpotifyPagingObject<{ added_at: string; track: SpotifyTrack }>> {
-    try {
-      const params = {
-        limit: options?.limit || 50,
-        offset: options?.offset || 0,
-        ...(options?.market && { market: options.market }),
-      }
-
-      const response = await this.makeRequest<SpotifyPagingObject<{ added_at: string; track: SpotifyTrack }>>('/me/tracks', { params })
-      return response
-    } catch (error) {
-      console.error('Error fetching saved tracks:', error)
-      throw new Error('Failed to fetch saved tracks')
+    // Validate parameters
+    const limit = this.validateLimit(options?.limit, 50)
+    const offset = this.validateOffset(options?.offset)
+    
+    const params = {
+      limit,
+      offset,
+      ...(options?.market && { market: options.market }),
     }
+
+    return await this.get<SpotifyPagingObject<{ added_at: string; track: SpotifyTrack }>>('/me/tracks', params)
+  }
+
+  /**
+   * Validate limit parameter
+   */
+  private validateLimit(limit?: number, defaultValue: number = 20): number {
+    if (!limit) return defaultValue
+    return Math.min(Math.max(1, limit), 50) // Spotify API limit is 50
+  }
+
+  /**
+   * Validate offset parameter
+   */
+  private validateOffset(offset?: number): number {
+    return Math.max(0, offset || 0)
   }
 
   /**
    * Get albums from user's liked songs
    */
   async getLikedSongsAlbums(fetchLimit?: number): Promise<any[]> {
-    try {
-      const albumsMap = new Map<string, any>()
-      const singlesMap = new Map<string, any>()
-      let offset = 0
-      let fetchedItems = 0
-      const limit = 50
+    const albumsMap = new Map<string, any>()
+    const singlesMap = new Map<string, any>()
+    let offset = 0
+    let fetchedItems = 0
+    const limit = 50
 
-      while (!fetchLimit || fetchedItems < fetchLimit) {
-        const response = await this.makeRequest('/me/tracks', {
-          params: { limit, offset },
-        })
+    while (!fetchLimit || fetchedItems < fetchLimit) {
+      const response = await this.get('/me/tracks', { limit, offset })
+      const items = response.items
 
-        const items = response.items
+      if (items.length === 0) break
 
-        if (items.length === 0) break
+      fetchedItems += items.length
 
-        fetchedItems += items.length
-
-        items.forEach((item: any) => {
-          if (item.track && item.track.album) {
-            const album = item.track.album
-            if (album.album_type === 'single') {
-              singlesMap.set(album.id, {
-                id: album.id,
-                name: album.name,
-                artists: album.artists,
-                artistIds: album.artists.map((a: any) => a.id),
-                track: item.track.name,
-                images: album.images,
-                release_date: album.release_date,
-                album_type: album.album_type,
-              })
-            }
-            if (!albumsMap.has(album.id)) {
-              albumsMap.set(album.id, {
-                id: album.id,
-                name: album.name,
-                artists: album.artists.map((a: any) => a.name).join(', '),
-                release_date: album.release_date,
-                total_tracks: album.total_tracks,
-                images: album.images,
-                album_type: album.album_type,
-              })
-            }
+      items.forEach((item: any) => {
+        if (item.track && item.track.album) {
+          const album = item.track.album
+          if (album.album_type === 'single') {
+            singlesMap.set(album.id, {
+              id: album.id,
+              name: album.name,
+              artists: album.artists,
+              artistIds: album.artists.map((a: any) => a.id),
+              track: item.track.name,
+              images: album.images,
+              release_date: album.release_date,
+              album_type: album.album_type,
+            })
           }
-        })
+          if (!albumsMap.has(album.id)) {
+            albumsMap.set(album.id, {
+              id: album.id,
+              name: album.name,
+              artists: album.artists.map((a: any) => a.name).join(', '),
+              release_date: album.release_date,
+              total_tracks: album.total_tracks,
+              images: album.images,
+              album_type: album.album_type,
+            })
+          }
+        }
+      })
 
-        offset += limit
-      }
-
-      return Array.from(albumsMap.values())
-    } catch (error) {
-      console.error('Error fetching liked songs albums:', error)
-      throw new Error('Failed to fetch liked songs albums')
+      offset += limit
     }
+
+    return Array.from(albumsMap.values())
   }
 
   /**
@@ -103,18 +108,12 @@ export class TrackEndpoints extends BaseEndpoint {
       market?: string
     },
   ): Promise<SpotifyTrack> {
-    try {
-      const params: any = {}
-      if (options?.market) {
-        params.market = options.market
-      }
-
-      const response = await this.makeRequest<SpotifyTrack>(`/tracks/${trackId}`, { params })
-      return response
-    } catch (error) {
-      console.error('Error fetching track:', error)
-      throw new Error('Failed to fetch track')
+    const params: any = {}
+    if (options?.market) {
+      params.market = options.market
     }
+
+    return await this.get<SpotifyTrack>(`/tracks/${trackId}`, params)
   }
 
   /**
@@ -126,90 +125,48 @@ export class TrackEndpoints extends BaseEndpoint {
       market?: string
     },
   ): Promise<{ tracks: SpotifyTrack[] }> {
-    try {
-      const params: any = {
-        ids: trackIds.join(','),
-      }
-      if (options?.market) {
-        params.market = options.market
-      }
-
-      const response = await this.makeRequest<{ tracks: SpotifyTrack[] }>('/tracks', { params })
-      return response
-    } catch (error) {
-      console.error('Error fetching tracks:', error)
-      throw new Error('Failed to fetch tracks')
+    const params: any = {
+      ids: trackIds.join(','),
     }
+    if (options?.market) {
+      params.market = options.market
+    }
+
+    return await this.get<{ tracks: SpotifyTrack[] }>('/tracks', params)
   }
 
   /**
    * Save tracks for current user
    */
   async saveTracks(trackIds: string[]): Promise<void> {
-    try {
-      await this.makeRequest('/me/tracks', {
-        method: 'PUT',
-        data: { ids: trackIds },
-      })
-    } catch (error) {
-      console.error('Error saving tracks:', error)
-      throw new Error('Failed to save tracks')
-    }
+    await this.put('/me/tracks', { ids: trackIds })
   }
 
   /**
    * Remove tracks from current user's saved tracks
    */
   async removeTracks(trackIds: string[]): Promise<void> {
-    try {
-      await this.makeRequest('/me/tracks', {
-        method: 'DELETE',
-        data: { ids: trackIds },
-      })
-    } catch (error) {
-      console.error('Error removing tracks:', error)
-      throw new Error('Failed to remove tracks')
-    }
+    await this.delete('/me/tracks', { ids: trackIds })
   }
 
   /**
    * Check if tracks are saved for current user
    */
   async checkSavedTracks(trackIds: string[]): Promise<boolean[]> {
-    try {
-      const response = await this.makeRequest<boolean[]>('/me/tracks/contains', {
-        params: { ids: trackIds.join(',') },
-      })
-      return response
-    } catch (error) {
-      console.error('Error checking saved tracks:', error)
-      throw new Error('Failed to check saved tracks')
-    }
+    return await this.get<boolean[]>('/me/tracks/contains', { ids: trackIds.join(',') })
   }
 
   /**
    * Get audio features for a track
    */
   async getAudioFeatures(trackId: string): Promise<any> {
-    try {
-      const response = await this.makeRequest(`/audio-features/${trackId}`)
-      return response
-    } catch (error) {
-      console.error('Error fetching audio features:', error)
-      throw new Error('Failed to fetch audio features')
-    }
+    return await this.get(`/audio-features/${trackId}`)
   }
 
   /**
    * Get audio analysis for a track
    */
   async getAudioAnalysis(trackId: string): Promise<any> {
-    try {
-      const response = await this.makeRequest(`/audio-analysis/${trackId}`)
-      return response
-    } catch (error) {
-      console.error('Error fetching audio analysis:', error)
-      throw new Error('Failed to fetch audio analysis')
-    }
+    return await this.get(`/audio-analysis/${trackId}`)
   }
 }
