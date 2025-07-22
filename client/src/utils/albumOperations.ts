@@ -11,7 +11,7 @@ export type {
   AlbumFilters,
   ShuffleType,
   ShuffleResult
-} from '../../types/album'
+} from 'types/album'
 
 // Re-export utilities
 export { TrackRetrieval } from './album/trackRetrieval.utils'

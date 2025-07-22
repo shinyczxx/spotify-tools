@@ -49,3 +49,16 @@ export interface ShuffleResult {
   filters: AlbumFilters
   timestamp: number
 }
+
+// Additional legacy album types
+export interface LegacyAlbum {
+  id: string;
+  name: string;
+  artists: string;
+  artistIds: string[];
+  total_tracks: number | string;
+  release_date: string;
+  images: { url: string }[];
+  isSelected?: boolean;
+  album_type: string;
+}

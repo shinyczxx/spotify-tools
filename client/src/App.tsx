@@ -16,7 +16,7 @@ import { ErrorBanner } from './components/ErrorBanner'
 import CRTOverlay from './components/CRTOverlay'
 import { TIMING, STORAGE_KEYS } from './constants/app'
 import { ROUTES } from './constants/routes'
-import { getFontSizeFromStorage, setFontSize as setAppFontSize, validateFontSize } from './utils/fontSizeUtils'
+import { getFontSizeFromStorage, setFontSize as setAppFontSize, validateFontSize } from './utils/ui/fontSizeUtils'
 import { getPageIdFromPath, getRouteFromPageId, getTitleFromPath, handleSpecialNavigation } from './utils/routeUtils'
 import './App.css'
 

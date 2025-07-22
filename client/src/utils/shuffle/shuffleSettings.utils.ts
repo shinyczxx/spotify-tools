@@ -6,9 +6,9 @@
  * @date 2025-07-22
  */
 
-import { SpotifyAlbum } from './spotifyApi'
+import { SpotifyAlbum } from 'spotify-api-lib'
 import { AdvancedShuffleEngine } from './shuffleEngine.utils'
-import { AdvancedShuffleConfig, ShuffleContext } from '../../../types/albumShuffle'
+import { AdvancedShuffleConfig, ShuffleContext } from 'types/albumShuffle'
 
 /**
  * Default advanced shuffle settings

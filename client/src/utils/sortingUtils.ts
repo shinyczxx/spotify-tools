@@ -10,7 +10,7 @@
  */
 
 // Re-export types for backward compatibility
-export type { PlaylistItem, AlbumItem } from '../types/spotify'
+export type { PlaylistItem, AlbumItem } from 'types/spotify'
 
 /**
  * Standardizes a PlaylistItem or AlbumItem into a sortable object.

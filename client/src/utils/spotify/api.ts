@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { refreshSpotifyToken } from './spotifyAuth'
+import { refreshSpotifyToken } from '../auth/spotifyAuth'
 
 const api = axios.create({
   baseURL: 'https://api.spotify.com/v1',

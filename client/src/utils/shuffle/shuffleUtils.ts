@@ -10,8 +10,8 @@
  */
 
 import type { SpotifyAlbum, SpotifyTrack } from 'spotify-api-lib'
-import type { ShuffledTrack } from '@types/playlist'
-import api from './api'
+import type { ShuffledTrack } from 'types/playlist'
+import api from '../spotify/api'
 
 export type ShuffleAlgorithm = 'random' | 'weighted-newer' | 'weighted-older' | 'chronological' | 'spiral-dance'
 

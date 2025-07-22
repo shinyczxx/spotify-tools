@@ -6,11 +6,11 @@
  * @date 2025-07-22
  */
 
-import { SpotifyApi, SpotifyAlbum, SpotifyTrack } from './spotifyApi'
-import { LastFm } from './lastFmApi'
-import { LastFmFinder } from './lastFmFinder'
-import { LastFmRelated } from './lastFmRelated'
-import { AdvancedShuffleConfig, ShuffleContext, AlbumScore } from '../../../types/albumShuffle'
+import { SpotifyAlbum, SpotifyTrack } from 'spotify-api-lib'
+import LastFm from 'lastfm-api-lib'
+import LastFmFinder from '../lastFmFinder'
+import LastFmRelated from '../lastFmRelated'
+import { AdvancedShuffleConfig, ShuffleContext, AlbumScore } from 'types/albumShuffle'
 
 /**
  * Advanced album shuffle engine with Last.fm integration
