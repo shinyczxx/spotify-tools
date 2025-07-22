@@ -45,7 +45,8 @@ export function clearPlaylistsWithTTLCache(): void {
  * @date 2025-07-07
  */
 
-import { SpotifyAlbum, AlbumFilters } from './albumOperations'
+import { SpotifyAlbum } from 'spotify-api-lib'
+import type { AlbumFilters } from '../../types/album'
 
 export interface PlaylistMetadata {
   id: string

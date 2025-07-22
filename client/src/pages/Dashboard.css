@@ -9,20 +9,12 @@
  * - v1.0.0: Initial responsive dashboard layout with consistent spacing
  */
 
+/* Dashboard Container - extends wireframe-container */
 .dashboard-container {
-  padding: 1.5em;
-  max-width: 100%;
-  margin: 0 auto;
-  width: 100%;
-  box-sizing: border-box;
+  /* Padding and box-sizing inherited from wireframe-container */
 }
 
-.wireframe-container {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden;
-}
+/* Removed - redundant with parent wireframe-container */
 
 .dashboard-header {
   display: flex;
@@ -30,7 +22,7 @@
   align-items: center;
   margin-bottom: 1em;
   padding-bottom: 0em;
-  border-bottom: 1px solid var(--terminal-cyan-dim);
+  border-bottom: var(--wireframe-border);
   flex-wrap: wrap;
   gap: 1em;
 }
@@ -112,9 +104,7 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .dashboard-container {
-    padding: 1em;
-  }
+  /* Container padding handled by parent wireframe-container */
 
   .dashboard-header {
     flex-direction: column;
@@ -139,9 +129,7 @@
 }
 
 @media (max-width: 480px) {
-  .dashboard-container {
-    padding: 0.75em;
-  }
+  /* Container padding handled by parent wireframe-container */
 
   .dashboard-nav-grid {
     gap: 0.75em;

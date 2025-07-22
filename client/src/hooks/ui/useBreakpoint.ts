@@ -10,21 +10,24 @@
  */
 
 import { useState, useCallback } from 'react'
-import { GRID_CONFIG } from '@config/flowLayoutConfig'
-
 export type Breakpoint = 'mobile' | 'tablet' | 'desktop'
+
+const BREAKPOINTS = {
+  mobile: 768,
+  tablet: 1024,
+}
 
 export function useBreakpoint(initialWidth: number): [Breakpoint, (width: number) => void] {
   const [currentBreakpoint, setCurrentBreakpoint] = useState<Breakpoint>(() => {
-    if (initialWidth <= GRID_CONFIG.mobileBreakpoint) return 'mobile'
-    if (initialWidth <= GRID_CONFIG.tabletBreakpoint) return 'tablet'
+    if (initialWidth <= BREAKPOINTS.mobile) return 'mobile'
+    if (initialWidth <= BREAKPOINTS.tablet) return 'tablet'
     return 'desktop'
   })
 
   const updateBreakpoint = useCallback((width: number) => {
-    if (width <= GRID_CONFIG.mobileBreakpoint) {
+    if (width <= BREAKPOINTS.mobile) {
       setCurrentBreakpoint('mobile')
-    } else if (width <= GRID_CONFIG.tabletBreakpoint) {
+    } else if (width <= BREAKPOINTS.tablet) {
       setCurrentBreakpoint('tablet')
     } else {
       setCurrentBreakpoint('desktop')

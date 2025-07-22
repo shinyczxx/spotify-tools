@@ -9,6 +9,7 @@
  * - v1.0.0: Initial responsive login layout with consistent spacing
  */
 
+/* Login Container - extends wireframe-container */
 .login-container {
   display: flex;
   flex-direction: column;
@@ -16,11 +17,9 @@
   justify-content: center;
   min-height: 80vh;
   gap: 2em;
-  max-width: 80em; /* Increased width */
+  max-width: 80em;
   margin: 0 auto;
-  padding: 1.5em;
-  width: 100%;
-  box-sizing: border-box;
+  /* Padding and box-sizing inherited from wireframe-container */
 }
 
 .login-panel {
@@ -53,18 +52,20 @@
   width: 100%;
 }
 
+/* Feature Box Title - uses wireframe panel title styling */
 .feature-box h4 {
   color: var(--terminal-cyan-bright);
   margin: 0 0 0.6em 0;
-  font-size: 1em;
+  font-size: var(--terminal-font-size-large);
   text-shadow: var(--glow-cyan);
 }
 
+/* Feature List - extends wireframe panel content */
 .feature-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 0.8em;
+  font-size: var(--terminal-font-size-small);
   line-height: 1.4;
 }
 
@@ -89,8 +90,8 @@
 }
 
 .footer-privacy {
-  margin: 0 0 0.5em 0;
-  font-size: 0.7em;
+  margin: 0;
+  font-size: var(--terminal-font-size-small);
   opacity: 0.5;
 }
 
@@ -102,7 +103,7 @@
 .wireframe-container:has(.login-container) {
   width: 100%;
   max-width: none;
-  padding: 1em;
+  /* Padding handled by wireframe-container base */
 }
 
 /* Ensure all panels have consistent width */
@@ -117,17 +118,16 @@
   min-height: 8em; /* Consistent height */
 }
 
-/* Constrain button width in login content */
+/* Constrain button width - box-sizing inherited from wireframe-button */
 .login-content .wireframe-button {
   max-width: 100%;
-  box-sizing: border-box;
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   .login-container {
     gap: 1.5em;
-    padding: 1em;
+    /* Padding handled by wireframe-container */
     min-height: 70vh;
   }
 
@@ -151,7 +151,7 @@
 
 @media (max-width: 480px) {
   .login-container {
-    padding: 0.75em;
+    /* Padding handled by wireframe-container */
     gap: 1.25em;
   }
 

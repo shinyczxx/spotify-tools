@@ -2,32 +2,19 @@
  * @file AlbumHistoryModal.css
  * @description Styles for the Album History Modal with circuit board theme
  * @author Caleb Price
- * @version 1.0.0
- * @date 2025-07-15
+ * @version 1.1.0
+ * @date 2025-07-22
  */
 
+@import '../../styles/modals.css';
+
+/* Use shared modal classes */
 .album-history-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 1em;
-  box-sizing: border-box;
+  /* Inherits from modal-overlay-base */
 }
 
 .album-history-modal {
-  width: 100%;
-  max-width: 600px;
-  max-height: 80vh;
-  overflow: hidden;
-  border-radius: 0;
-  box-shadow: 0 0 20px var(--terminal-cyan), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  /* Inherits from modal-container-base */
 }
 
 .history-modal-panel {
@@ -38,12 +25,164 @@
 }
 
 .history-modal-content {
+  /* Inherits from modal-content-base */
+}
+
+/* Additional specific styles for AlbumHistoryModal */
+.album-history-content {
+  margin-bottom: 20px;
+}
+
+.cache-stats-header {
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
-  padding: 1em;
-  gap: 1em;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.cache-stats-title {
+  color: var(--terminal-cyan-bright);
+  margin: 0;
+  font-size: 14px;
+}
+
+.tooltip-content-container {
+  max-width: 300px;
+}
+
+.tooltip-footer {
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Removed - replaced with inline version above */
+
+.cache-stats-grid {
+  background: var(--terminal-gray-dim);
+  border: var(--wireframe-border);
+  padding: 15px;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  font-size: var(--terminal-font-size-small);
+}
+
+.cache-loading {
+  padding: 20px;
+  text-align: center;
+  color: var(--terminal-cyan-dim);
+  font-style: italic;
+}
+
+.cache-management-section {
+  margin-bottom: 20px;
+}
+
+.cache-management-title {
+  color: var(--terminal-cyan-bright);
+  margin: 0 0 10px 0;
+  font-size: var(--terminal-font-size-small);
+}
+
+/* Moved above */
+
+.how-it-works-section {
+  margin-bottom: 20px;
+}
+
+.how-it-works-title {
+  color: var(--terminal-cyan-bright);
+  margin: 0 0 10px 0;
+  font-size: 13px;
+}
+
+.how-it-works {
+  font-size: 12px;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+.how-it-works p {
+  margin: 0 0 8px 0;
+}
+
+.no-history-message {
+  padding: 20px;
+  text-align: center;
+  border: 1px solid var(--terminal-cyan-dim);
+  background: var(--terminal-gray-dim);
+  margin-bottom: 20px;
+}
+
+.cache-active-message {
+  padding: 15px;
+  border: 1px solid var(--terminal-green);
+  background: rgba(0, 255, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.cache-active-title {
+  margin: 0 0 8px 0;
+  color: var(--terminal-green);
+  font-weight: bold;
+}
+
+.cache-active-description {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.no-history-title {
+  margin: 0 0 8px 0;
+  font-weight: bold;
+}
+
+.no-history-subtitle {
+  margin: 0;
+  font-size: var(--terminal-font-size-small);
+  opacity: 0.8;
+}
+
+.cache-actions {
+  padding: 15px;
+  border: var(--wireframe-border);
+  background: var(--terminal-gray-dim);
+  margin-bottom: 20px;
+}
+
+.cache-actions-title {
+  margin: 0 0 15px 0;
+  color: var(--terminal-cyan-bright);
+  font-size: var(--terminal-font-size-small);
+  font-weight: bold;
+}
+
+.cache-warning {
+  background: rgba(255, 136, 0, 0.1);
+  border: 1px solid var(--terminal-orange);
+  padding: 12px;
+  margin-bottom: 15px;
+  font-size: var(--terminal-font-size-small);
+  border-radius: 3px;
+}
+
+.cache-warning strong {
+  color: var(--terminal-orange);
+}
+
+.clear-cache-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.clear-cache-description {
+  flex: 1;
+  font-size: var(--terminal-font-size-small);
+  opacity: 0.9;
 }
 
 .no-history {
@@ -59,33 +198,7 @@
 }
 
 .history-list {
-  flex: 1;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75em;
-  min-height: 0;
-  padding-right: 0.5em;
-  /* Custom scrollbar styling */
-  scrollbar-width: thin;
-  scrollbar-color: var(--terminal-cyan) transparent;
-}
-
-.history-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.history-list::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.history-list::-webkit-scrollbar-thumb {
-  background: var(--terminal-cyan);
-  border-radius: 0;
-}
-
-.history-list::-webkit-scrollbar-thumb:hover {
-  background: var(--terminal-cyan-bright);
+  /* Inherits scrollbar styling from modal-scrollable-content */
 }
 
 .history-entry {
@@ -137,26 +250,22 @@
 
 .modal-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 0.5em;
-  padding-top: 1em;
-  border-top: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
-  flex-shrink: 0;
+  gap: 10px;
+  justify-content: space-between;
 }
 
-/* Responsive design */
+.modal-actions-left {
+  display: flex;
+  gap: 10px;
+}
+
+.clear-cache-button {
+  background: var(--terminal-red-dim);
+  border-color: var(--terminal-red);
+}
+
+/* Responsive design - inherits from modals.css */
 @media (max-width: 768px) {
-  .album-history-modal-overlay {
-    padding: 0.5em;
-  }
-
-  .album-history-modal {
-    max-height: 90vh;
-  }
-
-  .history-modal-content {
-    padding: 0.75em;
-  }
 
   .history-entry {
     padding: 0.75em;
@@ -167,28 +276,10 @@
   }
 }
 
-/* Animation */
-@keyframes modalFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.album-history-modal {
-  animation: modalFadeIn 0.2s ease-out;
-}
+/* Animation - inherits from modals.css */
 
 /* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
-  .album-history-modal {
-    animation: none;
-  }
-
   .history-entry {
     transition: none;
   }

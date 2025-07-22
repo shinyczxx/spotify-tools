@@ -2,40 +2,29 @@
  * @file ColorVariablesModal.css
  * @description Modal overlay styling for color variable editor with circuit board aesthetic
  * @author Caleb Price
- * @version 1.0.0
- * @date 2024-12-19
+ * @version 1.1.0
+ * @date 2025-07-22
  *
  * @ChangeLog
+ * - v1.1.0: Refactored to use shared modal base classes, removed duplication
  * - v1.0.0: Initial implementation with responsive modal layout and circuit board styling
  */
 
+@import '../../styles/modals.css';
+
+/* Use shared modal base classes */
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 1em;
+  /* Inherits from modal-overlay-base */
 }
 
 .modal-container {
+  /* Inherits from modal-container-base with custom max-width */
   max-width: 60em;
-  max-height: 80vh;
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 .modal-content-panel {
+  /* Inherits from modal-content-base */
   height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 .modal-header {
@@ -62,9 +51,31 @@
 }
 
 .color-variables-modal {
+  /* Uses modal-scrollable-content pattern */
   padding: 1.5em;
   overflow-y: auto;
   flex: 1;
+  /* Shared scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--terminal-cyan) transparent;
+}
+
+/* Use shared scrollbar webkit styles */
+.color-variables-modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.color-variables-modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.color-variables-modal::-webkit-scrollbar-thumb {
+  background: var(--terminal-cyan);
+  border-radius: 0;
+}
+
+.color-variables-modal::-webkit-scrollbar-thumb:hover {
+  background: var(--terminal-cyan-bright);
 }
 
 .modal-description {
@@ -157,24 +168,20 @@
 }
 
 .modal-actions {
+  /* Inherits from modal-actions-base with custom styling */
   display: flex;
   gap: 1em;
   justify-content: flex-end;
   padding-top: 1.5em;
-  border-top: 1px solid var(--border-color, #333333);
+  border-top: var(--wireframe-border);
   margin-top: 1.5em;
+  flex-shrink: 0;
 }
 
-/* Responsive design */
+/* Responsive design - extends shared modal responsive patterns */
 @media (max-width: 768px) {
-  .modal-overlay {
-    padding: 0.5em;
-  }
-
-  .modal-container {
-    max-height: 90vh;
-  }
-
+  /* Modal overlay and container inherit from shared responsive styles */
+  
   .color-grid {
     grid-template-columns: 1fr;
   }

@@ -2,29 +2,23 @@
  * @file PlaylistModal.css
  * @description Styles for the reusable playlist modal component
  * @author Caleb Price
- * @version 1.0.0
- * @date 2025-07-07
+ * @version 1.1.0
+ * @date 2025-07-22
  * 
  * @ChangeLog
+ * - 1.1.0: Refactored to use shared modal base classes, removed duplication
  * - 1.0.0: Initial implementation with flexible layout and common modal patterns
  */
 
-/* Modal overlay and container */
+@import '../../styles/modals.css';
+
+/* Use shared modal base classes */
 .playlist-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: 1em;
+  /* Inherits from modal-overlay-base */
 }
 
 .playlist-modal {
+  /* Inherits from modal-container-base with custom animation */
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
@@ -72,7 +66,7 @@
 
 .playlist-modal-summary {
   background-color: rgba(0, 255, 255, 0.1);
-  border: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
+  border: var(--wireframe-border);
   border-radius: 2px;
   padding: 0.75em;
 }
@@ -104,25 +98,46 @@
 .playlist-modal-preview {
   max-height: 300px;
   overflow-y: auto;
-  border: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
+  border: var(--wireframe-border);
   border-radius: 2px;
   padding: 0.75em;
+  /* Use shared scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--terminal-cyan) transparent;
+}
+
+/* Use shared scrollbar webkit styles for preview */
+.playlist-modal-preview::-webkit-scrollbar {
+  width: 6px;
+}
+
+.playlist-modal-preview::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.playlist-modal-preview::-webkit-scrollbar-thumb {
+  background: var(--terminal-cyan);
+  border-radius: 0;
+}
+
+.playlist-modal-preview::-webkit-scrollbar-thumb:hover {
+  background: var(--terminal-cyan-bright);
 }
 
 .playlist-modal-actions {
+  /* Inherits from modal-actions-base pattern */
   display: flex;
   justify-content: flex-end;
   gap: 1em;
   margin-top: 1em;
   padding-top: 1em;
-  border-top: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
+  border-top: var(--wireframe-border);
+  flex-shrink: 0;
 }
 
-/* Responsive design */
+/* Responsive design - extends shared modal responsive patterns */
 @media (max-width: 600px) {
-  .playlist-modal-overlay {
-    padding: 0.5em;
-  }
+  /* Modal overlay inherits from shared responsive styles */
   
   .playlist-modal-actions {
     flex-direction: column;

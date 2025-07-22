@@ -24,7 +24,12 @@
       "WebFetch(domain:codepen.io)",
       "WebFetch(domain:st.czxx.io)",
       "Bash(rm:*)",
-      "Bash(ls:*)"
+      "Bash(git restore:*)",
+      "Bash(npm run:*)",
+      "Bash(ls:*)",
+      "Bash(mv:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)"
     ],
     "deny": []
   }

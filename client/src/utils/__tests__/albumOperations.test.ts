@@ -18,7 +18,9 @@ jest.mock('../api', () => ({
   },
 }))
 
-import { shuffleAlbums, generatePlaylistName, SpotifyAlbum, ShuffleType } from '../albumOperations'
+import { shuffleAlbums, generatePlaylistName } from '../albumOperations'
+import { SpotifyAlbum } from 'spotify-api-lib'
+import type { ShuffleType } from '../../../types/album'
 
 // Mock albums for testing
 const mockAlbums: SpotifyAlbum[] = [

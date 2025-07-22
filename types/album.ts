@@ -32,3 +32,20 @@ export interface CreatedPlaylist {
   includedAlbums: PlaylistAlbum[];
   url?: string;
 }
+
+// Album operations interfaces
+export interface AlbumFilters {
+  includeSingles: boolean
+  includeCompilations: boolean
+  albumCount: number
+  shuffleType: ShuffleType
+}
+
+export type ShuffleType = 'random' | 'weighted' | 'weighted-older' | 'chronological'
+
+export interface ShuffleResult {
+  albums: any[] // SpotifyAlbum from spotify-api-lib
+  shuffleType: ShuffleType
+  filters: AlbumFilters
+  timestamp: number
+}

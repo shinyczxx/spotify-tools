@@ -28,6 +28,8 @@
   "dependencies": {
     "axios": "^1.10.0",
     "jest-environment-jsdom": "^29.7.0",
+    "js-sha256": "^0.11.1",
+    "lastfm-api-lib": "file:../lastfm-api-lib",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "spotify-api-lib": "file:../spotify-api-lib",
