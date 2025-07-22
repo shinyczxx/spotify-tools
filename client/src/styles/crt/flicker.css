@@ -1,0 +1,98 @@
+/**
+ * @file flicker.css
+ * @description CRT flicker and glow animations
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+/* Screen flicker animation */
+.crt-flicker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  animation: crt-flicker 0.15s linear infinite;
+  opacity: calc(var(--crt-flicker-enabled) * var(--crt-intensity));
+  mix-blend-mode: overlay;
+}
+
+@keyframes crt-flicker {
+  0% {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.01);
+  }
+  2% {
+    opacity: 0.98;
+    background: rgba(255, 255, 255, 0.005);
+  }
+  4% {
+    opacity: 1;
+    background: rgba(0, 255, 255, 0.008);
+  }
+  8% {
+    opacity: 0.99;
+    background: rgba(255, 255, 255, 0.003);
+  }
+  10% {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.01);
+  }
+  96% {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.01);
+  }
+  98% {
+    opacity: 0.97;
+    background: rgba(0, 255, 255, 0.012);
+  }
+  100% {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.01);
+  }
+}
+
+/* More subtle flicker variant */
+.crt-flicker-subtle {
+  animation: crt-flicker-subtle 3s ease-in-out infinite;
+}
+
+@keyframes crt-flicker-subtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.98;
+  }
+}
+
+/* Glow pulse effect */
+.crt-glow {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(0, 255, 255, 0.03) 70%,
+    rgba(0, 255, 255, 0.01) 90%,
+    transparent 100%
+  );
+  animation: crt-glow-pulse 4s ease-in-out infinite;
+  opacity: calc(var(--crt-intensity) * 0.8);
+}
+
+@keyframes crt-glow-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: calc(var(--crt-intensity) * 0.8);
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: calc(var(--crt-intensity) * 0.6);
+  }
+}

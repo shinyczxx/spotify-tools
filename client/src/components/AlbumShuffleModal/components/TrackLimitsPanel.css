@@ -1,0 +1,156 @@
+/**
+ * @file TrackLimitsPanel.css
+ * @description Styles for the track limits panel component
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+.track-limits-panel {
+  border-top: none;
+}
+
+.track-limits-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.limit-setting {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.limit-label {
+  color: var(--circuit-color);
+  white-space: nowrap;
+  min-width: 80px;
+}
+
+.limit-input {
+  padding: 0.5em;
+  border: 1px solid var(--circuit-color);
+  background: var(--terminal-bg);
+  color: var(--circuit-color);
+  font-size: var(--terminal-font-size);
+  font-family: var(--terminal-font);
+  border-radius: 0;
+  transition: var(--wireframe-transition);
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+}
+
+.limit-input::-webkit-outer-spin-button,
+.limit-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.album-count-input {
+  width: 80px;
+}
+
+.track-count-input {
+  width: 100px;
+}
+
+.limit-input:hover:not(:disabled) {
+  border-color: var(--terminal-cyan-bright);
+  background: rgba(0, 255, 255, 0.05);
+}
+
+.limit-input:focus {
+  outline: none;
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+.limit-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.random-button {
+  background: var(--terminal-bg);
+  border: 1px solid var(--terminal-cyan);
+  color: var(--terminal-cyan);
+  padding: 0.5em 1em;
+  font-size: 0.9em;
+}
+
+.random-button:hover:not(:disabled) {
+  background: rgba(0, 255, 255, 0.1);
+  border-color: var(--terminal-cyan-bright);
+  color: var(--terminal-cyan-bright);
+}
+
+.random-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.limit-note {
+  color: var(--circuit-color-dim);
+  font-size: 0.9em;
+}
+
+.track-limit-mode {
+  align-items: flex-start;
+}
+
+.mode-label-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.toggle-container {
+  width: 200px;
+}
+
+.mode-tooltip div {
+  margin-bottom: 0.5em;
+}
+
+.mode-tooltip div:last-child {
+  margin-bottom: 0;
+}
+
+.mode-tooltip strong {
+  color: var(--terminal-cyan);
+}
+
+.track-status {
+  padding: 0.5em;
+  font-size: 0.9em;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.track-status.success {
+  border: 1px solid var(--circuit-color-dim);
+  background: rgba(0, 255, 255, 0.05);
+  color: var(--circuit-color);
+}
+
+.track-status.warning {
+  border: 1px solid var(--warning, #ffa500);
+  background: rgba(255, 165, 0, 0.1);
+  color: var(--warning, #ffa500);
+}
+
+.status-icon {
+  flex-shrink: 0;
+}
+
+.status-text {
+  line-height: 1.4;
+}
+
+.excluded-count {
+  margin-left: 0.5em;
+}

@@ -1,0 +1,125 @@
+/**
+ * @file PlaylistCombinerModal.css
+ * @description Styles for playlist combiner modal components
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+/* Modal overlay and container */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 8, 17, 0.9);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-container {
+  background: var(--terminal-bg);
+  border: 2px solid var(--terminal-cyan);
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+/* Form sections */
+.shuffle-settings-section {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.playlist-metadata-section {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-select {
+  padding: 6px 10px;
+  border: 1px solid var(--terminal-cyan);
+  background: var(--terminal-bg);
+  color: var(--terminal-cyan);
+}
+
+.form-input {
+  padding: 6px 10px;
+  border: 1px solid var(--terminal-cyan);
+  background: var(--terminal-bg);
+  color: var(--terminal-cyan);
+}
+
+.playlist-name-input {
+  min-width: 200px;
+}
+
+/* Track preview section */
+.track-preview-section {
+  margin-bottom: 20px;
+}
+
+.preview-title {
+  color: var(--terminal-cyan-bright);
+  margin-bottom: 10px;
+}
+
+.preview-container {
+  max-height: 300px;
+  overflow: auto;
+  border: 1px solid var(--terminal-cyan);
+  padding: 10px;
+}
+
+.preview-track-item {
+  padding: 4px 0;
+  border-bottom: 1px solid var(--terminal-cyan-dim);
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.track-artist {
+  opacity: 0.7;
+}
+
+/* Action buttons section */
+.action-buttons-section {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.primary-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.create-playlist-button {
+  background: var(--terminal-green);
+  color: var(--terminal-bg);
+  font-weight: 700;
+}
+
+.lastfm-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.lastfm-checkbox {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

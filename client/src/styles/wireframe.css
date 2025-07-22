@@ -257,4 +257,36 @@
   padding: 1.5em; /* Equal top and bottom spacing */
 }
 
+/* Wireframe select layout classes */
+.wireframe-select-container {
+  display: flex;
+}
+
+.wireframe-select-container-label-top {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.wireframe-select-container-label-right {
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.wireframe-select-container-label-left {
+  flex-direction: row;
+  align-items: center;
+}
+
+.wireframe-select-container-label-none {
+  align-items: stretch;
+}
+
+.wireframe-select-container-with-gap {
+  gap: 0.5em;
+}
+
+.wireframe-select-container-no-gap {
+  gap: 0;
+}
+
 /* Checkbox styles are now handled in select-checkbox-merged.css */

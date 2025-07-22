@@ -1,0 +1,119 @@
+/**
+ * @file modals.css
+ * @description Shared modal patterns to eliminate duplication across components
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+/* Base Modal Overlay - Shared across all modals */
+.modal-overlay-base {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+/* Standard Modal Container */
+.modal-container-base {
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow: hidden;
+  border-radius: 0;
+  box-shadow: 0 0 20px var(--terminal-cyan), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+/* Modal Content Area */
+.modal-content-base {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  padding: 1em;
+  gap: 1em;
+}
+
+/* Modal Actions Footer */
+.modal-actions-base {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5em;
+  padding-top: 1em;
+  border-top: var(--wireframe-border);
+  flex-shrink: 0;
+}
+
+/* Scrollable Content Area */
+.modal-scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  min-height: 0;
+  padding-right: 0.5em;
+  /* Shared scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--terminal-cyan) transparent;
+}
+
+.modal-scrollable-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-scrollable-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-scrollable-content::-webkit-scrollbar-thumb {
+  background: var(--terminal-cyan);
+  border-radius: 0;
+}
+
+.modal-scrollable-content::-webkit-scrollbar-thumb:hover {
+  background: var(--terminal-cyan-bright);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modal-overlay-base {
+    padding: 0.5em;
+  }
+
+  .modal-container-base {
+    max-height: 90vh;
+  }
+
+  .modal-content-base {
+    padding: 0.75em;
+  }
+}
+
+/* Animation */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .modal-container-base {
+    animation: none;
+  }
+}

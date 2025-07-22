@@ -1,0 +1,99 @@
+/**
+ * @file PlaylistSelector.sort.css
+ * @description Sort controls and pagination controls for PlaylistSelector
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+/* Sort Controls */
+.sort-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75em 1em;
+  background-color: rgba(0, 255, 255, 0.05);
+  border-bottom: var(--wireframe-border);
+  font-family: var(--terminal-font);
+  color: var(--terminal-cyan);
+  flex-wrap: wrap;
+  gap: 1em;
+  transition: var(--wireframe-transition);
+}
+
+.sort-controls:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  border-bottom-color: var(--terminal-cyan-bright);
+}
+
+.sort-section {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.items-per-page-section {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.items-per-page-select {
+  background-color: var(--terminal-bg);
+  border: var(--wireframe-border);
+  color: var(--terminal-cyan);
+  padding: 0.25em 0.5em;
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size-small);
+  cursor: pointer;
+  transition: var(--wireframe-transition);
+  border-radius: 0;
+}
+
+.items-per-page-select:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  border-color: var(--terminal-cyan-bright);
+}
+
+.items-per-page-select:focus {
+  outline: none;
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+/* Sort buttons using wireframe patterns */
+.sort-btn {
+  background-color: var(--terminal-bg);
+  border: 1px solid var(--terminal-cyan-dim);
+  color: var(--terminal-cyan);
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size-small);
+  transition: var(--wireframe-transition);
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  border-left: 2px solid var(--terminal-cyan-dim);
+  border-radius: 0;
+}
+
+.sort-btn:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  border-left-color: var(--terminal-cyan);
+  color: var(--terminal-cyan-bright);
+}
+
+.sort-btn:focus {
+  outline: none;
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+.sort-btn.active {
+  background-color: rgba(0, 255, 255, 0.2);
+  border-color: var(--terminal-cyan);
+  border-left-color: var(--terminal-cyan-bright);
+  color: var(--terminal-bg);
+}

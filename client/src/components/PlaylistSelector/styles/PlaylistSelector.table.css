@@ -1,0 +1,248 @@
+/**
+ * @file PlaylistSelector.table.css
+ * @description Table layout and row styles for PlaylistSelector
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+/* Table Container */
+.items-table {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Allow flex shrinking */
+  width: 100%;
+  max-width: 100%; /* Prevent horizontal overflow */
+  overflow: hidden; /* Prevent content from spilling out */
+  box-sizing: border-box; /* Include borders in width calculation */
+}
+
+/* Table Header */
+.table-header {
+  display: grid;
+  grid-template-columns: 40px 50px 1fr 150px 80px 150px;
+  gap: 0.5em;
+  padding: 0.75em;
+  background-color: var(--terminal-medium);
+  color: var(--terminal-cyan);
+  font-weight: bold;
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size-large);
+  border-bottom: 2px solid var(--terminal-cyan);
+  flex-shrink: 0;
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  text-shadow: var(--glow-cyan);
+  align-items: center;
+}
+
+.table-header-cell {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Checkbox column should center its content */
+.table-header-cell:first-child {
+  justify-content: center;
+}
+
+/* Dynamic layout based on item type */
+.table-header.playlist-layout,
+.table-row.playlist-layout {
+  display: grid;
+  grid-template-columns: var(--playlist-grid);
+}
+
+.table-header.album-layout,
+.table-row.album-layout {
+  display: grid;
+  grid-template-columns: var(--album-grid);
+}
+
+/* Table Body */
+.table-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: none; /* Remove fixed max-height, let flex: 1 handle sizing */
+  min-height: 7.5em; /* Convert from 120px to em (120/16 = 7.5) for font-size responsiveness */
+  width: 100%;
+  max-width: 100%; /* Prevent horizontal overflow */
+  /* Improve scrolling on all devices */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  /* Use shared scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--terminal-cyan) transparent;
+  /* Ensure proper height calculation to leave room for sticky pagination */
+  height: auto;
+  /* Prevent margin collapse issues */
+  margin-bottom: 0;
+  /* Ensure proper sticky context */
+  position: relative;
+  box-sizing: border-box; /* Include borders in width calculation */
+}
+
+/* Use shared scrollbar webkit styles - matches modal-scrollable-content */
+.table-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.table-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-body::-webkit-scrollbar-thumb {
+  background: var(--terminal-cyan);
+  border-radius: 0;
+}
+
+.table-body::-webkit-scrollbar-thumb:hover {
+  background: var(--terminal-cyan-bright);
+}
+
+/* Table Rows */
+.table-row {
+  display: grid;
+  grid-template-columns: 40px 50px 1fr 150px 80px 150px;
+  gap: 0.5em;
+  padding: 0.75em;
+  border-bottom: var(--wireframe-border);
+  cursor: pointer;
+  transition: var(--wireframe-transition);
+  border-left: 1px solid transparent;
+  background-color: var(--terminal-bg);
+  width: 100%;
+  max-width: 100%; /* Prevent horizontal overflow */
+  box-sizing: border-box; /* Include borders in width calculation */
+}
+
+.table-row:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  border-bottom-color: var(--terminal-cyan-bright);
+  border-left-color: var(--terminal-cyan-bright);
+  box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1);
+  transform: translateX(3px);
+}
+
+.table-row.selected {
+  background-color: rgba(0, 255, 255, 0.15);
+  border-left: 3px solid var(--terminal-cyan-bright);
+  border-bottom-color: var(--terminal-cyan-bright);
+  box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.table-row.selected:hover {
+  background-color: rgba(0, 255, 255, 0.25);
+  border-left-width: 4px;
+  transform: translateX(5px);
+}
+
+/* Row Content Cells */
+.row-checkbox,
+.row-thumbnail,
+.row-name,
+.row-metadata,
+.row-tracks,
+.row-extra {
+  display: flex;
+  align-items: center;
+  color: var(--terminal-cyan);
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size);
+}
+
+.row-checkbox {
+  justify-content: center;
+}
+
+.row-thumbnail {
+  justify-content: center;
+  position: relative;
+}
+
+.row-thumbnail img {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--terminal-cyan-dim);
+  border-radius: 2px;
+  object-fit: cover;
+  transition: var(--wireframe-transition);
+}
+
+.row-thumbnail img:hover {
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+}
+
+.playlist-thumbnail-placeholder {
+  width: 40px;
+  height: 40px;
+  background-color: var(--terminal-bg);
+  border: 1px solid var(--terminal-cyan-dim);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--terminal-cyan);
+  transition: var(--wireframe-transition);
+}
+
+.playlist-thumbnail-placeholder:hover {
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+}
+
+.row-name {
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-metadata,
+.row-tracks,
+.row-extra {
+  font-size: var(--terminal-font-size-small);
+  color: var(--terminal-cyan-dim);
+}
+
+.row-tracks {
+  justify-content: center;
+  font-weight: bold;
+  color: var(--terminal-cyan);
+}
+
+/* Responsive table adjustments */
+@media (max-width: 768px) {
+  .table-header,
+  .table-row {
+    grid-template-columns: 30px 40px 2fr 1fr;
+    gap: 0.25em;
+    padding: 0.5em;
+  }
+
+  .table-header.playlist-layout,
+  .table-row.playlist-layout,
+  .table-header.album-layout,
+  .table-row.album-layout {
+    grid-template-columns: 30px 40px 2fr 1fr;
+  }
+
+  .row-thumbnail img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .table-header-cell:nth-child(n+5),
+  .row-metadata:nth-child(n+5),
+  .row-tracks:nth-child(n+5),
+  .row-extra:nth-child(n+5) {
+    display: none;
+  }
+}

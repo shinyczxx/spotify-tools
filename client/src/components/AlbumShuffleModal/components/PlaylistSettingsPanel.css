@@ -1,0 +1,122 @@
+/**
+ * @file PlaylistSettingsPanel.css
+ * @description Styles for the playlist settings panel component
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+.playlist-settings-panel {
+  border-top: none;
+}
+
+.playlist-settings-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.playlist-name-setting,
+.visibility-setting {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.setting-label {
+  color: var(--circuit-color);
+  white-space: nowrap;
+  min-width: 120px;
+}
+
+.playlist-name-input {
+  padding: 0.5em;
+  border: 1px solid var(--circuit-color);
+  background: var(--terminal-bg);
+  color: var(--circuit-color);
+  min-width: 300px;
+  font-size: var(--terminal-font-size);
+  font-family: var(--terminal-font);
+  border-radius: 0;
+  transition: var(--wireframe-transition);
+}
+
+.playlist-name-input:hover:not(:disabled) {
+  border-color: var(--terminal-cyan-bright);
+  background: rgba(0, 255, 255, 0.05);
+}
+
+.playlist-name-input:focus {
+  outline: none;
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+.playlist-name-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.playlist-name-input::placeholder {
+  color: var(--circuit-color-dim);
+  opacity: 0.7;
+}
+
+.name-buttons {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: nowrap;
+}
+
+.name-button {
+  background: var(--terminal-bg);
+  border: 1px solid var(--terminal-cyan);
+  color: var(--terminal-cyan);
+  padding: 0.5em 1em;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.name-button:hover:not(:disabled) {
+  background: rgba(0, 255, 255, 0.1);
+  border-color: var(--terminal-cyan-bright);
+  color: var(--terminal-cyan-bright);
+}
+
+.name-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.visibility-toggle {
+  width: 200px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .playlist-name-setting,
+  .visibility-setting {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75em;
+  }
+
+  .setting-label {
+    min-width: auto;
+  }
+
+  .playlist-name-input {
+    min-width: 250px;
+    width: 100%;
+  }
+
+  .name-buttons {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .visibility-toggle {
+    width: 180px;
+  }
+}

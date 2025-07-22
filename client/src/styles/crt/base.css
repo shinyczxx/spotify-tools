@@ -1,0 +1,28 @@
+/**
+ * @file base.css
+ * @description Core CRT effect variables and base styles
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+:root {
+  --crt-enabled: 0; /* 0 = disabled, 1 = enabled */
+  --crt-intensity: 0.8; /* 0-1 intensity of effects */
+  --crt-flicker-enabled: 1; /* 0 = disabled, 1 = enabled */
+  --crt-scanline-size: 2px;
+  --crt-scanline-opacity: 0.15; /* Reduced for better visibility */
+}
+
+/* Main CRT overlay container */
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: var(--crt-enabled);
+  transition: opacity 0.3s ease;
+}

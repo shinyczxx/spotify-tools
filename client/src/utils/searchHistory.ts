@@ -9,7 +9,7 @@
  */
 
 import { SpotifyAlbum } from 'spotify-api-lib'
-import type { AlbumFilters } from '../../types/album'
+import type { AlbumFilters } from '../../../types/album'
 
 export interface SearchHistoryEntry {
   id: string;

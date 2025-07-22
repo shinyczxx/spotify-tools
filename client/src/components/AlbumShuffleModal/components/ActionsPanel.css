@@ -1,0 +1,156 @@
+/**
+ * @file ActionsPanel.css
+ * @description Styles for the actions panel component
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+.actions-panel {
+  border-top: none;
+}
+
+.actions-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reshuffle-button {
+  background: var(--terminal-bg);
+  border: 1px solid var(--terminal-cyan);
+  color: var(--terminal-cyan);
+  padding: 0.75em 1.5em;
+  font-weight: bold;
+  position: relative;
+}
+
+.reshuffle-button:hover:not(:disabled) {
+  background: rgba(0, 255, 255, 0.1);
+  border-color: var(--terminal-cyan-bright);
+  color: var(--terminal-cyan-bright);
+}
+
+.reshuffle-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Glitch effect for reshuffle button */
+.reshuffle-button.button-glitch-active {
+  animation: buttonGlitch 0.4s ease-in-out;
+}
+
+@keyframes buttonGlitch {
+  0%, 100% { transform: translate(0); }
+  10% { transform: translate(-2px, -1px); }
+  20% { transform: translate(2px, 1px); }
+  30% { transform: translate(-1px, 2px); }
+  40% { transform: translate(1px, -2px); }
+  50% { transform: translate(-2px, 1px); }
+  60% { transform: translate(2px, -1px); }
+  70% { transform: translate(-1px, -2px); }
+  80% { transform: translate(1px, 2px); }
+  90% { transform: translate(-2px, -1px); }
+}
+
+/* Loading shimmer effect */
+.shuffle-button-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.shuffle-button-loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 255, 255, 0.3), 
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.create-actions {
+  display: flex;
+  gap: 0.75em;
+  align-items: center;
+  margin-left: auto;
+}
+
+.create-button {
+  background: var(--terminal-bg);
+  border: 1px solid var(--circuit-color);
+  color: var(--circuit-color);
+  padding: 0.75em 1.5em;
+  font-weight: bold;
+}
+
+.create-button.ready {
+  border-color: var(--terminal-green);
+  color: var(--terminal-green);
+}
+
+.create-button.ready:hover:not(:disabled) {
+  background: rgba(0, 255, 0, 0.1);
+  border-color: var(--terminal-green-bright, #66ff66);
+  color: var(--terminal-green-bright, #66ff66);
+}
+
+.create-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spotify-button {
+  background: var(--terminal-bg);
+  border: 1px solid var(--spotify-green, #1db954);
+  color: var(--spotify-green, #1db954);
+  padding: 0.75em 1.5em;
+  font-weight: bold;
+}
+
+.spotify-button:hover {
+  background: rgba(29, 185, 84, 0.1);
+  border-color: var(--spotify-green-bright, #1ed760);
+  color: var(--spotify-green-bright, #1ed760);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .action-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75em;
+  }
+
+  .create-actions {
+    margin-left: 0;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  .reshuffle-button,
+  .create-button,
+  .spotify-button {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,38 @@
+/**
+ * @file PlaylistSelector.base.css
+ * @description Base styles for the PlaylistSelector component container
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+:root {
+  --playlist-grid: 40px 50px 2fr 1.2fr 0.8fr;
+  --album-grid: 40px 50px 2fr 1.2fr 0.8fr;
+}
+
+/* Main container */
+.album-playlist-select {
+  width: 100%;
+  max-width: 100%; /* Prevent horizontal overflow */
+  margin-top: 0; /* Remove gray bar above playlist selector */
+  border: var(--wireframe-border);
+  border-radius: 0;
+  background-color: var(--terminal-bg);
+  display: flex;
+  flex-direction: column;
+  min-height: 18.75em; /* Convert from 300px to em (300/16 = 18.75) */
+  height: 100%;
+  max-height: none;
+  position: relative;
+  contain: layout;
+  overflow: visible; /* Let children manage their own overflow */
+  transition: var(--wireframe-transition);
+  box-shadow: var(--wireframe-box-shadow);
+  box-sizing: border-box; /* Include borders in width calculation */
+}
+
+.album-playlist-select:hover {
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: var(--wireframe-box-shadow-hover);
+}

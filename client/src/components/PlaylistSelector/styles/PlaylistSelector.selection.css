@@ -1,0 +1,166 @@
+/**
+ * @file PlaylistSelector.selection.css
+ * @description Selection summary and action button styles for PlaylistSelector
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+/* Selection Summary */
+.select-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  background-color: rgba(0, 255, 255, 0.05);
+  border-bottom: var(--wireframe-border);
+  flex-wrap: wrap;
+  gap: 0.5em;
+  transition: var(--wireframe-transition);
+}
+
+.select-summary:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  border-bottom-color: var(--terminal-cyan-bright);
+}
+
+.selection-info {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.selection-count {
+  color: var(--terminal-cyan);
+  font-weight: bold;
+  font-family: var(--terminal-font);
+}
+
+/* Action buttons container */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+/* Deselect button with orange theme */
+.deselect-all-btn {
+  background-color: transparent;
+  border: 1px solid var(--terminal-orange);
+  color: var(--terminal-orange);
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size-small);
+  font-weight: bold;
+  transition: var(--wireframe-transition);
+  white-space: nowrap;
+  border-left: 3px solid var(--terminal-orange);
+  text-transform: lowercase;
+  letter-spacing: 1px;
+}
+
+.deselect-all-btn:hover {
+  background-color: rgba(255, 136, 0, 0.1);
+  border-color: var(--terminal-orange-bright);
+  color: var(--terminal-orange-bright);
+  border-left-color: var(--terminal-orange-bright);
+  box-shadow: 0 0 15px rgba(255, 136, 0, 0.4), inset 0 0 20px rgba(255, 136, 0, 0.1);
+  text-shadow: 0 0 5px rgba(255, 136, 0, 0.8);
+}
+
+/* Main action buttons using wireframe patterns */
+.create-shuffle-btn,
+.force-refresh-btn {
+  background-color: var(--terminal-bg);
+  border: var(--wireframe-border);
+  color: var(--terminal-cyan);
+  padding: 12px 24px;
+  cursor: pointer;
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size);
+  font-weight: bold;
+  transition: var(--wireframe-transition);
+  white-space: nowrap;
+  border-left: 3px solid var(--terminal-cyan);
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  text-shadow: var(--glow-cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-shuffle-btn:hover:not(:disabled) {
+  background-color: rgba(0, 255, 255, 0.1);
+  color: var(--terminal-cyan-bright);
+  border-left-color: var(--terminal-cyan-bright);
+  box-shadow: var(--wireframe-box-shadow-hover);
+  text-shadow: var(--glow-cyan-bright);
+}
+
+/* Orange variant for force refresh */
+.force-refresh-btn {
+  border-color: var(--terminal-orange);
+  color: var(--terminal-orange);
+  border-left-color: var(--terminal-orange);
+  text-shadow: 0 0 10px rgba(255, 136, 0, 0.5);
+}
+
+.force-refresh-btn:hover:not(:disabled) {
+  background-color: rgba(255, 136, 0, 0.1);
+  border-color: var(--terminal-orange-bright);
+  color: var(--terminal-orange-bright);
+  border-left-color: var(--terminal-orange-bright);
+  box-shadow: 0 0 15px rgba(255, 136, 0, 0.4), inset 0 0 20px rgba(255, 136, 0, 0.1);
+  text-shadow: 0 0 5px rgba(255, 136, 0, 0.8);
+}
+
+.create-shuffle-btn:disabled,
+.force-refresh-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Search and refresh controls */
+.search-refresh-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.search-input {
+  min-width: 180px;
+  height: 2.25em;
+  padding: 0.5em 0.75em;
+  border: 1px solid var(--terminal-cyan);
+  border-radius: 0;
+  background: var(--terminal-bg);
+  color: var(--terminal-cyan);
+  font-size: 14px;
+  font-family: var(--terminal-font);
+  transition: var(--wireframe-transition);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+.refresh-btn {
+  background: var(--terminal-bg) !important;
+  color: var(--terminal-orange) !important;
+  border: 1px solid var(--terminal-orange) !important;
+  font-weight: 700;
+  height: 2.25em;
+  padding: 0.5em 1em;
+}
+
+.refresh-btn:hover {
+  background: var(--terminal-orange) !important;
+  color: var(--terminal-bg) !important;
+}

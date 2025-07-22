@@ -103,6 +103,16 @@ export const WireframeSelect: React.FC<WireframeSelectProps> = ({
   const containerClasses = [
     'wireframe-select-container',
     `wireframe-select-container-${size}`,
+    labelPosition === 'top' 
+      ? 'wireframe-select-container-label-top' 
+      : labelPosition === 'right'
+      ? 'wireframe-select-container-label-right'
+      : labelPosition === 'left'
+      ? 'wireframe-select-container-label-left'
+      : 'wireframe-select-container-label-none',
+    label && labelPosition !== 'none'
+      ? 'wireframe-select-container-with-gap'
+      : 'wireframe-select-container-no-gap',
     disabled ? 'wireframe-select-disabled' : '',
     className,
   ]
@@ -112,22 +122,7 @@ export const WireframeSelect: React.FC<WireframeSelectProps> = ({
   const selectId = id || `wireframe-select-${Math.random().toString(36).substr(2, 9)}`
 
   return (
-    <div
-      className={containerClasses}
-      style={{
-        display: 'flex',
-        alignItems: labelPosition === 'top' || labelPosition === 'none' ? 'stretch' : 'center',
-        gap: label && labelPosition !== 'none' ? '0.5em' : 0,
-        flexDirection:
-          labelPosition === 'top'
-            ? 'column'
-            : labelPosition === 'right'
-            ? 'row-reverse'
-            : labelPosition === 'left'
-            ? 'row'
-            : 'row',
-      }}
-    >
+    <div className={containerClasses}>
       {label && labelPosition !== 'none' && (
         <SelectLabel
           label={label}

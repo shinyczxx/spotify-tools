@@ -1,0 +1,126 @@
+/**
+ * @file breakpoints.css
+ * @description Centralized responsive breakpoint system
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+:root {
+  /* Breakpoint values */
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
+}
+
+/* Media query mixins using custom properties */
+@media (max-width: 575px) {
+  :root {
+    --current-breakpoint: 'xs';
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  :root {
+    --current-breakpoint: 'sm';
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  :root {
+    --current-breakpoint: 'md';
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  :root {
+    --current-breakpoint: 'lg';
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+  :root {
+    --current-breakpoint: 'xl';
+  }
+}
+
+@media (min-width: 1400px) {
+  :root {
+    --current-breakpoint: 'xxl';
+  }
+}
+
+/* Utility classes for responsive design */
+.mobile-only {
+  display: block;
+}
+
+.tablet-only {
+  display: none;
+}
+
+.desktop-only {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none;
+  }
+  
+  .tablet-only {
+    display: block;
+  }
+}
+
+@media (min-width: 992px) {
+  .tablet-only {
+    display: none;
+  }
+  
+  .desktop-only {
+    display: block;
+  }
+}
+
+/* Container sizes */
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}

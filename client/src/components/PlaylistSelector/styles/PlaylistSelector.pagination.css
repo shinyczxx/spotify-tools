@@ -1,0 +1,179 @@
+/**
+ * @file PlaylistSelector.pagination.css
+ * @description Pagination controls and shared column classes for PlaylistSelector
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75em 1em;
+  border-top: 2px solid var(--terminal-cyan-dim);
+  background-color: var(--terminal-bg);
+  font-family: var(--terminal-font);
+  flex-shrink: 0; /* Prevent pagination from shrinking */
+  margin-top: auto; /* Push pagination to bottom */
+  position: sticky;
+  bottom: 0;
+  z-index: 1000; /* Higher z-index to ensure it stays on top */
+  min-height: 3.5em; /* Use em units for font-size responsiveness */
+  /* Ensure pagination stays visible on all devices */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  /* Prevent subpixel rendering issues */
+  transform: translateZ(0);
+  /* Ensure full opacity and proper rendering */
+  opacity: 1;
+  will-change: transform;
+  /* Add subtle border for better visibility */
+  border-top: 3px solid var(--terminal-cyan);
+}
+
+.page-btn {
+  background-color: transparent;
+  border: var(--wireframe-border);
+  color: var(--terminal-cyan);
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-family: var(--terminal-font);
+  font-size: 0.9em;
+  transition: var(--wireframe-transition);
+  border-radius: 0;
+  border-left: 2px solid var(--terminal-cyan);
+  text-transform: lowercase;
+  letter-spacing: 1px;
+}
+
+.page-btn:hover:not(:disabled) {
+  background-color: var(--terminal-cyan);
+  color: var(--terminal-bg);
+  border-left-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+}
+
+.page-btn:focus {
+  outline: none;
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+.page-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.page-info {
+  color: var(--terminal-cyan);
+  font-weight: bold;
+  font-family: var(--terminal-font);
+}
+
+/* Shared column classes for dynamic table alignment */
+.col-checkbox {
+  min-width: 36px;
+  width: 40px;
+  max-width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-thumbnail {
+  min-width: 44px;
+  width: 50px;
+  max-width: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-name {
+  min-width: 120px;
+  width: 100%;
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.col-metadata {
+  min-width: 100px;
+  width: 150px;
+  max-width: 180px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.col-tracks {
+  min-width: 60px;
+  width: 80px;
+  max-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.col-extra {
+  min-width: 120px;
+  width: 150px;
+  max-width: 180px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Responsive adjustments for columns */
+@media (max-width: 768px) {
+  .pagination {
+    padding: 0.5em;
+    min-height: 3em;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  .page-btn {
+    padding: 0.4em 0.8em;
+    font-size: 0.8em;
+  }
+
+  .page-info {
+    font-size: 0.9em;
+  }
+
+  /* Hide some columns on mobile */
+  .col-metadata:nth-child(n+5),
+  .col-extra:nth-child(n+5) {
+    display: none;
+  }
+
+  .col-checkbox {
+    min-width: 28px;
+    width: 30px;
+    max-width: 32px;
+  }
+
+  .col-thumbnail {
+    min-width: 36px;
+    width: 40px;
+    max-width: 44px;
+  }
+
+  .col-name {
+    min-width: 80px;
+  }
+
+  .col-tracks {
+    min-width: 50px;
+    width: 60px;
+    max-width: 70px;
+  }
+}

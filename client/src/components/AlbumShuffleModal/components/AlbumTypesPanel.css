@@ -1,0 +1,110 @@
+/**
+ * @file AlbumTypesPanel.css
+ * @description Styles for the album types panel component
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+.album-types-content {
+  display: flex;
+  gap: 1em;
+}
+
+.album-types-controls {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.album-type-checkboxes {
+  display: flex;
+  gap: 2em;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.get-albums-section {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.history-loaded-message {
+  padding: 0.5em;
+  border: 1px solid var(--terminal-green);
+  background: rgba(0, 255, 0, 0.1);
+  font-size: 0.9em;
+  color: var(--terminal-green);
+}
+
+.loading-section {
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  border: 1px solid var(--circuit-color-dim);
+  background: rgba(0, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.loading-section.shuffling {
+  border-color: var(--terminal-cyan);
+  background: rgba(0, 255, 255, 0.1);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.loading-text {
+  margin-top: 0.5em;
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.loading-section.shuffling .loading-text {
+  color: var(--terminal-cyan);
+}
+
+.loading-section.fetching .loading-text {
+  color: var(--circuit-color-dim);
+}
+
+.loading-subtitle {
+  font-size: 0.7em;
+  opacity: 0.8;
+}
+
+.loading-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(0, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 0.5em;
+}
+
+.loading-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--terminal-cyan), 
+    transparent
+  );
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+  width: var(--progress-width, 0%);
+  transition: width 0.3s ease;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}

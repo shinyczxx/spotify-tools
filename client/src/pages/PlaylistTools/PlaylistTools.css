@@ -1,0 +1,63 @@
+/**
+ * @file PlaylistTools.css
+ * @description Optimized styles for PlaylistTools page using parent wireframe styles
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+/* Tool Buttons Row Layout */
+.playlist-tools-button-row {
+  display: flex;
+  gap: 1em;
+  margin-bottom: 0.75em;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Tool Button Styles - Extends wireframe-button */
+.playlist-tools-button {
+  padding: 1em;
+  flex: 1;
+  min-width: max-content;
+  /* All other styling inherited from wireframe-button base class */
+}
+
+.playlist-tools-button-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  flex: 1;
+}
+
+/* Spacer for button row layout */
+.playlist-tools-spacer {
+  flex: 1;
+}
+
+/* Playlist Selector Container */
+.playlist-tools-selector-container {
+  flex: 1 1 0%;
+  min-height: 0;
+  height: calc(100vh - 300px);
+  display: flex;
+  flex-direction: column;
+  margin: 0.75em 0 0 0;
+  padding-bottom: 0;
+  overflow: visible;
+}
+
+/* Status Messages - Extends wireframe-panel */
+.playlist-tools-status-message {
+  margin: 20px 0;
+  padding: 20px;
+  /* Colors and borders inherited from wireframe-panel-content */
+}
+
+/* Page container - Uses standard wireframe-container padding */
+.playlist-tools-container {
+  overflow-y: auto;
+  max-height: 100vh;
+  /* All other styling inherited from wireframe-container */
+}

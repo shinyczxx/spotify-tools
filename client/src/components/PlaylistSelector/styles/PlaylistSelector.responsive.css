@@ -1,0 +1,279 @@
+/**
+ * @file PlaylistSelector.responsive.css
+ * @description Responsive design breakpoints and mobile optimizations for PlaylistSelector
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+/* Tablet and smaller screens */
+@media (max-width: 768px) {
+  .album-playlist-select {
+    min-height: 250px;
+  }
+
+  .select-summary {
+    padding: 0.75em;
+    gap: 0.75em;
+  }
+
+  .selection-info {
+    gap: 0.75em;
+  }
+
+  .action-buttons {
+    gap: 0.5em;
+  }
+
+  .sort-controls {
+    padding: 0.5em 0.75em;
+    gap: 0.75em;
+  }
+
+  .sort-section {
+    gap: 0.4em;
+  }
+
+  .items-per-page-section {
+    gap: 0.4em;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 30px 40px 2fr 1fr;
+    gap: 0.25em;
+    padding: 0.5em;
+  }
+
+  .table-header.playlist-layout,
+  .table-row.playlist-layout,
+  .table-header.album-layout,
+  .table-row.album-layout {
+    grid-template-columns: 30px 40px 2fr 1fr;
+  }
+
+  .row-thumbnail img {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Hide extra columns on tablets */
+  .table-header-cell:nth-child(n+5),
+  .row-metadata:nth-child(n+5),
+  .row-tracks:nth-child(n+5),
+  .row-extra:nth-child(n+5) {
+    display: none;
+  }
+
+  .pagination {
+    padding: 0.5em;
+    min-height: 3em;
+  }
+
+  .page-btn {
+    padding: 0.4em 0.8em;
+    font-size: 0.85em;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  .album-playlist-select {
+    min-height: 200px;
+    max-height: calc(100vh - 60px); /* Even tighter constraint on very small screens */
+  }
+
+  .select-summary {
+    padding: 0.5em;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5em;
+  }
+
+  .selection-info {
+    justify-content: center;
+  }
+
+  .action-buttons {
+    justify-content: center;
+    gap: 0.4em;
+  }
+
+  .create-shuffle-btn,
+  .force-refresh-btn {
+    padding: 0.5em 1em;
+    font-size: 0.8em;
+  }
+
+  .deselect-all-btn {
+    font-size: 0.7em;
+    padding: 0.2em 0.4em;
+  }
+
+  .sort-controls {
+    padding: 0.4em 0.5em;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5em;
+  }
+
+  .sort-section {
+    flex-wrap: wrap;
+    gap: 0.25em;
+    justify-content: center;
+  }
+
+  .sort-btn {
+    font-size: 0.7em;
+    padding: 0.2em 0.4em;
+  }
+
+  .items-per-page-section {
+    justify-content: center;
+  }
+
+  .items-per-page-select {
+    font-size: 0.7em;
+    padding: 0.2em 0.4em;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 30px 35px 1fr 80px;
+    font-size: 0.75em;
+    padding: 0.4em;
+  }
+
+  .table-header.playlist-layout,
+  .table-row.playlist-layout,
+  .table-header.album-layout,
+  .table-row.album-layout {
+    grid-template-columns: 30px 35px 1fr 80px;
+  }
+
+  /* Hide metadata columns on mobile */
+  .header-metadata,
+  .row-metadata {
+    display: none;
+  }
+
+  .row-thumbnail img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .table-body {
+    max-height: calc(100vh - 200px); /* Reserve space for all controls */
+    min-height: 80px;
+  }
+
+  .pagination {
+    padding: 0.4em;
+    flex-direction: column;
+    gap: 0.4em;
+    position: sticky;
+    bottom: 0;
+    z-index: 100; /* Higher z-index for very small screens */
+    background-color: var(--terminal-bg);
+    border-top: 2px solid var(--terminal-cyan);
+    min-height: 2.8em; /* Convert from 45px to em (45/16 = 2.8) */
+    /* Stronger shadow and positioning for very small screens */
+    box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.3);
+    /* Ensure it's never hidden behind other elements */
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  .page-btn {
+    font-size: 0.8em;
+    padding: 0.4em 0.8em;
+  }
+
+  .page-info {
+    font-size: 0.85em;
+  }
+}
+
+/* Height-constrained screens (like 700px tall windows) */
+@media (max-height: 800px) {
+  .album-playlist-select {
+    height: 100%;
+    min-height: 12.5em; /* Convert from 200px to em (200/16 = 12.5) */
+  }
+
+  .table-body {
+    min-height: 5em; /* Convert from 80px to em (80/16 = 5) */
+  }
+
+  .pagination {
+    padding: 0.5em;
+    min-height: 3.125em; /* Convert from 50px to em (50/16 = 3.125) */
+    position: sticky;
+    bottom: 0;
+    z-index: 1000;
+    background-color: var(--terminal-bg);
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15);
+    border-top: 3px solid var(--terminal-cyan);
+    /* Ensure visibility on constrained screens */
+    transform: translateZ(0);
+    opacity: 1;
+    will-change: transform;
+  }
+}
+
+/* Very short screens */
+@media (max-height: 600px) {
+  .album-playlist-select {
+    height: 100%;
+    min-height: 9.375em; /* Convert from 150px to em (150/16 = 9.375) */
+  }
+
+  .table-body {
+    min-height: 3.75em; /* Convert from 60px to em (60/16 = 3.75) */
+  }
+
+  .pagination {
+    padding: 0.4em;
+    min-height: 2.5em; /* Convert from 40px to em (40/16 = 2.5) */
+    font-size: 0.85em;
+    position: sticky;
+    bottom: 0;
+    z-index: 1000;
+    background-color: var(--terminal-bg);
+    border-top: 3px solid var(--terminal-cyan);
+    box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.2);
+    /* Ensure visibility on very constrained screens */
+    transform: translateZ(0);
+    opacity: 1;
+    will-change: transform;
+  }
+
+  .page-btn {
+    font-size: 0.75em;
+    padding: 0.3em 0.6em;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .table-row {
+    transition: none;
+  }
+
+  .table-row:hover {
+    transform: none;
+  }
+
+  .table-row.selected:hover {
+    transform: none;
+  }
+
+  .pagination,
+  .sort-btn,
+  .page-btn,
+  .create-shuffle-btn,
+  .force-refresh-btn,
+  .deselect-all-btn {
+    transition: none;
+  }
+}

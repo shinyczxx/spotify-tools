@@ -1,0 +1,70 @@
+/**
+ * @file ShuffleAlgorithmPanel.css
+ * @description Styles for the shuffle algorithm panel component
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-22
+ */
+
+.shuffle-algorithm-panel {
+  border-top: none;
+}
+
+.shuffle-algorithm-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.algorithm-selector {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.algorithm-select {
+  padding: 0.5em;
+  border: 1px solid var(--circuit-color);
+  background: var(--terminal-bg);
+  color: var(--circuit-color);
+  font-size: var(--terminal-font-size);
+  font-family: var(--terminal-font);
+  width: 300px;
+  border-radius: 0;
+  transition: var(--wireframe-transition);
+}
+
+.algorithm-select:hover:not(:disabled) {
+  border-color: var(--terminal-cyan-bright);
+  background: rgba(0, 255, 255, 0.05);
+}
+
+.algorithm-select:focus {
+  outline: none;
+  border-color: var(--terminal-cyan-bright);
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+.algorithm-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.algorithm-description {
+  font-size: 0.85em;
+  color: var(--circuit-color-dim);
+  max-width: 500px;
+  line-height: 1.4;
+}
+
+.algorithm-tooltip div {
+  margin-bottom: 0.5em;
+}
+
+.algorithm-tooltip div:last-child {
+  margin-bottom: 0;
+}
+
+.algorithm-tooltip strong {
+  color: var(--terminal-cyan);
+}
