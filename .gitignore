@@ -23,6 +23,8 @@ lastfm-api-lib/dist/
 pcb-design-lib/dist/
 *.tsbuildinfo
 
+LASTFM_ENHANCEMENTS.md
+
 # Logs
 logs
 *.log
