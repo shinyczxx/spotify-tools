@@ -9,15 +9,15 @@
 import { useState, useEffect, useRef } from 'react'
 import { ShuffleConfig, TrackLimitInfo, FetchProgress, ShuffleState } from 'types/albumShuffle'
 import { ShuffledTrack } from 'types/playlist'
-import { AlbumWithTrackCount, TrackLimitMode } from '@utils/playlistAlbumFetcher'
-import { shuffleTracksWithAlgorithm } from '@utils/shuffleUtils'
-import { generateFunPlaylistName } from '@utils/playlistNameGenerator'
+import { AlbumWithTrackCount, TrackLimitMode } from '@utils/playlist/playlistAlbumFetcher'
+import { shuffleTracksWithAlgorithm } from '@utils/shuffle/shuffleUtils'
+import { generateFunPlaylistName } from '@utils/playlist/playlistNameGenerator'
 import { saveAlbumHistory } from '@utils/album/albumHistory'
 import {
   fetchAlbumsFromPlaylists,
   selectAlbumsWithTrackLimits,
   SPOTIFY_PLAYLIST_LIMITS,
-} from '@utils/playlistAlbumFetcher'
+} from '@utils/playlist/playlistAlbumFetcher'
 
 interface UseAlbumShuffleProps {
   isOpen: boolean

@@ -16,7 +16,7 @@ import { TooltipIcon } from '../wireframe/TooltipIcon'
 import {
   getSearchHistoryCacheStats,
   clearSearchHistory,
-} from '@utils/playlistSearchHistory'
+} from '@utils/playlist/playlistSearchHistory'
 import './AlbumHistoryModal.css'
 
 interface AlbumHistoryModalProps {

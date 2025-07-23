@@ -35,6 +35,7 @@ export default defineConfig({
     alias: {
       '@components': resolve(__dirname, './src/components'),
       '@utils': resolve(__dirname, './src/utils'),
+      '@services': resolve(__dirname, './src/services'),
       '@pages': resolve(__dirname, './src/pages'),
       '@hooks': resolve(__dirname, './src/hooks'),
       '@types': resolve(__dirname, './src/types'),

@@ -45,6 +45,7 @@ const Navbar: React.FC<NavbarProps> = ({
   const navigationItems = [
     { id: 'userinfo', label: 'user info' },
     { id: 'playlist-tools', label: 'playlist tools' },
+    { id: 'lastfm-tools', label: 'last.fm tools' },
     { id: 'getTrackInfo', label: 'track info' },
     { id: 'settings', label: 'settings' },
     { id: 'github', label: 'view source' },

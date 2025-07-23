@@ -14,7 +14,7 @@ import {
   expandCachedAlbum,
   expandCachedTrack,
   generatePlaylistHash,
-} from './playlistSearchHistory'
+} from '../playlist/playlistSearchHistory'
 import { getPlaylistTracks } from './playlistOperations'
 
 export interface AlbumRetrievalResult {

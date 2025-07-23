@@ -18,9 +18,9 @@ import {
   WireframeButton,
   WireframeBox,
   WireframeInfoPanel,
-} from '../components/wireframe'
+} from '@components/wireframe'
 import { useSpotifyAuth } from '@hooks/auth/useSpotifyAuth'
-import '../styles/wireframe.css'
+import '@styles/wireframe.css'
 import './Dashboard.css'
 
 const Dashboard: React.FC = () => {

@@ -13,7 +13,7 @@
  */
 
 import React from 'react'
-import { WireframePanel, WireframeBox } from '../components/wireframe'
+import { WireframePanel, WireframeBox } from '@components/wireframe'
 import { useSpotifyAuth } from '@hooks/auth/useSpotifyAuth'
 import { useTrackSearch } from '@hooks/business/useTrackSearch'
 import { useTrackInfo } from '@hooks/business/useTrackInfo'

@@ -9,7 +9,7 @@
 import React from 'react'
 import { WireframePanel, WireframeButton } from '@components/wireframe'
 import { Toggle } from '@components/Toggle'
-import { generateFunPlaylistName } from '@utils/playlistNameGenerator'
+import { generateFunPlaylistName } from '@utils/playlist/playlistNameGenerator'
 import './PlaylistSettingsPanel.css'
 
 interface PlaylistSettingsPanelProps {

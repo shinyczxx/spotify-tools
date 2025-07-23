@@ -86,7 +86,6 @@ async function fetchRealAlbumTracks(album: SpotifyAlbum): Promise<ShuffledTrack[
   try {
     console.log(`🎵 Fetching real tracks for album: ${album.name}`)
     
-    // TODO: Implement track fetching using SpotifyApi
     const tracks: SpotifyTrack[] = []
     
     return tracks.map((track: SpotifyTrack) => ({

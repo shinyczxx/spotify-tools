@@ -13,6 +13,7 @@ import './styles/index.css'
 export * from './WireframeBox'
 export * from './WireframePanel'
 export * from './WireframeButton'
+export { WfPanelButton } from './WireframeButton'
 export * from './WireframeInput'
 export * from './WireframeDropdown'
 
@@ -23,6 +24,7 @@ export * from './WireframeSelect'
 export { default as WireframeToggle } from './WireframeToggle/WireframeToggle'
 export * from './WireframeSlider'
 export * from './WireframeCheckboxInput'
+export * from './WireframeTagInput'
 
 // External wireframe components (from other directories)
 export * from '../TerminalLoader'

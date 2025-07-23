@@ -46,7 +46,7 @@ export const useOAuthCallback = (): UseOAuthCallbackReturn => {
       setMessage('EXCHANGING AUTHORIZATION CODE FOR TOKENS...')
 
       // Import the actual auth handler
-      const { handleSpotifyCallback } = await import('../../utils/spotifyAuth')
+      const { handleSpotifyCallback } = await import('../../utils/auth/spotifyAuth')
       const tokens = await handleSpotifyCallback()
 
       // Check if tokens exist in localStorage (auth might succeed even if handler returns null)

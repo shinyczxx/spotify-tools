@@ -9,7 +9,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { SpotifyApi } from 'spotify-api-lib'
 import type { PlaylistItem } from 'types/playlist'
-import { getCachedPlaylistsWithTTL, setCachedPlaylistsWithTTL } from '@utils/playlistCache'
+import { getCachedPlaylistsWithTTL, setCachedPlaylistsWithTTL } from '@utils/playlist/playlistCache'
 
 export const usePlaylistLoader = (spotifyApi: SpotifyApi | null, user: any) => {
   const [playlists, setPlaylists] = useState<PlaylistItem[]>([])

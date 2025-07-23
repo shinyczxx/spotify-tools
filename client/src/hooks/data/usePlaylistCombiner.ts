@@ -10,7 +10,7 @@ import { useState, useCallback } from 'react'
 import { SpotifyApi } from 'spotify-api-lib'
 import type { SpotifyTrack } from 'spotify-api-lib'
 import type { ShuffleSettings } from 'types/playlist'
-import { combinePlaylists as combinePlaylistsUtil } from '@utils/playlistOperations'
+import { combinePlaylists as combinePlaylistsUtil } from '@utils/playlist/playlistOperations'
 
 export const usePlaylistCombiner = (spotifyApi: SpotifyApi | null) => {
   const [combinedTracks, setCombinedTracks] = useState<SpotifyTrack[]>([])

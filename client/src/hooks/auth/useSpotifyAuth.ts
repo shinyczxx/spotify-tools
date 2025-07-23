@@ -10,7 +10,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import api, { setAuthToken, setTokenUpdateCallback } from '@utils/api'
-import { handleSpotifyCallback, refreshSpotifyToken } from '@utils/spotifyAuth'
+import { handleSpotifyCallback, refreshSpotifyToken } from '@utils/auth/spotifyAuth'
 import type { SpotifyUser } from 'types/spotify-user'
 
 interface UseSpotifyAuthResult {

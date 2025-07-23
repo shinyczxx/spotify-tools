@@ -6,7 +6,7 @@
  * @date 2025-07-21
  */
 
-import { FONT_SIZE, STORAGE_KEYS } from '../constants/app'
+import { FONT_SIZE, STORAGE_KEYS } from '../../constants/app'
 
 /**
  * Validates and constrains font size to allowed range

@@ -1,0 +1,230 @@
+/**
+ * @file LastFmTools.css
+ * @description Styles for Last.fm tools page
+ */
+
+.lastfm-tools-container {
+  gap: 1.5rem;
+}
+
+/* Search Section */
+.lastfm-search-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lastfm-search-input-group {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.lastfm-tag-input {
+  flex: 1;
+  min-width: 300px;
+}
+
+.lastfm-search-button {
+  flex-shrink: 0;
+}
+
+.lastfm-search-help {
+  font-size: 0.9rem;
+  color: var(--terminal-cyan-dim);
+  margin: 0;
+  font-style: italic;
+}
+
+/* Results Grid */
+.lastfm-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.lastfm-album-card {
+  border: 1px solid var(--terminal-cyan-dim);
+  background: var(--terminal-bg);
+  padding: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.lastfm-album-card:hover {
+  border-color: var(--terminal-cyan);
+  background: var(--terminal-cyan-ultra-dim);
+}
+
+.lastfm-album-card.selected {
+  border-color: var(--terminal-cyan-bright);
+  background: var(--terminal-cyan-dim);
+}
+
+.lastfm-album-image {
+  width: 100%;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--terminal-bg-light);
+  border: 1px solid var(--terminal-cyan-dim);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.lastfm-album-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lastfm-album-placeholder {
+  font-size: 2rem;
+  color: var(--terminal-cyan-dim);
+}
+
+.lastfm-album-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lastfm-album-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--terminal-cyan-bright);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.lastfm-album-artist {
+  font-size: 0.9rem;
+  color: var(--terminal-text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.lastfm-album-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.lastfm-tag {
+  font-size: 0.75rem;
+  background: var(--terminal-cyan-ultra-dim);
+  color: var(--terminal-cyan);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  border: 1px solid var(--terminal-cyan-dim);
+}
+
+.lastfm-album-checkbox {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.lastfm-album-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--terminal-cyan);
+}
+
+/* Selection Actions */
+.lastfm-selection-actions {
+  border-top: 1px solid var(--terminal-cyan-dim);
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.lastfm-selection-actions p {
+  margin: 0;
+  color: var(--terminal-cyan);
+  font-weight: 600;
+}
+
+.lastfm-action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Modal Content */
+.lastfm-modal-album-list {
+  margin-top: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--terminal-cyan-dim);
+  background: var(--terminal-bg-light);
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.lastfm-modal-album-item {
+  padding: 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--terminal-text);
+}
+
+.lastfm-modal-album-item strong {
+  color: var(--terminal-cyan);
+}
+
+/* Environment help styles */
+.lastfm-env-help {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--terminal-cyan-dim);
+}
+
+.lastfm-env-help a {
+  color: var(--terminal-cyan);
+  text-decoration: underline;
+}
+
+.lastfm-env-help a:hover {
+  color: var(--terminal-cyan-bright);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .lastfm-search-input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .lastfm-tag-input {
+    min-width: unset;
+  }
+  
+  .lastfm-search-button {
+    width: 100%;
+  }
+  
+  .lastfm-results-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .lastfm-selection-actions {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  
+  .lastfm-action-buttons {
+    justify-content: center;
+  }
+}

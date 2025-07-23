@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -24,75 +24,27 @@ jobs:
       run: |
         # Install root dependencies
         npm install
-        # Build external libraries with proper error handling
-        echo "Building spotify-api-lib..."
-        if [ -d "spotify-api-lib" ] && [ -f "spotify-api-lib/package.json" ]; then
-          cd spotify-api-lib
-          npm install
-          npm run build
-          cd ..
-          echo "spotify-api-lib build complete"
-        else
-          echo "spotify-api-lib not found - this is a private dependency"
-          echo "Creating fallback package to prevent build failure..."
-          mkdir -p spotify-api-lib/dist
-          cat > spotify-api-lib/package.json << 'EOF'
-{
-  "name": "spotify-api-lib",
-  "version": "1.0.0",
-  "description": "Fallback package for spotify-api-lib",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts"
-}
-EOF
-          cat > spotify-api-lib/dist/index.js << 'EOF'
-// Fallback implementation
-console.error('spotify-api-lib is not available. This is a private dependency.');
-module.exports = {};
-EOF
-          cat > spotify-api-lib/dist/index.d.ts << 'EOF'
-// Fallback types for spotify-api-lib
-export interface SpotifyTrack {
-  id: string;
-  name: string;
-  [key: string]: any;
-}
 
-export interface SpotifyAlbum {
-  id: string;
-  name: string;
-  [key: string]: any;
-}
-
-export interface SpotifyUser {
-  id: string;
-  display_name: string;
-  [key: string]: any;
-}
-
-declare const SpotifyApi: any;
-export default SpotifyApi;
-EOF
-          echo "Fallback spotify-api-lib created"
-        fi
-        
-        echo "Building lastfm-api-lib..."
-        if [ -d "lastfm-api-lib" ] && [ -f "lastfm-api-lib/package.json" ]; then
-          cd lastfm-api-lib
-          npm install
-          npm run build || echo "lastfm-api-lib build failed, continuing..."
-          cd ..
-        fi
-        
-        
         # Install client dependencies
         echo "Installing client dependencies..."
         cd client && npm install
         
+    - name: Check required secrets
+      run: |
+        if [ -z "$VITE_SPOTIFY_CLIENT_ID" ]; then
+          echo "Error: VITE_SPOTIFY_CLIENT_ID secret is not set."
+          exit 1
+        fi
+        if [ -z "$VITE_SPOTIFY_REDIRECT_URI" ]; then
+          echo "Error: VITE_SPOTIFY_REDIRECT_URI secret is not set."
+          exit 1
+        fi
+
     - name: Build
       run: |
         cd client && npm run build
       env:
+        # Ensure these secrets are set in your repository's GitHub settings under "Settings" > "Secrets and variables" > "Actions"
         VITE_SPOTIFY_CLIENT_ID: ${{ secrets.VITE_SPOTIFY_CLIENT_ID }}
         VITE_SPOTIFY_REDIRECT_URI: ${{ secrets.VITE_SPOTIFY_REDIRECT_URI }}
         

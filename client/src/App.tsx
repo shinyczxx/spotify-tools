@@ -24,6 +24,7 @@ import Dashboard from './pages/Dashboard'
 import GetTrackInfo from './pages/GetTrackInfo'
 import Login from './pages/Login'
 import PlaylistTools from './pages/PlaylistTools'
+import LastFmTools from './pages/LastFmTools'
 import Settings from './pages/Settings'
 import CallbackPage from './pages/CallbackPage'
 import PageLayout from './components/PageLayout/PageLayout'
@@ -146,6 +147,7 @@ function App() {
                   <Route path={ROUTES.SETTINGS} element={<Settings />} />
                   <Route path={ROUTES.GET_TRACK_INFO} element={<GetTrackInfo />} />
                   <Route path={ROUTES.PLAYLIST_TOOLS} element={<PlaylistTools />} />
+                  <Route path={ROUTES.LASTFM_TOOLS} element={<LastFmTools />} />
                   <Route path={ROUTES.ALBUM_SHUFFLE} element={<PlaylistTools />} />
                   <Route path={ROUTES.PLAYLIST_COMBINER} element={<PlaylistTools />} />
                   <Route path="*" element={<Dashboard />} />

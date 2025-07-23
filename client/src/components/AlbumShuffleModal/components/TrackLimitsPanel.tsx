@@ -11,7 +11,7 @@ import { WireframePanel, WireframeButton } from '@components/wireframe'
 import { TooltipIcon } from '@components/wireframe/TooltipIcon'
 import { Toggle } from '@components/Toggle'
 import { ShuffleConfig, TrackLimitInfo } from 'types/albumShuffle'
-import { AlbumWithTrackCount, SPOTIFY_PLAYLIST_LIMITS } from '@utils/playlistAlbumFetcher'
+import { AlbumWithTrackCount, SPOTIFY_PLAYLIST_LIMITS } from '@utils/playlist/playlistAlbumFetcher'
 import './TrackLimitsPanel.css'
 
 interface TrackLimitsPanelProps {

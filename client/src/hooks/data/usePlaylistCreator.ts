@@ -9,7 +9,7 @@
 import { useState, useCallback } from 'react'
 import { SpotifyApi } from 'spotify-api-lib'
 import type { SpotifyTrack } from 'spotify-api-lib'
-import { createPlaylistFromTracks as createPlaylistUtil } from '@utils/playlistOperations'
+import { createPlaylistFromTracks as createPlaylistUtil } from '@utils/playlist/playlistOperations'
 
 export const usePlaylistCreator = (
   spotifyApi: SpotifyApi | null,

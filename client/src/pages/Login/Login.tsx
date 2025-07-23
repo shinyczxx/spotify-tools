@@ -12,15 +12,15 @@
  */
 
 import React from 'react'
-import { WireframePanel, WireframeButton, WireframeBox } from '../components/wireframe'
-import { BetaWarning } from '../components/BetaWarning'
-import '../styles/wireframe.css'
+import { WireframePanel, WireframeButton, WireframeBox } from '@components/wireframe'
+import { BetaWarning } from '@components/BetaWarning'
+import '@styles/wireframe.css'
 import './Login.css'
 
 const Login: React.FC = () => {
   const handleLogin = async () => {
     try {
-      const { initiateSpotifyAuth } = await import('../utils/spotifyAuth')
+      const { initiateSpotifyAuth } = await import('@utils/auth/spotifyAuth')
       await initiateSpotifyAuth()
     } catch (error: any) {
       console.error('Error initiating login:', error)

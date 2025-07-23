@@ -8,6 +8,7 @@
 
 export { default as Dashboard } from './Dashboard'
 export { default as PlaylistTools } from './PlaylistTools'
+export { default as LastFmTools } from './LastFmTools'
 export { default as Settings } from './Settings'
 export { default as Login } from './Login'
 export { default as GetTrackInfo } from './GetTrackInfo'
