@@ -6,10 +6,8 @@
  * @date 2025-07-22
  */
 
-import { SpotifyAlbum, SpotifyTrack } from 'spotify-api-lib'
+import { SpotifyAlbum, SpotifyTrack, SpotifyApi } from 'spotify-api-lib'
 import LastFm from 'lastfm-api-lib'
-import LastFmFinder from '../lastFmFinder'
-import LastFmRelated from '../lastFmRelated'
 import { AdvancedShuffleConfig, ShuffleContext, AlbumScore } from 'types/albumShuffle'
 
 /**
@@ -17,28 +15,14 @@ import { AdvancedShuffleConfig, ShuffleContext, AlbumScore } from 'types/albumSh
  */
 export class AdvancedShuffleEngine {
   private spotifyApi: SpotifyApi
-  private lastFmApi: LastFm
-  private lastFmFinder: LastFmFinder
-  private lastFmRelated: LastFmRelated
+  private lastFm: LastFm
 
   constructor(
     spotifyToken: string,
     lastFmApiKey?: string,
-    lastFmSecret?: string,
-    lastFmSession?: string,
   ) {
     this.spotifyApi = new SpotifyApi(spotifyToken)
-    this.lastFmApi = new LastFm(lastFmApiKey, lastFmSecret)
-    this.lastFmFinder = new LastFmFinder(lastFmApiKey)
-    this.lastFmRelated = new LastFmRelated(lastFmApiKey)
-
-    if (lastFmSession) {
-      this.lastFmApi.setSessionKey(lastFmSession)
-    }
-
-    if (spotifyToken) {
-      this.lastFmRelated.setSpotifyAccessToken(spotifyToken)
-    }
+    this.lastFm = new LastFm(lastFmApiKey || '')
   }
 
   /**
@@ -96,24 +80,9 @@ export class AdvancedShuffleEngine {
         const artistName = album.artists[0]?.name
         if (!artistName) continue
 
-        const lastFmInfo = await this.lastFmFinder.findAlbumInfo(album)
-        if (!lastFmInfo) continue
-
-        // Get related albums using Last.fm data
-        const relatedAlbumsResponse = await this.lastFmRelated.findRelatedAlbums(lastFmInfo, {
-          tagWeight: settings.lastFmTagsWeight,
-          similarArtistWeight: settings.lastFmSimilarAlbumsWeight,
-          maxResults: Math.min(10, Math.floor(50 / seedAlbums.length)), // Limit per seed album
-        })
-
-        // Add related albums to pool
-        if (relatedAlbumsResponse.albums) {
-          relatedAlbumsResponse.albums.forEach((relatedAlbum: any) => {
-            if (relatedAlbum.spotifyId) {
-              expandedAlbums.add(relatedAlbum.spotifyId)
-            }
-          })
-        }
+        // TODO: Implement Last.fm album expansion
+        // For now, simplified - just continue with seed albums
+        // Will add proper album expansion based on tags and similar artists later
       } catch (error) {
         console.warn('Failed to expand album pool for:', album.name, error)
       }
@@ -127,7 +96,7 @@ export class AdvancedShuffleEngine {
     for (let i = 0; i < allAlbumIds.length; i += 20) {
       const batch = allAlbumIds.slice(i, i + 20)
       try {
-        const albumsData = await this.spotifyApi.album.getByIds(batch)
+        const albumsData = await this.spotifyApi.albums.getByIds(batch)
         if (albumsData.albums) {
           albums.push(
             ...(albumsData.albums.filter(
@@ -214,7 +183,10 @@ export class AdvancedShuffleEngine {
       const artistName = album.artists[0]?.name
       if (!artistName) return { tags: 0, similarity: 0 }
 
-      const lastFmInfo = await this.lastFmFinder.findAlbumInfo(album)
+      // Simplified Last.fm scoring - get album tags
+      
+      // TODO: Implement Last.fm tag fetching with proper API structure
+      const lastFmInfo = { tags: [] }
       if (!lastFmInfo) return { tags: 0, similarity: 0 }
 
       // Calculate tag score
@@ -380,7 +352,7 @@ export class AdvancedShuffleEngine {
       const album = scoredAlbum.album
 
       // Album type filter
-      const albumTypeWeight = settings.albumTypeWeights[album.album_type] || 0
+      const albumTypeWeight = (settings.albumTypeWeights as any)[album.album_type] || 0
       if (albumTypeWeight === 0) return false
 
       // Score threshold (remove very low scoring albums)

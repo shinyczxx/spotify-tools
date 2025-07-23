@@ -7,7 +7,7 @@
  */
 
 import type { SpotifyAlbum, SpotifyTrack } from 'spotify-api-lib'
-import api from './api'
+import SpotifyApi from 'spotify-api-lib'
 
 export interface PlaylistAlbumFetchResult {
   albums: SpotifyAlbum[]
@@ -116,26 +116,57 @@ function cacheAlbums(playlistIds: string[], albums: SpotifyAlbum[], totalTracks:
  */
 async function fetchPlaylistTracks(playlistId: string): Promise<SpotifyTrack[]> {
   const tracks: SpotifyTrack[] = []
-  let url = playlistId === 'liked-songs' ? '/me/tracks' : `/playlists/${playlistId}/tracks`
   
-  while (url) {
-    try {
-      const response = await api.get(url)
-      const items = response.data.items || []
-      
-      for (const item of items) {
-        const track = playlistId === 'liked-songs' ? item.track : item.track
-        if (track && track.id && track.album) {
-          tracks.push(track)
+  const spotify = new SpotifyApi()
+  spotify.setAccessToken(localStorage.getItem('spotify_access_token') || '')
+  
+  if (playlistId === 'liked-songs') {
+    // Fetch liked songs
+    let offset = 0
+    const limit = 50
+    let hasMore = true
+    
+    while (hasMore) {
+      try {
+        const response = await spotify.tracks.getSavedTracks({ limit, offset })
+        const items = response.items || []
+        
+        for (const item of items) {
+          if (item.track && item.track.id && item.track.album) {
+            tracks.push(item.track)
+          }
         }
+        
+        hasMore = response.next !== null
+        offset += limit
+      } catch (error) {
+        console.error('Error fetching liked songs:', error)
+        break
       }
-      
-      url = response.data.next 
-        ? response.data.next.replace('https://api.spotify.com/v1', '')
-        : null
-    } catch (error) {
-      console.error(`Error fetching tracks for playlist ${playlistId}:`, error)
-      break
+    }
+  } else {
+    // Fetch playlist tracks
+    let offset = 0
+    const limit = 50
+    let hasMore = true
+    
+    while (hasMore) {
+      try {
+        const response = await spotify.playlists.getTracks(playlistId, { limit, offset })
+        const items = response.items || []
+        
+        for (const item of items) {
+          if (item.track && item.track.id && item.track.album) {
+            tracks.push(item.track)
+          }
+        }
+        
+        hasMore = response.next !== null
+        offset += limit
+      } catch (error) {
+        console.error(`Error fetching tracks for playlist ${playlistId}:`, error)
+        break
+      }
     }
   }
   

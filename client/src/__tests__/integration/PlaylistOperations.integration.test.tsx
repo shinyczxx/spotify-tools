@@ -21,7 +21,7 @@ jest.mock('../../utils/api', () => ({
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { usePlaylistOperations } from '@hooks/data/usePlaylistOperations'
 import * as albumOperations from '@utils/albumOperations'
-import * as spotifyApiHelpers from '@utils/spotifyApiHelpers'
+// Remove unused spotify helpers import
 
 // Mock the hook
 jest.mock('../../hooks/usePlaylistOperations')
@@ -33,9 +33,7 @@ const mockUsePlaylistOperations = usePlaylistOperations as jest.MockedFunction<
 jest.mock('../../utils/albumOperations')
 const mockAlbumOperations = albumOperations as jest.Mocked<typeof albumOperations>
 
-// Mock spotify API helpers
-jest.mock('../../utils/spotifyApiHelpers')
-const mockSpotifyApiHelpers = spotifyApiHelpers as jest.Mocked<typeof spotifyApiHelpers>
+// Remove unused spotify helpers mock
 
 // Create a test component that uses the playlist operations
 function TestPlaylistComponent() {
@@ -147,8 +145,7 @@ describe('Playlist Operations Integration', () => {
     mockAlbumOperations.discoverAlbums.mockResolvedValue([])
     mockAlbumOperations.createSpotifyPlaylist.mockResolvedValue({ id: 'new-playlist' })
 
-    // Mock spotify API helpers
-    mockSpotifyApiHelpers.createPlaylist.mockResolvedValue({ id: 'new-playlist' })
+    // Mock removed
   })
 
   it('should render playlist operations component with initial state', () => {

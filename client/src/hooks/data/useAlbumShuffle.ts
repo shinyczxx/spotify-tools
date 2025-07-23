@@ -9,7 +9,7 @@
 import { useState, useCallback } from 'react'
 import { SpotifyApi } from 'spotify-api-lib'
 import type { AlbumShuffleSettings, ShuffledTrack } from 'types/playlist'
-import { retrieveAlbumsFromPlaylists } from '@utils/albumRetrieval'
+import { retrieveAlbumsFromPlaylists } from '@utils/album/albumRetrieval'
 
 export const useAlbumShuffle = (spotifyApi: SpotifyApi | null) => {
   const [shuffledTracks, setShuffledTracks] = useState<ShuffledTrack[]>([])

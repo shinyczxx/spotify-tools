@@ -18,7 +18,7 @@ import { Toggle } from '@components/Toggle'
 import { AlbumShuffleSettings, ShuffledTrack, ShuffleAlgorithm } from 'types/playlist'
 import { shuffleTracksWithAlgorithm } from '@utils/shuffleUtils'
 import { generateFunPlaylistName } from '@utils/playlistNameGenerator'
-import { saveAlbumHistory } from '@utils/albumHistory'
+import { saveAlbumHistory } from '@utils/album/albumHistory'
 import {
   fetchAlbumsFromPlaylists,
   selectAlbumsWithTrackLimits,

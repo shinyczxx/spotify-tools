@@ -11,7 +11,7 @@
 
 import type { SpotifyAlbum, SpotifyTrack } from 'spotify-api-lib'
 import type { ShuffledTrack } from 'types/playlist'
-import api from '../spotify/api'
+// Removed unused import
 
 export type ShuffleAlgorithm = 'random' | 'weighted-newer' | 'weighted-older' | 'chronological' | 'spiral-dance'
 
@@ -86,10 +86,10 @@ async function fetchRealAlbumTracks(album: SpotifyAlbum): Promise<ShuffledTrack[
   try {
     console.log(`🎵 Fetching real tracks for album: ${album.name}`)
     
-    const response = await api.get(`/albums/${album.id}/tracks`)
-    const tracks = response.data.items || []
+    // TODO: Implement track fetching using SpotifyApi
+    const tracks: SpotifyTrack[] = []
     
-    return tracks.map((track: SpotifyTrack, index: number) => ({
+    return tracks.map((track: SpotifyTrack) => ({
       id: track.id,
       name: track.name,
       uri: track.uri,

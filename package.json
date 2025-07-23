@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "react-router-dom": "^7.6.3",
-    "spotify-api-lib": "file:../spotify-api-lib",
+    "spotify-api-lib": "^1.1.0",
     "lastfm-api-lib": "file:../lastfm-api-lib"
   },
   "devDependencies": {

@@ -1,24 +1,20 @@
-export { default as api } from './spotify/api'
-export * from './albumShuffle'
-export * from './albumUtils'
+// Export utility functions
 export * from './albumOperations'
 export * from './filters'
-export * from './auth/spotifyUtils'
+export * from './spotify/spotifyUtils'
+export * from './auth/spotifyAuth'
 export * from './searchHistory'
 export * from './playlist/playlistCache'
 export * from './playlist/getNonStandardPlaylists'
 export * from './playlist/playlistAlbumFetcher'
 export * from './stringUtils'
 export * from './sortingUtils'
-export * from './ui/classNames'
 
-// New library imports
+// Direct library exports
 export { default as SpotifyApi } from 'spotify-api-lib'
 export { default as LastFm } from 'lastfm-api-lib'
-export { default as LastFmFinder } from './lastFmFinder'
-export { default as LastFmRelated } from './lastFmRelated'
 
-// Type exports from new libraries
+// Type exports from spotify-api-lib
 export type {
   SpotifyImage,
   SpotifyArtist,
@@ -30,22 +26,12 @@ export type {
   SpotifyPagingObject,
 } from 'spotify-api-lib'
 
+// Type exports from local modules
+// Type exports from lastfm-api-lib
 export type {
   LastFmTag,
   LastFmArtist,
   LastFmAlbum,
   LastFmTrack,
-  LastFmApiResponse,
+  LastFmRequestOptions
 } from 'lastfm-api-lib'
-
-export type {
-  LastFmMatchResult,
-  LastFmAlbumResult,
-  LastFmArtistResult,
-  LastFmTrackResult,
-} from './lastFmFinder'
-export type {
-  RelatedAlbumsOptions,
-  RelatedAlbumResult,
-  RelatedAlbumsResponse,
-} from './lastFmRelated'

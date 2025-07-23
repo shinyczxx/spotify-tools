@@ -29,7 +29,12 @@
       "Bash(ls:*)",
       "Bash(mv:*)",
       "Bash(grep:*)",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm search spotify-api-lib)",
+      "Bash(npm info:*)",
+      "WebFetch(domain:www.last.fm)",
+      "WebFetch(domain:lastfm-docs.github.io)"
     ],
     "deny": []
   }

@@ -9,7 +9,7 @@
 import React, { useState, useEffect } from 'react'
 import { WireframePanel, WireframeButton } from '@components/wireframe'
 import { AlbumHistoryModal } from '@components/AlbumHistoryModal'
-import { getAlbumHistory, deleteHistoryEntry, getAlbumsByHash } from '@utils/albumHistory'
+import { getAlbumHistory, deleteHistoryEntry, getAlbumsByHash } from '@utils/album/albumHistory'
 import type { AlbumHistoryEntry } from 'types/albumHistory'
 import type { SpotifyAlbum } from 'spotify-api-lib'
 

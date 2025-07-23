@@ -12,7 +12,7 @@ import { ShuffledTrack } from 'types/playlist'
 import { AlbumWithTrackCount, TrackLimitMode } from '@utils/playlistAlbumFetcher'
 import { shuffleTracksWithAlgorithm } from '@utils/shuffleUtils'
 import { generateFunPlaylistName } from '@utils/playlistNameGenerator'
-import { saveAlbumHistory } from '@utils/albumHistory'
+import { saveAlbumHistory } from '@utils/album/albumHistory'
 import {
   fetchAlbumsFromPlaylists,
   selectAlbumsWithTrackLimits,

@@ -9,8 +9,8 @@
  * - 1.0.0: Initial implementation
  */
 
-import api from './api'
-import type { PlaylistItem } from '../components/PlaylistSelector/PlaylistSelector'
+import SpotifyApi from 'spotify-api-lib'
+import type { PlaylistItem } from 'types/spotify'
 
 /**
  * Fetches non-standard Spotify playlists (Liked Songs, Discover Weekly, Daylist) as virtual playlist objects.
@@ -18,26 +18,12 @@ import type { PlaylistItem } from '../components/PlaylistSelector/PlaylistSelect
  * @returns Promise<PlaylistItem[]>
  */
 export async function getNonStandardPlaylists(accessToken: string): Promise<PlaylistItem[]> {
-  //
-  // Fetch liked songs count
-  const likedSongsResponse = await api.get('/me/tracks?limit=1')
-  //
-  let totalLikedSongs = 0
-  if (typeof likedSongsResponse.data.total === 'number') {
-    totalLikedSongs = likedSongsResponse.data.total
-  } else if (
-    likedSongsResponse.data.data &&
-    typeof likedSongsResponse.data.data.total === 'number'
-  ) {
-    totalLikedSongs = likedSongsResponse.data.data.total
-  } else if (
-    Array.isArray(likedSongsResponse.data.items) &&
-    typeof likedSongsResponse.data.limit === 'number'
-  ) {
-    totalLikedSongs = likedSongsResponse.data.items.length
-  } else {
-    //
-  }
+  const spotify = new SpotifyApi()
+  spotify.setAccessToken(accessToken)
+  
+  // Fetch liked songs count using the API
+  const likedSongsResponse = await spotify.tracks.getSavedTracks({ limit: 1, offset: 0 })
+  let totalLikedSongs = likedSongsResponse.total || 0
 
   const likedSongsPlaylist: PlaylistItem = {
     id: 'liked-songs',
@@ -58,11 +44,9 @@ export async function getNonStandardPlaylists(accessToken: string): Promise<Play
       total: totalLikedSongs,
     },
   }
-  //
 
   // Fetch all playlists to find Discover Weekly and Daylist
-  const playlistsResponse = await api.get('/me/playlists')
-  const items = playlistsResponse.data.items as PlaylistItem[]
+  const items = await spotify.playlists.getUserPlaylists({ limit: 50, offset: 0 }) as PlaylistItem[]
 
   // Find Discover Weekly and Daylist by name and owner
   const discoverWeekly = items.find(

@@ -9,8 +9,8 @@
  * - 1.0.0: Initial implementation with realistic mock data
  */
 
-import { SpotifyAlbum, SpotifyArtist } from '../spotifyApi'
-import { LastFmAlbumResult, LastFmArtistResult } from '../lastFmFinder'
+import { SpotifyAlbum, SpotifyArtist } from 'spotify-api-lib'
+import { LastFmAlbum, LastFmArtist } from 'lastfm-api-lib'
 
 /**
  * Mock Spotify artists
@@ -237,7 +237,7 @@ export const mockSpotifyAlbums: SpotifyAlbum[] = [
 /**
  * Mock Last.fm album results
  */
-export const mockLastFmAlbumResults: Record<string, LastFmAlbumResult> = {
+export const mockLastFmAlbumResults: Record<string, LastFmAlbum> = {
   '6dVIqQ8qmQ7GUH5GkK7X7V': {
     // OK Computer
     found: true,
@@ -353,7 +353,7 @@ export const mockLastFmAlbumResults: Record<string, LastFmAlbumResult> = {
 /**
  * Mock Last.fm artist results
  */
-export const mockLastFmArtistResults: Record<string, LastFmArtistResult> = {
+export const mockLastFmArtistResults: Record<string, LastFmArtist> = {
   '4Z8W4fKeB5YxbusRsdQVPb': {
     // Radiohead
     found: true,
@@ -444,10 +444,10 @@ export const mockRelatedAlbumsResponse = {
  */
 export const getMockSpotifyAlbums = (): SpotifyAlbum[] => mockSpotifyAlbums
 
-export const getMockLastFmAlbumResult = (albumId: string): LastFmAlbumResult | null =>
+export const getMockLastFmAlbumResult = (albumId: string): LastFmAlbum | null =>
   mockLastFmAlbumResults[albumId] || null
 
-export const getMockLastFmArtistResult = (artistId: string): LastFmArtistResult | null =>
+export const getMockLastFmArtistResult = (artistId: string): LastFmArtist | null =>
   mockLastFmArtistResults[artistId] || null
 
 export const getMockRelatedAlbums = () => mockRelatedAlbumsResponse

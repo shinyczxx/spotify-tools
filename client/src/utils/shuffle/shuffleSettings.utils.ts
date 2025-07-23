@@ -46,11 +46,9 @@ export class AdvancedShuffleSettings {
   constructor(
     spotifyToken: string,
     lastFmApiKey?: string,
-    lastFmSecret?: string,
-    lastFmSession?: string,
   ) {
     this.settings = { ...defaultAdvancedSettings }
-    this.engine = new AdvancedShuffleEngine(spotifyToken, lastFmApiKey, lastFmSecret, lastFmSession)
+    this.engine = new AdvancedShuffleEngine(spotifyToken, lastFmApiKey)
   }
 
   /**

@@ -10,7 +10,3 @@ export function shuffle<T>(array: T[]): T[] {
   return arr;
 }
 
-export function clearMessages(setError: (msg: string | null) => void, setSuccess: (msg: string | null) => void) {
-  setError(null);
-  setSuccess(null);
-}
