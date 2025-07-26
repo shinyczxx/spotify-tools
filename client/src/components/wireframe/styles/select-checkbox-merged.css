@@ -3,8 +3,31 @@
 /* --- WireframeSelect styles --- */
 .wireframe-select-container {
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
   font-family: var(--terminal-font);
+  width: 100%;
+}
+
+/* Label positioning variants */
+.wireframe-select-container-label-left,
+.wireframe-select-container-label-right {
+  flex-direction: row;
+  align-items: center;
+}
+
+.wireframe-select-container-label-right {
+  flex-direction: row-reverse;
+}
+
+/* Gap handling for labels */
+.wireframe-select-container-with-gap.wireframe-select-container-label-top {
+  gap: 0.5em;
+}
+
+.wireframe-select-container-with-gap.wireframe-select-container-label-left,
+.wireframe-select-container-with-gap.wireframe-select-container-label-right {
+  gap: 1em;
 }
 .wireframe-select-container-small {
   font-size: calc(var(--terminal-font-size) * 0.8);
@@ -17,7 +40,7 @@
 }
 .wireframe-select-label {
   display: block;
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-family: var(--terminal-font);
   font-size: 0.9em;
   margin-bottom: 0.5em;
@@ -27,8 +50,8 @@
 }
 .wireframe-select {
   position: relative;
-  display: inline-block;
-  min-width: 120px;
+  display: block;
+  width: 100%;
   outline: none;
 }
 .wireframe-select-trigger {
@@ -36,19 +59,20 @@
   align-items: center;
   justify-content: space-between;
   padding: 8px 12px;
-  background: var(--terminal-bg);
-  border: 1px solid var(--terminal-cyan);
-  color: var(--terminal-cyan);
+  background: transparent;
+  border: none;
+  color: var(--primary);
   cursor: pointer;
   transition: all 0.3s ease;
   user-select: none;
   text-transform: lowercase;
+  width: 100%;
 }
 
 /* Additional dropdown styles */
 .wireframe-select-dropdown {
-  background: var(--terminal-bg);
-  border: 1px solid var(--terminal-cyan);
+  background: var(--background);
+  border: 1px solid var(--primary);
   box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
   max-height: 200px;
   overflow-y: auto;
@@ -57,21 +81,39 @@
 
 .wireframe-select-option {
   padding: 8px 12px;
-  color: var(--terminal-cyan);
-  background: var(--terminal-bg);
+  color: var(--primary);
+  background: var(--background);
   cursor: pointer;
   transition: background-color 0.2s ease;
   text-transform: lowercase;
 }
 
 .wireframe-select-option:hover {
-  background: var(--terminal-cyan-dim);
-  color: var(--terminal-bg);
+  background: var(--primary-dim);
+  color: var(--background);
 }
 
 .wireframe-select-option.selected {
-  background: var(--terminal-cyan);
-  color: var(--terminal-bg);
+  background: var(--primary);
+  color: var(--background);
+}
+
+/* Trigger hover and focus states */
+.wireframe-select-trigger:hover:not([aria-disabled="true"]) {
+  background: rgba(0, 255, 255, 0.05);
+  color: var(--primary-bright, #66ffff);
+}
+
+.wireframe-select:focus-visible .wireframe-select-trigger,
+.wireframe-select-trigger:focus-visible {
+  outline: 1px solid var(--primary-bright, #66ffff);
+  background: rgba(0, 255, 255, 0.05);
+}
+
+/* Disabled state */
+.wireframe-select[aria-disabled="true"] .wireframe-select-trigger {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* --- WireframeCheckbox styles --- */
@@ -81,7 +123,7 @@
   justify-content: flex-start;
   gap: 0.5em;
   cursor: pointer;
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-family: var(--terminal-font);
   user-select: none;
   -webkit-user-select: none;
@@ -113,7 +155,7 @@
 }
 .wireframe-checkbox-svg {
   display: block;
-  color: var(--terminal-cyan);
+  color: var(--primary);
   transition: all 0.3s ease;
   pointer-events: none; /* Ensure clicks pass through to the input */
 }

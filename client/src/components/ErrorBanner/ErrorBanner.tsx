@@ -1,12 +1,13 @@
 /**
  * @file ErrorBanner.tsx
- * @description Reusable error banner component
+ * @description Reusable error banner component using WireframePanel
  * @author Caleb Price
- * @version 1.0.0
- * @date 2025-07-21
+ * @version 2.0.0
+ * @date 2025-07-25
  */
 
 import React from 'react'
+import { WireframePanel, WireframeButton } from '@components/wireframe'
 import './ErrorBanner.css'
 
 interface ErrorBannerProps {
@@ -18,17 +19,21 @@ interface ErrorBannerProps {
 export const ErrorBanner: React.FC<ErrorBannerProps> = ({ error, onDismiss, topOffset = 0 }) => {
   return (
     <div 
-      className="error-banner"
+      className="error-banner-container"
       style={{ top: `${topOffset}px` }}
     >
-      <span>{error}</span>
-      <button 
-        className="error-banner-close"
-        onClick={onDismiss}
-        aria-label="Dismiss error"
-      >
-        ×
-      </button>
+      <WireframePanel variant="error" title="Error">
+        <div className="error-content">
+          <span>{error}</span>
+          <WireframeButton 
+            onClick={onDismiss}
+            variant="secondary"
+            size="small"
+          >
+            Dismiss
+          </WireframeButton>
+        </div>
+      </WireframePanel>
     </div>
   )
 }

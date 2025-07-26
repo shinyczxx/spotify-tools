@@ -21,8 +21,8 @@
   margin: 0;
   font-family: var(--terminal-font, Fixedsys, Courier New, monospace);
   font-size: inherit;
-  color: var(--terminal-cyan);
-  text-shadow: var(--glow-cyan);
+  color: var(--primary);
+  text-shadow: var(--glow-primary);
   letter-spacing: 1px;
   text-transform: lowercase;
   transition: all 0.3s ease;
@@ -30,11 +30,11 @@
 }
 
 .wireframe-tooltip-icon:focus {
-  box-shadow: 0 0 0 2px var(--terminal-cyan);
+  box-shadow: 0 0 0 2px var(--primary);
 }
 
 .wireframe-tooltip-icon.inverted {
-  color: var(--terminal-bg);
+  color: var(--background);
 }
 
 .tooltip-icon-svg {
@@ -43,6 +43,6 @@
 
 /* Optional: add a subtle hover effect */
 .wireframe-tooltip-icon:hover .tooltip-icon-svg rect {
-  stroke: var(--terminal-cyan-bright);
-  filter: drop-shadow(var(--glow-cyan-bright));
+  stroke: var(--primary-bright);
+  filter: drop-shadow(var(--glow-primary-bright));
 }

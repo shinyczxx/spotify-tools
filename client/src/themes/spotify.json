@@ -1,0 +1,34 @@
+{
+  "name": "Spotify",
+  "description": "Official Spotify brand colors with green highlights",
+  "colors": {
+    "primary": "#1db954",
+    "primary-bright": "#1ed760",
+    "primary-dim": "#169c46",
+    "primary-dark": "#0f5d2a",
+    "background": "#121212",
+    "background-dark": "#000000",
+    "background-medium": "#181818",
+    "border": "#282828",
+    "text-primary": "#ffffff",
+    "text-secondary": "#b3b3b3",
+    "text-accent": "#1db954",
+    "error": "#e22134",
+    "error-border": "#ff4444",
+    "error-background": "#2a0a0a",
+    "success": "#1db954",
+    "warning": "#ffa500",
+    "danger": "#e22134",
+    "danger-bright": "#ff4444",
+    "danger-dim": "#b91828",
+    "grid": "rgba(29, 185, 84, 0.15)",
+    "grid-glitch": "rgba(29, 185, 84, 0.3)"
+  },
+  "effects": {
+    "glow-primary": "0 0 1px var(--primary)",
+    "glow-primary-bright": "0 0 2px var(--primary-bright)",
+    "glow-error": "0 0 10px #e22134",
+    "box-shadow": "inset 0 0 10px rgba(29, 185, 84, 0.05)",
+    "box-shadow-hover": "0 0 15px var(--primary-dark), inset 0 0 20px rgba(29, 185, 84, 0.1)"
+  }
+}

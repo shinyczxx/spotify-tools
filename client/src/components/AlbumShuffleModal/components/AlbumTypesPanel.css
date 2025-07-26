@@ -25,6 +25,18 @@
   align-items: center;
 }
 
+.album-type-multiselect {
+  display: flex;
+  gap: 1em;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.album-type-multiselect .wireframe-multiselect-container {
+  flex: 1;
+  min-width: 300px;
+}
+
 .get-albums-section {
   display: flex;
   align-items: center;
@@ -33,10 +45,10 @@
 
 .history-loaded-message {
   padding: 0.5em;
-  border: 1px solid var(--terminal-green);
+  border: 1px solid var(--success);
   background: rgba(0, 255, 0, 0.1);
   font-size: 0.9em;
-  color: var(--terminal-green);
+  color: var(--success);
 }
 
 .loading-section {
@@ -52,7 +64,7 @@
 }
 
 .loading-section.shuffling {
-  border-color: var(--terminal-cyan);
+  border-color: var(--primary);
   background: rgba(0, 255, 255, 0.1);
   animation: pulse 1.5s ease-in-out infinite;
 }
@@ -64,7 +76,7 @@
 }
 
 .loading-section.shuffling .loading-text {
-  color: var(--terminal-cyan);
+  color: var(--primary);
 }
 
 .loading-section.fetching .loading-text {
@@ -89,7 +101,7 @@
   height: 100%;
   background: linear-gradient(90deg, 
     transparent, 
-    var(--terminal-cyan), 
+    var(--primary), 
     transparent
   );
   background-size: 200px 100%;

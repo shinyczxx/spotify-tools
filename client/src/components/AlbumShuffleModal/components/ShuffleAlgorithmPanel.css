@@ -23,31 +23,10 @@
 }
 
 .algorithm-select {
-  padding: 0.5em;
-  border: 1px solid var(--circuit-color);
-  background: var(--terminal-bg);
-  color: var(--circuit-color);
-  font-size: var(--terminal-font-size);
-  font-family: var(--terminal-font);
-  width: 300px;
-  border-radius: 0;
-  transition: var(--wireframe-transition);
-}
-
-.algorithm-select:hover:not(:disabled) {
-  border-color: var(--terminal-cyan-bright);
-  background: rgba(0, 255, 255, 0.05);
-}
-
-.algorithm-select:focus {
-  outline: none;
-  border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
-}
-
-.algorithm-select:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  flex: 1;
+  max-width: 400px;
+  border: 1px solid var(--circuit-color-dim);
+  border-radius: 2px;
 }
 
 .algorithm-description {
@@ -66,5 +45,5 @@
 }
 
 .algorithm-tooltip strong {
-  color: var(--terminal-cyan);
+  color: var(--primary);
 }

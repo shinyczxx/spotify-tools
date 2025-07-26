@@ -1,202 +1,128 @@
 /**
  * @file WireframeToggle.css
- * @description Styles for the wireframe toggle switch component
+ * @description Styles for wireframe two-button toggle component
  * @author Caleb Price
- * @version 1.0.0
- * @date 2025-07-15
+ * @version 2.0.0
+ * @date 2025-07-24
  *
  * @ChangeLog
+ * - 2.0.0: Complete rewrite to match Toggle component functionality
  * - 1.0.0: Initial implementation with terminal aesthetic
  */
 
 .wireframe-toggle-container {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  border: var(--wireframe-border);
+  border-radius: 0;
+  overflow: hidden;
   font-family: var(--terminal-font);
+  width: 100%;
+  position: relative;
+  background: var(--background);
 }
 
-.wireframe-toggle-container.small {
-  font-size: calc(var(--terminal-font-size) * 0.8);
-}
-
-.wireframe-toggle-container.medium {
-  font-size: var(--terminal-font-size);
-}
-
-.wireframe-toggle-container.large {
-  font-size: calc(var(--terminal-font-size) * 1.2);
-}
-
-.wireframe-toggle-label {
-  color: var(--terminal-cyan);
-  font-size: inherit;
+.wireframe-toggle-button {
+  flex: 1 1 0%;
+  min-width: 0;
+  padding: 0.75em 1em;
+  border: none;
+  background: var(--background);
+  color: var(--primary);
+  font-family: var(--terminal-font);
+  font-size: calc(var(--terminal-font-size) * 0.95);
   text-transform: lowercase;
-  letter-spacing: 1px;
   cursor: pointer;
-  user-select: none;
-}
-
-.wireframe-toggle-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-.wireframe-toggle-input {
-  opacity: 0;
-  position: absolute;
-  width: 0;
-  height: 0;
-}
-
-.wireframe-toggle-track {
-  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-right: var(--wireframe-border);
+  outline: none;
+  white-space: nowrap;
+  z-index: 1;
   display: flex;
   align-items: center;
-  width: 80px;
-  height: 32px;
-  background: var(--terminal-dark);
-  border: 2px solid var(--terminal-cyan);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  user-select: none;
-  overflow: hidden;
+  justify-content: center;
+  letter-spacing: 1px;
 }
 
-.wireframe-toggle-track:hover {
-  border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 10px var(--terminal-cyan-dark);
+.wireframe-toggle-button:last-child {
+  border-right: none;
 }
 
-.wireframe-toggle-thumb {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 24px;
-  height: 24px;
-  background: var(--terminal-cyan);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid var(--terminal-cyan-bright);
+.wireframe-toggle-button.selected {
+  flex: 1.2 1 0%;
+  background: var(--primary);
+  color: var(--background) !important;
   z-index: 2;
+  font-size: var(--terminal-font-size);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: none;
 }
 
-.wireframe-toggle-on,
-.wireframe-toggle-off {
-  position: absolute;
-  font-size: 10px;
-  font-weight: bold;
-  text-transform: lowercase;
-  letter-spacing: 0.5px;
-  pointer-events: none;
-  transition: all 0.3s ease;
-  z-index: 1;
+.wireframe-toggle-button.equal,
+.wireframe-toggle-button.selected.equal {
+  flex: 1 1 0% !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.wireframe-toggle-on {
-  left: 6px;
-  color: var(--terminal-cyan);
-  opacity: 0;
+.wireframe-toggle-container.hovering .wireframe-toggle-button {
+  flex: 1 1 0% !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.wireframe-toggle-off {
-  right: 6px;
-  color: var(--terminal-cyan);
-  opacity: 1;
+.wireframe-toggle-button:hover:not(:disabled) {
+  background: var(--background-medium);
+  box-shadow: var(--box-shadow-hover);
+  z-index: 3;
 }
 
-/* Checked state */
-.wireframe-toggle-input:checked + .wireframe-toggle-track {
-  background: var(--terminal-medium);
-  border-color: var(--terminal-cyan-bright);
+.wireframe-toggle-button.selected:hover:not(:disabled),
+.wireframe-toggle-button.selected:focus:not(:disabled) {
+  background: var(--primary-bright);
+  color: var(--background) !important;
+  box-shadow: var(--box-shadow-hover);
 }
 
-.wireframe-toggle-input:checked + .wireframe-toggle-track .wireframe-toggle-thumb {
-  left: 52px;
-  background: var(--terminal-cyan-bright);
-  box-shadow: -2px 0 4px rgba(0, 255, 255, 0.3);
+.wireframe-toggle-button:focus:not(:disabled) {
+  background: var(--background-medium);
+  box-shadow: var(--box-shadow-hover);
 }
 
-.wireframe-toggle-input:checked + .wireframe-toggle-track .wireframe-toggle-on {
-  opacity: 1;
-  color: var(--terminal-cyan-bright);
-}
-
-.wireframe-toggle-input:checked + .wireframe-toggle-track .wireframe-toggle-off {
-  opacity: 0;
-}
-
-/* Focus state */
-.wireframe-toggle-input:focus + .wireframe-toggle-track {
-  outline: 2px solid var(--terminal-cyan-bright);
-  outline-offset: 2px;
-}
-
-/* Disabled state */
-.wireframe-toggle-input:disabled + .wireframe-toggle-track {
+.wireframe-toggle-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  border-color: var(--terminal-cyan-dim);
+  color: var(--primary-dim);
 }
 
-.wireframe-toggle-input:disabled + .wireframe-toggle-track:hover {
-  border-color: var(--terminal-cyan-dim);
+.wireframe-toggle-button:disabled:hover {
+  background: var(--background);
   box-shadow: none;
 }
 
-.wireframe-toggle-input:disabled + .wireframe-toggle-track .wireframe-toggle-thumb {
-  background: var(--terminal-cyan-dim);
+.wireframe-toggle-label {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center center;
+  font-size: inherit;
 }
 
-/* Size variants */
-.wireframe-toggle-container.small .wireframe-toggle-track {
-  width: 60px;
-  height: 24px;
+.wireframe-toggle-button.right .wireframe-toggle-label {
+  transform-origin: center center;
 }
 
-.wireframe-toggle-container.small .wireframe-toggle-thumb {
-  width: 18px;
-  height: 18px;
+.wireframe-toggle-button.selected .wireframe-toggle-label {
+  font-size: var(--terminal-font-size);
+  transform: scaleX(1.12);
 }
 
-.wireframe-toggle-container.small
-  .wireframe-toggle-input:checked
-  + .wireframe-toggle-track
-  .wireframe-toggle-thumb {
-  left: 38px;
+.wireframe-toggle-button:not(.selected) .wireframe-toggle-label {
+  font-size: calc(var(--terminal-font-size) * 0.95);
+  transform: scaleX(0.95);
 }
 
-.wireframe-toggle-container.small .wireframe-toggle-on,
-.wireframe-toggle-container.small .wireframe-toggle-off {
-  font-size: 8px;
-}
-
-.wireframe-toggle-container.large .wireframe-toggle-track {
-  width: 100px;
-  height: 40px;
-}
-
-.wireframe-toggle-container.large .wireframe-toggle-thumb {
-  width: 32px;
-  height: 32px;
-  top: 2px;
-}
-
-.wireframe-toggle-container.large
-  .wireframe-toggle-input:checked
-  + .wireframe-toggle-track
-  .wireframe-toggle-thumb {
-  left: 64px;
-}
-
-.wireframe-toggle-container.large .wireframe-toggle-on,
-.wireframe-toggle-container.large .wireframe-toggle-off {
-  font-size: 12px;
-}
-
-.wireframe-toggle-container.large .wireframe-toggle-on {
-  left: 8px;
-}
-
-.wireframe-toggle-container.large .wireframe-toggle-off {
-  right: 8px;
+.wireframe-toggle-button.equal .wireframe-toggle-label,
+.wireframe-toggle-button.selected.equal .wireframe-toggle-label {
+  font-size: var(--terminal-font-size);
+  transform: scaleX(1);
 }

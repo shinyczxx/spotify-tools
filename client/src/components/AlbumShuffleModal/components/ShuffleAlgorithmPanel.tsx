@@ -8,6 +8,7 @@
 
 import React from 'react'
 import { WireframePanel } from '@components/wireframe'
+import { WireframeSelect } from '@components/wireframe/WireframeSelect'
 import { TooltipIcon } from '@components/wireframe/TooltipIcon'
 import { ShuffleConfig } from 'types/albumShuffle'
 import { ShuffleAlgorithm } from 'types/playlist'
@@ -45,24 +46,25 @@ export const ShuffleAlgorithmPanel: React.FC<ShuffleAlgorithmPanelProps> = ({
     <WireframePanel title="shuffle algorithm" className="shuffle-algorithm-panel">
       <div className="shuffle-algorithm-content">
         <div className="algorithm-selector">
-          <select
+          <WireframeSelect
             value={shuffleConfig.algorithm}
-            onChange={(e) =>
+            onChange={(value) =>
               onShuffleConfigChange({
-                algorithm: e.target.value as ShuffleAlgorithm,
+                algorithm: value as ShuffleAlgorithm,
               })
             }
+            options={[
+              { value: 'random', label: 'random shuffle' },
+              { value: 'weighted-newer', label: 'weighted (newer albums preferred)' },
+              { value: 'weighted-older', label: 'weighted (older albums preferred)' },
+              { value: 'chronological', label: 'chronological (with randomness)' },
+              { value: 'spiral-dance', label: 'spiral dance (alphabetical + chronological weave)' },
+            ]}
             disabled={disabled}
             className="algorithm-select"
-          >
-            <option value="random">random shuffle</option>
-            <option value="weighted-newer">weighted (newer albums preferred)</option>
-            <option value="weighted-older">weighted (older albums preferred)</option>
-            <option value="chronological">chronological (with randomness)</option>
-            <option value="spiral-dance">
-              spiral dance (alphabetical + chronological weave)
-            </option>
-          </select>
+            size="medium"
+            labelPosition="none"
+          />
           <TooltipIcon
             contents={
               <div className="algorithm-tooltip">

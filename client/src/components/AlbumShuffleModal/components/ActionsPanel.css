@@ -6,6 +6,9 @@
  * @date 2025-07-22
  */
 
+/* Import proper glitch animation from buttonGlitches.css */
+@import '@styles/buttonGlitches.css';
+
 .actions-panel {
   border-top: none;
 }
@@ -25,9 +28,9 @@
 }
 
 .reshuffle-button {
-  background: var(--terminal-bg);
-  border: 1px solid var(--terminal-cyan);
-  color: var(--terminal-cyan);
+  background: var(--background);
+  border: 1px solid var(--primary);
+  color: var(--primary);
   padding: 0.75em 1.5em;
   font-weight: bold;
   position: relative;
@@ -35,8 +38,8 @@
 
 .reshuffle-button:hover:not(:disabled) {
   background: rgba(0, 255, 255, 0.1);
-  border-color: var(--terminal-cyan-bright);
-  color: var(--terminal-cyan-bright);
+  border-color: var(--primary-bright);
+  color: var(--primary-bright);
 }
 
 .reshuffle-button:disabled {
@@ -44,23 +47,6 @@
   cursor: not-allowed;
 }
 
-/* Glitch effect for reshuffle button */
-.reshuffle-button.button-glitch-active {
-  animation: buttonGlitch 0.4s ease-in-out;
-}
-
-@keyframes buttonGlitch {
-  0%, 100% { transform: translate(0); }
-  10% { transform: translate(-2px, -1px); }
-  20% { transform: translate(2px, 1px); }
-  30% { transform: translate(-1px, 2px); }
-  40% { transform: translate(1px, -2px); }
-  50% { transform: translate(-2px, 1px); }
-  60% { transform: translate(2px, -1px); }
-  70% { transform: translate(-1px, -2px); }
-  80% { transform: translate(1px, 2px); }
-  90% { transform: translate(-2px, -1px); }
-}
 
 /* Loading shimmer effect */
 .shuffle-button-loading {
@@ -96,7 +82,7 @@
 }
 
 .create-button {
-  background: var(--terminal-bg);
+  background: var(--background);
   border: 1px solid var(--circuit-color);
   color: var(--circuit-color);
   padding: 0.75em 1.5em;
@@ -104,14 +90,14 @@
 }
 
 .create-button.ready {
-  border-color: var(--terminal-green);
-  color: var(--terminal-green);
+  border-color: var(--success);
+  color: var(--success);
 }
 
 .create-button.ready:hover:not(:disabled) {
   background: rgba(0, 255, 0, 0.1);
-  border-color: var(--terminal-green-bright, #66ff66);
-  color: var(--terminal-green-bright, #66ff66);
+  border-color: var(--success-bright, #66ff66);
+  color: var(--success-bright, #66ff66);
 }
 
 .create-button:disabled {
@@ -120,7 +106,7 @@
 }
 
 .spotify-button {
-  background: var(--terminal-bg);
+  background: var(--background);
   border: 1px solid var(--spotify-green, #1db954);
   color: var(--spotify-green, #1db954);
   padding: 0.75em 1.5em;
@@ -142,7 +128,6 @@
   }
 
   .create-actions {
-    margin-left: 0;
     flex-direction: column;
     gap: 0.5em;
   }

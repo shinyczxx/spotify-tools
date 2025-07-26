@@ -12,8 +12,8 @@
 :root {
   /* Grid configuration */
   --grid-size: 40px;
-  --grid-color: rgba(0, 255, 255, 0.15); /* Dim cyan for grid lines */
-  --grid-glitch-color: rgba(0, 255, 255, 0.3); /* Brighter cyan for glitches */
+  --grid: rgba(0, 255, 255, 0.15); /* Dim cyan for grid lines */
+  --grid-glitch: rgba(0, 255, 255, 0.3); /* Brighter cyan for glitches */
   --grid-enabled: 1; /* 1 = enabled, 0 = disabled */
   --grid-glitch-enabled: 0; /* 1 = enabled, 0 = disabled */
 }
@@ -27,8 +27,8 @@ body::before {
   width: 100vw;
   height: 100vh;
   opacity: var(--grid-enabled);
-  background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+  background-image: linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
   background-size: var(--grid-size) var(--grid-size);
   background-position: calc(var(--grid-size) / -2) calc(var(--grid-size) / -2);
   pointer-events: none;
@@ -72,8 +72,8 @@ body::before {
 
 /* High contrast mode - brighter grid for accessibility */
 .grid-high-contrast {
-  --grid-color: rgba(0, 255, 255, 0.15);
-  --grid-glitch-color: rgba(0, 255, 255, 0.5);
+  --grid: rgba(0, 255, 255, 0.15);
+  --grid-glitch: rgba(0, 255, 255, 0.5);
 }
 
 /* Duplicate body::before removed - using main one only */

@@ -35,7 +35,7 @@
 /* Header styles */
 .callback-header {
   text-align: center;
-  color: var(--terminal-cyan);
+  color: var(--primary);
 }
 
 .callback-header h1 {
@@ -43,7 +43,7 @@
   font-size: 1.5rem;
   margin: 0 0 0.5rem 0;
   letter-spacing: 2px;
-  text-shadow: var(--glow-cyan);
+  text-shadow: var(--glow-primary);
 }
 
 /* Auth container styles */
@@ -84,7 +84,7 @@
 
 .progress-label {
   font-size: 12px;
-  color: var(--terminal-cyan-dim);
+  color: var(--primary-dim);
   letter-spacing: 1px;
   font-family: var(--terminal-font);
 }
@@ -119,15 +119,15 @@
   font-family: var(--terminal-font);
   font-size: 12px;
   margin: 4px 0;
-  color: var(--terminal-cyan-dim);
+  color: var(--primary-dim);
 }
 
 .terminal-line.success {
-  color: var(--terminal-green);
+  color: var(--success);
 }
 
 .terminal-line.error {
-  color: var(--terminal-red);
+  color: var(--danger);
 }
 
 /* Actions */

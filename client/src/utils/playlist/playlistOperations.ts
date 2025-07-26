@@ -206,8 +206,20 @@ export const createPlaylistFromTracks = async (
   const batchSize = 100
   for (let i = 0; i < tracks.length; i += batchSize) {
     const batch = tracks.slice(i, i + batchSize)
-    const trackUris = batch.map((track) => track.uri)
-    await spotifyApi.playlists.addTracks(newPlaylist.id, trackUris)
+    // Filter out invalid URIs, simulated tracks, and ensure proper format
+    const trackUris = batch
+      .filter((track) => 
+        track.uri && 
+        track.uri.startsWith('spotify:track:') && 
+        !track.uri.includes('simulated-') && // Exclude simulated tracks
+        track.uri.length > 14 &&
+        !track.id.startsWith('simulated-') // Double check with track ID
+      )
+      .map((track) => track.uri)
+    
+    if (trackUris.length > 0) {
+      await spotifyApi.playlists.addTracks(newPlaylist.id, trackUris)
+    }
   }
 
   return newPlaylist

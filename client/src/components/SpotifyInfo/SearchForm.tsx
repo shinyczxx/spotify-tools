@@ -41,7 +41,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
             value={searchQuery}
             onChange={(e) => onSearchQueryChange(e.target.value)}
             onKeyPress={onKeyPress}
-            placeholder="enter track name or artist..."
+            placeholder="enter track name, artist, or spotify id/link..."
             disabled={isSearching}
             className="wireframe-input search-input"
           />

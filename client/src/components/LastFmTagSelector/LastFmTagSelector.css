@@ -1,0 +1,336 @@
+/**
+ * @file LastFmTagSelector.css
+ * @description Styles for the LastFm tag selector component
+ * @author Caleb Price
+ * @version 1.0.0  
+ * @date 2025-07-24
+ */
+
+.lastfm-tag-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+/* Filter Input Section */
+.tag-filter-section {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.tag-filter-input {
+  flex: 1;
+  padding: 0.5em;
+  border: 1px solid var(--circuit-color-dim);
+  background: var(--circuit-bg);
+  color: var(--circuit-color);
+  font-family: inherit;
+  font-size: 0.9em;
+  border-radius: 2px;
+}
+
+.tag-filter-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+.tag-filter-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.tag-counter {
+  font-size: 0.85em;
+  color: var(--circuit-color-dim);
+  white-space: nowrap;
+}
+
+/* Panels Container - Left/Right Layout */
+.panels-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+}
+
+/* Available Tags Panel - Left */
+.available-tags-panel {
+  height: fit-content;
+}
+
+.available-tags-container {
+  height: 120px; /* Fixed height for ~5 lines */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Selected Tags Panel - Right */
+.selected-tags-panel {
+  border-color: var(--primary);
+  height: fit-content;
+}
+
+.selected-tags-container {
+  min-height: 120px; /* Match available tags height */
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+.selected-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  flex: 1;
+}
+
+.no-selected-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: var(--circuit-color-dim);
+  font-style: italic;
+  text-align: center;
+}
+
+.selected-tag-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.4em 0.8em;
+  background: var(--primary);
+  color: var(--circuit-bg);
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.selected-tag-item:hover:not(:disabled) {
+  background: var(--primary-hover, var(--primary));
+  transform: translateY(-1px);
+}
+
+.selected-tag-item:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.tag-remove-icon {
+  font-size: 1.2em;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.clear-all-button {
+  align-self: flex-start;
+  padding: 0.4em 0.8em;
+  background: transparent;
+  color: var(--circuit-color-dim);
+  border: 1px solid var(--circuit-color-dim);
+  border-radius: 4px;
+  font-size: 0.8em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-all-button:hover:not(:disabled) {
+  color: var(--circuit-color);
+  border-color: var(--circuit-color);
+}
+
+.clear-all-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.available-tags-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  align-content: flex-start;
+}
+
+.available-tag-item {
+  padding: 0.4em 0.8em;
+  background: transparent;
+  color: var(--circuit-color);
+  border: 1px solid var(--circuit-color-dim);
+  border-radius: 4px;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.available-tag-item:hover:not(:disabled) {
+  background: var(--circuit-color-dim);
+  color: var(--circuit-bg);
+  border-color: var(--circuit-color);
+  transform: translateY(-1px);
+}
+
+.available-tag-item:disabled,
+.available-tag-item.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.available-tag-item.disabled:hover {
+  transform: none;
+  background: transparent;
+  color: var(--circuit-color);
+  border-color: var(--circuit-color-dim);
+}
+
+/* Tag Brackets CSS */
+.tag-with-brackets .tag-text::before {
+  content: '[';
+  color: var(--circuit-color-dim);
+}
+
+.tag-with-brackets .tag-text::after {
+  content: ']';
+  color: var(--circuit-color-dim);
+}
+
+/* Selected tags have different bracket styling */
+.selected-tag-item.tag-with-brackets .tag-text::before,
+.selected-tag-item.tag-with-brackets .tag-text::after {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.no-tags-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+  color: var(--circuit-color-dim);
+  font-style: italic;
+  text-align: center;
+}
+
+/* Scrollbar styling for available tags */
+.available-tags-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.available-tags-container::-webkit-scrollbar-track {
+  background: var(--circuit-bg);
+}
+
+.available-tags-container::-webkit-scrollbar-thumb {
+  background: var(--circuit-color-dim);
+  border-radius: 3px;
+}
+
+.available-tags-container::-webkit-scrollbar-thumb:hover {
+  background: var(--circuit-color);
+}
+
+/* Load More Section */
+.load-more-section {
+  padding: 0.5em;
+  text-align: center;
+  border-top: 1px solid var(--circuit-color-dim);
+}
+
+.loading-more-indicator {
+  color: var(--circuit-color-dim);
+  font-size: 0.85em;
+  font-style: italic;
+  padding: 0.5em;
+}
+
+.load-more-button {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  padding: 0.4em 0.8em;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.load-more-button:hover:not(:disabled) {
+  background: var(--primary);
+  color: var(--circuit-bg);
+}
+
+.load-more-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.end-of-tags-indicator {
+  color: var(--circuit-color-dim);
+  font-size: 0.8em;
+  font-style: italic;
+  padding: 0.5em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tag-filter-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5em;
+  }
+  
+  .tag-counter {
+    text-align: center;
+  }
+  
+  /* Stack panels vertically on mobile */
+  .panels-container {
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+  }
+  
+  /* Adjust heights for mobile */
+  .available-tags-container {
+    height: 100px; /* Slightly shorter on mobile */
+  }
+  
+  .selected-tags-container {
+    min-height: 100px;
+  }
+  
+  /* Better touch targets on mobile */
+  .available-tag-item,
+  .selected-tag-item {
+    padding: 0.6em 1em;
+    font-size: 0.9em;
+  }
+  
+  .clear-all-button {
+    padding: 0.6em 1em;
+    font-size: 0.9em;
+    align-self: center;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Even smaller adjustments for very small screens */
+  .available-tags-container {
+    height: 80px;
+  }
+  
+  .selected-tags-container {
+    min-height: 80px;
+  }
+  
+  .available-tag-item,
+  .selected-tag-item {
+    font-size: 0.8em;
+    padding: 0.5em 0.8em;
+  }
+  
+  .panels-container {
+    gap: 1em;
+  }
+}

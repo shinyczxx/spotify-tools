@@ -7,6 +7,114 @@
   gap: 1.5rem;
 }
 
+/* Configuration Section */
+.lastfm-config-panel {
+  margin-bottom: 1rem;
+}
+
+.lastfm-config-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.lastfm-api-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.lastfm-api-indicator {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+.lastfm-api-indicator.has-key {
+  color: var(--success);
+}
+
+.lastfm-api-indicator.no-key {
+  color: var(--warning);
+}
+
+.lastfm-api-help {
+  font-size: 0.85rem;
+  color: var(--primary-dim);
+  margin: 0;
+  font-style: italic;
+}
+
+.lastfm-toggle-description {
+  font-size: 0.85rem;
+  color: var(--primary-dim);
+  margin: 0;
+  font-style: italic;
+}
+
+.lastfm-test-notice {
+  font-size: 0.9rem;
+  color: var(--terminal-yellow);
+  margin: 0;
+  padding: 0.5rem 0;
+  font-weight: 500;
+}
+
+/* Testing Mode Yellow Color Scheme */
+.lastfm-tools-container.testing-mode {
+  /* Override primary colors with yellow in testing mode */
+}
+
+.lastfm-tools-container.testing-mode .lastfm-album-card {
+  border-color: var(--terminal-yellow-dim);
+}
+
+.lastfm-tools-container.testing-mode .lastfm-album-card:hover {
+  border-color: var(--terminal-yellow);
+  background: rgba(255, 255, 0, 0.05);
+}
+
+.lastfm-tools-container.testing-mode .lastfm-album-card.selected {
+  border-color: var(--terminal-yellow-bright);
+  background: rgba(255, 255, 0, 0.1);
+}
+
+.lastfm-tools-container.testing-mode .lastfm-album-name {
+  color: var(--terminal-yellow-bright);
+}
+
+.lastfm-tools-container.testing-mode .lastfm-album-image {
+  border-color: var(--terminal-yellow-dim);
+}
+
+.lastfm-tools-container.testing-mode .lastfm-tag {
+  background: rgba(255, 255, 0, 0.05);
+  color: var(--terminal-yellow);
+  border-color: var(--terminal-yellow-dim);
+}
+
+.lastfm-tools-container.testing-mode .lastfm-selection-actions {
+  border-color: var(--terminal-yellow-dim);
+}
+
+.lastfm-tools-container.testing-mode .lastfm-selection-actions p {
+  color: var(--terminal-yellow);
+}
+
+.lastfm-tools-container.testing-mode .lastfm-album-checkbox input[type="checkbox"] {
+  accent-color: var(--terminal-yellow);
+}
+
+.lastfm-tools-container.testing-mode .lastfm-modal-album-list {
+  border-color: var(--terminal-yellow-dim);
+}
+
+.lastfm-tools-container.testing-mode .lastfm-modal-album-item strong {
+  color: var(--terminal-yellow);
+}
+
 /* Search Section */
 .lastfm-search-section {
   display: flex;
@@ -14,24 +122,50 @@
   gap: 1rem;
 }
 
-.lastfm-search-input-group {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
+.lastfm-tag-selector {
+  margin-bottom: 1rem;
 }
 
-.lastfm-tag-input {
-  flex: 1;
-  min-width: 300px;
+.lastfm-search-actions {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
 }
 
 .lastfm-search-button {
-  flex-shrink: 0;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .lastfm-search-help {
   font-size: 0.9rem;
-  color: var(--terminal-cyan-dim);
+  color: var(--primary-dim);
+  margin: 0;
+  font-style: italic;
+}
+
+/* Disabled search state */
+.lastfm-search-disabled {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 136, 0, 0.05);
+  border: 1px solid var(--warning-dim);
+  border-radius: 4px;
+}
+
+.lastfm-disabled-message {
+  font-size: 0.95rem;
+  color: var(--warning);
+  margin: 0;
+  font-weight: 500;
+}
+
+.lastfm-disabled-help {
+  font-size: 0.85rem;
+  color: var(--warning-dim);
   margin: 0;
   font-style: italic;
 }
@@ -45,8 +179,8 @@
 }
 
 .lastfm-album-card {
-  border: 1px solid var(--terminal-cyan-dim);
-  background: var(--terminal-bg);
+  border: 1px solid var(--primary-dim);
+  background: var(--background);
   padding: 1rem;
   border-radius: 4px;
   cursor: pointer;
@@ -58,13 +192,13 @@
 }
 
 .lastfm-album-card:hover {
-  border-color: var(--terminal-cyan);
-  background: var(--terminal-cyan-ultra-dim);
+  border-color: var(--primary);
+  background: var(--primary-ultra-dim);
 }
 
 .lastfm-album-card.selected {
-  border-color: var(--terminal-cyan-bright);
-  background: var(--terminal-cyan-dim);
+  border-color: var(--primary-bright);
+  background: var(--primary-dim);
 }
 
 .lastfm-album-image {
@@ -73,8 +207,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--terminal-bg-light);
-  border: 1px solid var(--terminal-cyan-dim);
+  background: var(--background-light);
+  border: 1px solid var(--primary-dim);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -87,7 +221,7 @@
 
 .lastfm-album-placeholder {
   font-size: 2rem;
-  color: var(--terminal-cyan-dim);
+  color: var(--primary-dim);
 }
 
 .lastfm-album-info {
@@ -100,7 +234,7 @@
 .lastfm-album-name {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   margin: 0;
   line-height: 1.2;
 }
@@ -121,11 +255,11 @@
 
 .lastfm-tag {
   font-size: 0.75rem;
-  background: var(--terminal-cyan-ultra-dim);
-  color: var(--terminal-cyan);
+  background: var(--primary-ultra-dim);
+  color: var(--primary);
   padding: 0.2rem 0.4rem;
   border-radius: 3px;
-  border: 1px solid var(--terminal-cyan-dim);
+  border: 1px solid var(--primary-dim);
 }
 
 .lastfm-album-checkbox {
@@ -137,12 +271,12 @@
 .lastfm-album-checkbox input[type="checkbox"] {
   width: 18px;
   height: 18px;
-  accent-color: var(--terminal-cyan);
+  accent-color: var(--primary);
 }
 
 /* Selection Actions */
 .lastfm-selection-actions {
-  border-top: 1px solid var(--terminal-cyan-dim);
+  border-top: 1px solid var(--primary-dim);
   padding-top: 1rem;
   display: flex;
   justify-content: space-between;
@@ -153,7 +287,7 @@
 
 .lastfm-selection-actions p {
   margin: 0;
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-weight: 600;
 }
 
@@ -167,8 +301,8 @@
   margin-top: 1rem;
   max-height: 200px;
   overflow-y: auto;
-  border: 1px solid var(--terminal-cyan-dim);
-  background: var(--terminal-bg-light);
+  border: 1px solid var(--primary-dim);
+  background: var(--background-light);
   padding: 1rem;
   border-radius: 4px;
 }
@@ -180,38 +314,34 @@
 }
 
 .lastfm-modal-album-item strong {
-  color: var(--terminal-cyan);
+  color: var(--primary);
 }
 
 /* Environment help styles */
 .lastfm-env-help {
   margin-top: 1rem;
   font-size: 0.9rem;
-  color: var(--terminal-cyan-dim);
+  color: var(--primary-dim);
 }
 
 .lastfm-env-help a {
-  color: var(--terminal-cyan);
+  color: var(--primary);
   text-decoration: underline;
 }
 
 .lastfm-env-help a:hover {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .lastfm-search-input-group {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .lastfm-tag-input {
-    min-width: unset;
+  .lastfm-search-actions {
+    margin: 0.5rem 0;
   }
   
   .lastfm-search-button {
     width: 100%;
+    max-width: 300px;
   }
   
   .lastfm-results-grid {

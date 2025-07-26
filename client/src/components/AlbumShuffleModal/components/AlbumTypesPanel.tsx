@@ -7,9 +7,10 @@
  */
 
 import React from 'react'
-import { WireframePanel, WireframeButton, WireframeCheckbox } from '@components/wireframe'
+import { WireframePanel, WireframeButton, WireframeMultiSelect } from '@components/wireframe'
 import { TooltipIcon } from '@components/wireframe/TooltipIcon'
-import LoadingSpinner from '@components/LoadingSpinner'
+import { useLoadingDots } from '@hooks/ui/useLoadingDots'
+import { LoadingAnimation } from '@components/LoadingAnimation'
 import { ShuffleConfig, FetchProgress } from 'types/albumShuffle'
 import { AlbumWithTrackCount } from '@utils/playlistAlbumFetcher'
 import './AlbumTypesPanel.css'
@@ -39,31 +40,40 @@ export const AlbumTypesPanel: React.FC<AlbumTypesPanelProps> = ({
   isFetching,
   isShuffling,
 }) => {
+  const loadingDots = useLoadingDots({ isLoading: isLoadingAlbums })
   return (
     <WireframePanel
       title={fromHistory ? 'album types (loaded from history)' : 'album types & retrieval'}
     >
       <div className="album-types-content">
         <div className="album-types-controls">
-          <div className="album-type-checkboxes">
-            <WireframeCheckbox
-              checked={shuffleConfig.allowSingles}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                console.log('Singles checkbox changed:', e.target.checked)
-                onShuffleConfigChange({ allowSingles: e.target.checked })
+          <div className="album-type-multiselect">
+            <WireframeMultiSelect
+              label="Album Types"
+              options={[
+                { value: 'albums', label: 'Albums' },
+                { value: 'eps', label: 'EPs' },
+                { value: 'singles', label: 'Singles' },
+                { value: 'compilations', label: 'Compilations' }
+              ]}
+              values={shuffleConfig.albumTypes || []}
+              onChange={(selectedTypes) => {
+                console.log('Album types changed:', selectedTypes)
+                const typedValues = selectedTypes as ('albums' | 'eps' | 'singles' | 'compilations')[]
+                onShuffleConfigChange({ 
+                  albumTypes: typedValues,
+                  // Update individual boolean flags for backward compatibility
+                  allowAlbums: typedValues.includes('albums'),
+                  allowEps: typedValues.includes('eps'),
+                  allowSingles: typedValues.includes('singles'),
+                  allowCompilations: typedValues.includes('compilations')
+                })
               }}
-              label="include singles"
-            />
-            <WireframeCheckbox
-              checked={shuffleConfig.allowCompilations}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                console.log('Compilations checkbox changed:', e.target.checked)
-                onShuffleConfigChange({ allowCompilations: e.target.checked })
-              }}
-              label="include compilations"
+              size="medium"
+              disabled={isLoadingAlbums || isFetching || isShuffling}
             />
             <TooltipIcon
-              contents="If a type is unchecked, the tool will search for full albums containing songs from that type and substitute the single/compilation with the full album"
+              contents="Albums/EPs: Include full albums and EPs. Singles: Include standalone singles. Compilations: Include compilation albums. If 'Albums' is selected and 'Singles' is not, the tool will search for full albums containing songs from singles and substitute them."
               size={16}
               direction="left"
               ariaLabel="Album type filtering help"
@@ -77,7 +87,7 @@ export const AlbumTypesPanel: React.FC<AlbumTypesPanelProps> = ({
                 disabled={isLoadingAlbums || selectedPlaylists.length === 0}
               >
                 {isLoadingAlbums
-                  ? `loading albums... (${fetchProgress.current}/${fetchProgress.total})`
+                  ? `loading albums${loadingDots}`
                   : 'get albums from selected playlists'}
               </WireframeButton>
             </div>
@@ -90,39 +100,20 @@ export const AlbumTypesPanel: React.FC<AlbumTypesPanelProps> = ({
           )}
         </div>
 
-        {/* Loading animation on the right side */}
+        {/* Loading animation with equation-based pips */}
         {(isFetching || isShuffling) && (
           <div className={`loading-section ${isShuffling ? 'shuffling' : 'fetching'}`}>
-            <LoadingSpinner size="small" />
-            <div className="loading-text">
-              {isShuffling ? (
-                <>
-                  shuffling...
-                  <br />
-                  <span className="loading-subtitle">
-                    🎲 randomizing
-                  </span>
-                </>
-              ) : (
-                <>
-                  fetching...
-                  <br />
-                  {fetchProgress.current}/{fetchProgress.total}
-                  <br />
-                  <span className="loading-subtitle">
-                    🎵 loading tracks
-                  </span>
-                  <div className="loading-progress-bar">
-                    <div 
-                      className="loading-progress-fill"
-                      style={{
-                        '--progress-width': `${fetchProgress.total > 0 ? (fetchProgress.current / fetchProgress.total) * 100 : 0}%`
-                      } as React.CSSProperties}
-                    />
-                  </div>
-                </>
-              )}
-            </div>
+            <LoadingAnimation
+              isLoading={isFetching || isShuffling}
+              text={isShuffling ? 'shuffling' : 'fetching'}
+              subtitle={isShuffling ? '🎲 randomizing' : '🎵 loading tracks'}
+              progress={isFetching ? fetchProgress : undefined}
+              pips={isFetching ? {
+                totalPips: 10,
+                currentPips: Math.floor((fetchProgress.current / Math.max(fetchProgress.total, 1)) * 10)
+              } : undefined}
+              size="small"
+            />
           </div>
         )}
       </div>

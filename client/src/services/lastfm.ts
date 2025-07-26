@@ -53,11 +53,12 @@ export interface LastFmTagTopAlbumsResponse {
 }
 
 export interface LastFmTopTagsResponse {
-  toptags: {
+  tags: {
     tag: LastFmTag[]
     '@attr': {
-      offset: string
-      num_res: string
+      page: string
+      perPage: string
+      totalPages: string
       total: string
     }
   }
@@ -81,6 +82,7 @@ export class LastFmService {
   private baseUrl = 'https://ws.audioscrobbler.com/2.0/'
 
   constructor(apiKey: string) {
+    console.log('🔑 LastFmService created with API key:', apiKey ? `${apiKey.substring(0, 8)}...` : 'MISSING')
     this.apiKey = apiKey
   }
 
@@ -152,27 +154,65 @@ export class LastFmService {
   }
 
   /**
-   * Get popular tags
+   * Get popular tags with pagination support
    */
-  async getTopTags(limit: number = 100): Promise<string[]> {
+  async getTopTags(limit: number = 100, page: number = 1): Promise<{ tags: string[], totalPages: number, currentPage: number, hasMore: boolean }> {
     try {
+      console.log('🌐 Last.fm API: Calling chart.getTopTags with limit:', limit, 'page:', page)
+      
       const response = await axios.get<LastFmTopTagsResponse>(this.baseUrl, {
         params: {
           method: 'chart.getTopTags',
           api_key: this.apiKey,
           format: 'json',
           limit: limit,
+          page: page,
         },
       })
 
-      if (!response.data.toptags?.tag) {
-        return this.getDefaultTags()
+      const totalPages = parseInt(response.data.tags?.['@attr']?.totalPages || '1')
+      const currentPage = parseInt(response.data.tags?.['@attr']?.page || '1')
+      
+      console.log('🔍 Last.fm API response debug:', {
+        status: response.status,
+        hasTags: !!response.data.tags,
+        hasTag: !!response.data.tags?.tag,
+        dataKeys: Object.keys(response.data || {}),
+        tagCount: response.data.tags?.tag?.length || 0,
+        requestedPage: page,
+        currentPage,
+        totalPages,
+        attrs: response.data.tags?.['@attr']
+      })
+
+      // Check for various response formats and provide detailed logging
+      if (!response.data.tags?.tag || !Array.isArray(response.data.tags.tag) || response.data.tags.tag.length === 0) {
+        console.log('🏷️ Last.fm tags: No tags available', {
+          hasTags: !!response.data.tags,
+          hasTagArray: !!response.data.tags?.tag,
+          isArray: Array.isArray(response.data.tags?.tag),
+          tagLength: response.data.tags?.tag?.length || 0,
+          responseStructure: Object.keys(response.data)
+        })
+        return { tags: [], totalPages: 1, currentPage: 1, hasMore: false }
       }
 
-      return response.data.toptags.tag.map(tag => tag.name)
+      const tags = response.data.tags.tag.map(tag => tag.name)
+      const hasMore = currentPage < totalPages
+      
+      console.log(`🏷️ Last.fm tags: Retrieved ${tags.length} tags (page ${currentPage}/${totalPages})`, {
+        totalReturned: tags.length,
+        requestedLimit: limit,
+        currentPage,
+        totalPages,
+        hasMore,
+        sampleTags: tags.slice(0, 10)
+      })
+      
+      return { tags, totalPages, currentPage, hasMore }
     } catch (error) {
       console.error('Error fetching top tags:', error)
-      return this.getDefaultTags()
+      throw error // Let the hook handle the error
     }
   }
 

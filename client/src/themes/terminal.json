@@ -1,0 +1,47 @@
+{
+  "name": "Terminal",
+  "description": "Classic 80s terminal theme with cyan highlights",
+  "colors": {
+    "primary": "#00ffff",
+    "primary-bright": "#66ffff", 
+    "primary-dim": "#0099cc",
+    "primary-dark": "#003366",
+    "background": "#000000",
+    "background-dark": "#0a0a0a",
+    "background-medium": "#1a1a1a",
+    "border": "#003366",
+    "text-primary": "#ffffff",
+    "text-secondary": "#cccccc",
+    "text-accent": "#00ffff",
+    "error": "#ff4444",
+    "error-border": "#ff6666",
+    "error-background": "#220000",
+    "success": "#00ff00",
+    "warning": "#ff8800",
+    "danger": "#ff0000",
+    "danger-bright": "#ff6666",
+    "danger-dim": "#cc0000",
+    "grid": "rgba(0, 255, 255, 0.15)",
+    "grid-glitch": "rgba(0, 255, 255, 0.3)"
+  },
+  "effects": {
+    "glow-primary": "0 0 10px #00ffff",
+    "glow-primary-bright": "0 0 2px var(--primary-bright)",
+    "glow-success": "0 0 10px #00ff00",
+    "glow-error": "0 0 10px #ff4444",
+    "box-shadow": "inset 0 0 10px rgba(0, 255, 255, 0.05)",
+    "box-shadow-hover": "0 0 15px var(--primary-dark), inset 0 0 20px rgba(0, 255, 255, 0.1)",
+    "grid-pattern": "radial-gradient(circle, #004444 1px, transparent 1px)"
+  },
+  "aliases": {
+    "circuit-color": "primary",
+    "circuit-color-dim": "primary-dim",
+    "circuit-color-bright": "primary-bright",
+    "circuit-color-dark": "primary-dark",
+    "circuit-bg": "background",
+    "terminal-bg": "background",
+    "terminal-text": "primary",
+    "success-bg": "#0a1a0a",
+    "danger-bg": "#1a0606"
+  }
+}

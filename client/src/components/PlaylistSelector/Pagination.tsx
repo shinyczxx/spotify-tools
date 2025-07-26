@@ -7,7 +7,7 @@
  */
 
 import React from 'react'
-import { WireframeSelect } from '../wireframe'
+import { WireframeSelect, WireframeButton } from '../wireframe'
 
 interface PaginationProps {
   currentPage: number
@@ -49,15 +49,14 @@ export const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div className="pagination">
-      <button
-        className="page-btn"
+      <WireframeButton
         onClick={handlePrevious}
         disabled={isFirstPage || !hasMultiplePages}
-        type="button"
-        aria-label="previous page"
+        className="page-btn"
+        title="previous page"
       >
         previous
-      </button>
+      </WireframeButton>
 
       <span className="page-info">
         {hasMultiplePages
@@ -82,15 +81,14 @@ export const Pagination: React.FC<PaginationProps> = ({
           size="small"
           className="items-per-page-select"
         />
-        <button
-          className="page-btn"
+        <WireframeButton
           onClick={handleNext}
           disabled={isLastPage || !hasMultiplePages}
-          type="button"
-          aria-label="next page"
+          className="page-btn"
+          title="next page"
         >
           next
-        </button>
+        </WireframeButton>
       </div>
     </div>
   )

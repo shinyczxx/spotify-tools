@@ -16,9 +16,12 @@ export interface WireframePanelProps {
   title?: string;
   className?: string;
   children: ReactNode;
-  variant?: "panel" | "header" | "error";
+  variant?: "panel" | "header" | "error" | "data" | "warn";
   padding?: "small" | "medium" | "large";
   style?: React.CSSProperties;
+  isCollapsible?: boolean;
+  isExpanded?: boolean;
+  onToggle?: () => void;
 }
 
 export function WireframePanel({
@@ -28,41 +31,74 @@ export function WireframePanel({
   variant = "panel",
   padding = "medium",
   style,
+  isCollapsible = false,
+  isExpanded = true,
+  onToggle,
 }: WireframePanelProps) {
-  const boxType =
-    variant === "header"
-      ? "header"
-      : variant === "error"
-      ? "error-panel"
-      : "panel";
-  const variantClass =
-    variant === "header"
-      ? "wireframe-header"
-      : variant === "error"
-      ? "wireframe-error-panel"
-      : "wireframe-panel";
-  const titleClass =
-    variant === "error"
-      ? "wireframe-error-panel-title"
-      : "wireframe-panel-title";
+  const getBoxType = () => {
+    switch (variant) {
+      case "header": return "header";
+      case "error": return "error-panel";
+      case "warn": return "warn-panel";
+      case "data": return "data-panel";
+      default: return "panel";
+    }
+  };
+
+  const getVariantClass = () => {
+    switch (variant) {
+      case "header": return "wireframe-header";
+      case "error": return "wireframe-error-panel";
+      case "warn": return "wireframe-warn-panel";
+      case "data": return "wireframe-data-panel";
+      default: return "wireframe-panel";
+    }
+  };
+
+  const getTitleClass = () => {
+    switch (variant) {
+      case "error": return "wireframe-error-panel-title";
+      case "warn": return "wireframe-warn-panel-title";
+      case "data": return "wireframe-data-panel-title";
+      default: return "wireframe-panel-title";
+    }
+  };
+
+  const getContentClass = () => {
+    switch (variant) {
+      case "error": return "wireframe-error-panel-content";
+      case "warn": return "wireframe-warn-panel-content";
+      case "data": return "wireframe-data-panel-content";
+      default: return "wireframe-panel-content";
+    }
+  };
 
   return (
     <WireframeBox
-      boxType={boxType}
-      className={`${variantClass} ${className}`}
+      boxType={getBoxType()}
+      className={`${getVariantClass()} ${className}`}
       style={style}
       padding={padding}
     >
-      {title && <h2 className={titleClass}>{title}</h2>}
-      <div
-        className={
-          variant === "error"
-            ? "wireframe-error-panel-content"
-            : "wireframe-panel-content"
-        }
-      >
-        {children}
-      </div>
+      {title && (
+        <h2 
+          className={`${getTitleClass()} ${isCollapsible ? 'collapsible-title' : ''}`}
+          onClick={isCollapsible ? onToggle : undefined}
+          style={isCollapsible ? { cursor: 'pointer' } : undefined}
+        >
+          {title}
+          {isCollapsible && (
+            <span className="collapse-indicator">
+              {isExpanded ? ' ▼' : ' ▶'}
+            </span>
+          )}
+        </h2>
+      )}
+      {(!isCollapsible || isExpanded) && (
+        <div className={getContentClass()}>
+          {children}
+        </div>
+      )}
     </WireframeBox>
   );
 }

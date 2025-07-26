@@ -13,7 +13,7 @@ import { useState, useMemo, useCallback } from 'react'
 
 export interface UsePaginationOptions {
   initialPage?: number
-  itemsPerPage?: number
+  initialItemsPerPage?: number
 }
 
 export interface UsePaginationReturn<T> {
@@ -43,24 +43,30 @@ export function usePagination<T>(
   items: T[],
   options: UsePaginationOptions = {}
 ): UsePaginationReturn<T> {
-  const { initialPage = 1, itemsPerPage: initialItemsPerPage = 10 } = options
-  
+  const {
+    initialPage = 1,
+    initialItemsPerPage = 10, // <-- default to 10 if not provided
+  } = options
+
   const [currentPage, setCurrentPage] = useState(initialPage)
   const [itemsPerPage, setItemsPerPage] = useState(initialItemsPerPage)
 
   const totalPages = useMemo(() => {
+    if (!Array.isArray(items)) return 1
     return Math.ceil(items.length / itemsPerPage) || 1
-  }, [items.length, itemsPerPage])
+  }, [items, itemsPerPage])
 
   const startIndex = useMemo(() => {
     return (currentPage - 1) * itemsPerPage
   }, [currentPage, itemsPerPage])
 
   const endIndex = useMemo(() => {
+    if (!Array.isArray(items)) return 0
     return Math.min(startIndex + itemsPerPage, items.length)
-  }, [startIndex, itemsPerPage, items.length])
+  }, [startIndex, itemsPerPage, items])
 
   const paginatedItems = useMemo(() => {
+    if (!Array.isArray(items)) return []
     return items.slice(startIndex, endIndex)
   }, [items, startIndex, endIndex])
 
@@ -95,11 +101,12 @@ export function usePagination<T>(
   const handleSetItemsPerPage = useCallback((count: number) => {
     setItemsPerPage(count)
     // Adjust current page if necessary
+    if (!Array.isArray(items)) return
     const newTotalPages = Math.ceil(items.length / count) || 1
     if (currentPage > newTotalPages) {
       setCurrentPage(newTotalPages)
     }
-  }, [items.length, currentPage])
+  }, [items, currentPage])
 
   return {
     currentPage,

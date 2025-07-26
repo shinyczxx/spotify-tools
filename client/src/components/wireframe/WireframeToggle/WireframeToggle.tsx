@@ -1,11 +1,12 @@
 /**
  * @file WireframeToggle.tsx
- * @description Toggle switch component with wireframe terminal styling
+ * @description Two-button toggle component matching Toggle.tsx functionality with wireframe styling
  * @author Caleb Price
- * @version 1.0.0
- * @date 2025-07-15
+ * @version 2.0.0
+ * @date 2025-07-24
  *
  * @ChangeLog
+ * - 2.0.0: Complete rewrite to match Toggle component functionality
  * - 1.0.0: Initial implementation with terminal aesthetic
  */
 
@@ -13,52 +14,55 @@ import React from 'react'
 import './WireframeToggle.css'
 
 interface WireframeToggleProps {
-  checked: boolean
-  onChange: (checked: boolean) => void
-  label?: string
-  id?: string
+  leftLabel: string
+  rightLabel: string
+  selected: 'left' | 'right'
+  onToggle: (selected: 'left' | 'right') => void
+  width?: string
   disabled?: boolean
-  size?: 'small' | 'medium' | 'large'
 }
 
 const WireframeToggle: React.FC<WireframeToggleProps> = ({
-  checked,
-  onChange,
-  label,
-  id,
+  leftLabel,
+  rightLabel,
+  selected,
+  onToggle,
+  width = '400px',
   disabled = false,
-  size = 'medium',
 }) => {
-  const toggleId = id || `toggle-${Math.random().toString(36).substr(2, 9)}`
+  const [hoveredInactive, setHoveredInactive] = React.useState<'left' | 'right' | null>(null)
 
-  const handleChange = () => {
-    if (!disabled) {
-      onChange(!checked)
-    }
-  }
+  // Reset hoveredInactive if selection changes
+  React.useEffect(() => {
+    setHoveredInactive(null)
+  }, [selected])
 
   return (
-    <div className={`wireframe-toggle-container ${size}`}>
-      {label && (
-        <label htmlFor={toggleId} className="wireframe-toggle-label">
-          {label}
-        </label>
-      )}
-      <div className="wireframe-toggle-wrapper">
-        <input
-          type="checkbox"
-          id={toggleId}
-          checked={checked}
-          onChange={handleChange}
-          disabled={disabled}
-          className="wireframe-toggle-input"
-        />
-        <label htmlFor={toggleId} className="wireframe-toggle-track">
-          <span className="wireframe-toggle-thumb" />
-          <span className="wireframe-toggle-on">on</span>
-          <span className="wireframe-toggle-off">off</span>
-        </label>
-      </div>
+    <div className="wireframe-toggle-container" style={{ width }}>
+      <button
+        className={`wireframe-toggle-button left${selected === 'left' ? ' selected' : ''}${
+          hoveredInactive === 'right' ? ' equal' : ''
+        }`}
+        onClick={() => !disabled && onToggle('left')}
+        type="button"
+        disabled={disabled}
+        onMouseEnter={() => !disabled && selected === 'right' && setHoveredInactive('left')}
+        onMouseLeave={() => setHoveredInactive(null)}
+      >
+        <span className="wireframe-toggle-label">{leftLabel}</span>
+      </button>
+      <button
+        className={`wireframe-toggle-button right${selected === 'right' ? ' selected' : ''}${
+          hoveredInactive === 'left' ? ' equal' : ''
+        }`}
+        onClick={() => !disabled && onToggle('right')}
+        type="button"
+        disabled={disabled}
+        onMouseEnter={() => !disabled && selected === 'left' && setHoveredInactive('right')}
+        onMouseLeave={() => setHoveredInactive(null)}
+      >
+        <span className="wireframe-toggle-label">{rightLabel}</span>
+      </button>
     </div>
   )
 }

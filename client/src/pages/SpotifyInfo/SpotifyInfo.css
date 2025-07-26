@@ -1,0 +1,262 @@
+/**
+ * @file SpotifyInfo.css
+ * @description Styles for Spotify information search page
+ * @author Caleb Price
+ * @version 2.0.0
+ * @date 2025-07-25
+ */
+
+/* Page Layout */
+.track-info-description {
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+/* Search Section */
+.search-form {
+  margin-bottom: 20px;
+}
+
+.search-controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  align-items: flex-end;
+}
+
+.search-input-group {
+  flex: 1;
+}
+
+/* Search Label - extends wireframe-input-label */
+.search-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--primary-bright);
+  font-size: var(--terminal-font-size-small);
+}
+
+/* Search Input - extends wireframe-input */
+.search-input {
+  width: 100%;
+  /* All other styles inherited from wireframe-input base class */
+}
+
+.search-type-container {
+  min-width: 150px;
+}
+
+/* Search Results */
+.search-results-header {
+  color: var(--primary-bright);
+  margin: 0 0 15px 0;
+  font-size: 14px;
+}
+
+.search-results-container {
+  max-height: 300px;
+  overflow: auto;
+}
+
+/* Search Result Item - extends wireframe-panel styling */
+.search-result-item {
+  padding: 10px;
+  margin-bottom: 5px;
+  border: var(--wireframe-border);
+  background-color: var(--background-dark);
+  cursor: pointer;
+  transition: var(--wireframe-transition);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-result-item:hover {
+  border-color: var(--primary-bright);
+  background-color: var(--background-medium);
+}
+
+.search-result-image {
+  width: 40px;
+  height: 40px;
+  border: var(--wireframe-border);
+}
+
+.search-result-info {
+  flex: 1;
+}
+
+.search-result-title {
+  color: var(--primary-bright);
+  font-size: 13px;
+}
+
+.search-result-details {
+  opacity: 0.7;
+  font-size: 11px;
+}
+
+.search-result-duration {
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+/* Spotify Details Layout */
+.spotify-details-grid {
+  display: grid;
+  gap: 20px;
+}
+
+
+/* Audio Features */
+.audio-features-loading {
+  text-align: center;
+  opacity: 0.7;
+}
+
+.audio-features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  font-size: var(--terminal-font-size-small);
+}
+
+.audio-feature-label {
+  color: var(--primary-bright);
+}
+
+.audio-feature-value {
+  margin-left: 10px;
+}
+
+.audio-features-unavailable {
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* Preview Player */
+.preview-container {
+  text-align: center;
+}
+
+.preview-audio {
+  width: 100%;
+  margin-bottom: 15px;
+  filter: sepia(100%) hue-rotate(180deg);
+}
+
+.preview-description {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* No Results */
+.no-results {
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* Spotify Item Details Container */
+.spotify-item-details-container {
+  display: grid;
+  gap: 20px;
+}
+
+/* 2-Column Grid for Info Panels */
+.spotify-info-2col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* Markets Section */
+.markets-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--wireframe-green);
+}
+
+.markets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.markets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.market-code {
+  padding: 4px 8px;
+  text-align: center;
+  border: 1px solid var(--wireframe-green);
+  font-size: 12px;
+  font-family: var(--terminal-font-family);
+  background-color: rgba(0, 255, 0, 0.05);
+}
+
+/* Responsive: single column on mobile */
+@media (max-width: 768px) {
+  .spotify-info-2col-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .markets-grid {
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  }
+}
+
+.info-item {
+  margin-bottom: 8px;
+  font-size: var(--terminal-font-size-small);
+}
+
+.artist-item {
+  margin-bottom: 12px;
+  padding: 8px 0;
+}
+
+.artist-item hr {
+  margin: 12px 0;
+  border: none;
+  border-top: 1px solid var(--wireframe-green);
+  opacity: 0.3;
+}
+
+.external-url-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.image-item {
+  margin-bottom: 16px;
+}
+
+.image-item img {
+  display: block;
+  margin-top: 8px;
+  border: 1px solid var(--wireframe-green);
+}
+
+.genres-list {
+  margin-top: 8px;
+}
+
+.genre-tag {
+  font-family: var(--terminal-font-family);
+}
+
+.markets-grid {
+  font-family: var(--terminal-font-family);
+}
+
+.market-code {
+  font-family: var(--terminal-font-family);
+}

@@ -13,6 +13,7 @@ import { SpotifyAlbum, SpotifyTrack } from './spotify'
 export interface AlbumShuffleModalProps {
   isOpen: boolean
   onClose: () => void
+  onMinimize?: () => void // New minimize function
   selectedPlaylists: string[]
   onCreatePlaylist: (
     tracks: ShuffledTrack[],
@@ -22,6 +23,7 @@ export interface AlbumShuffleModalProps {
   processing: boolean
   preloadedAlbums?: AlbumWithTrackCount[]
   fromHistory?: boolean
+  spotifyApi?: any // SpotifyApi instance for fetching real tracks
 }
 
 export interface ShuffleConfig extends AlbumShuffleSettings {

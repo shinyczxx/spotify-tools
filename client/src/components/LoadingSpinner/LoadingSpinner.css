@@ -40,7 +40,7 @@
 .loading-spinner__dot {
   width: 8px;
   height: 8px;
-  background-color: var(--terminal-cyan);
+  background-color: var(--primary);
   border-radius: 50%;
   animation: loading-pulse 1.4s ease-in-out infinite both;
 }
@@ -74,7 +74,7 @@
 }
 
 .loading-spinner__message {
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-family: 'Fixedsys', monospace;
   font-size: 0.9rem;
   margin: 0;

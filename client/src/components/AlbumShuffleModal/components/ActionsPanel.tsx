@@ -10,6 +10,7 @@ import React from 'react'
 import { WireframePanel, WireframeButton } from '@components/wireframe'
 import { ShuffledTrack } from 'types/playlist'
 import { AlbumWithTrackCount } from '@utils/playlistAlbumFetcher'
+import '@styles/animations/glitch.css'
 import './ActionsPanel.css'
 
 interface ActionsPanelProps {
@@ -47,8 +48,9 @@ export const ActionsPanel: React.FC<ActionsPanelProps> = ({
         <div className="action-buttons">
           <WireframeButton
             onClick={onReshuffle}
+            onMouseDown={onReshuffle}
             disabled={disabled || selectedAlbums.length === 0 || isShuffling}
-            className={`reshuffle-button ${shuffleButtonGlitch ? 'button-glitch-active' : ''} ${isShuffling ? 'shuffle-button-loading' : ''}`}
+            className={`reshuffle-button ${shuffleButtonGlitch ? 'glitch-effect' : ''} ${isShuffling ? 'shuffle-button-loading' : ''}`}
           >
             {isShuffling ? 'shuffling...' : 'reshuffle albums'}
           </WireframeButton>
@@ -67,7 +69,7 @@ export const ActionsPanel: React.FC<ActionsPanelProps> = ({
                 onClick={handleOpenSpotify}
                 className="spotify-button"
               >
-                open in spotify
+                go to playlist
               </WireframeButton>
             )}
           </div>

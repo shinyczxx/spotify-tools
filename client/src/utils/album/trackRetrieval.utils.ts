@@ -6,7 +6,7 @@
  * @date 2025-07-22
  */
 
-import api from '../api'
+import spotifyApi from '../api'
 import { SpotifyTrack } from 'spotify-api-lib'
 
 /**
@@ -34,7 +34,7 @@ export class TrackRetrieval {
         // Handle pagination
         let pageNumber = 1
         while (url) {
-          const response = await api.get(url)
+          const response = await spotifyApi.get(url)
 
           const tracks = response.data.items
             .map((item: any) => (playlistId === 'liked-songs' ? item.track : item.track))

@@ -1,0 +1,27 @@
+/**
+ * @file glitch.css
+ * @description Glitch animation effect extracted from anim-inspo/glitches.css
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-23
+ */
+
+@import "https://unpkg.com/open-props@1.6.17/easings.min.css";
+
+@keyframes glitch {
+  0% {
+    transform: skew(0deg);
+  }
+  25% {
+    transform: skew(180deg);
+  }
+  100% {
+    transform: skew(180deg);
+  }
+}
+
+.glitch-effect {
+  animation: glitch ease-out 400ms;
+  position: relative;
+  overflow: hidden;
+}

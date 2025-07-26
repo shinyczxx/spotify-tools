@@ -9,10 +9,10 @@
 /* Base container styles */
 .terminal-loader {
   font-family: var(--terminal-font);
-  color: var(--terminal-cyan);
-  background: var(--terminal-bg);
+  color: var(--primary);
+  background: var(--background);
   padding: 1em;
-  border: 1px solid var(--terminal-cyan-dim);
+  border: 1px solid var(--primary-dim);
   margin: 0.5em 0;
   text-transform: lowercase;
   letter-spacing: 0.5px;
@@ -45,8 +45,8 @@
   position: relative;
   width: 100%;
   height: 10px;
-  background: var(--terminal-dark);
-  border: 1px solid var(--terminal-cyan-dim);
+  background: var(--background-dark);
+  border: 1px solid var(--primary-dim);
   overflow: hidden;
 }
 
@@ -79,17 +79,17 @@
 }
 
 .terminal-loader-dot {
-  color: var(--terminal-cyan-dim);
+  color: var(--primary-dim);
   font-size: 1.2em;
   opacity: 0.3;
   transition: all 0.3s ease;
 }
 
 .terminal-loader-dot.active {
-  color: var(--terminal-cyan);
+  color: var(--primary);
   opacity: 1;
   animation: dotPulse 0.5s ease-out;
-  text-shadow: 0 0 3px var(--terminal-cyan);
+  text-shadow: 0 0 3px var(--primary);
 }
 
 /* Blocks loader styles */
@@ -107,7 +107,7 @@
 }
 
 .terminal-loader-block {
-  color: var(--terminal-cyan-dim);
+  color: var(--primary-dim);
   font-size: 1em;
   opacity: 0.3;
   transition: all 0.3s ease;
@@ -116,10 +116,10 @@
 }
 
 .terminal-loader-block.active {
-  color: var(--terminal-cyan);
+  color: var(--primary);
   opacity: 1;
   animation: blockGrow 0.4s ease-out;
-  text-shadow: 0 0 2px var(--terminal-cyan);
+  text-shadow: 0 0 2px var(--primary);
 }
 
 /* Info section styles */
@@ -132,16 +132,16 @@
 }
 
 .terminal-loader-message {
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-size: 0.9em;
   flex: 1;
 }
 
 .terminal-loader-percentage {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   font-size: 0.8em;
   font-weight: bold;
-  text-shadow: 0 0 1px var(--terminal-cyan);
+  text-shadow: 0 0 1px var(--primary);
   min-width: 3em;
   text-align: right;
 }

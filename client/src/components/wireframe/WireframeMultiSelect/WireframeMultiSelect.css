@@ -1,0 +1,193 @@
+/**
+ * @file WireframeMultiSelect.css
+ * @description Styles for wireframe multi-select component
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-25
+ */
+
+/* Container Styles */
+.wireframe-multiselect-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.wireframe-multiselect-container-label-left {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.wireframe-multiselect-container-label-right {
+  flex-direction: row-reverse;
+  align-items: flex-start;
+}
+
+.wireframe-multiselect-container-label-top {
+  flex-direction: column;
+}
+
+.wireframe-multiselect-container-label-none {
+  flex-direction: column;
+}
+
+.wireframe-multiselect-container-with-gap {
+  gap: 8px;
+}
+
+.wireframe-multiselect-container-no-gap {
+  gap: 0;
+}
+
+/* Label Styles */
+.wireframe-multiselect-label {
+  font-family: var(--terminal-font);
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+  user-select: none;
+  cursor: pointer;
+}
+
+.wireframe-multiselect-label-small {
+  font-size: 11px;
+}
+
+.wireframe-multiselect-label-medium {
+  font-size: 12px;
+}
+
+.wireframe-multiselect-label-large {
+  font-size: 14px;
+}
+
+.wireframe-multiselect-label-left,
+.wireframe-multiselect-label-right {
+  min-width: 120px;
+  margin-top: 2px;
+}
+
+/* Options Container */
+.wireframe-multiselect-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid var(--primary-dark);
+  background: var(--background-dark);
+  border-radius: 2px;
+  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.05);
+}
+
+.wireframe-multiselect-options-small {
+  padding: 8px;
+  gap: 4px;
+}
+
+.wireframe-multiselect-options-large {
+  padding: 16px;
+  gap: 8px;
+}
+
+.wireframe-multiselect-options-compact {
+  padding: 8px;
+  gap: 4px;
+}
+
+/* Individual Option Styles */
+.wireframe-multiselect-option {
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.wireframe-multiselect-option:hover:not(.disabled) {
+  background: rgba(0, 255, 255, 0.05);
+}
+
+.wireframe-multiselect-option.selected {
+  background: rgba(0, 255, 255, 0.1);
+}
+
+.wireframe-multiselect-option.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Override checkbox container spacing within multiselect */
+.wireframe-multiselect-checkbox-container {
+  margin: 0;
+  width: 100%;
+}
+
+.wireframe-multiselect-checkbox {
+  margin: 0;
+}
+
+.wireframe-multiselect-checkbox-label {
+  margin-left: 8px;
+  color: var(--primary);
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--terminal-font);
+  font-size: inherit;
+}
+
+/* Disabled State */
+.wireframe-multiselect-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.wireframe-multiselect-disabled .wireframe-multiselect-options {
+  border-color: var(--primary-dim);
+  background: var(--background);
+}
+
+.wireframe-multiselect-disabled .wireframe-multiselect-label {
+  color: var(--primary-dim);
+}
+
+/* Size Variants */
+.wireframe-multiselect-container-small .wireframe-multiselect-checkbox-label {
+  font-size: 11px;
+}
+
+.wireframe-multiselect-container-medium .wireframe-multiselect-checkbox-label {
+  font-size: 12px;
+}
+
+.wireframe-multiselect-container-large .wireframe-multiselect-checkbox-label {
+  font-size: 14px;
+}
+
+/* Focus States */
+.wireframe-multiselect-option:focus-within {
+  outline: 1px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Hover effects */
+.wireframe-multiselect-options:hover {
+  box-shadow: 
+    inset 0 0 10px rgba(0, 255, 255, 0.1),
+    0 0 5px rgba(0, 255, 255, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .wireframe-multiselect-container-label-left,
+  .wireframe-multiselect-container-label-right {
+    flex-direction: column;
+  }
+  
+  .wireframe-multiselect-label-left,
+  .wireframe-multiselect-label-right {
+    min-width: auto;
+    margin-top: 0;
+  }
+}

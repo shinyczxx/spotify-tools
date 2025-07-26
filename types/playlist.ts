@@ -33,6 +33,9 @@ export interface AlbumItem extends BaseItem {
 export interface AlbumShuffleSettings {
   allowSingles: boolean
   allowCompilations: boolean
+  allowEps: boolean
+  allowAlbums: boolean
+  albumTypes: ('albums' | 'eps' | 'singles' | 'compilations')[]
   numberOfAlbums: number
 }
 

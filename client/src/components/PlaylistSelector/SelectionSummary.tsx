@@ -38,44 +38,37 @@ export const SelectionSummary: React.FC<SelectionSummaryProps> = ({
           {selectedCount} {type === 'playlist' ? 'playlist' : 'album'}
           {selectedCount !== 1 ? 's' : ''} selected
         </span>
-        {selectedCount > 0 && (
-          <button
-            className="deselect-all-btn"
-            onClick={onDeselectAll}
-            title="deselect all items"
-            aria-label="deselect all items"
-            type="button"
-          >
-            deselect all
-          </button>
-        )}
       </div>
 
-      {/* Search and Refresh Controls */}
-      {(onSearchChange || onRefresh) && (
-        <div className="search-refresh-controls">
-          {/* Search input */}
-          {onSearchChange && (
-            <input
-              type="text"
-              placeholder={`search ${type}s...`}
-              value={searchValue}
-              onChange={(e) => onSearchChange(e.target.value)}
-              className="search-input"
-            />
-          )}
+      {/* Firefox-style URL bar layout */}
+      <div className="url-bar-layout">
+        <WireframeButton
+          className="deselect-all-btn"
+          onClick={onDeselectAll}
+          title="deselect all items"
+          disabled={selectedCount === 0}
+        >
+          deselect all
+        </WireframeButton>
 
-          {/* Refresh button */}
-          {showRefresh && onRefresh && (
-            <WireframeButton
-              onClick={onRefresh}
-              className="refresh-btn"
-            >
-              Refresh Cache
-            </WireframeButton>
-          )}
-        </div>
-      )}
+        {/* Search input - expands between deselect and refresh */}
+        {onSearchChange && (
+          <input
+            type="text"
+            placeholder={`search ${type}s...`}
+            value={searchValue}
+            onChange={(e) => onSearchChange(e.target.value)}
+            className="search-input"
+          />
+        )}
+
+        {/* Refresh button - always at right edge */}
+        {showRefresh && onRefresh && (
+          <WireframeButton onClick={onRefresh} className="refresh-btn">
+            Refresh Cache
+          </WireframeButton>
+        )}
+      </div>
     </div>
   )
 }

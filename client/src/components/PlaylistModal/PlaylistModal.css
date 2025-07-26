@@ -38,16 +38,16 @@
 
 /* Simple modal styling (when not using WireframePanel) */
 .playlist-modal-simple {
-  background-color: var(--terminal-bg);
-  border: 2px solid var(--terminal-cyan);
+  background-color: var(--background);
+  border: 2px solid var(--primary);
   font-family: 'Courier New', monospace;
 }
 
 .playlist-modal-header {
-  background-color: var(--terminal-cyan);
-  color: var(--terminal-bg);
+  background-color: var(--primary);
+  color: var(--background);
   padding: 1em;
-  border-bottom: 1px solid var(--terminal-cyan);
+  border-bottom: 1px solid var(--primary);
 }
 
 .playlist-modal-header h2 {
@@ -90,7 +90,7 @@
 }
 
 .playlist-modal-label {
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-weight: bold;
   font-size: 0.9em;
 }
@@ -103,7 +103,7 @@
   padding: 0.75em;
   /* Use shared scrollbar styling */
   scrollbar-width: thin;
-  scrollbar-color: var(--terminal-cyan) transparent;
+  scrollbar-color: var(--primary) transparent;
 }
 
 /* Use shared scrollbar webkit styles for preview */
@@ -116,12 +116,12 @@
 }
 
 .playlist-modal-preview::-webkit-scrollbar-thumb {
-  background: var(--terminal-cyan);
+  background: var(--primary);
   border-radius: 0;
 }
 
 .playlist-modal-preview::-webkit-scrollbar-thumb:hover {
-  background: var(--terminal-cyan-bright);
+  background: var(--primary-bright);
 }
 
 .playlist-modal-actions {
@@ -166,14 +166,14 @@
 }
 
 .playlist-modal-summary .highlight {
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-weight: bold;
 }
 
 .playlist-modal-summary .track-count {
   font-size: 1.5em;
   font-weight: bold;
-  color: var(--terminal-cyan);
+  color: var(--primary);
 }
 
 .playlist-modal-summary .track-description {

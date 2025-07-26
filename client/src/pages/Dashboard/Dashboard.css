@@ -34,7 +34,7 @@
 
 .dashboard-user-name {
   margin: 0 0 0.3em 0;
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   font-size: 1.1em;
 }
 
@@ -80,9 +80,9 @@
 
 .dashboard-stat-value {
   font-size: 1.5em;
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   font-weight: bold;
-  text-shadow: var(--glow-cyan);
+  text-shadow: var(--glow-primary);
   margin-bottom: 0.25em;
 }
 

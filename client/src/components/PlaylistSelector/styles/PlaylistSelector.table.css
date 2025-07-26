@@ -6,6 +6,14 @@
  * @date 2025-07-22
  */
 
+/* === Table Layout Variables === */
+:root {
+  --playlist-table-padding: 0.25em 0.25em;
+  --playlist-table-gap: 0.75em;
+  --playlist-table-columns: 40px 50px 1fr 150px 80px 150px;
+  --playlist-table-columns-mobile: 30px 40px 2fr 1fr;
+}
+
 /* Table Container */
 .items-table {
   flex: 1;
@@ -21,19 +29,18 @@
 /* Table Header */
 .table-header {
   display: grid;
-  grid-template-columns: 40px 50px 1fr 150px 80px 150px;
-  gap: 0.5em;
-  padding: 0.75em;
-  background-color: var(--terminal-medium);
-  color: var(--terminal-cyan);
-  font-weight: bold;
-  font-family: var(--terminal-font);
+  grid-template-columns: var(--playlist-table-columns);
+  gap: var(--playlist-table-gap);
+  padding: var(--playlist-table-padding);
+  background-color: var(--background-medium);
+  color: var(--primary);
+  font-family: var(--terminal-font, 'Fixedsys', 'Courier New', monospace);
   font-size: var(--terminal-font-size-large);
-  border-bottom: 2px solid var(--terminal-cyan);
+  border-bottom: 2px solid var(--primary);
   flex-shrink: 0;
   text-transform: lowercase;
   letter-spacing: 1px;
-  text-shadow: var(--glow-cyan);
+  text-shadow: var(--glow-primary);
   align-items: center;
 }
 
@@ -45,7 +52,8 @@
 }
 
 /* Checkbox column should center its content */
-.table-header-cell:first-child {
+.table-header-cell:first-child,
+.table-header-cell:nth-child(2) {
   justify-content: center;
 }
 
@@ -53,13 +61,13 @@
 .table-header.playlist-layout,
 .table-row.playlist-layout {
   display: grid;
-  grid-template-columns: var(--playlist-grid);
+  grid-template-columns: var(--playlist-table-columns);
 }
 
 .table-header.album-layout,
 .table-row.album-layout {
   display: grid;
-  grid-template-columns: var(--album-grid);
+  grid-template-columns: var(--playlist-table-columns);
 }
 
 /* Table Body */
@@ -76,7 +84,7 @@
   scroll-behavior: smooth;
   /* Use shared scrollbar styling */
   scrollbar-width: thin;
-  scrollbar-color: var(--terminal-cyan) transparent;
+  scrollbar-color: var(--primary) transparent;
   /* Ensure proper height calculation to leave room for sticky pagination */
   height: auto;
   /* Prevent margin collapse issues */
@@ -96,25 +104,27 @@
 }
 
 .table-body::-webkit-scrollbar-thumb {
-  background: var(--terminal-cyan);
+  background: var(--primary);
   border-radius: 0;
 }
 
 .table-body::-webkit-scrollbar-thumb:hover {
-  background: var(--terminal-cyan-bright);
+  background: var(--primary-bright);
 }
 
 /* Table Rows */
 .table-row {
   display: grid;
-  grid-template-columns: 40px 50px 1fr 150px 80px 150px;
-  gap: 0.5em;
-  padding: 0.75em;
+  grid-template-columns: var(--playlist-table-columns);
+  gap: var(--playlist-table-gap);
+  padding: var(--playlist-table-padding);
+  border-left: var(--wireframe-border);
+  border-left-style: dashed;
   border-bottom: var(--wireframe-border);
+  border-bottom-style: dotted;
   cursor: pointer;
   transition: var(--wireframe-transition);
-  border-left: 1px solid transparent;
-  background-color: var(--terminal-bg);
+  background-color: var(--background);
   width: 100%;
   max-width: 100%; /* Prevent horizontal overflow */
   box-sizing: border-box; /* Include borders in width calculation */
@@ -122,23 +132,29 @@
 
 .table-row:hover {
   background-color: rgba(0, 255, 255, 0.1);
-  border-bottom-color: var(--terminal-cyan-bright);
-  border-left-color: var(--terminal-cyan-bright);
+  border-bottom-color: var(--primary-bright);
+  border-left-color: var(--primary-bright);
   box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1);
   transform: translateX(3px);
 }
 
 .table-row.selected {
   background-color: rgba(0, 255, 255, 0.15);
-  border-left: 3px solid var(--terminal-cyan-bright);
-  border-bottom-color: var(--terminal-cyan-bright);
+  border-left: 5px dotted var(--primary-bright);
   box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.2);
 }
 
 .table-row.selected:hover {
   background-color: rgba(0, 255, 255, 0.25);
-  border-left-width: 4px;
+  border-left-width: 5px;
   transform: translateX(5px);
+}
+
+/* Ensure all row content is vertically centered */
+.table-row-cell > * {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 /* Row Content Cells */
@@ -150,12 +166,27 @@
 .row-extra {
   display: flex;
   align-items: center;
-  color: var(--terminal-cyan);
-  font-family: var(--terminal-font);
-  font-size: var(--terminal-font-size);
+  color: var(--primary);
+  font-family: 'Courier New', monospace;
+  font-size: 0.85em;
 }
 
-.row-checkbox {
+/* Custom checkbox styling removed - using WireframeCheckbox component */
+.row-checkbox,
+.header-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  height: 100%;
+  min-height: 2.5em; /* Convert from 40px to em (40/16 = 2.5) for font-size responsiveness */
+}
+
+/* Ensure wireframe checkbox wrapper is properly centered */
+.row-checkbox .wireframe-checkbox-wrapper,
+.header-checkbox .wireframe-checkbox-wrapper {
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
@@ -167,71 +198,82 @@
 .row-thumbnail img {
   width: 40px;
   height: 40px;
-  border: 1px solid var(--terminal-cyan-dim);
-  border-radius: 2px;
   object-fit: cover;
-  transition: var(--wireframe-transition);
+  border: 1px solid var(--primary-dim, rgba(0, 255, 255, 0.3));
+  border-radius: 2px;
 }
 
 .row-thumbnail img:hover {
-  border-color: var(--terminal-cyan-bright);
+  border-color: var(--primary-bright);
   box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
 }
 
 .playlist-thumbnail-placeholder {
   width: 40px;
   height: 40px;
-  background-color: var(--terminal-bg);
-  border: 1px solid var(--terminal-cyan-dim);
+  background-color: var(--background);
+  border: 1px solid var(--primary-dim);
   border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
   font-weight: bold;
-  color: var(--terminal-cyan);
+  color: var(--primary);
   transition: var(--wireframe-transition);
 }
 
 .playlist-thumbnail-placeholder:hover {
-  border-color: var(--terminal-cyan-bright);
+  border-color: var(--primary-bright);
   box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
 }
 
-.row-name {
+.item-name {
   font-weight: bold;
+  color: var(--primary);
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0; /* Allow text to shrink */
+  max-width: 100%; /* Prevent extending past container */
+  width: 100%;
+  display: block;
+}
+
+.row-name {
+  overflow: hidden; /* Ensure container clips overflowing text */
+  min-width: 0; /* Allow flex item to shrink */
+}
+
+.row-metadata,
+.row-extra {
+  color: var(--terminal-text-dim, #888);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.row-metadata,
-.row-tracks,
-.row-extra {
-  font-size: var(--terminal-font-size-small);
-  color: var(--terminal-cyan-dim);
-}
-
 .row-tracks {
-  justify-content: center;
-  font-weight: bold;
-  color: var(--terminal-cyan);
+  text-align: center;
+  color: var(--terminal-text-dim, #888);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Responsive table adjustments */
 @media (max-width: 768px) {
   .table-header,
   .table-row {
-    grid-template-columns: 30px 40px 2fr 1fr;
+    grid-template-columns: var(--playlist-table-columns-mobile);
     gap: 0.25em;
-    padding: 0.5em;
+    padding: 0.25em;
   }
 
   .table-header.playlist-layout,
   .table-row.playlist-layout,
   .table-header.album-layout,
   .table-row.album-layout {
-    grid-template-columns: 30px 40px 2fr 1fr;
+    grid-template-columns: var(--playlist-table-columns-mobile);
   }
 
   .row-thumbnail img {
@@ -246,3 +288,5 @@
     display: none;
   }
 }
+
+/* No changes needed for Firefox rectangular scrollbars. */

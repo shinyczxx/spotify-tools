@@ -8,11 +8,11 @@
 
 import React from 'react'
 import { WireframeBox } from '../wireframe'
-import { SearchResult } from '../../../types/track'
+import { SearchResult } from 'types/track'
 
 interface SearchResultsProps {
   searchResults: SearchResult[]
-  onTrackSelect: (track: SearchResult) => void
+  onTrackSelect: (track: SearchResult) => Promise<void>
   formatDuration: (ms: number) => string
 }
 

@@ -9,31 +9,31 @@
 /* CSS Variables for wireframe theme - Consolidated */
 :root {
   /* Color scheme */
-  --terminal-cyan: #00ffff;
-  --terminal-cyan-bright: #66ffff;
-  --terminal-cyan-dim: #009999;
-  --terminal-cyan-dark: #006666;
-  --text-cyan: var(--terminal-cyan);
+  --primary: #00ffff;
+  --primary-bright: #66ffff;
+  --primary-dim: #009999;
+  --primary-dark: #006666;
+  --text-accent: var(--primary);
   
   /* Background colors */
-  --terminal-bg: #000000;
-  --terminal-dark: #0a0a0a;
-  --terminal-medium: #1a1a1a;
-  --terminal-gray-dim: #333333;
+  --background: #000000;
+  --background-dark: #0a0a0a;
+  --background-medium: #1a1a1a;
+  --text-secondary: #333333;
   
   /* Status colors */
-  --terminal-error: #ff4444;
-  --terminal-error-border: #ff6666;
-  --terminal-error-bg: #220000;
-  --terminal-orange: #ff8800;
-  --terminal-green: #00ff00;
-  --terminal-red: #ff0000;
-  --terminal-red-bright: #ff6666;
-  --terminal-red-dim: #cc0000;
+  --error: #ff4444;
+  --error-border: #ff6666;
+  --error-bg: #220000;
+  --warning: #ff8800;
+  --success: #00ff00;
+  --danger: #ff0000;
+  --danger-bright: #ff6666;
+  --danger-dim: #cc0000;
   
   /* Effects */
-  --glow-cyan: 0 0 10px rgba(0, 255, 255, 0.5);
-  --glow-cyan-bright: 0 0 15px rgba(0, 255, 255, 0.8);
+  --glow-primary: 0 0 10px rgba(0, 255, 255, 0.5);
+  --glow-primary-bright: 0 0 15px rgba(0, 255, 255, 0.8);
   --glow-error: 0 0 10px rgba(255, 68, 68, 0.5);
   
   /* Typography */
@@ -43,26 +43,26 @@
   --terminal-font-size-large: 16px;
   
   /* Common patterns */
-  --wireframe-border: 1px solid var(--terminal-cyan);
-  --wireframe-border-bright: 1px solid var(--terminal-cyan-bright);
+  --wireframe-border: 1px solid var(--primary);
+  --wireframe-border-bright: 1px solid var(--primary-bright);
   --wireframe-transition: all 0.2s ease;
-  --wireframe-box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.05);
-  --wireframe-box-shadow-hover: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  --box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.05);
+  --box-shadow-hover: 0 0 15px var(--primary-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
 }
 
 /* Base wireframe element - common styles */
 .wireframe-base {
   border: var(--wireframe-border);
-  background-color: var(--terminal-bg);
-  color: var(--text-cyan);
+  background-color: var(--background);
+  color: var(--text-accent);
   font-family: var(--terminal-font);
   transition: var(--wireframe-transition);
-  box-shadow: var(--wireframe-box-shadow);
+  box-shadow: var(--box-shadow);
 }
 
 .wireframe-base:hover {
   border: var(--wireframe-border-bright);
-  box-shadow: var(--wireframe-box-shadow-hover);
+  box-shadow: var(--box-shadow-hover);
 }
 
 /* Base wireframe styles - Matching Navbar Quality */
@@ -75,11 +75,11 @@
 /* Panel-specific hover handled by wireframe-base */
 
 .wireframe-panel-title {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   margin-bottom: 15px;
   font-size: var(--terminal-font-size-large);
   font-weight: bold;
-  text-shadow: var(--glow-cyan);
+  text-shadow: var(--glow-primary);
   text-transform: lowercase;
   letter-spacing: 2px;
 }
@@ -90,8 +90,8 @@
   font-size: var(--terminal-font-size);
   letter-spacing: 1px;
   text-transform: lowercase;
-  text-shadow: var(--glow-cyan);
-  border-left: 3px solid var(--terminal-cyan);
+  text-shadow: var(--glow-primary);
+  border-left: 3px solid var(--primary);
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -107,10 +107,10 @@
 
 .wireframe-button:hover {
   background-color: rgba(0, 255, 255, 0.1);
-  color: var(--terminal-cyan-bright);
-  border-left-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.2);
-  text-shadow: var(--glow-cyan-bright);
+  color: var(--primary-bright);
+  border-left-color: var(--primary-bright);
+  box-shadow: 0 0 15px var(--primary-dark), inset 0 0 20px rgba(0, 255, 255, 0.2);
+  text-shadow: var(--glow-primary-bright);
 }
 
 .wireframe-button:hover::before {
@@ -119,7 +119,7 @@
 }
 
 .wireframe-button:active {
-  background-color: var(--terminal-dark);
+  background-color: var(--background-dark);
   border-left-width: 4px;
   transform: translateX(2px);
 }
@@ -134,12 +134,12 @@
   font-size: var(--terminal-font-size);
   letter-spacing: 1px;
   text-transform: lowercase;
-  border-left: 3px solid var(--terminal-cyan);
+  border-left: 3px solid var(--primary);
 }
 
 .wireframe-input:focus {
   outline: none;
-  border-left-color: var(--terminal-cyan-bright);
+  border-left-color: var(--primary-bright);
 }
 
 .wireframe-input:hover {
@@ -147,13 +147,13 @@
 }
 
 .wireframe-error-panel {
-  border: 1px solid var(--terminal-error-border);
-  background-color: var(--terminal-error-bg);
-  color: var(--terminal-error);
+  border: 1px solid var(--error-border);
+  background-color: var(--error-bg);
+  color: var(--error);
 }
 
 .wireframe-error-panel .wireframe-panel-title {
-  color: var(--terminal-error);
+  color: var(--error);
   text-shadow: var(--glow-error);
 }
 
@@ -162,9 +162,9 @@
   display: inline-block;
   width: 20px;
   height: 20px;
-  border: 2px solid var(--terminal-cyan-dim);
+  border: 2px solid var(--primary-dim);
   border-radius: 50%;
-  border-top-color: var(--terminal-cyan);
+  border-top-color: var(--primary);
   animation: spin 1s ease-in-out infinite;
 }
 
@@ -178,20 +178,20 @@
 .wireframe-table {
   width: 100%;
   border-collapse: collapse;
-  color: var(--text-cyan);
+  color: var(--text-accent);
   font-family: var(--terminal-font);
 }
 
 .wireframe-table th,
 .wireframe-table td {
-  border: 1px solid var(--terminal-cyan-dim);
+  border: 1px solid var(--primary-dim);
   padding: 10px;
   text-align: left;
 }
 
 .wireframe-table th {
-  background-color: var(--terminal-medium);
-  color: var(--terminal-cyan-bright);
+  background-color: var(--background-medium);
+  color: var(--primary-bright);
   font-weight: bold;
   text-transform: lowercase;
 }
@@ -215,30 +215,30 @@
 }
 
 .wireframe-modal {
-  background-color: var(--terminal-bg);
-  border: 2px solid var(--terminal-cyan);
+  background-color: var(--background);
+  border: 2px solid var(--primary);
   padding: 30px;
   max-width: 600px;
   width: 90%;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 15px var(--primary-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
   transition: all 0.2s ease;
 }
 
 .wireframe-modal:hover {
-  border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 20px var(--terminal-cyan-dark), inset 0 0 25px rgba(0, 255, 255, 0.15);
+  border-color: var(--primary-bright);
+  box-shadow: 0 0 20px var(--primary-dark), inset 0 0 25px rgba(0, 255, 255, 0.15);
 }
 
 .wireframe-modal-title {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   margin-bottom: 20px;
   font-size: var(--terminal-font-size-large);
   font-weight: bold;
   text-transform: lowercase;
   letter-spacing: 2px;
-  text-shadow: var(--glow-cyan);
+  text-shadow: var(--glow-primary);
 }
 
 .wireframe-modal-buttons {

@@ -12,6 +12,7 @@ interface SelectLabelProps {
   label: string
   htmlFor: string
   labelPosition: 'left' | 'right' | 'top' | 'none'
+  onClick?: () => void
 }
 
 /**
@@ -21,10 +22,12 @@ export const SelectLabel: React.FC<SelectLabelProps> = ({
   label,
   htmlFor,
   labelPosition,
+  onClick,
 }) => (
   <label
     htmlFor={htmlFor}
-    className="wireframe-select-label"
+    className={`wireframe-select-label ${onClick ? 'clickable' : ''}`}
+    onClick={onClick}
     style={{
       alignSelf:
         labelPosition === 'top'
@@ -37,6 +40,7 @@ export const SelectLabel: React.FC<SelectLabelProps> = ({
       marginBottom: labelPosition === 'top' ? '0.25em' : 0,
       marginLeft: labelPosition === 'right' ? '0.5em' : 0,
       marginRight: labelPosition === 'left' ? '0.5em' : 0,
+      cursor: onClick ? 'pointer' : undefined,
     }}
   >
     {label}

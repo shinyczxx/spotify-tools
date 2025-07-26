@@ -9,8 +9,9 @@
  */
 
 import { useState, useEffect, useCallback } from 'react'
-import api, { setAuthToken, setTokenUpdateCallback } from '@utils/api'
+import spotifyApi, { setAuthToken, setTokenUpdateCallback } from '@utils/api'
 import { handleSpotifyCallback, refreshSpotifyToken } from '@utils/auth/spotifyAuth'
+import { clearAuthDataOnly } from '@utils/storage/cachePreservation'
 import type { SpotifyUser } from 'types/spotify-user'
 
 interface UseSpotifyAuthResult {
@@ -34,6 +35,7 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
   const [refreshToken, setRefreshToken] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
+  const [isAuthenticating, setIsAuthenticating] = useState(false)
 
   // Set up token update callback for automatic refresh
   useEffect(() => {
@@ -49,13 +51,15 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
   }, [])
 
   const handleLogout = useCallback(async () => {
-    console.log('[Auth] Logout initiated')
+    console.log('[Auth] Logout initiated - preserving cached data')
     setUser(null)
     setAccessToken(null)
     setRefreshToken(null)
     setAuthToken(null)
-    localStorage.removeItem('spotify_access_token')
-    localStorage.removeItem('spotify_refresh_token')
+    
+    // Use selective clearing to preserve album cache
+    clearAuthDataOnly()
+    
     setError(null)
   }, [])
 
@@ -69,7 +73,7 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
       }
       try {
         setAuthToken(token)
-        const response = await api.get('/me')
+        const response = await spotifyApi.get('/me')
         setUser(response.data)
         setLoading(false)
       } catch (error: any) {
@@ -107,13 +111,18 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
       setAuthToken(newAccessToken)
       localStorage.setItem('spotify_access_token', newAccessToken)
       
+      // Clear any existing error since we successfully refreshed
+      setError(null)
+      
       // Inline user profile fetch after token refresh
       try {
-        const response = await api.get('/me')
+        const response = await spotifyApi.get('/me')
         setUser(response.data)
+        console.log('[Auth] Token refresh and profile fetch successful')
       } catch (profileError: any) {
         console.error('Error fetching user profile after refresh:', profileError)
-        setError('Failed to fetch user profile')
+        // Don't fail the whole refresh for profile fetch errors
+        setError('Authentication refreshed but failed to load profile. Try refreshing the page.')
       }
     } catch (error: any) {
       console.error('Error refreshing token:', error)
@@ -128,6 +137,7 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
         setError('Failed to refresh authentication. Please log in again.')
       }
 
+      // Only logout if we can't recover
       handleLogout()
     }
   }, [handleLogout])
@@ -135,6 +145,14 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
   // Handle OAuth callback and check for existing tokens
   useEffect(() => {
     const initializeAuth = async () => {
+      if (isAuthenticating) {
+        console.log('[Auth] Authentication already in progress, skipping')
+        return
+      }
+      
+      console.log('[Auth] Initializing authentication state')
+      setIsAuthenticating(true)
+      
       const urlParams = new URLSearchParams(window.location.search)
       const code = urlParams.get('code')
       const error_param = urlParams.get('error')
@@ -142,6 +160,7 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
       if (error_param) {
         setError(`Authentication error: ${error_param}`)
         setLoading(false)
+        setIsAuthenticating(false)
         window.history.replaceState({}, document.title, '/')
         return
       }
@@ -161,7 +180,7 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
             // Inline user profile fetch to avoid dependency issues
             try {
               setAuthToken(tokens.accessToken)
-              const response = await api.get('/me')
+              const response = await spotifyApi.get('/me')
               setUser(response.data)
               setLoading(false)
             } catch (profileError: any) {
@@ -182,6 +201,8 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
           console.error('Error handling callback:', error)
           setError('Authentication failed')
           setLoading(false)
+        } finally {
+          setIsAuthenticating(false)
         }
         window.history.replaceState({}, document.title, '/')
         return
@@ -196,28 +217,53 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
         setRefreshToken(storedRefreshToken)
         setAuthToken(storedAccessToken)
         
-        // Inline user profile fetch for existing tokens
+        // Try to validate token with user profile fetch
         try {
-          const response = await api.get('/me')
+          const response = await spotifyApi.get('/me')
           setUser(response.data)
           setLoading(false)
         } catch (profileError: any) {
-          console.error('Error fetching user profile:', profileError)
+          console.error('Error fetching user profile with stored token:', profileError)
           if (profileError.response?.status === 401) {
-            // Token might be expired, clear it
-            localStorage.removeItem('spotify_access_token')
-            localStorage.removeItem('spotify_refresh_token')
-            setAccessToken(null)
-            setRefreshToken(null)
-            setAuthToken(null)
-            setError(null)
+            // Token expired, try refresh before clearing everything
+            console.log('[Auth] Stored token expired, attempting refresh...')
+            try {
+              const newAccessToken = await refreshSpotifyToken(storedRefreshToken)
+              if (newAccessToken) {
+                setAccessToken(newAccessToken)
+                setAuthToken(newAccessToken)
+                localStorage.setItem('spotify_access_token', newAccessToken)
+                
+                // Try user profile fetch again with new token
+                const retryResponse = await spotifyApi.get('/me')
+                setUser(retryResponse.data)
+                setLoading(false)
+                console.log('[Auth] Successfully refreshed token and fetched profile')
+              } else {
+                throw new Error('Failed to refresh token')
+              }
+            } catch (refreshError: any) {
+              console.error('Error during token refresh:', refreshError)
+              // Only clear auth tokens, preserve cached data
+              clearAuthDataOnly()
+              setAccessToken(null)
+              setRefreshToken(null)
+              setAuthToken(null)
+              if (refreshError.message === 'REFRESH_TOKEN_REVOKED') {
+                setError('Your session has expired. Please log in again.')
+              } else {
+                setError('Authentication session invalid. Please log in again.')
+              }
+              setLoading(false)
+            }
           } else {
             setError('Failed to fetch user profile')
+            setLoading(false)
           }
-          setLoading(false)
         }
       } else {
         setLoading(false)
+        setIsAuthenticating(false)
       }
     }
 
@@ -231,7 +277,7 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
 
     const validateToken = async () => {
       try {
-        await api.get('/me')
+        await spotifyApi.get('/me')
       } catch (error: any) {
         if (error.response?.status === 401) {
           console.log('Token expired, attempting refresh...')

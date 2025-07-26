@@ -8,6 +8,12 @@ interface NavbarProps {
   fontSize: number
   onFontSizeChange: (size: number) => void
   onLogout: () => void
+  minimizedModal?: {
+    type: 'album-shuffle'
+    label: string
+    onRestore: () => void
+    progress?: number // For progress animation
+  }
 }
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -16,6 +22,7 @@ const Navbar: React.FC<NavbarProps> = ({
   fontSize,
   onFontSizeChange,
   onLogout,
+  minimizedModal,
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
@@ -46,9 +53,9 @@ const Navbar: React.FC<NavbarProps> = ({
     { id: 'userinfo', label: 'user info' },
     { id: 'playlist-tools', label: 'playlist tools' },
     { id: 'lastfm-tools', label: 'last.fm tools' },
-    { id: 'getTrackInfo', label: 'track info' },
+    { id: 'spotify-info', label: 'spotify info' },
     { id: 'settings', label: 'settings' },
-    { id: 'github', label: 'view source' },
+    { id: 'github', label: 'github repo' },
     { id: 'logout', label: 'logout' },
   ]
 
@@ -150,6 +157,23 @@ const Navbar: React.FC<NavbarProps> = ({
           </div>
         ))}
       </div>
+      
+      {/* Minimized Modal Item - separated from main nav items */}
+      {minimizedModal && (
+        <div className="minimized-modal-section">
+          <div className="minimized-modal-item" onClick={minimizedModal.onRestore}>
+            <span className="minimized-modal-label">{minimizedModal.label}</span>
+            {minimizedModal.progress !== undefined && (
+              <div className="minimized-modal-progress">
+                <div 
+                  className="minimized-modal-progress-bar"
+                  style={{ width: `${minimizedModal.progress * 100}%` }}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      )}
       <div className="navbar-controls">
         {/* Font Controls */}
         <div className="font-controls">

@@ -8,7 +8,7 @@
 
 import React from 'react'
 import { WireframePanel, WireframeButton } from '@components/wireframe'
-import { Toggle } from '@components/Toggle'
+import { WireframeSingleStateSwitch } from '@components/wireframe'
 import { generateFunPlaylistName } from '@utils/playlist/playlistNameGenerator'
 import './PlaylistSettingsPanel.css'
 
@@ -78,11 +78,13 @@ export const PlaylistSettingsPanel: React.FC<PlaylistSettingsPanelProps> = ({
         <div className="visibility-setting">
           <label className="setting-label">playlist visibility:</label>
           <div className="visibility-toggle">
-            <Toggle
-              leftLabel="private"
-              rightLabel="public"
-              selected={isPublic ? 'right' : 'left'}
-              onToggle={(selected) => onIsPublicChange(selected === 'right')}
+            <WireframeSingleStateSwitch
+              states={[
+                { label: "private", state: "private" },
+                { label: "public", state: "public" }
+              ]}
+              activeState={isPublic ? 'public' : 'private'}
+              onStateChange={(state) => onIsPublicChange(state === 'public')}
               disabled={disabled}
             />
           </div>

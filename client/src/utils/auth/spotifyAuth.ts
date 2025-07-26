@@ -56,6 +56,11 @@ export async function initiateSpotifyAuth(): Promise<void> {
     throw new Error('Your browser has disabled local storage. Please enable cookies and local storage for this site.')
   }
 
+  // Clear any existing tokens to start fresh OAuth flow
+  console.log('[Auth] Clearing existing tokens for fresh authentication')
+  localStorage.removeItem('spotify_access_token')
+  localStorage.removeItem('spotify_refresh_token')
+
   const codeVerifier = generateRandomString(128)
   const codeChallenge = await generateCodeChallenge(codeVerifier)
   const state = generateRandomString(16)

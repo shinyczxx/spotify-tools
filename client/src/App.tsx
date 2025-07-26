@@ -16,18 +16,12 @@ import { ErrorBanner } from './components/ErrorBanner'
 import CRTOverlay from './components/CRTOverlay'
 import { TIMING, STORAGE_KEYS } from './constants/app'
 import { ROUTES } from './constants/routes'
-import { getFontSizeFromStorage, setFontSize as setAppFontSize, validateFontSize } from './utils/ui/fontSizeUtils'
+import { Dashboard, SpotifyInfo, Login, PlaylistTools, LastFmTools, Settings, CallbackPage } from './pages'
+import { getFontSizeFromStorage, setFontSize as setAppFontSize } from './utils/ui/fontSizeUtils'
 import { getPageIdFromPath, getRouteFromPageId, getTitleFromPath, handleSpecialNavigation } from './utils/routeUtils'
 import './App.css'
 
-import Dashboard from './pages/Dashboard'
-import GetTrackInfo from './pages/GetTrackInfo'
-import Login from './pages/Login'
-import PlaylistTools from './pages/PlaylistTools'
-import LastFmTools from './pages/LastFmTools'
-import Settings from './pages/Settings'
-import CallbackPage from './pages/CallbackPage'
-import PageLayout from './components/PageLayout/PageLayout'
+import { PageLayout } from './components'
 
 function App() {
   const { user, accessToken, error, setError, loading } = useSpotifyAuth()
@@ -145,7 +139,7 @@ function App() {
               >
                 <Routes>
                   <Route path={ROUTES.SETTINGS} element={<Settings />} />
-                  <Route path={ROUTES.GET_TRACK_INFO} element={<GetTrackInfo />} />
+                  <Route path={ROUTES.SPOTIFY_INFO} element={<SpotifyInfo />} />
                   <Route path={ROUTES.PLAYLIST_TOOLS} element={<PlaylistTools />} />
                   <Route path={ROUTES.LASTFM_TOOLS} element={<LastFmTools />} />
                   <Route path={ROUTES.ALBUM_SHUFFLE} element={<PlaylistTools />} />

@@ -1,6 +1,13 @@
 /* Navbar Component Styles */
 .navbar {
-  width: 250px; /* Default width for large screens */
+  /* Width calculated for longest label "playlist tools" in active state:
+     - Arrow + margin: 1.4em
+     - Label: ~14ch = ~10.5em 
+     - Padding: 0.6em right
+     - Total: ~16.5em */
+  width: 16.5em;
+  min-width: 200px; /* Minimum width to prevent too narrow */
+  max-width: 280px; /* Maximum width to prevent too wide */
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -45,7 +52,7 @@
 .font-controls button {
   background: transparent;
   border: none;
-  color: var(--terminal-cyan);
+  color: var(--primary);
   cursor: pointer;
 
   margin: 0 5px;
@@ -56,32 +63,38 @@
 }
 
 .font-controls button:hover {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
 }
 
 .font-size-display {
   margin: 0 0;
   font-size: var(--terminal-font-size-small);
-  color: var(--text-dim);
+  color: var(--text-secondary);
   text-transform: lowercase;
 }
 
 /* Responsive sidebar width adjustments */
 @media screen and (max-width: 1200px) {
   .navbar {
-    width: 220px;
+    width: 15.5em;
+    min-width: 190px;
+    max-width: 260px;
   }
 }
 
 @media screen and (max-width: 992px) {
   .navbar {
-    width: 200px;
+    width: 14.5em;
+    min-width: 180px;
+    max-width: 240px;
   }
 }
 
 @media screen and (max-width: 768px) {
   .navbar {
-    width: 180px;
+    width: 13.5em;
+    min-width: 170px;
+    max-width: 220px;
   }
 }
 
@@ -91,9 +104,9 @@
   top: 20px;
   left: 20px;
   z-index: 1000;
-  background: var(--terminal-bg);
-  border: 1px solid var(--terminal-cyan);
-  color: var(--terminal-cyan);
+  background: var(--background);
+  border: 1px solid var(--primary);
+  color: var(--primary);
   padding: 10px 16px;
   font-family: var(--terminal-font);
   font-size: var(--terminal-font-size);
@@ -105,9 +118,9 @@
 }
 
 .mobile-menu-button:hover {
-  background: var(--terminal-cyan);
-  color: var(--terminal-bg);
-  box-shadow: 0 0 15px var(--terminal-cyan);
+  background: var(--primary);
+  color: var(--background);
+  box-shadow: 0 0 15px var(--primary);
   text-shadow: none;
 }
 
@@ -132,13 +145,13 @@
 }
 
 .mobile-menu {
-  background: var(--terminal-bg);
-  border: 2px solid var(--terminal-cyan);
+  background: var(--background);
+  border: 2px solid var(--primary);
   width: 90vw;
   max-width: 400px;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 0 30px var(--terminal-cyan);
+  box-shadow: 0 0 30px var(--primary);
   animation: slideIn 0.3s ease;
 }
 
@@ -147,13 +160,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  border-bottom: 1px solid var(--terminal-cyan-dim);
+  border-bottom: 1px solid var(--primary-dim);
   background: rgba(0, 255, 255, 0.05);
 }
 
 .mobile-menu-header h2 {
   margin: 0;
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-family: var(--terminal-font);
   font-size: 1.2em;
   text-transform: lowercase;
@@ -161,21 +174,21 @@
 
 .mobile-menu-close {
   background: transparent;
-  border: 1px solid var(--terminal-red);
-  color: var(--terminal-red);
+  border: 1px solid var(--danger);
+  color: var(--danger);
   padding: 8px 12px;
   font-family: var(--terminal-font);
   font-size: 1.2em;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-shadow: 0 0 5px var(--terminal-red);
+  text-shadow: 0 0 5px var(--danger);
 }
 
 .mobile-menu-close:hover {
-  background: var(--terminal-red);
-  border-color: var(--terminal-red);
-  color: var(--terminal-bg);
-  box-shadow: 0 0 15px var(--terminal-red);
+  background: var(--danger);
+  border-color: var(--danger);
+  color: var(--background);
+  box-shadow: 0 0 15px var(--danger);
   text-shadow: none;
 }
 
@@ -186,9 +199,9 @@
 .mobile-nav-item {
   padding: 15px 20px;
   margin: 8px 0;
-  border: 1px solid var(--terminal-cyan-dim);
+  border: 1px solid var(--primary-dim);
   background: transparent;
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-family: var(--terminal-font);
   font-size: var(--terminal-font-size);
   text-transform: lowercase;
@@ -196,28 +209,28 @@
   transition: all 0.3s ease;
   text-align: center;
   letter-spacing: 1px;
-  text-shadow: 0 0 5px var(--terminal-cyan);
+  text-shadow: 0 0 5px var(--primary);
 }
 
 .mobile-nav-item:hover {
-  background: var(--terminal-cyan);
-  color: var(--terminal-bg);
-  box-shadow: 0 0 15px var(--terminal-cyan);
+  background: var(--primary);
+  color: var(--background);
+  box-shadow: 0 0 15px var(--primary);
   text-shadow: none;
-  border-color: var(--terminal-cyan);
+  border-color: var(--primary);
 }
 
 .mobile-nav-item.active {
-  background: var(--terminal-cyan);
-  border-color: var(--terminal-cyan);
-  color: var(--terminal-bg);
-  box-shadow: 0 0 20px var(--terminal-cyan);
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--background);
+  box-shadow: 0 0 20px var(--primary);
   text-shadow: none;
 }
 
 .mobile-navbar-controls {
   padding: 20px;
-  border-top: 1px solid var(--terminal-cyan-dim);
+  border-top: 1px solid var(--primary-dim);
   background: rgba(0, 255, 255, 0.05);
 }
 
@@ -226,7 +239,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-family: var(--terminal-font);
   font-size: var(--terminal-font-size);
   text-transform: lowercase;
@@ -234,20 +247,20 @@
 
 .mobile-font-controls .font-btn {
   background: transparent;
-  border: 1px solid var(--terminal-cyan);
-  color: var(--terminal-cyan);
+  border: 1px solid var(--primary);
+  color: var(--primary);
   padding: 5px 10px;
   font-family: var(--terminal-font);
   font-size: var(--terminal-font-size-small);
   cursor: pointer;
   transition: all 0.3s ease;
-  text-shadow: 0 0 5px var(--terminal-cyan);
+  text-shadow: 0 0 5px var(--primary);
 }
 
 .mobile-font-controls .font-btn:hover {
-  background: var(--terminal-cyan);
-  color: var(--terminal-bg);
-  box-shadow: 0 0 10px var(--terminal-cyan);
+  background: var(--primary);
+  color: var(--background);
+  box-shadow: 0 0 10px var(--primary);
   text-shadow: none;
 }
 
@@ -285,6 +298,66 @@
 /* For very small screens, consider a collapsible mobile menu */
 @media screen and (max-width: 576px) {
   .navbar {
-    width: 160px;
+    width: 12em;
+    min-width: 150px;
+    max-width: 200px;
   }
+}
+
+/* Minimized Modal Section */
+.minimized-modal-section {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 1px solid var(--primary-dim);
+}
+
+.minimized-modal-item {
+  background: var(--background-medium);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size-small);
+  text-transform: lowercase;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  min-width: 120px;
+  text-align: center;
+}
+
+.minimized-modal-item:hover {
+  background: var(--primary);
+  color: var(--background-dark);
+  border-color: var(--primary-bright);
+}
+
+.minimized-modal-label {
+  position: relative;
+  z-index: 2;
+}
+
+.minimized-modal-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--background-dark);
+  overflow: hidden;
+}
+
+.minimized-modal-progress-bar {
+  height: 100%;
+  background: var(--primary-bright);
+  transition: width 0.3s ease;
+  animation: progress-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes progress-glow {
+  0% { box-shadow: 0 0 5px var(--primary); }
+  100% { box-shadow: 0 0 10px var(--primary-bright), 0 0 20px var(--primary); }
 }

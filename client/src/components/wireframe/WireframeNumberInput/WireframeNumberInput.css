@@ -1,0 +1,124 @@
+/**
+ * @file WireframeNumberInput.css
+ * @description Terminal-themed number input styles
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-24
+ */
+
+.wireframe-number-input-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--terminal-font);
+}
+
+.wireframe-number-input {
+  background: var(--background);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size);
+  padding: 0.5em 0.75em;
+  min-width: 80px;
+  text-align: center;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+/* Hide default browser arrows */
+.wireframe-number-input::-webkit-outer-spin-button,
+.wireframe-number-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.wireframe-number-input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.wireframe-number-input:hover:not(:disabled) {
+  border-color: var(--primary-bright, #66ffff);
+  background: rgba(0, 255, 255, 0.05);
+}
+
+.wireframe-number-input:focus {
+  border-color: var(--primary-bright, #66ffff);
+  background: rgba(0, 255, 255, 0.05);
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+.wireframe-number-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--background);
+  border-color: var(--primary);
+}
+
+/* Container with arrows */
+.wireframe-number-input-with-arrows .wireframe-number-input {
+  padding-right: 2em;
+}
+
+.wireframe-number-arrows {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  bottom: 2px;
+  display: flex;
+  flex-direction: column;
+  width: 20px;
+}
+
+.wireframe-number-arrow {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background);
+  border: none;
+  border-left: 1px solid var(--primary);
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 0.7em;
+  transition: all 0.2s ease;
+  padding: 0;
+  margin: 0;
+}
+
+.wireframe-number-arrow:first-child {
+  border-bottom: 1px solid var(--primary);
+}
+
+.wireframe-number-arrow:hover:not(:disabled) {
+  background: rgba(0, 255, 255, 0.1);
+  color: var(--primary-bright, #66ffff);
+}
+
+.wireframe-number-arrow:active:not(:disabled) {
+  background: rgba(0, 255, 255, 0.2);
+}
+
+.wireframe-number-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.arrow-symbol {
+  display: block;
+  line-height: 1;
+  font-size: 0.6em;
+  user-select: none;
+}
+
+/* Disabled state */
+.wireframe-number-input-disabled .wireframe-number-input,
+.wireframe-number-input-disabled .wireframe-number-arrow {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* No arrows variant */
+.wireframe-number-input-no-arrows .wireframe-number-input {
+  width: 100%;
+}

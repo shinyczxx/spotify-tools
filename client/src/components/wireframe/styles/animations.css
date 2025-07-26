@@ -12,8 +12,8 @@
   opacity: 0;
   transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
   will-change: max-height, opacity;
-  background: var(--terminal-dark);
-  border: 1px solid var(--terminal-cyan-dim);
+  background: var(--background-dark);
+  border: 1px solid var(--primary-dim);
   border-top: none;
   padding: 0 1em;
   box-sizing: border-box;
@@ -36,8 +36,8 @@
   opacity: 0;
   margin-top: 0;
   width: 100%;
-  background: var(--terminal-dark);
-  border: 1px solid var(--terminal-cyan-dim);
+  background: var(--background-dark);
+  border: 1px solid var(--primary-dim);
   border-top: none;
 }
 
@@ -93,7 +93,7 @@
 }
 
 .wireframe-hover-glow:hover {
-  box-shadow: 0 0 15px var(--terminal-cyan-dark);
+  box-shadow: 0 0 15px var(--primary-dark);
 }
 
 /* Accessibility improvements */

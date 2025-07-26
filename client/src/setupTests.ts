@@ -96,3 +96,32 @@ global.ResizeObserver = jest.fn().mockImplementation(() => ({
 // Mock requestAnimationFrame
 global.requestAnimationFrame = jest.fn((cb) => setTimeout(cb, 16))
 global.cancelAnimationFrame = jest.fn((id) => clearTimeout(id))
+
+// Set up CSS variables for testing
+beforeEach(() => {
+  // Set CSS variables on document root for tests
+  const style = document.createElement('style')
+  style.textContent = `
+    :root {
+      --terminal-cyan: #00ffff;
+      --terminal-cyan-dim: #00dddd;
+      --terminal-cyan-bright: #66ffff;
+      --terminal-cyan-dark: #004444;
+      --circuit-color: #00ffff;
+      --circuit-color-dim: #00dddd;
+      --circuit-color-bright: #66ffff;
+      --circuit-color-dark: #004444;
+      --terminal-bg: #000000;
+      --terminal-dark: #0a0a0a;
+      --terminal-font: 'Fixedsys', 'Courier New', monospace;
+      --terminal-font-size: 14px;
+      --terminal-error: #ff4444;
+      --terminal-error-bg: #1a0606;
+      --terminal-error-border: #cc3333;
+      --glow-error: 0 0 10px #ff4444;
+      --glow-cyan: 0 0 10px #00ffff;
+      --terminal-medium: #333333;
+    }
+  `
+  document.head.appendChild(style)
+})

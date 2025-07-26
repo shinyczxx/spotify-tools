@@ -22,8 +22,8 @@
 }
 
 .modal-container {
-  background: var(--terminal-bg);
-  border: 2px solid var(--terminal-cyan);
+  background: var(--background);
+  border: 2px solid var(--primary);
   max-width: 800px;
   width: 100%;
   max-height: 90vh;
@@ -51,16 +51,16 @@
 
 .form-select {
   padding: 6px 10px;
-  border: 1px solid var(--terminal-cyan);
-  background: var(--terminal-bg);
-  color: var(--terminal-cyan);
+  border: 1px solid var(--primary);
+  background: var(--background);
+  color: var(--primary);
 }
 
 .form-input {
   padding: 6px 10px;
-  border: 1px solid var(--terminal-cyan);
-  background: var(--terminal-bg);
-  color: var(--terminal-cyan);
+  border: 1px solid var(--primary);
+  background: var(--background);
+  color: var(--primary);
 }
 
 .playlist-name-input {
@@ -73,20 +73,20 @@
 }
 
 .preview-title {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   margin-bottom: 10px;
 }
 
 .preview-container {
   max-height: 300px;
   overflow: auto;
-  border: 1px solid var(--terminal-cyan);
+  border: 1px solid var(--primary);
   padding: 10px;
 }
 
 .preview-track-item {
   padding: 4px 0;
-  border-bottom: 1px solid var(--terminal-cyan-dim);
+  border-bottom: 1px solid var(--primary-dim);
   display: flex;
   justify-content: space-between;
   font-size: 14px;
@@ -109,8 +109,8 @@
 }
 
 .create-playlist-button {
-  background: var(--terminal-green);
-  color: var(--terminal-bg);
+  background: var(--success);
+  color: var(--background);
   font-weight: 700;
 }
 

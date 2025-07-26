@@ -40,11 +40,11 @@
 .playlist-tools-selector-container {
   flex: 1 1 0%;
   min-height: 0;
-  height: calc(100vh - 300px);
+  height: 100%;
   display: flex;
   flex-direction: column;
-  margin: 0.75em 0 0 0;
-  padding-bottom: 0;
+  margin: 0;
+  padding: 0;
   overflow: visible;
 }
 
@@ -55,9 +55,13 @@
   /* Colors and borders inherited from wireframe-panel-content */
 }
 
-/* Page container - Uses standard wireframe-container padding */
+/* Page container - Remove all padding for more space */
 .playlist-tools-container {
   overflow-y: auto;
-  max-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 !important; /* Remove all padding from wireframe-container */
+  margin: 0 !important; /* Remove all margin */
   /* All other styling inherited from wireframe-container */
 }

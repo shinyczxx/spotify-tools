@@ -14,16 +14,16 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem;
-  border: 1px solid var(--terminal-cyan-dim);
-  background: var(--terminal-bg);
+  border: 1px solid var(--primary-dim);
+  background: var(--background);
   border-radius: 4px;
   min-height: 44px;
   transition: border-color 0.2s ease;
 }
 
 .wireframe-tag-input-container:focus-within {
-  border-color: var(--terminal-cyan);
-  box-shadow: 0 0 0 1px var(--terminal-cyan-dim);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary-dim);
 }
 
 .wireframe-tag-input-tags {
@@ -35,13 +35,13 @@
 .wireframe-tag-input-tag {
   display: flex;
   align-items: center;
-  background: var(--terminal-cyan-dim);
-  color: var(--terminal-bg);
+  background: var(--primary-dim);
+  color: var(--background);
   padding: 0.25rem 0.5rem;
   border-radius: 3px;
   font-size: 0.85rem;
   font-weight: 500;
-  border: 1px solid var(--terminal-cyan);
+  border: 1px solid var(--primary);
   max-width: 200px;
 }
 
@@ -54,7 +54,7 @@
 .wireframe-tag-input-tag-remove {
   background: none;
   border: none;
-  color: var(--terminal-bg);
+  color: var(--background);
   cursor: pointer;
   font-size: 1rem;
   font-weight: bold;
@@ -71,7 +71,7 @@
 }
 
 .wireframe-tag-input-tag-remove:hover {
-  background: var(--terminal-red-dim);
+  background: var(--danger-dim);
 }
 
 .wireframe-tag-input-tag-remove:disabled {
@@ -92,7 +92,7 @@
 }
 
 .wireframe-tag-input-field::placeholder {
-  color: var(--terminal-cyan-dim);
+  color: var(--primary-dim);
   opacity: 0.7;
 }
 
@@ -108,8 +108,8 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: var(--terminal-bg);
-  border: 1px solid var(--terminal-cyan);
+  background: var(--background);
+  border: 1px solid var(--primary);
   border-top: none;
   border-radius: 0 0 4px 4px;
   max-height: 200px;
@@ -129,7 +129,7 @@
   text-align: left;
   cursor: pointer;
   transition: all 0.2s ease;
-  border-bottom: 1px solid var(--terminal-cyan-ultra-dim);
+  border-bottom: 1px solid var(--primary-ultra-dim);
 }
 
 .wireframe-tag-input-suggestion:last-child {
@@ -138,8 +138,8 @@
 
 .wireframe-tag-input-suggestion:hover,
 .wireframe-tag-input-suggestion:focus {
-  background: var(--terminal-cyan-ultra-dim);
-  color: var(--terminal-cyan-bright);
+  background: var(--primary-ultra-dim);
+  color: var(--primary-bright);
   outline: none;
 }
 
@@ -151,9 +151,9 @@
   right: 0;
   margin-top: 0.25rem;
   padding: 0.5rem;
-  background: var(--terminal-red-dim);
-  color: var(--terminal-red-bright);
-  border: 1px solid var(--terminal-red);
+  background: var(--danger-dim);
+  color: var(--danger-bright);
+  border: 1px solid var(--danger);
   border-radius: 4px;
   font-size: 0.85rem;
   font-weight: 500;
@@ -167,7 +167,7 @@
   right: 0;
   margin-top: 0.25rem;
   font-size: 0.75rem;
-  color: var(--terminal-cyan-dim);
+  color: var(--primary-dim);
   font-weight: 500;
 }
 
@@ -191,12 +191,12 @@
 
 /* Focus states for accessibility */
 .wireframe-tag-input-tag-remove:focus {
-  outline: 2px solid var(--terminal-cyan);
+  outline: 2px solid var(--primary);
   outline-offset: 1px;
 }
 
 .wireframe-tag-input-suggestion:focus {
-  outline: 2px solid var(--terminal-cyan);
+  outline: 2px solid var(--primary);
   outline-offset: -2px;
 }
 

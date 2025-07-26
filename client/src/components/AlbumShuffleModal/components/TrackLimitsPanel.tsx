@@ -7,9 +7,9 @@
  */
 
 import React from 'react'
-import { WireframePanel, WireframeButton } from '@components/wireframe'
+import { WireframePanel, WireframeButton, WireframeNumberInput } from '@components/wireframe'
 import { TooltipIcon } from '@components/wireframe/TooltipIcon'
-import { Toggle } from '@components/Toggle'
+import { WireframeSingleStateSwitch } from '@components/wireframe'
 import { ShuffleConfig, TrackLimitInfo } from 'types/albumShuffle'
 import { AlbumWithTrackCount, SPOTIFY_PLAYLIST_LIMITS } from '@utils/playlist/playlistAlbumFetcher'
 import './TrackLimitsPanel.css'
@@ -58,18 +58,14 @@ export const TrackLimitsPanel: React.FC<TrackLimitsPanelProps> = ({
         {/* Album Count */}
         <div className="limit-setting">
           <label className="limit-label">max albums:</label>
-          <input
-            type="number"
-            min="1"
-            max="200"
+          <WireframeNumberInput
+            min={1}
+            max={allRetrievedAlbums.length || 200}
             value={shuffleConfig.numberOfAlbums}
-            onChange={(e) =>
-              onShuffleConfigChange({
-                numberOfAlbums: parseInt(e.target.value) || 25,
-              })
-            }
+            onChange={(value) => onShuffleConfigChange({ numberOfAlbums: value })}
             disabled={disabled}
-            className="limit-input album-count-input"
+            className="album-count-input"
+            showArrows={false}
           />
           <WireframeButton
             onClick={handleRandomAlbumCount}
@@ -84,18 +80,14 @@ export const TrackLimitsPanel: React.FC<TrackLimitsPanelProps> = ({
         {/* Max Tracks Setting */}
         <div className="limit-setting">
           <label className="limit-label">max tracks:</label>
-          <input
-            type="number"
-            min="100"
+          <WireframeNumberInput
+            min={100}
             max={SPOTIFY_PLAYLIST_LIMITS.MAX_TRACKS}
             value={shuffleConfig.maxTracks}
-            onChange={(e) =>
-              onShuffleConfigChange({
-                maxTracks: parseInt(e.target.value) || SPOTIFY_PLAYLIST_LIMITS.MAX_TRACKS,
-              })
-            }
+            onChange={(value) => onShuffleConfigChange({ maxTracks: value })}
             disabled={disabled}
-            className="limit-input track-count-input"
+            className="track-count-input"
+            showArrows={false}
           />
           <WireframeButton
             onClick={handleRandomTrackCount}
@@ -130,13 +122,15 @@ export const TrackLimitsPanel: React.FC<TrackLimitsPanelProps> = ({
             />
           </div>
           <div className="toggle-container">
-            <Toggle
-              leftLabel="soft cap"
-              rightLabel="hard cap"
-              selected={shuffleConfig.trackLimitMode === 'hard' ? 'right' : 'left'}
-              onToggle={(selected) =>
+            <WireframeSingleStateSwitch
+              states={[
+                { label: "soft cap", state: "soft" },
+                { label: "hard cap", state: "hard" }
+              ]}
+              activeState={shuffleConfig.trackLimitMode}
+              onStateChange={(state) =>
                 onShuffleConfigChange({
-                  trackLimitMode: selected === 'right' ? 'hard' : 'soft',
+                  trackLimitMode: state as 'soft' | 'hard',
                 })
               }
               disabled={disabled}
@@ -148,7 +142,7 @@ export const TrackLimitsPanel: React.FC<TrackLimitsPanelProps> = ({
         {trackLimitInfo.totalTracks > 0 && (
           <div className={`track-status ${trackLimitInfo.limitReached ? 'warning' : 'success'}`}>
             <span className="status-icon">
-              {trackLimitInfo.limitReached ? '⚠️' : '✅'}
+              {trackLimitInfo.limitReached ? '!' : '✓'}
             </span>
             <span className="status-text">
               {trackLimitInfo.totalTracks.toLocaleString()} estimated tracks

@@ -24,12 +24,12 @@
 .user-profile-section {
   margin-bottom: 30px;
   padding-bottom: 15px;
-  border-bottom: 1px solid var(--terminal-cyan-dim);
+  border-bottom: 1px solid var(--primary-dim);
 }
 
 .user-display-name {
   margin: 0 0 5px 0;
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   font-family: var(--terminal-font);
   font-size: var(--terminal-font-size);
 }
@@ -38,13 +38,13 @@
   margin: 0 0 10px 0;
   opacity: 0.7;
   font-size: 12px;
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-family: var(--terminal-font);
 }
 
 /* Section Common Styles */
 .section-title {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   margin: 0 0 15px 0;
   font-size: 14px;
   font-family: var(--terminal-font);
@@ -56,7 +56,7 @@
   opacity: 0.8;
   margin: 0 0 20px 0;
   font-size: 13px;
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-family: var(--terminal-font);
   line-height: 1.4;
 }
@@ -71,6 +71,31 @@
   margin-top: 10px;
 }
 
+/* Theme Selector Styles */
+.color-config-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.theme-selector-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.theme-selector {
+  max-width: 300px;
+}
+
+.manual-color-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-top: 15px;
+  border-top: 1px solid var(--primary-dim);
+}
+
 /* Select Control Styles */
 .select-control {
   display: flex;
@@ -83,7 +108,7 @@
 }
 
 .select-label {
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-size: 12px;
   text-transform: lowercase;
   letter-spacing: 1px;
@@ -98,9 +123,9 @@
 }
 
 .import-error {
-  background-color: var(--terminal-error-bg);
-  border: 1px solid var(--terminal-error-border);
-  color: var(--terminal-error);
+  background-color: var(--error-bg);
+  border: 1px solid var(--error-border);
+  color: var(--error);
   padding: 10px;
   margin-bottom: 15px;
   font-family: var(--terminal-font);
@@ -122,19 +147,19 @@
 .app-version {
   margin: 0 0 10px 0;
   opacity: 0.8;
-  color: var(--terminal-cyan);
+  color: var(--primary);
 }
 
 .app-description {
   margin: 0 0 10px 0;
   opacity: 0.7;
-  color: var(--terminal-cyan);
+  color: var(--primary);
 }
 
 .tech-stack {
   margin: 0;
   opacity: 0.6;
-  color: var(--terminal-cyan);
+  color: var(--primary);
 }
 
 /* Responsive adjustments */

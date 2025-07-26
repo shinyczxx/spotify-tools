@@ -31,15 +31,24 @@ export type TrackLimitMode = 'soft' | 'hard'
 
 export interface PlaylistAlbumCache {
   playlistIds: string[]
-  albums: SpotifyAlbum[]
+  albumIds: string[] // Store only IDs to reference individual cache
   hash: string
   timestamp: number
   totalTracks: number
 }
 
+export interface AlbumTrackCache {
+  albumId: string
+  albumMetadata: SpotifyAlbum // Keep basic album info for display
+  trackIds: string[] // Only the track IDs - this is all we need for playlist.addTracks()
+  timestamp: number
+}
+
 // Cache management
 const CACHE_KEY = 'playlist-albums-cache'
+const ALBUM_TRACKS_KEY = 'album-tracks-cache'
 const CACHE_TTL = 7 * 24 * 60 * 60 * 1000 // 7 days
+const MAX_CACHE_SIZE = 50 * 1024 * 1024 // 50MB limit to prevent quota exceeded
 
 /**
  * Generate a hash for playlist IDs combination
@@ -47,6 +56,110 @@ const CACHE_TTL = 7 * 24 * 60 * 60 * 1000 // 7 days
 function generatePlaylistHash(playlistIds: string[]): string {
   const sorted = [...playlistIds].sort()
   return btoa(sorted.join(',')).replace(/[+/=]/g, '')
+}
+
+/**
+ * Check if storage quota would be exceeded
+ */
+function wouldExceedQuota(dataSize: number): boolean {
+  try {
+    const testKey = `quota-test-${Date.now()}`
+    const testData = 'x'.repeat(Math.min(dataSize, 1024)) // Test with smaller sample
+    localStorage.setItem(testKey, testData)
+    localStorage.removeItem(testKey)
+    return false
+  } catch (error) {
+    return true
+  }
+}
+
+/**
+ * Get individual album track cache
+ */
+function getAlbumTrackCache(): Record<string, AlbumTrackCache> {
+  try {
+    const cached = localStorage.getItem(ALBUM_TRACKS_KEY)
+    return cached ? JSON.parse(cached) : {}
+  } catch (error) {
+    console.warn('Error reading album track cache:', error)
+    return {}
+  }
+}
+
+/**
+ * Save individual album track cache with quota checking
+ */
+function saveAlbumTrackCache(cache: Record<string, AlbumTrackCache>): boolean {
+  try {
+    const dataString = JSON.stringify(cache)
+    
+    // Check if this would exceed quota
+    if (wouldExceedQuota(dataString.length)) {
+      console.warn('Storage quota would be exceeded, cleaning old entries...')
+      // Remove oldest entries and try again
+      const sortedEntries = Object.entries(cache).sort((a, b) => a[1].timestamp - b[1].timestamp)
+      const keepCount = Math.floor(sortedEntries.length * 0.7) // Keep 70% of entries
+      const reducedCache = Object.fromEntries(sortedEntries.slice(-keepCount))
+      
+      const reducedDataString = JSON.stringify(reducedCache)
+      if (wouldExceedQuota(reducedDataString.length)) {
+        console.warn('Still would exceed quota after cleanup, cache update skipped')
+        return false
+      }
+      
+      localStorage.setItem(ALBUM_TRACKS_KEY, reducedDataString)
+      return true
+    }
+    
+    localStorage.setItem(ALBUM_TRACKS_KEY, dataString)
+    return true
+  } catch (error) {
+    console.warn('Error saving album track cache:', error)
+    return false
+  }
+}
+
+/**
+ * Get cached album with track IDs
+ */
+function getCachedAlbumTracks(albumId: string): AlbumTrackCache | null {
+  const cache = getAlbumTrackCache()
+  const entry = cache[albumId]
+  
+  if (!entry) return null
+  
+  // Check TTL
+  if (Date.now() - entry.timestamp > CACHE_TTL) {
+    delete cache[albumId]
+    saveAlbumTrackCache(cache)
+    return null
+  }
+  
+  return entry
+}
+
+/**
+ * Cache album track IDs
+ */
+export function cacheAlbumTracks(albumId: string, album: SpotifyAlbum, trackIds: string[]): void {
+  const cache = getAlbumTrackCache()
+  
+  cache[albumId] = {
+    albumId,
+    albumMetadata: album,
+    trackIds,
+    timestamp: Date.now()
+  }
+  
+  // Clean expired entries
+  const now = Date.now()
+  Object.keys(cache).forEach(key => {
+    if (now - cache[key].timestamp > CACHE_TTL) {
+      delete cache[key]
+    }
+  })
+  
+  saveAlbumTrackCache(cache)
 }
 
 /**
@@ -79,7 +192,7 @@ function getCachedAlbums(playlistIds: string[]): PlaylistAlbumCache | null {
 }
 
 /**
- * Cache albums for playlist combination
+ * Cache albums for playlist combination (store only IDs)
  */
 function cacheAlbums(playlistIds: string[], albums: SpotifyAlbum[], totalTracks: number): void {
   try {
@@ -91,10 +204,10 @@ function cacheAlbums(playlistIds: string[], albums: SpotifyAlbum[], totalTracks:
     // Remove existing entry for this hash
     cacheData = cacheData.filter(item => item.hash !== hash)
     
-    // Add new entry
+    // Add new entry (only store album IDs, not full objects)
     cacheData.push({
       playlistIds: [...playlistIds].sort(),
-      albums,
+      albumIds: albums.map(album => album.id),
       hash,
       timestamp: Date.now(),
       totalTracks
@@ -105,7 +218,7 @@ function cacheAlbums(playlistIds: string[], albums: SpotifyAlbum[], totalTracks:
     cacheData = cacheData.slice(0, 10)
     
     localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData))
-    console.debug('📋 Cached albums for playlist combination:', { hash, albumCount: albums.length, totalTracks })
+    console.debug('📋 Cached album IDs for playlist combination:', { hash, albumCount: albums.length, totalTracks })
   } catch (error) {
     console.warn('Error caching playlist albums:', error)
   }
@@ -174,10 +287,10 @@ async function fetchPlaylistTracks(playlistId: string): Promise<SpotifyTrack[]> 
 }
 
 /**
- * Extract unique albums from tracks with console debugging and track counting
+ * Extract unique albums from tracks with deduplication caching
  */
 function extractAlbumsFromTracks(tracks: SpotifyTrack[]): AlbumWithTrackCount[] {
-  const albumMap = new Map<string, { album: SpotifyAlbum, trackCount: number }>()
+  const albumMap = new Map<string, { album: SpotifyAlbum, trackIds: string[], trackCount: number }>()
   
   for (const track of tracks) {
     console.debug('🎵 Processing track:', {
@@ -188,15 +301,17 @@ function extractAlbumsFromTracks(tracks: SpotifyTrack[]): AlbumWithTrackCount[] 
       albumId: track.album?.id
     })
     
-    if (track.album && track.album.id) {
+    if (track.album && track.album.id && track.id) {
       if (albumMap.has(track.album.id)) {
-        // Increment track count for existing album
+        // Add track ID to existing album
         const existing = albumMap.get(track.album.id)!
+        existing.trackIds.push(track.id)
         existing.trackCount++
       } else {
-        // Add new album with initial track count
+        // Add new album with first track ID
         albumMap.set(track.album.id, {
           album: track.album,
+          trackIds: [track.id],
           trackCount: 1
         })
         console.debug('✨ Added new album:', {
@@ -208,6 +323,21 @@ function extractAlbumsFromTracks(tracks: SpotifyTrack[]): AlbumWithTrackCount[] 
       }
     }
   }
+  
+  // Cache each album's track IDs individually (prevents duplicates across playlists)
+  Array.from(albumMap.values()).forEach(({ album, trackIds }) => {
+    const cached = getCachedAlbumTracks(album.id)
+    if (!cached) {
+      // Only cache if not already cached (prevents overwriting with partial data)
+      cacheAlbumTracks(album.id, album, trackIds)
+      console.debug('💾 Cached track IDs for album:', {
+        albumName: album.name,
+        trackCount: trackIds.length
+      })
+    } else {
+      console.debug('📋 Album already cached:', album.name)
+    }
+  })
   
   return Array.from(albumMap.values()).map(({ album, trackCount }) => ({
     ...album,
@@ -227,18 +357,43 @@ export async function fetchAlbumsFromPlaylists(
   // Check cache first
   const cached = getCachedAlbums(playlistIds)
   if (cached) {
-    console.debug('📋 Found cached album data')
-    // For cached results, we need to recreate albumsWithTrackCounts
-    const albumsWithTrackCounts = cached.albums.map(album => ({
-      ...album,
-      estimatedTrackCount: album.total_tracks || 10 // Fallback estimate
-    }))
-    return {
-      albums: cached.albums,
-      albumsWithTrackCounts,
-      totalTracks: cached.totalTracks,
-      processedTracks: cached.totalTracks,
-      fromCache: true
+    console.debug('📋 Found cached playlist combination, reconstructing from individual album cache')
+    
+    // Reconstruct albums from individual cache entries
+    const albums: SpotifyAlbum[] = []
+    const albumsWithTrackCounts: AlbumWithTrackCount[] = []
+    
+    for (const albumId of cached.albumIds || []) {
+      const albumCache = getCachedAlbumTracks(albumId)
+      if (albumCache) {
+        albums.push(albumCache.albumMetadata)
+        albumsWithTrackCounts.push({
+          ...albumCache.albumMetadata,
+          estimatedTrackCount: albumCache.trackIds.length
+        })
+      } else {
+        console.warn(`⚠️ Individual album cache missing for ${albumId}, will need partial refresh`)
+        // Remove this from cache since individual data is missing
+        const updatedCache = localStorage.getItem(CACHE_KEY)
+        if (updatedCache) {
+          const cacheData: PlaylistAlbumCache[] = JSON.parse(updatedCache)
+          const filtered = cacheData.filter(item => item.hash !== cached.hash)
+          localStorage.setItem(CACHE_KEY, JSON.stringify(filtered))
+        }
+        break // Fall through to fresh fetch
+      }
+    }
+    
+    // Only return cached data if we have all albums and cache has valid structure
+    if (cached.albumIds && albums.length === cached.albumIds.length) {
+      console.debug('✅ Successfully reconstructed from cache:', { albumCount: albums.length })
+      return {
+        albums,
+        albumsWithTrackCounts,
+        totalTracks: cached.totalTracks,
+        processedTracks: cached.totalTracks,
+        fromCache: true
+      }
     }
   }
   
@@ -381,11 +536,6 @@ export function selectAlbumsWithTrackLimits(
     selectedAlbums.push(album)
     totalTracks += albumTrackCount
 
-    console.debug('✅ Selected album:', {
-      albumName: album.name,
-      albumTracks: albumTrackCount,
-      runningTotal: totalTracks
-    })
 
     // For soft cap, stop after exceeding limit with at least one album
     if (trackLimitMode === 'soft' && totalTracks > maxTracks) {
@@ -411,19 +561,30 @@ export function selectAlbumsWithTrackLimits(
 }
 
 /**
+ * Get cached track IDs for an album (for playlist creation)
+ */
+export function getCachedAlbumTrackIds(albumId: string): string[] | null {
+  const albumCache = getCachedAlbumTracks(albumId)
+  return albumCache ? albumCache.trackIds : null
+}
+
+/**
  * Get cache statistics
  */
-export function getPlaylistAlbumCacheStats(): { entryCount: number, totalSize: number } {
+export function getPlaylistAlbumCacheStats(): { entryCount: number, totalSize: number, albumCacheSize: number } {
   try {
-    const cached = localStorage.getItem(CACHE_KEY)
-    if (!cached) return { entryCount: 0, totalSize: 0 }
+    const playlistCache = localStorage.getItem(CACHE_KEY)
+    const albumCache = localStorage.getItem(ALBUM_TRACKS_KEY)
     
-    const cacheData: PlaylistAlbumCache[] = JSON.parse(cached)
+    const playlistCacheData: PlaylistAlbumCache[] = playlistCache ? JSON.parse(playlistCache) : []
+    const albumCacheData = albumCache ? JSON.parse(albumCache) : {}
+    
     return {
-      entryCount: cacheData.length,
-      totalSize: new Blob([cached]).size
+      entryCount: playlistCacheData.length,
+      totalSize: new Blob([playlistCache || '']).size,
+      albumCacheSize: new Blob([albumCache || '']).size
     }
   } catch (error) {
-    return { entryCount: 0, totalSize: 0 }
+    return { entryCount: 0, totalSize: 0, albumCacheSize: 0 }
   }
 }

@@ -43,7 +43,7 @@ export const usePlaylistCreator = (
       if (onModalClose) {
         onModalClose()
       }
-      alert(`Playlist "${finalName}" created successfully with ${tracks.length} tracks!`)
+      // alert(`Playlist "${finalName}" created successfully with ${tracks.length} tracks!`) // Disabled - using in-modal button instead
       return result
     } catch (err) {
       console.error('Error creating playlist:', err)

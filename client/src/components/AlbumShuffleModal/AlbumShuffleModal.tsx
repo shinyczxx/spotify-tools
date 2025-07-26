@@ -25,11 +25,13 @@ import './AlbumShuffleModal.css'
 export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
   isOpen,
   onClose,
+  onMinimize,
   selectedPlaylists,
   onCreatePlaylist,
   processing,
   preloadedAlbums,
   fromHistory = false,
+  spotifyApi,
 }) => {
   const {
     // State
@@ -59,6 +61,7 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
     selectedPlaylists,
     preloadedAlbums,
     fromHistory,
+    spotifyApi,
     onCreatePlaylist,
   })
 
@@ -66,13 +69,41 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
     setShuffleConfig(prev => ({ ...prev, ...config }))
   }
 
-  const panelsDisabled = allRetrievedAlbums.length === 0
+  const panelsDisabled = allRetrievedAlbums.length === 0 || isFetching
 
   if (!isOpen) return null
 
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose()
+    }
+  }
+
   return (
-    <div className="album-shuffle-modal-overlay" onClick={onClose}>
-      <div className="album-shuffle-modal-container" onClick={(e) => e.stopPropagation()}>
+    <div className="album-shuffle-modal-overlay" onClick={handleOverlayClick}>
+      <div className="album-shuffle-modal-container">
+        {/* Modal Header with Minimize/Close buttons */}
+        <div className="modal-header">
+          <h2 className="modal-title">Album Shuffle</h2>
+          <div className="modal-controls">
+            {onMinimize && (
+              <button
+                className="modal-control-button minimize"
+                onClick={onMinimize}
+                title="Minimize to navbar"
+              >
+                −
+              </button>
+            )}
+            <button
+              className="modal-control-button close"
+              onClick={onClose}
+              title="Close modal"
+            >
+              ×
+            </button>
+          </div>
+        </div>
         {/* Row 1: Album Types + Get Albums */}
         <AlbumTypesPanel
           shuffleConfig={shuffleConfig}
@@ -114,6 +145,19 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
             disabled={panelsDisabled}
           />
 
+          {/* Row 5: Actions */}
+          <ActionsPanel
+            onReshuffle={handleReshuffle}
+            onCreatePlaylist={handleCreatePlaylist}
+            selectedAlbums={selectedAlbums}
+            shuffledTracks={shuffledTracks}
+            isShuffling={isShuffling}
+            processing={processing}
+            shuffleButtonGlitch={shuffleButtonGlitch}
+            createdPlaylistUrl={createdPlaylistUrl}
+            disabled={panelsDisabled}
+          />
+
           {/* Albums Preview - shows actual shuffled order */}
           {selectedAlbums.length > 0 && (
             <WireframePanel
@@ -129,19 +173,6 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
               />
             </WireframePanel>
           )}
-
-          {/* Row 5: Actions */}
-          <ActionsPanel
-            onReshuffle={handleReshuffle}
-            onCreatePlaylist={handleCreatePlaylist}
-            selectedAlbums={selectedAlbums}
-            shuffledTracks={shuffledTracks}
-            isShuffling={isShuffling}
-            processing={processing}
-            shuffleButtonGlitch={shuffleButtonGlitch}
-            createdPlaylistUrl={createdPlaylistUrl}
-            disabled={panelsDisabled}
-          />
         </div>
       </div>
     </div>

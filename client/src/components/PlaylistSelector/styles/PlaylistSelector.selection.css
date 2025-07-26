@@ -11,17 +11,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1em;
+  padding: 0em;
   background-color: rgba(0, 255, 255, 0.05);
-  border-bottom: var(--wireframe-border);
+  border-bottom: 1px solid var(--primary);
   flex-wrap: wrap;
   gap: 0.5em;
-  transition: var(--wireframe-transition);
+  transition: all 0.2s ease;
 }
 
 .select-summary:hover {
   background-color: rgba(0, 255, 255, 0.1);
-  border-bottom-color: var(--terminal-cyan-bright);
+  border-bottom-color: var(--primary-bright);
 }
 
 .selection-info {
@@ -29,10 +29,12 @@
   align-items: center;
   gap: 1em;
   flex-wrap: wrap;
+  padding-left: 1em;
+  padding-right: .5em;
 }
 
 .selection-count {
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-weight: bold;
   font-family: var(--terminal-font);
 }
@@ -40,55 +42,58 @@
 /* Action buttons container */
 .action-buttons {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 0.5em;
   flex-wrap: wrap;
 }
 
-/* Deselect button with orange theme */
+/* Deselect button with orange theme - now using WireframeButton */
 .deselect-all-btn {
-  background-color: transparent;
-  border: 1px solid var(--terminal-orange);
-  color: var(--terminal-orange);
-  padding: 0.25em 0.5em;
-  cursor: pointer;
-  font-family: var(--terminal-font);
-  font-size: var(--terminal-font-size-small);
-  font-weight: bold;
-  transition: var(--wireframe-transition);
-  white-space: nowrap;
-  border-left: 3px solid var(--terminal-orange);
-  text-transform: lowercase;
-  letter-spacing: 1px;
+  background-color: transparent !important;
+  border-left: 2px solid var(--warning) !important;
+  border-right: 2px solid var(--warning) !important;
+  border-top: 1px solid var(--warning) !important;
+  border-bottom: 1px solid var(--warning) !important;
+  color: var(--warning) !important;
+  padding: 0.5em 1em !important;
+  font-family: var(--terminal-font) !important;
+  font-size: var(--terminal-font-size-small) !important;
+  font-weight: bold !important;
+  white-space: nowrap !important;
+  text-transform: lowercase !important;
+  letter-spacing: 1px !important;
+  flex-shrink: 0 !important;
 }
 
-.deselect-all-btn:hover {
-  background-color: rgba(255, 136, 0, 0.1);
-  border-color: var(--terminal-orange-bright);
-  color: var(--terminal-orange-bright);
-  border-left-color: var(--terminal-orange-bright);
-  box-shadow: 0 0 15px rgba(255, 136, 0, 0.4), inset 0 0 20px rgba(255, 136, 0, 0.1);
-  text-shadow: 0 0 5px rgba(255, 136, 0, 0.8);
+.deselect-all-btn:hover:not(:disabled) {
+  background-color: rgba(255, 136, 0, 0.1) !important;
+  border-color: var(--warning-bright) !important;
+  color: var(--warning-bright) !important;
+  box-shadow: 0 0 15px rgba(255, 136, 0, 0.4), inset 0 0 20px rgba(255, 136, 0, 0.1) !important;
+  text-shadow: 0 0 5px rgba(255, 136, 0, 0.8) !important;
+}
+
+.deselect-all-btn:disabled {
+  opacity: 0.5 !important;
+  color: var(--warning-dim) !important;
+  border-color: var(--warning-dim) !important;
 }
 
 /* Main action buttons using wireframe patterns */
 .create-shuffle-btn,
 .force-refresh-btn {
-  background-color: var(--terminal-bg);
+  background-color: var(--background);
   border: var(--wireframe-border);
-  color: var(--terminal-cyan);
-  padding: 12px 24px;
-  cursor: pointer;
+  color: var(--primary);
+  padding: 0.5em 1em;
   font-family: var(--terminal-font);
   font-size: var(--terminal-font-size);
   font-weight: bold;
   transition: var(--wireframe-transition);
   white-space: nowrap;
-  border-left: 3px solid var(--terminal-cyan);
+  border-left: 3px solid var(--primary);
   text-transform: lowercase;
   letter-spacing: 1px;
-  text-shadow: var(--glow-cyan);
+  text-shadow: var(--glow-primary);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -96,25 +101,24 @@
 
 .create-shuffle-btn:hover:not(:disabled) {
   background-color: rgba(0, 255, 255, 0.1);
-  color: var(--terminal-cyan-bright);
-  border-left-color: var(--terminal-cyan-bright);
-  box-shadow: var(--wireframe-box-shadow-hover);
-  text-shadow: var(--glow-cyan-bright);
+  color: var(--primary-bright);
+  border-left-color: var(--primary-bright);
+  box-shadow: var(--box-shadow-hover);
+  text-shadow: var(--glow-primary-bright);
 }
 
 /* Orange variant for force refresh */
 .force-refresh-btn {
-  border-color: var(--terminal-orange);
-  color: var(--terminal-orange);
-  border-left-color: var(--terminal-orange);
+  border-color: var(--warning);
+  color: var(--warning);
   text-shadow: 0 0 10px rgba(255, 136, 0, 0.5);
 }
 
 .force-refresh-btn:hover:not(:disabled) {
   background-color: rgba(255, 136, 0, 0.1);
-  border-color: var(--terminal-orange-bright);
-  color: var(--terminal-orange-bright);
-  border-left-color: var(--terminal-orange-bright);
+  border-color: var(--warning-bright);
+  color: var(--warning-bright);
+  border-left-color: var(--warning-bright);
   box-shadow: 0 0 15px rgba(255, 136, 0, 0.4), inset 0 0 20px rgba(255, 136, 0, 0.1);
   text-shadow: 0 0 5px rgba(255, 136, 0, 0.8);
 }
@@ -122,24 +126,35 @@
 .create-shuffle-btn:disabled,
 .force-refresh-btn:disabled {
   opacity: 0.5;
-  cursor: not-allowed;
 }
 
-/* Search and refresh controls */
+.url-bar-layout {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  flex: 1;
+  height: 2.75em;
+}
+
+/* Search and refresh controls (legacy - keep for now) */
 .search-refresh-controls {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
+  flex-shrink: 0;
+  min-width: 240px;
 }
 
 .search-input {
-  min-width: 180px;
-  height: 2.25em;
+  flex: 1;
   padding: 0.5em 0.75em;
-  border: 1px solid var(--terminal-cyan);
+  border-top: 0px solid var(--primary);
+  border-bottom: 0px solid var(--primary);
+  border-left: 0px solid var(--primary);
+  border-right: 0px solid var(--primary);
   border-radius: 0;
-  background: var(--terminal-bg);
-  color: var(--terminal-cyan);
+  background: var(--background);
+  color: var(--primary);
   font-size: 14px;
   font-family: var(--terminal-font);
   transition: var(--wireframe-transition);
@@ -147,20 +162,22 @@
 
 .search-input:focus {
   outline: none;
-  border-color: var(--terminal-cyan-bright);
+  border-color: var(--primary-bright);
   box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
 }
 
 .refresh-btn {
-  background: var(--terminal-bg) !important;
-  color: var(--terminal-orange) !important;
-  border: 1px solid var(--terminal-orange) !important;
-  font-weight: 700;
-  height: 2.25em;
-  padding: 0.5em 1em;
+  background: var(--background) !important;
+  color: var(--warning) !important;
+  border: 2px solid var(--warning) !important;
+  font-weight: normal !important;
+  font-size: 0.85em !important;
+  padding: 0.5em 0.75em !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
 }
 
 .refresh-btn:hover {
-  background: var(--terminal-orange) !important;
-  color: var(--terminal-bg) !important;
+  background: var(--warning) !important;
+  color: var(--background) !important;
 }

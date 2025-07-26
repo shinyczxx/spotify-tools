@@ -11,7 +11,7 @@ export const ROUTES = {
   HOME: '/',
   DASHBOARD: '/dashboard',
   SETTINGS: '/settings',
-  GET_TRACK_INFO: '/gettrackinfo',
+  SPOTIFY_INFO: '/spotifyinfo',
   PLAYLIST_TOOLS: '/playlisttools',
   LASTFM_TOOLS: '/lastfmtools',
   ALBUM_SHUFFLE: '/albumshuffle',
@@ -23,7 +23,7 @@ export const ROUTES = {
 export const PAGE_IDS = {
   DASHBOARD: 'dashboard',
   SETTINGS: 'settings',
-  GET_TRACK_INFO: 'getTrackInfo',
+  SPOTIFY_INFO: 'spotify-info',
   PLAYLIST_TOOLS: 'playlist-tools',
   LASTFM_TOOLS: 'lastfm-tools',
   ALBUM_SHUFFLE: 'albumshuffle',
@@ -35,7 +35,7 @@ export const PAGE_IDS = {
 // Route to page ID mapping
 export const ROUTE_TO_PAGE_MAP: Record<string, string> = {
   [ROUTES.SETTINGS]: PAGE_IDS.SETTINGS,
-  [ROUTES.GET_TRACK_INFO]: PAGE_IDS.GET_TRACK_INFO,
+  [ROUTES.SPOTIFY_INFO]: PAGE_IDS.SPOTIFY_INFO,
   [ROUTES.PLAYLIST_TOOLS]: PAGE_IDS.PLAYLIST_TOOLS,
   [ROUTES.LASTFM_TOOLS]: PAGE_IDS.LASTFM_TOOLS,
   [ROUTES.ALBUM_SHUFFLE]: PAGE_IDS.ALBUM_SHUFFLE,
@@ -47,7 +47,7 @@ export const ROUTE_TO_PAGE_MAP: Record<string, string> = {
 // Page ID to route mapping
 export const PAGE_TO_ROUTE_MAP: Record<string, string> = {
   [PAGE_IDS.SETTINGS]: ROUTES.SETTINGS,
-  [PAGE_IDS.GET_TRACK_INFO]: ROUTES.GET_TRACK_INFO,
+  [PAGE_IDS.SPOTIFY_INFO]: ROUTES.SPOTIFY_INFO,
   [PAGE_IDS.PLAYLIST_TOOLS]: ROUTES.PLAYLIST_TOOLS,
   [PAGE_IDS.LASTFM_TOOLS]: ROUTES.LASTFM_TOOLS,
   [PAGE_IDS.ALBUM_SHUFFLE]: ROUTES.ALBUM_SHUFFLE,
@@ -57,7 +57,7 @@ export const PAGE_TO_ROUTE_MAP: Record<string, string> = {
 // Route to title mapping
 export const ROUTE_TITLES: Record<string, string> = {
   [ROUTES.SETTINGS]: 'Settings',
-  [ROUTES.GET_TRACK_INFO]: 'Track Info',
+  [ROUTES.SPOTIFY_INFO]: 'Spotify Info',
   [ROUTES.PLAYLIST_TOOLS]: 'Playlist Tools',
   [ROUTES.LASTFM_TOOLS]: 'Last.fm Tools',
   [ROUTES.ALBUM_SHUFFLE]: 'Album Shuffle',

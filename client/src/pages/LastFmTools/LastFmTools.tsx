@@ -9,37 +9,55 @@
 import React, { useState, useMemo } from 'react'
 import { useSpotifyAuth } from '@hooks/auth/useSpotifyAuth'
 import { useLastFm } from '@hooks/data/useLastFm'
-import { WireframePanel, WireframeButton, WireframeTagInput } from '@components/wireframe'
+import { WireframePanel, WireframeButton, WireframeSingleStateSwitch } from '@components/wireframe'
+import { LastFmTagSelector } from '@components/LastFmTagSelector/LastFmTagSelector'
 import { PlaylistModal, PlaylistModalFormData } from '@components/PlaylistModal/PlaylistModal'
 import { SpotifyApi } from 'spotify-api-lib'
-import { SpotifyAlbum } from 'spotify-api-lib'
 import { LastFmSearchResult } from '@services/lastfm'
+import { getEnvVar } from '@utils/config/env'
 import '@styles/wireframe.css'
 import './LastFmTools.css'
 
 
 const LastFmTools: React.FC = () => {
   const { accessToken, user } = useSpotifyAuth()
-  const { 
-    searchAlbumsByTags, 
-    validateTag, 
-    getSuggestedTags, 
-    isAvailable, 
-    loading: lastFmLoading,
-    popularTags 
-  } = useLastFm()
   
-  // Initialize Spotify API
-  const spotifyApi = useMemo(() => {
-    return accessToken ? new SpotifyApi(accessToken) : null
-  }, [accessToken])
-
-  // State management
+  // State management - declare testingMode first
   const [searchTags, setSearchTags] = useState<string[]>([])
   const [searchResults, setSearchResults] = useState<LastFmSearchResult[]>([])
   const [selectedAlbums, setSelectedAlbums] = useState<LastFmSearchResult[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [testingMode, setTestingMode] = useState(false)
+  
+  // Use LastFm hook with testingMode
+  const { 
+    searchAlbumsByTags, 
+    validateTag, 
+    getSuggestedTags, 
+    loadMoreTags,
+    hasMoreTags,
+    loadingMore,
+    isAvailable, 
+    loading: lastFmLoading,
+    popularTags,
+    error: lastFmError
+  } = useLastFm(testingMode)
+  
+  // Check if Last.fm API key is configured
+  const hasApiKey = useMemo(() => {
+    try {
+      getEnvVar('VITE_LASTFM_API_KEY')
+      return true
+    } catch {
+      return false
+    }
+  }, [])
+  
+  // Initialize Spotify API
+  const spotifyApi = useMemo(() => {
+    return accessToken ? new SpotifyApi(accessToken) : null
+  }, [accessToken])
   
   // Modal state
   const [isPlaylistModalOpen, setIsPlaylistModalOpen] = useState(false)
@@ -112,7 +130,7 @@ const LastFmTools: React.FC = () => {
         try {
           // Search for the album on Spotify
           const searchQuery = `album:"${album.name}" artist:"${album.artist}"`
-          const searchResult = await spotifyApi.search.searchAll(searchQuery, ['album'], 1)
+          const searchResult = await spotifyApi.search.search(searchQuery, { type: ['album'], limit: 1 })
           
           if (searchResult.albums?.items && searchResult.albums.items.length > 0) {
             const spotifyAlbum = searchResult.albums.items[0]
@@ -133,8 +151,7 @@ const LastFmTools: React.FC = () => {
       }
 
       // Create the playlist
-      const playlist = await spotifyApi.playlists.createPlaylist(
-        user?.id || '',
+      const playlist = await spotifyApi.playlists.create(
         playlistFormData.name,
         playlistFormData.isPublic,
         `Playlist created from Last.fm tag search: ${searchTags}`
@@ -144,7 +161,7 @@ const LastFmTools: React.FC = () => {
       const batchSize = 100
       for (let i = 0; i < tracks.length; i += batchSize) {
         const batch = tracks.slice(i, i + batchSize)
-        await spotifyApi.playlists.addTracksToPlaylist(playlist.id, batch)
+        await spotifyApi.playlists.addTracks(playlist.id, batch)
       }
 
       // Success - close modal and reset
@@ -170,47 +187,80 @@ const LastFmTools: React.FC = () => {
     )
   }
 
-  if (!isAvailable) {
-    return (
-      <div className="wireframe-container">
-        <WireframePanel title="Last.fm API Key Required" variant="error">
-          <p>Last.fm API key is not configured. Please add VITE_LASTFM_API_KEY to your environment variables.</p>
-          <p className="lastfm-env-help">
-            Get your free API key from <a href="https://www.last.fm/api" target="_blank" rel="noopener noreferrer">Last.fm API</a>
-          </p>
-        </WireframePanel>
-      </div>
-    )
-  }
 
   return (
-    <div className="wireframe-container lastfm-tools-container">
+    <div className={`wireframe-container lastfm-tools-container ${testingMode ? 'testing-mode' : ''}`}>
+      {/* Testing Mode Toggle */}
+      <WireframePanel title="Configuration" className="lastfm-config-panel">
+        <div className="lastfm-config-section">
+          <div className="lastfm-api-status">
+            <p className={`lastfm-api-indicator ${hasApiKey ? 'has-key' : 'no-key'}`}>
+              {hasApiKey ? '🔑 Last.fm API key configured' : '⚠️ No Last.fm API key found'}
+            </p>
+            {!hasApiKey && (
+              <p className="lastfm-api-help">
+                Set VITE_LASTFM_API_KEY environment variable or use testing mode
+              </p>
+            )}
+          </div>
+          <WireframeSingleStateSwitch
+            states={[
+              { label: "Live API", state: "live" },
+              { label: "Testing Mode", state: "testing" }
+            ]}
+            activeState={testingMode ? 'testing' : 'live'}
+            onStateChange={(state) => setTestingMode(state === 'testing')}
+          />
+          <p className="lastfm-toggle-description">
+            {testingMode ? "Using mock data for demonstration" : hasApiKey ? "Using live Last.fm API" : "API key required for live data"}
+          </p>
+          {testingMode && (
+            <p className="lastfm-test-notice">
+              🧪 Testing mode active - using mock album data
+            </p>
+          )}
+        </div>
+      </WireframePanel>
+
       {/* Tag Search Section */}
       <WireframePanel title="Tag Search">
-        <div className="lastfm-search-section">
-          <div className="lastfm-search-input-group">
-            <WireframeTagInput
-              tags={searchTags}
-              onTagsChange={setSearchTags}
-              placeholder="Add music tags (e.g., rock, electronic, jazz)..."
-              maxTags={5}
-              suggestions={getSuggestedTags(searchTags.length > 0 ? searchTags[searchTags.length - 1] : '')}
-              validateTag={validateTag}
-              showSuggestions={true}
-              className="lastfm-tag-input"
-            />
-            <WireframeButton 
-              onClick={handleTagSearch}
-              disabled={loading || lastFmLoading || searchTags.length === 0}
-              className="lastfm-search-button"
-            >
-              {loading || lastFmLoading ? 'Searching...' : 'Search Albums'}
-            </WireframeButton>
+        {!isAvailable ? (
+          <div className="lastfm-search-disabled">
+            <p className="lastfm-disabled-message">
+              🔒 Search functionality requires either a Last.fm API key or testing mode to be enabled.
+            </p>
+            <p className="lastfm-disabled-help">
+              Enable testing mode above to try the feature with mock data, or configure your API key.
+            </p>
           </div>
-          <p className="lastfm-search-help">
-            Add music tags to discover albums. Popular tags: {popularTags.slice(0, 6).join(', ')}
-          </p>
-        </div>
+        ) : (
+          <div className="lastfm-search-section">
+            <LastFmTagSelector
+              availableTags={popularTags}
+              selectedTags={searchTags}
+              onTagsChange={setSearchTags}
+              maxTags={5}
+              disabled={loading || lastFmLoading}
+              className="lastfm-tag-selector"
+              error={lastFmError}
+              onLoadMore={loadMoreTags}
+              hasMore={hasMoreTags}
+              loadingMore={loadingMore}
+            />
+            <div className="lastfm-search-actions">
+              <WireframeButton 
+                onClick={handleTagSearch}
+                disabled={loading || lastFmLoading || searchTags.length === 0}
+                className="lastfm-search-button"
+              >
+                {loading || lastFmLoading ? 'Searching...' : 'Search Albums'}
+              </WireframeButton>
+            </div>
+            <p className="lastfm-search-help">
+              Select tags to discover albums. Tags are sorted by popularity on Last.fm.
+            </p>
+          </div>
+        )}
       </WireframePanel>
 
       {/* Error Display */}

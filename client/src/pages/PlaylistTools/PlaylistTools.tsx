@@ -48,8 +48,10 @@ const PlaylistTools: React.FC = () => {
     setSelectedPlaylists,
     combinedTracks,
     loading,
-    processing,
-    error,
+    loadError,
+    albumShuffleProcessing,
+    combinerProcessing,
+    creatorProcessing,
     shuffleSettings,
     setShuffleSettings,
     playlistSearch,
@@ -61,6 +63,7 @@ const PlaylistTools: React.FC = () => {
     combinePlaylists,
     createPlaylistFromTracks,
   } = usePlaylistTools(spotifyApi, user)
+
 
   // Add state for album history modal
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false)
@@ -88,7 +91,7 @@ const PlaylistTools: React.FC = () => {
       <div className="wireframe-container">
         <WireframePanel title="Authentication Required" variant="error">
           <p>please log in with spotify to use playlist tools.</p>
-          {error && (
+          {loadError && (
             <div
               style={{
                 marginTop: '10px',
@@ -97,7 +100,7 @@ const PlaylistTools: React.FC = () => {
                 border: '1px solid var(--terminal-red)',
               }}
             >
-              <p style={{ color: 'var(--terminal-red-bright)', fontWeight: 600 }}>{error}</p>
+              <p style={{ color: 'var(--terminal-red-bright)', fontWeight: 600 }}>{loadError}</p>
             </div>
           )}
         </WireframePanel>
@@ -160,9 +163,9 @@ const PlaylistTools: React.FC = () => {
         </WireframeButton>
       </div>
 
-      {error && (
+      {loadError && (
         <WireframePanel title="error" variant="error">
-          <p>{error}</p>
+          <p>{loadError}</p>
           <WireframeButton onClick={handleRefresh} disabled={loading}>
             retry
           </WireframeButton>
@@ -217,7 +220,8 @@ const PlaylistTools: React.FC = () => {
             return null
           }
         }}
-        processing={processing}
+        processing={albumShuffleProcessing}
+        spotifyApi={spotifyApi}
       />
 
       {/* Playlist Combiner Modal */}
@@ -239,7 +243,7 @@ const PlaylistTools: React.FC = () => {
             playlistPublic,
           )
         }
-        processing={processing}
+        processing={combinerProcessing}
         enableLastFm={enableLastFm}
         onEnableLastFmChange={setEnableLastFm}
       />

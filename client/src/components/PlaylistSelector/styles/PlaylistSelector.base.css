@@ -15,10 +15,11 @@
 .album-playlist-select {
   width: 100%;
   max-width: 100%; /* Prevent horizontal overflow */
-  margin-top: 0; /* Remove gray bar above playlist selector */
+  margin: 0; /* Remove all margin */
+  padding: 0; /* Remove all padding */
   border: var(--wireframe-border);
   border-radius: 0;
-  background-color: var(--terminal-bg);
+  background-color: var(--background);
   display: flex;
   flex-direction: column;
   min-height: 18.75em; /* Convert from 300px to em (300/16 = 18.75) */
@@ -28,11 +29,11 @@
   contain: layout;
   overflow: visible; /* Let children manage their own overflow */
   transition: var(--wireframe-transition);
-  box-shadow: var(--wireframe-box-shadow);
+  box-shadow: var(--box-shadow);
   box-sizing: border-box; /* Include borders in width calculation */
 }
 
 .album-playlist-select:hover {
-  border-color: var(--terminal-cyan-bright);
-  box-shadow: var(--wireframe-box-shadow-hover);
+  border-color: var(--primary-bright);
+  box-shadow: var(--box-shadow-hover);
 }

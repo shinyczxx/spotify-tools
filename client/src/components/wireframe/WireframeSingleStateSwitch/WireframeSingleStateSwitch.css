@@ -1,0 +1,123 @@
+/**
+ * @file WireframeSingleStateSwitch.css
+ * @description Styles for wireframe multi-state switch component that matches Toggle behavior exactly
+ * @author Caleb Price
+ * @version 2.0.0
+ * @date 2025-07-24
+ *
+ * @ChangeLog
+ * - 2.0.0: Complete rewrite to match Toggle component styling exactly
+ * - 1.0.0: Initial implementation with global color theming and active state expansion
+ */
+
+.wireframe-single-state-switch-container {
+  display: flex;
+  border: var(--wireframe-border);
+  border-radius: 0;
+  overflow: hidden;
+  font-family: var(--terminal-font);
+  width: 100%;
+  position: relative;
+}
+
+.wireframe-single-state-switch-button {
+  flex: 1 1 0%;
+  min-width: 0;
+  padding: 0.75em 1em;
+  border: none;
+  background: var(--background);
+  color: var(--primary);
+  font-family: var(--terminal-font);
+  font-size: calc(var(--terminal-font-size) * 0.95);
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-right: var(--wireframe-border);
+  outline: none;
+  white-space: nowrap;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 1px;
+}
+
+.wireframe-single-state-switch-button:last-child {
+  border-right: none;
+}
+
+.wireframe-single-state-switch-button.selected {
+  flex: 1.2 1 0%;
+  background: var(--primary);
+  color: var(--background) !important;
+  z-index: 2;
+  font-size: var(--terminal-font-size);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: none;
+}
+
+.wireframe-single-state-switch-button.equal,
+.wireframe-single-state-switch-button.selected.equal {
+  flex: 1 1 0% !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wireframe-single-state-switch-container.hovering .wireframe-single-state-switch-button {
+  flex: 1 1 0% !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wireframe-single-state-switch-button:hover:not(:disabled) {
+  background: var(--background-medium);
+  box-shadow: var(--box-shadow-hover);
+  z-index: 3;
+}
+
+.wireframe-single-state-switch-button.selected:hover:not(:disabled),
+.wireframe-single-state-switch-button.selected:focus:not(:disabled) {
+  background: var(--primary-bright);
+  color: var(--background) !important;
+  box-shadow: var(--box-shadow-hover);
+}
+
+.wireframe-single-state-switch-button:focus:not(:disabled) {
+  background: var(--background-medium);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.wireframe-single-state-switch-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: var(--primary-dim);
+}
+
+.wireframe-single-state-switch-button:disabled:hover {
+  background: var(--background);
+  box-shadow: none;
+}
+
+.wireframe-single-state-switch-label {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    font-size 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center center;
+  font-size: inherit;
+}
+
+.wireframe-single-state-switch-button.selected .wireframe-single-state-switch-label {
+  font-size: var(--terminal-font-size);
+  transform: scaleX(1.12);
+}
+
+.wireframe-single-state-switch-button:not(.selected) .wireframe-single-state-switch-label {
+  font-size: calc(var(--terminal-font-size) * 0.95);
+  transform: scaleX(0.95);
+}
+
+.wireframe-single-state-switch-button.equal .wireframe-single-state-switch-label,
+.wireframe-single-state-switch-button.selected.equal .wireframe-single-state-switch-label {
+  font-size: var(--terminal-font-size);
+  transform: scaleX(1);
+}

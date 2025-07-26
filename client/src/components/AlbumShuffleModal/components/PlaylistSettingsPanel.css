@@ -33,7 +33,7 @@
 .playlist-name-input {
   padding: 0.5em;
   border: 1px solid var(--circuit-color);
-  background: var(--terminal-bg);
+  background: var(--background);
   color: var(--circuit-color);
   min-width: 300px;
   font-size: var(--terminal-font-size);
@@ -43,13 +43,13 @@
 }
 
 .playlist-name-input:hover:not(:disabled) {
-  border-color: var(--terminal-cyan-bright);
+  border-color: var(--primary-bright);
   background: rgba(0, 255, 255, 0.05);
 }
 
 .playlist-name-input:focus {
   outline: none;
-  border-color: var(--terminal-cyan-bright);
+  border-color: var(--primary-bright);
   box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
 }
 
@@ -70,9 +70,9 @@
 }
 
 .name-button {
-  background: var(--terminal-bg);
-  border: 1px solid var(--terminal-cyan);
-  color: var(--terminal-cyan);
+  background: var(--background);
+  border: 1px solid var(--primary);
+  color: var(--primary);
   padding: 0.5em 1em;
   font-size: 0.9em;
   white-space: nowrap;
@@ -80,8 +80,8 @@
 
 .name-button:hover:not(:disabled) {
   background: rgba(0, 255, 255, 0.1);
-  border-color: var(--terminal-cyan-bright);
-  color: var(--terminal-cyan-bright);
+  border-color: var(--primary-bright);
+  color: var(--primary-bright);
 }
 
 .name-button:disabled {

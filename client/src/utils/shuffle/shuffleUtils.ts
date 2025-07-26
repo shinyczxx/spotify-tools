@@ -34,8 +34,10 @@ function shuffleArray<T>(array: T[]): T[] {
 export async function shuffleTracksWithAlgorithm(
   albums: SpotifyAlbum[],
   algorithm: ShuffleAlgorithm,
+  spotifyApi?: any, // SpotifyApi instance for fetching real tracks
+  skipApiCalls = false, // Skip API calls and use simulated tracks for reshuffling
 ): Promise<ShuffledTrack[]> {
-  console.log(`🎲 Shuffling albums with algorithm: ${algorithm} (preserving track order within albums)`)
+  console.log(`🎲 Shuffling albums with algorithm: ${algorithm} (preserving track order within albums)${skipApiCalls ? ' - using cached data' : ''}`)
 
   // Apply the specified algorithm to shuffle ALBUM ORDER
   let shuffledAlbums: SpotifyAlbum[]
@@ -70,8 +72,8 @@ export async function shuffleTracksWithAlgorithm(
   const allTracks: ShuffledTrack[] = []
   
   for (const album of shuffledAlbums) {
-    // Get real tracks for this album
-    const albumTracks = await fetchRealAlbumTracks(album)
+    // Get tracks for this album (real or simulated based on skipApiCalls)
+    const albumTracks = await fetchRealAlbumTracks(album, skipApiCalls ? undefined : spotifyApi, skipApiCalls)
     allTracks.push(...albumTracks)
   }
 
@@ -82,11 +84,35 @@ export async function shuffleTracksWithAlgorithm(
 /**
  * Fetch real tracks from an album using Spotify API
  */
-async function fetchRealAlbumTracks(album: SpotifyAlbum): Promise<ShuffledTrack[]> {
+async function fetchRealAlbumTracks(album: SpotifyAlbum, spotifyApi?: any, skipApiCalls = false): Promise<ShuffledTrack[]> {
   try {
-    console.log(`🎵 Fetching real tracks for album: ${album.name}`)
+    // If no API instance provided, use simulated tracks without warning (for reshuffle)
+    if (!spotifyApi) {
+      return generateSimulatedTracks(album)
+    }
     
-    const tracks: SpotifyTrack[] = []
+    // Only log when actually fetching (not during reshuffle)
+    if (!skipApiCalls) {
+      console.log(`🎵 Fetching real tracks for album: ${album.name}`)
+    }
+    
+    let tracks: SpotifyTrack[] = []
+    
+    // If we have a Spotify API instance, fetch real tracks
+    if (album.id) {
+      try {
+        const albumTracksResponse = await spotifyApi.albums.getTracks(album.id, { limit: 50 })
+        tracks = albumTracksResponse.items || []
+        console.log(`📀 Fetched ${tracks.length} real tracks for album: ${album.name}`)
+      } catch (apiError) {
+        console.warn(`⚠️ API call failed for album ${album.name}, using fallback:`, apiError)
+        // Fall back to simulated tracks if API call fails
+        return generateSimulatedTracks(album)
+      }
+    } else {
+      console.warn(`⚠️ No album ID available, using simulated tracks for: ${album.name}`)
+      return generateSimulatedTracks(album)
+    }
     
     return tracks.map((track: SpotifyTrack) => ({
       id: track.id,
@@ -117,15 +143,16 @@ async function fetchRealAlbumTracks(album: SpotifyAlbum): Promise<ShuffledTrack[
 /**
  * Generate simulated tracks for an album (fallback when API fails)
  */
-function generateSimulatedTracks(album: SpotifyAlbum): ShuffledTrack[] {
-  const trackCount = Math.floor(Math.random() * 12) + 3 // 3-15 tracks per album
+export function generateSimulatedTracks(album: SpotifyAlbum): ShuffledTrack[] {
+  // Use the actual track count from the album if available, otherwise estimate
+  const trackCount = album.total_tracks || Math.floor(Math.random() * 12) + 3 // 3-15 tracks per album
   const tracks: ShuffledTrack[] = []
 
   for (let i = 1; i <= trackCount; i++) {
     tracks.push({
-      id: `${album.id}-track-${i}`,
+      id: `simulated-${album.id}-${i}`, // Mark as simulated
       name: `Track ${i}`,
-      uri: `spotify:track:${album.id}-track-${i}`,
+      uri: `spotify:track:simulated-${album.id}-${i}`, // Invalid URI that will be filtered out
       artists: album.artists || [{ name: 'Unknown Artist', id: 'unknown' }],
       album: {
         id: album.id,

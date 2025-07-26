@@ -1,29 +1,29 @@
 /* Navbar Item Styles */
 :root {
-  /* Nav item padding variables */
-  --nav-item-padding: 15px 10px 15px 10px;
+  /* Nav item padding variables - now responsive to font size */
+  --nav-item-padding: 0.9em 0.6em 0.9em 0.6em;
   --nav-item-width: 97%;
 
-  --nav-item-hover-padding: 15px 10px 15px 20px;
+  --nav-item-hover-padding: 0.9em 0.6em 0.9em 1.2em;
   --nav-item-hover-width: 99%;
 
-  --nav-item-active-padding: 15px 10px 15px 30px;
-  --nav-item-active-width: 100%;
+  --nav-item-active-padding: 0.9em 0.4em 0.9em 2.2em;
+  --nav-item-active-width: 102%;
 }
 
 .nav-item {
-  border-top: 1px solid var(--terminal-cyan);
-  border-bottom: 1px solid var(--terminal-cyan);
-  border-right: 1px solid var(--terminal-cyan);
+  border-top: 1px solid var(--primary);
+  border-bottom: 1px solid var(--primary);
+  border-right: 1px solid var(--primary);
   padding: var(--nav-item-padding);
   cursor: pointer;
   width: var(--nav-item-width);
   text-align: left;
-  background-color: var(--terminal-bg);
+  background-color: var(--background);
   transition: all 0.2s ease;
   font-size: var(--terminal-font-size);
   letter-spacing: 1px;
-  text-shadow: var(--glow-cyan);
+  text-shadow: var(--glow-primary);
   text-transform: lowercase;
   position: relative;
 
@@ -36,30 +36,30 @@
 .nav-item:hover {
   transition: all 0.2s ease;
   padding: var(--nav-item-hover-padding);
-  background-color: var(--terminal-dark);
-  color: var(--terminal-cyan-bright);
-  text-shadow: var(--glow-cyan-bright);
+  background-color: var(--background-dark);
+  color: var(--primary-bright);
+  text-shadow: var(--glow-primary-bright);
   background-color: rgba(0, 255, 255, 0.1);
-  color: var(--terminal-cyan-bright);
-  border-color: var(--terminal-cyan-bright);
-  text-shadow: var(--glow-cyan-bright);
-  box-shadow: 0 0 15px var(--terminal-cyan-dark),
+  color: var(--primary-bright);
+  border-color: var(--primary-bright);
+  text-shadow: var(--glow-primary-bright);
+  box-shadow: 0 0 15px var(--primary-dark),
     inset 0 0 20px rgba(0, 255, 255, 0.2);
 
   width: var(--nav-item-hover-width);
 }
 
 .nav-item.active {
-  border-top: 2px solid var(--terminal-cyan);
-  border-bottom: 2px solid var(--terminal-cyan);
-  border-right: 4px solid var(--terminal-cyan);
+  border-top: 2px solid var(--primary);
+  border-bottom: 2px solid var(--primary);
+  border-right: 4px solid var(--primary);
   font-weight: bold;
   padding: var(--nav-item-active-padding);
-  background-color: var(--terminal-medium);
-  color: var(--terminal-cyan-bright);
-  text-shadow: var(--glow-cyan-bright);
-  border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 15px var(--terminal-cyan-dark),
+  background-color: var(--background-medium);
+  color: var(--primary-bright);
+  text-shadow: var(--glow-primary-bright);
+  border-color: var(--primary-bright);
+  box-shadow: 0 0 15px var(--primary-dark),
     inset 0 0 20px rgba(0, 255, 255, 0.2);
 
   width: var(--nav-item-active-width);
@@ -75,18 +75,18 @@
   background: transparent;
 }
 
-/* Add arrow prefix before each nav item */
+/* Add arrow prefix before each nav item - responsive to font size */
 .nav-item::before {
   content: ">";
-  margin-right: 10px;
+  margin-right: 0.6em;
   transition: margin-right 0.2s ease;
 }
 
 .nav-item:hover::before {
-  margin-right: 17px;
+  margin-right: 1em;
 }
 
 .nav-item.active::before {
-  margin-right: 24px;
+  margin-right: 1.6em;
   transition: margin-right 0.2s ease;
 }

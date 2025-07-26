@@ -54,7 +54,7 @@ const PlaylistSelector: React.FC<PlaylistSelectorProps> = ({
   selectedItems,
   onSelectionChange,
   onDeselectAll,
-  itemsPerPage = 10,
+  itemsPerPage = 25,
   showActionButton = false,
   onActionClick,
   isProcessing = false,
@@ -88,15 +88,18 @@ const PlaylistSelector: React.FC<PlaylistSelectorProps> = ({
     totalPages,
     itemsPerPage: currentItemsPerPage,
     paginatedItems,
-    setCurrentPage,
+    goToPage: setCurrentPage,
     setItemsPerPage: handleItemsPerPageChange,
-    isFirstPage,
-    isLastPage,
-    hasMultiplePages,
-  } = usePagination({
-    items: sortedItems,
+    canGoPrevious,
+    canGoNext,
+  } = usePagination(sortedItems, {
     initialItemsPerPage: itemsPerPage,
   })
+
+  // Calculate derived properties
+  const isFirstPage = !canGoPrevious
+  const isLastPage = !canGoNext
+  const hasMultiplePages = totalPages > 1
 
   // Extract selection logic
   const {
@@ -110,6 +113,7 @@ const PlaylistSelector: React.FC<PlaylistSelectorProps> = ({
     onSelectionChange,
     onDeselectAll,
   })
+
 
   // Calculate proportional grid-template-columns string for columns
   const gridTemplateColumns = useMemo(() => {

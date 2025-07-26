@@ -12,9 +12,9 @@
 }
 
 .hover-display-box {
-  background-color: var(--terminal-bg);
-  border: 2px solid var(--terminal-cyan);
-  color: var(--terminal-cyan);
+  background-color: var(--background);
+  border: 2px solid var(--primary);
+  color: var(--primary);
   font-family: 'Courier New', monospace;
   font-size: 0.85em;
   line-height: 1.4;

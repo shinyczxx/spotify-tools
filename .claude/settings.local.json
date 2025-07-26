@@ -34,7 +34,10 @@
       "Bash(npm search spotify-api-lib)",
       "Bash(npm info:*)",
       "WebFetch(domain:www.last.fm)",
-      "WebFetch(domain:lastfm-docs.github.io)"
+      "WebFetch(domain:lastfm-docs.github.io)",
+      "Bash(./convert-imports.sh:*)",
+      "Bash(./convert-css-vars.sh:*)",
+      "WebFetch(domain:developer.spotify.com)"
     ],
     "deny": []
   }

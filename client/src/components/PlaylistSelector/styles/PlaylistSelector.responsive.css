@@ -174,8 +174,8 @@
     position: sticky;
     bottom: 0;
     z-index: 100; /* Higher z-index for very small screens */
-    background-color: var(--terminal-bg);
-    border-top: 2px solid var(--terminal-cyan);
+    background-color: var(--background);
+    border-top: 2px solid var(--primary);
     min-height: 2.8em; /* Convert from 45px to em (45/16 = 2.8) */
     /* Stronger shadow and positioning for very small screens */
     box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.3);
@@ -211,9 +211,9 @@
     position: sticky;
     bottom: 0;
     z-index: 1000;
-    background-color: var(--terminal-bg);
+    background-color: var(--background);
     box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15);
-    border-top: 3px solid var(--terminal-cyan);
+    border-top: 3px solid var(--primary);
     /* Ensure visibility on constrained screens */
     transform: translateZ(0);
     opacity: 1;
@@ -239,8 +239,8 @@
     position: sticky;
     bottom: 0;
     z-index: 1000;
-    background-color: var(--terminal-bg);
-    border-top: 3px solid var(--terminal-cyan);
+    background-color: var(--background);
+    border-top: 3px solid var(--primary);
     box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.2);
     /* Ensure visibility on very constrained screens */
     transform: translateZ(0);

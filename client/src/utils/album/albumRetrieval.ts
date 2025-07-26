@@ -15,7 +15,7 @@ import {
   expandCachedTrack,
   generatePlaylistHash,
 } from '../playlist/playlistSearchHistory'
-import { getPlaylistTracks } from './playlistOperations'
+import { getPlaylistTracks } from '../playlist/playlistOperations'
 
 export interface AlbumRetrievalResult {
   albums: SpotifyAlbum[]

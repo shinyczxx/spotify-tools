@@ -1,42 +1,32 @@
 /**
  * @file ErrorBanner.css
- * @description Error banner component styles
+ * @description Error banner component styles using WireframePanel
  * @author Caleb Price
- * @version 1.0.0
- * @date 2025-07-21
+ * @version 2.0.0
+ * @date 2025-07-25
  */
 
-.error-banner {
+.error-banner-container {
   position: fixed;
-  left: 0;
-  right: 0;
-  background-color: #FF4444;
-  color: #FFFFFF;
-  padding: 8px 16px;
+  top: 60px;
+  left: 20px;
+  right: 20px;
   z-index: 1000;
+  animation: slideDown 0.3s ease-out;
+}
+
+.error-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: var(--terminal-font);
-  font-size: var(--terminal-font-size);
+  gap: 15px;
 }
 
-.error-banner-close {
-  background: none;
-  border: none;
-  color: #FFFFFF;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 2px;
-  transition: background-color 0.2s ease;
-}
-
-.error-banner-close:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.error-banner-close:focus {
-  outline: 2px solid #FFFFFF;
-  outline-offset: 2px;
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }

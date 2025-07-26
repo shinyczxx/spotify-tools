@@ -57,7 +57,7 @@
   flex: 1;
   /* Shared scrollbar styling */
   scrollbar-width: thin;
-  scrollbar-color: var(--terminal-cyan) transparent;
+  scrollbar-color: var(--primary) transparent;
 }
 
 /* Use shared scrollbar webkit styles */
@@ -70,12 +70,12 @@
 }
 
 .color-variables-modal::-webkit-scrollbar-thumb {
-  background: var(--terminal-cyan);
+  background: var(--primary);
   border-radius: 0;
 }
 
 .color-variables-modal::-webkit-scrollbar-thumb:hover {
-  background: var(--terminal-cyan-bright);
+  background: var(--primary-bright);
 }
 
 .modal-description {

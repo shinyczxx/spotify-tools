@@ -17,7 +17,6 @@ import {
   WireframePanel,
   WireframeButton,
   WireframeBox,
-  WireframeInfoPanel,
 } from '@components/wireframe'
 import { useSpotifyAuth } from '@hooks/auth/useSpotifyAuth'
 import '@styles/wireframe.css'
@@ -36,10 +35,10 @@ const Dashboard: React.FC = () => {
       primary: true,
     },
     {
-      id: 'track-info',
-      title: 'track information',
-      description: 'get detailed information about tracks and albums',
-      path: '/gettrackinfo',
+      id: 'spotify-info',
+      title: 'spotify information',
+      description: 'get detailed information about tracks, albums, and artists',
+      path: '/spotifyinfo',
     },
     {
       id: 'settings',
@@ -65,24 +64,24 @@ const Dashboard: React.FC = () => {
       {/* User Info Panel */}
       <WireframePanel title="user information">
         <div className="dashboard-user-info-grid">
-          <WireframeInfoPanel
-            header="display name"
-            info={user?.display_name || 'n/a'}
-            variant="compact"
-          />
-          <WireframeInfoPanel header="email" info={user?.email || 'n/a'} variant="compact" />
-          <WireframeInfoPanel header="user id" info={user?.id || 'n/a'} variant="compact" />
-          <WireframeInfoPanel
-            header="subscription"
-            info={user?.product || 'n/a'}
-            variant="compact"
-          />
-          <WireframeInfoPanel
-            header="followers"
-            info={String(user?.followers?.total || 0)}
-            variant="compact"
-          />
-          <WireframeInfoPanel header="country" info={user?.country || 'n/a'} variant="compact" />
+          <WireframePanel title="display name" variant="data">
+            {user?.display_name || 'n/a'}
+          </WireframePanel>
+          <WireframePanel title="email" variant="data">
+            {user?.email || 'n/a'}
+          </WireframePanel>
+          <WireframePanel title="user id" variant="data">
+            {user?.id || 'n/a'}
+          </WireframePanel>
+          <WireframePanel title="subscription" variant="data">
+            {user?.product || 'n/a'}
+          </WireframePanel>
+          <WireframePanel title="followers" variant="data">
+            {String(user?.followers?.total || 0)}
+          </WireframePanel>
+          <WireframePanel title="country" variant="data">
+            {user?.country || 'n/a'}
+          </WireframePanel>
         </div>
       </WireframePanel>
     </div>

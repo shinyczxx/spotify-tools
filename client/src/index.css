@@ -2,21 +2,33 @@
 @import './styles/gridBackground.css';
 
 :root {
-  --terminal-cyan: #00ffff;
-  --terminal-cyan-dim: #00dddd;
-  --terminal-cyan-bright: #66ffff;
-  --terminal-cyan-dark: #004444;
-  --circuit-color: var(--terminal-cyan); /* Global circuit color */
-  --circuit-color-dim: var(--terminal-cyan-dim);
-  --circuit-color-bright: var(--terminal-cyan-bright);
-  --circuit-color-dark: var(--terminal-cyan-dark);
-  --terminal-bg: #000000;
-  --terminal-dark: #0a0a0a;
+  --primary: #00ffff;
+  --primary-dim: #00dddd;
+  --primary-bright: #66ffff;
+  --primary-dark: #004444;
+  --circuit-color: var(--primary); /* Global circuit color */
+  --circuit-color-dim: var(--primary-dim);
+  --circuit-color-bright: var(--primary-bright);
+  --circuit-color-dark: var(--primary-dark);
+  --background: #000000;
+  --background-dark: #0a0a0a;
   --terminal-font: 'Fixedsys', 'Courier New', monospace;
-  --terminal-error: #ff4444;
-  --terminal-error-bg: #1a0606;
-  --terminal-error-border: #cc3333;
+  --error: #ff4444;
+  --error-bg: #1a0606;
+  --error-border: #cc3333;
   --glow-error: 0 0 10px #ff4444;
+  --success: #00ff00;
+  --success-bg: #0a1a0a;
+  --success-bright: #66ff66;
+  --danger: #ff4444;
+  --danger-bg: #1a0606;
+  --danger-bright: #ff6666;
+  --glow-primary: 0 0 10px #00ffff;
+  --glow-success: 0 0 10px #00ff00;
+  --grid-pattern: radial-gradient(circle, #004444 1px, transparent 1px);
+  --terminal-bg: var(--background);
+  --terminal-text: var(--primary);
+  --circuit-bg: var(--background);
 }
 
 * {
@@ -27,8 +39,8 @@
 }
 
 body {
-  background-color: var(--terminal-bg);
-  color: var(--terminal-cyan);
+  background-color: var(--background);
+  color: var(--primary);
   font-family: var(--terminal-font);
   font-size: 14px;
   margin: 0;

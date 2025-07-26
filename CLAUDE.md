@@ -2,6 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Design Guidelines
+- see DESIGN_GUIDELINES.md
+
 ## Development Commands
 
 **Root Level Commands:**
@@ -23,8 +26,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run test:e2e:ui` - Playwright with UI mode
 
 **Library Commands:**
-- spotify-api-lib: `npm run build`, `npm run dev`, `npm run test`, `npm run lint`
-- lastfm-api-lib: `npm run build`, `npm run dev`
+- spotify-api-lib: `npm run build`, `npm run test`, `npm run lint`
+- lastfm-api-lib: `npm run build`,
 
 ## Architecture Overview
 
@@ -32,14 +35,12 @@ This is a React-based Spotify Web API client with a monorepo structure containin
 
 **Main Application (`client/`):**
 - React 19 + TypeScript + Vite frontend
-- Circuit board/PCB aesthetic with CRT-style animations
 - Spotify OAuth integration for playlist management and album shuffling
 - Last.fm integration for enhanced metadata
 
 **Libraries:**
 - `spotify-api-lib/` - Custom Spotify Web API wrapper with TypeScript
 - `lastfm-api-lib/` - Last.fm API integration library  
-- `pcb-design-lib/` - UI component library for circuit board aesthetic
 
 **Key Directories:**
 - `client/src/components/` - React components including wireframe UI system
@@ -48,15 +49,6 @@ This is a React-based Spotify Web API client with a monorepo structure containin
 - `client/src/pages/` - Route components (Dashboard, Login, Settings, etc.)
 - `client/src/types/` - TypeScript type definitions
 - `types/` - Shared types across the monorepo
-
-## Circuit Board UI System
-
-The app uses a unique circuit board aesthetic with:
-- 12x8 responsive grid layout with animated circuit traces
-- Perpendicular connection routing (Manhattan-style paths)
-- Solder point indicators on panel edges
-- CRT overlay effects and terminal typography
-- Debug object available at `window.__CIRCUIT_DEBUG__` for geometry validation
 
 ## Key Technical Details
 
@@ -67,12 +59,11 @@ The app uses a unique circuit board aesthetic with:
 
 **Testing:**
 - Jest for unit/integration tests with jsdom environment
-- Playwright for e2e testing with visual validation
-- Testing Library for React component testing
-
 **Environment:**
 - `VITE_SPOTIFY_CLIENT_ID` - Spotify app client ID (required)
 - `VITE_SPOTIFY_REDIRECT_URI` - OAuth redirect URI
+- `VITE_LASTFM_API_KEY`
+- `VITE_LASTFM_API_SECRET`
 
 **Path Aliases (client):**
 - `@components`, `@utils`, `@pages`, `@hooks`, `@types`, `@assets`, `@config`, `@styles`
@@ -85,3 +76,7 @@ The app uses a unique circuit board aesthetic with:
 3. Always run `npm run lint` and `npm run type-check` before commits
 4. Test with appropriate test commands based on changes
 5. Build libraries before client if modifying shared code
+
+## API Considerations
+
+- Spotify Audio_Features and Audio_Analysis endpoints no longer exist, never use them 

@@ -32,7 +32,7 @@
 .limit-input {
   padding: 0.5em;
   border: 1px solid var(--circuit-color);
-  background: var(--terminal-bg);
+  background: var(--background);
   color: var(--circuit-color);
   font-size: var(--terminal-font-size);
   font-family: var(--terminal-font);
@@ -57,13 +57,13 @@
 }
 
 .limit-input:hover:not(:disabled) {
-  border-color: var(--terminal-cyan-bright);
+  border-color: var(--primary-bright);
   background: rgba(0, 255, 255, 0.05);
 }
 
 .limit-input:focus {
   outline: none;
-  border-color: var(--terminal-cyan-bright);
+  border-color: var(--primary-bright);
   box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
 }
 
@@ -73,17 +73,17 @@
 }
 
 .random-button {
-  background: var(--terminal-bg);
-  border: 1px solid var(--terminal-cyan);
-  color: var(--terminal-cyan);
+  background: var(--background);
+  border: 1px solid var(--primary);
+  color: var(--primary);
   padding: 0.5em 1em;
   font-size: 0.9em;
 }
 
 .random-button:hover:not(:disabled) {
   background: rgba(0, 255, 255, 0.1);
-  border-color: var(--terminal-cyan-bright);
-  color: var(--terminal-cyan-bright);
+  border-color: var(--primary-bright);
+  color: var(--primary-bright);
 }
 
 .random-button:disabled {
@@ -110,6 +110,13 @@
   width: 200px;
 }
 
+/* Responsive adjustments to match PlaylistSettingsPanel */
+@media (max-width: 768px) {
+  .toggle-container {
+    width: 180px;
+  }
+}
+
 .mode-tooltip div {
   margin-bottom: 0.5em;
 }
@@ -119,7 +126,7 @@
 }
 
 .mode-tooltip strong {
-  color: var(--terminal-cyan);
+  color: var(--primary);
 }
 
 .track-status {

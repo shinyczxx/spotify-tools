@@ -41,7 +41,7 @@
 }
 
 .cache-stats-title {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   margin: 0;
   font-size: 14px;
 }
@@ -58,7 +58,7 @@
 /* Removed - replaced with inline version above */
 
 .cache-stats-grid {
-  background: var(--terminal-gray-dim);
+  background: var(--text-secondary);
   border: var(--wireframe-border);
   padding: 15px;
   margin-bottom: 20px;
@@ -71,7 +71,7 @@
 .cache-loading {
   padding: 20px;
   text-align: center;
-  color: var(--terminal-cyan-dim);
+  color: var(--primary-dim);
   font-style: italic;
 }
 
@@ -80,7 +80,7 @@
 }
 
 .cache-management-title {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   margin: 0 0 10px 0;
   font-size: var(--terminal-font-size-small);
 }
@@ -92,7 +92,7 @@
 }
 
 .how-it-works-title {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   margin: 0 0 10px 0;
   font-size: 13px;
 }
@@ -110,21 +110,21 @@
 .no-history-message {
   padding: 20px;
   text-align: center;
-  border: 1px solid var(--terminal-cyan-dim);
-  background: var(--terminal-gray-dim);
+  border: 1px solid var(--primary-dim);
+  background: var(--text-secondary);
   margin-bottom: 20px;
 }
 
 .cache-active-message {
   padding: 15px;
-  border: 1px solid var(--terminal-green);
+  border: 1px solid var(--success);
   background: rgba(0, 255, 0, 0.05);
   margin-bottom: 20px;
 }
 
 .cache-active-title {
   margin: 0 0 8px 0;
-  color: var(--terminal-green);
+  color: var(--success);
   font-weight: bold;
 }
 
@@ -148,20 +148,20 @@
 .cache-actions {
   padding: 15px;
   border: var(--wireframe-border);
-  background: var(--terminal-gray-dim);
+  background: var(--text-secondary);
   margin-bottom: 20px;
 }
 
 .cache-actions-title {
   margin: 0 0 15px 0;
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   font-size: var(--terminal-font-size-small);
   font-weight: bold;
 }
 
 .cache-warning {
   background: rgba(255, 136, 0, 0.1);
-  border: 1px solid var(--terminal-orange);
+  border: 1px solid var(--warning);
   padding: 12px;
   margin-bottom: 15px;
   font-size: var(--terminal-font-size-small);
@@ -169,7 +169,7 @@
 }
 
 .cache-warning strong {
-  color: var(--terminal-orange);
+  color: var(--warning);
 }
 
 .clear-cache-section {
@@ -202,24 +202,24 @@
 }
 
 .history-entry {
-  border: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
-  background-color: var(--terminal-medium);
+  border: 1px solid var(--primary-dim, rgba(0, 255, 255, 0.3));
+  background-color: var(--background-medium);
   padding: 1em;
   cursor: pointer;
   transition: all 0.2s ease;
-  border-left: 3px solid var(--terminal-cyan-dim);
+  border-left: 3px solid var(--primary-dim);
 }
 
 .history-entry:hover {
-  border-color: var(--terminal-cyan);
-  border-left-color: var(--terminal-cyan);
+  border-color: var(--primary);
+  border-left-color: var(--primary);
   background-color: rgba(0, 255, 255, 0.05);
   box-shadow: 0 0 10px rgba(0, 255, 255, 0.2), inset 0 0 10px rgba(0, 255, 255, 0.1);
   transform: translateX(2px);
 }
 
 .history-date {
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-family: var(--terminal-font);
   font-size: 0.9em;
   font-weight: bold;
@@ -236,7 +236,7 @@
 }
 
 .album-count {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   font-weight: bold;
 }
 
@@ -260,8 +260,8 @@
 }
 
 .clear-cache-button {
-  background: var(--terminal-red-dim);
-  border-color: var(--terminal-red);
+  background: var(--danger-dim);
+  border-color: var(--danger);
 }
 
 /* Responsive design - inherits from modals.css */

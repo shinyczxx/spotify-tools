@@ -8,27 +8,39 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import { LastFmService, LastFmSearchResult } from '@services/lastfm'
+import { generateMockAlbumData, simulateApiDelay } from '@utils/lastfm/mockDataUtils'
+import { getEnvVar } from '@utils/config/env'
 
-export const useLastFm = () => {
+export const useLastFm = (testingMode: boolean = false) => {
   const [popularTags, setPopularTags] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [hasMoreTags, setHasMoreTags] = useState(false)
+  const [loadingMore, setLoadingMore] = useState(false)
 
   // Initialize Last.fm service
   const lastFmService = useMemo(() => {
-    const apiKey = import.meta.env.VITE_LASTFM_API_KEY
-    if (!apiKey) {
-      console.warn('VITE_LASTFM_API_KEY not found, Last.fm features will be limited')
+    if (testingMode) {
+      console.log('🧪 useLastFm: Testing mode enabled, using mock service')
       return null
     }
-    return new LastFmService(apiKey)
-  }, [])
+    try {
+      const apiKey = getEnvVar('VITE_LASTFM_API_KEY')
+      console.log('🔧 useLastFm: Creating LastFmService with API key')
+      return new LastFmService(apiKey)
+    } catch (error) {
+      console.warn('🚫 useLastFm: VITE_LASTFM_API_KEY not found, Last.fm features will be limited', error)
+      return null
+    }
+  }, [testingMode])
 
   // Load popular tags on mount
   useEffect(() => {
     const loadPopularTags = async () => {
-      if (!lastFmService) {
-        // Use default tags if no API key
+      if (testingMode) {
+        // Use default tags in testing mode only
         setPopularTags([
           'rock', 'pop', 'alternative', 'indie', 'electronic', 'jazz', 'hip hop',
           'metal', 'punk', 'blues', 'folk', 'ambient', 'experimental'
@@ -36,29 +48,39 @@ export const useLastFm = () => {
         return
       }
 
+      if (!lastFmService) {
+        // No API key available - set error and empty tags
+        setError('Last.fm API key required to load tags')
+        setPopularTags([])
+        return
+      }
+
       try {
         setLoading(true)
-        const tags = await lastFmService.getTopTags(50)
-        setPopularTags(tags)
+        setError(null) // Clear any previous errors
+        console.log('🔄 useLastFm: Starting to load popular tags...')
+        const result = await lastFmService.getTopTags(50, 1)
+        console.log(`✅ useLastFm: Successfully loaded ${result.tags.length} popular tags`)
+        setPopularTags(result.tags)
+        setCurrentPage(result.currentPage)
+        setTotalPages(result.totalPages)
+        setHasMoreTags(result.hasMore)
       } catch (err) {
-        console.error('Failed to load popular tags:', err)
-        setError('Failed to load popular tags')
+        console.error('❌ useLastFm: Failed to load popular tags:', err)
+        setError('Failed to load popular tags from Last.fm API')
+        setPopularTags([])
       } finally {
         setLoading(false)
       }
     }
 
     loadPopularTags()
-  }, [lastFmService])
+  }, [lastFmService, testingMode])
 
   /**
    * Search for albums by tags
    */
   const searchAlbumsByTags = async (tags: string[]): Promise<LastFmSearchResult[]> => {
-    if (!lastFmService) {
-      throw new Error('Last.fm API key is required')
-    }
-
     if (tags.length === 0) {
       throw new Error('At least one tag is required')
     }
@@ -67,6 +89,16 @@ export const useLastFm = () => {
     setError(null)
 
     try {
+      if (testingMode) {
+        // Return mock data in testing mode
+        await simulateApiDelay(1000) // Simulate API delay
+        return generateMockAlbumData(tags)
+      }
+
+      if (!lastFmService) {
+        throw new Error('Last.fm API key is required')
+      }
+
       const results = await lastFmService.searchAlbumsByTags(tags, 20)
       return results
     } catch (err) {
@@ -82,8 +114,8 @@ export const useLastFm = () => {
    * Validate a tag
    */
   const validateTag = async (tag: string): Promise<boolean | string> => {
-    if (!lastFmService) {
-      // Basic validation when no API key
+    if (!lastFmService || testingMode) {
+      // Basic validation when no API key or in testing mode
       const trimmed = tag.trim().toLowerCase()
       if (trimmed.length < 2) {
         return 'Tag must be at least 2 characters'
@@ -103,6 +135,40 @@ export const useLastFm = () => {
     } catch (err) {
       console.error('Error validating tag:', err)
       return 'Unable to validate tag'
+    }
+  }
+
+  /**
+   * Load more tags for pagination
+   */
+  const loadMoreTags = async (): Promise<void> => {
+    if (!hasMoreTags || loadingMore || !lastFmService || testingMode) {
+      return
+    }
+
+    const nextPage = currentPage + 1
+    try {
+      setLoadingMore(true)
+      setError(null)
+      console.log(`🔄 useLastFm: Loading more tags (requesting page ${nextPage})...`)
+      
+      const result = await lastFmService.getTopTags(50, nextPage)
+      console.log(`✅ useLastFm: Successfully loaded ${result.tags.length} more tags (received page ${result.currentPage})`)
+      
+      // Only update if we got a different page than what we already have
+      if (result.currentPage > currentPage) {
+        setPopularTags(prev => [...prev, ...result.tags])
+        setCurrentPage(result.currentPage)
+        setTotalPages(result.totalPages)
+        setHasMoreTags(result.hasMore)
+      } else {
+        console.warn(`🚫 useLastFm: Received duplicate page ${result.currentPage}, expected ${nextPage}`)
+      }
+    } catch (err) {
+      console.error('❌ useLastFm: Failed to load more tags:', err)
+      setError('Failed to load more tags from Last.fm API')
+    } finally {
+      setLoadingMore(false)
     }
   }
 
@@ -129,6 +195,12 @@ export const useLastFm = () => {
     searchAlbumsByTags,
     validateTag,
     getSuggestedTags,
-    isAvailable: !!lastFmService,
+    loadMoreTags,
+    hasMoreTags,
+    loadingMore,
+    currentPage,
+    totalPages,
+    isAvailable: testingMode || !!lastFmService,
+    testingMode,
   }
 }

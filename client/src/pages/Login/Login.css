@@ -29,6 +29,8 @@
 
 .login-content {
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .login-description {
@@ -54,10 +56,10 @@
 
 /* Feature Box Title - uses wireframe panel title styling */
 .feature-box h4 {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   margin: 0 0 0.6em 0;
   font-size: var(--terminal-font-size-large);
-  text-shadow: var(--glow-cyan);
+  text-shadow: var(--glow-primary);
 }
 
 /* Feature List - extends wireframe panel content */
@@ -118,10 +120,7 @@
   min-height: 8em; /* Consistent height */
 }
 
-/* Constrain button width - box-sizing inherited from wireframe-button */
-.login-content .wireframe-button {
-  max-width: 100%;
-}
+/* Button styling handled globally in wireframe base.css */
 
 /* Responsive design */
 @media (max-width: 768px) {

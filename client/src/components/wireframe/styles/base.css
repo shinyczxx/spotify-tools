@@ -8,9 +8,9 @@
 
 /* Base wireframe box styles */
 .wireframe-box {
-  border: 1px solid var(--terminal-cyan);
-  background-color: var(--terminal-bg);
-  color: var(--terminal-cyan);
+  border: 1px solid var(--primary);
+  background-color: var(--background);
+  color: var(--primary);
   position: relative;
   z-index: 10;
   transition: all 0.2s ease;
@@ -18,29 +18,29 @@
 }
 
 .wireframe-box:hover {
-  border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  border-color: var(--primary-bright);
+  box-shadow: 0 0 15px var(--primary-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
 }
 
 .wireframe-default {
-  border: 1px solid var(--terminal-cyan);
+  border: 1px solid var(--primary);
   transition: all 0.2s ease;
 }
 
 .wireframe-double {
-  border: 2px solid var(--terminal-cyan);
-  box-shadow: 0 0 10px var(--terminal-cyan-dark);
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 10px var(--primary-dark);
   transition: all 0.2s ease;
 }
 
 .wireframe-double:hover {
-  border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  border-color: var(--primary-bright);
+  box-shadow: 0 0 15px var(--primary-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
 }
 
 .wireframe-panel {
-  border: 1px solid var(--terminal-cyan);
-  background-color: var(--terminal-bg);
+  border: 1px solid var(--primary);
+  background-color: var(--background);
   position: relative;
   z-index: 10;
   transition: all 0.2s ease;
@@ -49,14 +49,14 @@
 }
 
 .wireframe-panel:hover {
-  border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  border-color: var(--primary-bright);
+  box-shadow: 0 0 15px var(--primary-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
 }
 
 .wireframe-header {
-  border: 2px solid var(--terminal-cyan);
-  border-bottom: 1px solid var(--terminal-cyan);
-  background-color: var(--terminal-dark);
+  border: 2px solid var(--primary);
+  border-bottom: 1px solid var(--primary);
+  background-color: var(--background-dark);
   position: relative;
   z-index: 10;
   transition: all 0.2s ease;
@@ -64,37 +64,100 @@
 }
 
 .wireframe-error-panel {
-  border: 1px solid var(--terminal-error-border);
-  background-color: var(--terminal-error-bg);
+  border: 1px solid var(--error-border);
+  background-color: var(--error-bg);
+}
+
+.wireframe-warn-panel {
+  border: 1px solid var(--warning-border, #ff8c00);
+  background-color: var(--warning-bg, rgba(255, 140, 0, 0.1));
+}
+
+.wireframe-data-panel {
+  border: 1px solid var(--primary);
+  background-color: var(--background-medium, rgba(0, 0, 0, 0.3));
+  padding: 8px 12px;
+  min-height: auto;
+  transition: all 0.2s ease;
+}
+
+.wireframe-data-panel:hover {
+  border-color: var(--primary-bright);
+  background-color: var(--background-light, rgba(0, 255, 0, 0.05));
+  box-shadow: 0 0 8px var(--primary-dark), inset 0 0 10px rgba(0, 255, 255, 0.1);
 }
 
 /* Panel specific styles */
 .wireframe-panel-title {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   margin-bottom: 15px;
   font-size: var(--terminal-font-size-large);
   font-weight: bold;
-  text-shadow: var(--glow-cyan);
+  text-shadow: var(--glow-primary);
   text-transform: lowercase;
   letter-spacing: 2px;
 }
 
 .wireframe-panel-header-title {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   margin: 0;
   font-size: var(--terminal-font-size-large);
   font-weight: bold;
-  text-shadow: var(--glow-cyan);
+  text-shadow: var(--glow-primary);
   text-transform: lowercase;
   letter-spacing: 2px;
 }
 
 .wireframe-panel-content {
-  color: var(--text-cyan);
+  color: var(--text-accent);
 }
 
 .wireframe-panel-content p {
   text-transform: lowercase;
+}
+
+.wireframe-data-panel-title {
+  color: var(--primary-bright);
+  margin: 0 0 4px 0;
+  font-size: var(--terminal-font-size-small, 11px);
+  font-weight: normal;
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  position: absolute;
+  top: 2px;
+  left: 8px;
+  background-color: var(--background, #000);
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.wireframe-data-panel-content {
+  color: var(--text-accent);
+  font-size: var(--terminal-font-size-small, 11px);
+  margin-top: 14px;
+  line-height: 1.2;
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+.wireframe-warn-panel-title {
+  color: var(--warning-text, #ff8c00);
+  margin-bottom: 8px;
+  font-size: var(--terminal-font-size-medium);
+  font-weight: bold;
+}
+
+.wireframe-warn-panel-content {
+  color: var(--warning-text, #ff8c00);
+}
+
+.collapsible-title {
+  user-select: none;
+}
+
+.collapse-indicator {
+  font-size: 0.8em;
+  margin-left: 8px;
 }
 
 .wireframe-panel-content ul {
@@ -103,32 +166,31 @@
 }
 
 .wireframe-panel-content li {
-  background: var(--terminal-medium);
-  border: 1px solid var(--terminal-cyan-dim);
+  background: var(--background-medium);
+  border: 1px solid var(--primary-dim);
   padding: 10px;
   margin-bottom: 5px;
   transition: all 0.3s ease;
   cursor: pointer;
-  color: var(--text-cyan);
-  border-left: 3px solid var(--terminal-cyan);
+  color: var(--text-accent);
+  border-left: 3px solid var(--primary);
   text-transform: lowercase;
   position: relative;
 }
-
 .wireframe-panel-content li::after {
-  content: '📋';
+  content: '';
   position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 255, 255, 0.05);
   opacity: 0;
   transition: opacity 0.3s ease;
-  font-size: 0.8em;
 }
-
 .wireframe-panel-content li:hover {
-  background: var(--terminal-medium);
-  border-color: var(--terminal-cyan-bright);
+  background: var(--background-medium);
+  border-color: var(--primary-bright);
   transform: translateX(5px);
 }
 
@@ -138,19 +200,19 @@
 
 /* Error Panel Styles */
 .wireframe-error-panel .wireframe-error-panel-title {
-  color: var(--terminal-error);
+  color: var(--error);
   margin-bottom: 15px;
   font-size: var(--terminal-font-size-large);
   font-weight: bold;
   text-shadow: var(--glow-error);
   text-transform: lowercase;
   letter-spacing: 2px;
-  border-bottom: 1px solid var(--terminal-error-border);
+  border-bottom: 1px solid var(--error-border);
   padding-bottom: 8px;
 }
 
 .wireframe-error-panel .wireframe-error-panel-content {
-  color: var(--terminal-error);
+  color: var(--error);
 }
 
 .wireframe-error-panel .wireframe-error-panel-content p {
@@ -160,9 +222,9 @@
 
 /* Enhanced Button Styles */
 .wireframe-button {
-  background-color: var(--terminal-medium);
-  border: 1px solid var(--terminal-cyan);
-  color: var(--terminal-cyan);
+  background-color: var(--background-medium);
+  border: 1px solid var(--primary);
+  color: var(--primary);
   padding: 12px 24px;
   cursor: pointer;
   font-family: var(--terminal-font);
@@ -170,10 +232,11 @@
   letter-spacing: 1px;
   text-transform: lowercase;
   transition: all 0.3s ease;
-  text-shadow: var(--glow-cyan);
+  text-shadow: var(--glow-primary);
   box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.1);
-  border-left: 3px solid var(--terminal-cyan);
+  border-left: 3px solid var(--primary);
   position: relative;
+  box-sizing: border-box; /* Include borders and padding in width calculation */
 }
 
 .wireframe-button::before {
@@ -185,9 +248,9 @@
 
 .wireframe-button:hover {
   background-color: rgba(0, 255, 255, 0.1);
-  color: var(--terminal-cyan-bright);
-  border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 15px var(--terminal-cyan-dark);
+  color: var(--primary-bright);
+  border-color: var(--primary-bright);
+  box-shadow: 0 0 15px var(--primary-dark);
 }
 
 .wireframe-button:hover::before {
@@ -200,27 +263,41 @@
   cursor: not-allowed;
 }
 
+.wireframe-button:disabled::before {
+  opacity: 0.7;
+  margin-right: 8px;
+}
+
 .wireframe-button:disabled:hover {
-  background-color: var(--terminal-medium);
-  color: var(--terminal-cyan);
-  border-color: var(--terminal-cyan);
+  background-color: var(--background-medium);
+  color: var(--primary);
+  border-color: var(--primary);
   box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.1);
+}
+
+.wireframe-button:disabled:hover::before {
+  opacity: 0.7;
+  margin-right: 8px;
 }
 
 /* Button variants */
 .wireframe-panel-button {
-  background-color: var(--terminal-gray-dim);
-  border: 1px solid var(--terminal-cyan-dim);
+  background-color: var(--text-secondary);
+  border: 1px solid var(--primary-dim);
   padding: 10px 20px;
+  box-sizing: border-box; /* Ensure consistent box model */
 }
 
 .wireframe-dropdown-button {
   text-align: left;
   padding-right: 40px;
+  box-sizing: border-box; /* Ensure consistent box model */
 }
 
 .wireframe-button-full-width {
   width: 100%;
+  max-width: 100%; /* Prevent overflow */
+  box-sizing: border-box; /* Critical for full-width buttons */
 }
 
 /* Button arrow styles */
@@ -243,9 +320,9 @@
 
 /* Enhanced Input Styles */
 .wireframe-input {
-  background: var(--terminal-medium);
-  border: 1px solid var(--terminal-cyan);
-  color: var(--text-cyan);
+  background: var(--background-medium);
+  border: 1px solid var(--primary);
+  color: var(--text-accent);
   padding: 10px;
   font-family: var(--terminal-font);
   font-size: var(--terminal-font-size);
@@ -257,8 +334,8 @@
 
 .wireframe-input:focus {
   outline: none;
-  border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 15px var(--terminal-cyan-bright);
+  border-color: var(--primary-bright);
+  box-shadow: 0 0 15px var(--primary-bright);
 }
 
 .wireframe-input:disabled {
@@ -268,21 +345,21 @@
 
 /* Input variants */
 .wireframe-panel-input {
-  background: var(--terminal-bg);
-  border: 1px solid var(--terminal-cyan-dim);
+  background: var(--background);
+  border: 1px solid var(--primary-dim);
 }
 
 .wireframe-search-input {
   border-radius: 0;
-  border-left: 3px solid var(--terminal-cyan);
+  border-left: 3px solid var(--primary);
 }
 
 .wireframe-input-light {
-  background: var(--terminal-medium);
+  background: var(--background-medium);
 }
 
 .wireframe-input-dark {
-  background: var(--terminal-bg);
+  background: var(--background);
 }
 
 .wireframe-input-full-width {
@@ -291,7 +368,7 @@
 
 /* Input label styles */
 .wireframe-input-label {
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-size: var(--terminal-font-size-small);
   text-transform: lowercase;
   letter-spacing: 1px;
@@ -324,8 +401,8 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: var(--terminal-gray-dim);
-  border: 1px solid var(--terminal-cyan);
+  background: var(--text-secondary);
+  border: 1px solid var(--primary);
   border-top: none;
   overflow: hidden;
   max-height: 0;
@@ -335,7 +412,7 @@
 
 .wireframe-dropdown-open {
   max-height: 200px;
-  border-top: 1px solid var(--terminal-cyan-dim);
+  border-top: 1px solid var(--primary-dim);
 }
 
 .wireframe-dropdown-closing {
@@ -344,8 +421,8 @@
 
 /* Dropdown variants */
 .wireframe-dropdown-panel .wireframe-dropdown-content {
-  background: var(--terminal-bg);
-  border-color: var(--terminal-cyan-dim);
+  background: var(--background);
+  border-color: var(--primary-dim);
 }
 
 .wireframe-dropdown-compact .wireframe-dropdown-content {
@@ -361,11 +438,11 @@
 
 .wireframe-info-panel:hover {
   background-color: rgba(0, 255, 255, 0.05);
-  border-color: var(--terminal-cyan-bright);
+  border-color: var(--primary-bright);
 }
 
 .wireframe-info-header {
-  color: var(--terminal-cyan-bright);
+  color: var(--primary-bright);
   font-size: var(--terminal-font-size-small);
   text-transform: lowercase;
   margin-bottom: 8px;
@@ -373,7 +450,7 @@
 }
 
 .wireframe-info-content {
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-family: var(--terminal-font);
   word-break: break-all;
   cursor: pointer;
@@ -389,8 +466,8 @@
   position: absolute;
   bottom: -25px;
   right: 0;
-  background: var(--terminal-cyan);
-  color: var(--terminal-bg);
+  background: var(--primary);
+  color: var(--background);
   padding: 2px 8px;
   font-size: var(--terminal-font-size-small);
   text-transform: lowercase;
@@ -403,8 +480,8 @@
 }
 
 .wireframe-info-panel-highlighted {
-  border-color: var(--terminal-cyan-bright);
-  box-shadow: var(--glow-cyan-bright);
+  border-color: var(--primary-bright);
+  box-shadow: var(--glow-primary-bright);
 }
 
 /* Input with Submit Styles */
@@ -413,7 +490,7 @@
 }
 
 .wireframe-input-submit-label {
-  color: var(--terminal-cyan);
+  color: var(--primary);
   font-size: var(--terminal-font-size-small);
   text-transform: lowercase;
   letter-spacing: 1px;
@@ -441,13 +518,13 @@
 
 /* Input with submit variants */
 .wireframe-input-submit-panel .wireframe-input-submit-input {
-  background: var(--terminal-bg);
-  border-color: var(--terminal-cyan-dim);
+  background: var(--background);
+  border-color: var(--primary-dim);
 }
 
 .wireframe-input-submit-panel .wireframe-input-submit-button {
-  background: var(--terminal-gray-dim);
-  border-color: var(--terminal-cyan-dim);
+  background: var(--text-secondary);
+  border-color: var(--primary-dim);
 }
 
 .wireframe-input-submit-compact {
@@ -457,6 +534,13 @@
 .wireframe-input-submit-compact .wireframe-input-submit-input,
 .wireframe-input-submit-compact .wireframe-input-submit-button {
   padding: 6px 12px;
+}
+
+/* Prevent text selection and show pointer cursor on wireframe select */
+.wireframe-select,
+.wireframe-select * {
+  user-select: none;
+  cursor: pointer;
 }
 
 /* Animations */

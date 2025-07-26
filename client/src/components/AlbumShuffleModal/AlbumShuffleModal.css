@@ -25,7 +25,7 @@
 
 /* Modal container */
 .album-shuffle-modal-container {
-  background: var(--terminal-bg);
+  background: var(--background);
   border: 2px solid var(--circuit-color);
   max-width: 900px;
   width: 100%;
@@ -34,7 +34,64 @@
   position: relative;
   /* Use shared scrollbar styling */
   scrollbar-width: thin;
-  scrollbar-color: var(--terminal-cyan) transparent;
+  scrollbar-color: var(--primary) transparent;
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--primary);
+  background: var(--background-dark);
+}
+
+.modal-title {
+  color: var(--primary-bright);
+  font-size: var(--terminal-font-size-large);
+  margin: 0;
+  text-transform: lowercase;
+  font-family: var(--terminal-font);
+  letter-spacing: 1px;
+}
+
+.modal-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.modal-control-button {
+  width: 32px;
+  height: 32px;
+  background: var(--background-medium);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  cursor: pointer;
+  font-family: var(--terminal-font);
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.modal-control-button:hover {
+  background: var(--primary);
+  color: var(--background-dark);
+  border-color: var(--primary-bright);
+}
+
+.modal-control-button.minimize {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.modal-control-button.close {
+  font-size: 22px;
+  line-height: 1;
 }
 
 /* Use shared scrollbar webkit styles */
@@ -47,12 +104,12 @@
 }
 
 .album-shuffle-modal-container::-webkit-scrollbar-thumb {
-  background: var(--terminal-cyan);
+  background: var(--primary);
   border-radius: 0;
 }
 
 .album-shuffle-modal-container::-webkit-scrollbar-thumb:hover {
-  background: var(--terminal-cyan-bright);
+  background: var(--primary-bright);
 }
 
 /* Dependent panels container */

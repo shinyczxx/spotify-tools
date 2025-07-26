@@ -1,0 +1,89 @@
+/**
+ * @file LoadingAnimation.css
+ * @description Styles for the loading animation component
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-07-23
+ */
+
+.loading-animation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-family: var(--terminal-font);
+}
+
+.loading-animation.small {
+  font-size: var(--terminal-font-size-small);
+}
+
+.loading-animation.medium {
+  font-size: var(--terminal-font-size);
+}
+
+.loading-animation.large {
+  font-size: var(--terminal-font-size-large);
+}
+
+.loading-text {
+  text-align: center;
+  line-height: 1.4;
+}
+
+.loading-subtitle {
+  font-size: 0.85em;
+  opacity: 0.8;
+  display: inline-block;
+  margin-top: 0.2em;
+}
+
+.loading-pips {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin: 8px 0;
+}
+
+.loading-pip {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary-dim);
+  transition: all 0.3s ease;
+}
+
+.loading-pip.active {
+  background: var(--primary-bright);
+  box-shadow: 0 0 6px var(--primary);
+  animation: pip-glow 1.5s ease-in-out infinite alternate;
+}
+
+.loading-progress-bar {
+  width: 200px;
+  height: 4px;
+  background: var(--background-dark);
+  border: 1px solid var(--primary-dim);
+  margin: 8px auto 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.loading-progress-fill {
+  height: 100%;
+  background: var(--primary-bright);
+  width: var(--progress-width, 0%);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px var(--primary);
+}
+
+@keyframes pip-glow {
+  0% { 
+    box-shadow: 0 0 6px var(--primary);
+    transform: scale(1);
+  }
+  100% { 
+    box-shadow: 0 0 12px var(--primary-bright);
+    transform: scale(1.1);
+  }
+}

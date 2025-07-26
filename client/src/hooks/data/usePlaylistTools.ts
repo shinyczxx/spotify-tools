@@ -48,7 +48,7 @@ export const usePlaylistTools = (spotifyApi: SpotifyApi | null, user: any) => {
   useEffect(() => {
     albumShuffle.setShuffledTracks([])
     playlistCombiner.setCombinedTracks([])
-  }, [activeModal, albumShuffle, playlistCombiner])
+  }, [activeModal]) // Remove objects from dependency array to prevent infinite loop
 
   // Wrapper functions for sub-hook operations
   const shuffleAlbums = () => albumShuffle.shuffleAlbums(selectedPlaylists)

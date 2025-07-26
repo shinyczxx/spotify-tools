@@ -14,16 +14,26 @@
 import React from 'react'
 import { WireframePanel, WireframeButton, WireframeBox } from '@components/wireframe'
 import { BetaWarning } from '@components/BetaWarning'
+import { useSpotifyAuth } from '@hooks/auth/useSpotifyAuth'
 import '@styles/wireframe.css'
 import './Login.css'
 
 const Login: React.FC = () => {
+  const { setError, setAccessToken, setRefreshToken, setUser } = useSpotifyAuth()
+  
   const handleLogin = async () => {
     try {
+      // Clear any existing auth state before starting new OAuth flow
+      setError(null)
+      setAccessToken(null)
+      setRefreshToken(null)
+      setUser(null)
+      
       const { initiateSpotifyAuth } = await import('@utils/auth/spotifyAuth')
       await initiateSpotifyAuth()
     } catch (error: any) {
       console.error('Error initiating login:', error)
+      setError('Failed to start authentication. Please try again.')
     }
   }
 

@@ -128,6 +128,7 @@ export const WireframeSelect: React.FC<WireframeSelectProps> = ({
           label={label}
           htmlFor={selectId}
           labelPosition={labelPosition}
+          onClick={handleToggle}
         />
       )}
       
