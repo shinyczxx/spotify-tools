@@ -13,7 +13,6 @@
 
 import React from 'react'
 import { WireframePanel, WireframeButton, WireframeBox } from '@components/wireframe'
-import { BetaWarning } from '@components/BetaWarning'
 import { useSpotifyAuth } from '@hooks/auth/useSpotifyAuth'
 import '@styles/wireframe.css'
 import './Login.css'
@@ -40,7 +39,18 @@ const Login: React.FC = () => {
   return (
     <div className="wireframe-container">
       <div className="login-container">
-        <BetaWarning variant="box" />
+        <WireframePanel variant="warn" title="Warning">
+          <div className="beta-warning-content">
+            <div className="beta-warning-icon">⚠️</div>
+            <div className="beta-warning-text">
+              <div className="beta-warning-title">BETA BUILD</div>
+              <div className="beta-warning-message">
+                This is a beta version of the Spotify Album Shuffle application. 
+                Some features may be incomplete or unstable. Use at your own discretion.
+              </div>
+            </div>
+          </div>
+        </WireframePanel>
 
         <WireframePanel title="spotify album shuffle" variant="header" className="login-panel">
           <div className="login-content">

@@ -34,11 +34,6 @@
     "grid-pattern": "radial-gradient(circle, #004444 1px, transparent 1px)"
   },
   "aliases": {
-    "circuit-color": "primary",
-    "circuit-color-dim": "primary-dim",
-    "circuit-color-bright": "primary-bright",
-    "circuit-color-dark": "primary-dark",
-    "circuit-bg": "background",
     "terminal-bg": "background",
     "terminal-text": "primary",
     "success-bg": "#0a1a0a",

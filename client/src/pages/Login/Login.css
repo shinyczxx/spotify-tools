@@ -9,6 +9,40 @@
  * - v1.0.0: Initial responsive login layout with consistent spacing
  */
 
+/* Beta Warning Styles (moved from BetaWarning component) */
+.beta-warning-container--box {
+  margin: 1em 0;
+  max-width: 600px;
+}
+
+.beta-warning-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.beta-warning-icon {
+  font-size: 1.5em;
+  flex-shrink: 0;
+}
+
+.beta-warning-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.beta-warning-title {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 0.25em;
+  text-transform: uppercase;
+}
+
+.beta-warning-message {
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
 /* Login Container - extends wireframe-container */
 .login-container {
   display: flex;

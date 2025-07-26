@@ -24,16 +24,16 @@
 }
 
 .limit-label {
-  color: var(--circuit-color);
+  color: var(--primary);
   white-space: nowrap;
   min-width: 80px;
 }
 
 .limit-input {
   padding: 0.5em;
-  border: 1px solid var(--circuit-color);
+  border: 1px solid var(--primary);
   background: var(--background);
-  color: var(--circuit-color);
+  color: var(--primary);
   font-size: var(--terminal-font-size);
   font-family: var(--terminal-font);
   border-radius: 0;
@@ -92,7 +92,7 @@
 }
 
 .limit-note {
-  color: var(--circuit-color-dim);
+  color: var(--primary-dim);
   font-size: 0.9em;
 }
 
@@ -139,9 +139,9 @@
 }
 
 .track-status.success {
-  border: 1px solid var(--circuit-color-dim);
+  border: 1px solid var(--primary-dim);
   background: rgba(0, 255, 255, 0.05);
-  color: var(--circuit-color);
+  color: var(--primary);
 }
 
 .track-status.warning {

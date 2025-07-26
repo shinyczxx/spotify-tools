@@ -22,7 +22,7 @@ import { AlbumShuffleModal } from '@components/AlbumShuffleModal'
 import { PlaylistCombinerModal } from '@components/PlaylistCombinerModal'
 import { AlbumHistoryModal } from '@components/AlbumHistoryModal'
 import { PlaylistSelector } from '@components/PlaylistSelector'
-import { SpotifyApi } from 'spotify-api-lib'
+import createSpotifyApiWrapper from '@utils/spotifyApiWrapper'
 import { TableHeaderConfig } from '@components/PlaylistSelector/tableHeaderUtils'
 import '@styles/wireframe.css'
 import './PlaylistTools.css'
@@ -32,7 +32,7 @@ const PlaylistTools: React.FC = () => {
   
   // Initialize Spotify API (memoized to prevent infinite re-renders)
   const spotifyApi = useMemo(() => {
-    return accessToken ? new SpotifyApi(accessToken) : null
+    return accessToken ? createSpotifyApiWrapper() : null
   }, [accessToken])
 
   // Use custom hook for playlist tools state and operations

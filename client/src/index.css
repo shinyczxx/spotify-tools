@@ -6,10 +6,6 @@
   --primary-dim: #00dddd;
   --primary-bright: #66ffff;
   --primary-dark: #004444;
-  --circuit-color: var(--primary); /* Global circuit color */
-  --circuit-color-dim: var(--primary-dim);
-  --circuit-color-bright: var(--primary-bright);
-  --circuit-color-dark: var(--primary-dark);
   --background: #000000;
   --background-dark: #0a0a0a;
   --terminal-font: 'Fixedsys', 'Courier New', monospace;
@@ -28,7 +24,6 @@
   --grid-pattern: radial-gradient(circle, #004444 1px, transparent 1px);
   --terminal-bg: var(--background);
   --terminal-text: var(--primary);
-  --circuit-bg: var(--background);
 }
 
 * {

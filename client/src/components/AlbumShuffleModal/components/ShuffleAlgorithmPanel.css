@@ -25,13 +25,13 @@
 .algorithm-select {
   flex: 1;
   max-width: 400px;
-  border: 1px solid var(--circuit-color-dim);
+  border: 1px solid var(--primary-dim);
   border-radius: 2px;
 }
 
 .algorithm-description {
   font-size: 0.85em;
-  color: var(--circuit-color-dim);
+  color: var(--primary-dim);
   max-width: 500px;
   line-height: 1.4;
 }

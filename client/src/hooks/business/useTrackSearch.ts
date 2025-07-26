@@ -7,7 +7,7 @@
  */
 
 import { useState, useCallback } from 'react'
-import { SpotifyApi } from 'spotify-api-lib'
+import createSpotifyApiWrapper from '@utils/spotifyApiWrapper'
 import { SearchResult } from '@types/track'
 
 export interface UseTrackSearchProps {
@@ -38,7 +38,7 @@ export const useTrackSearch = ({ accessToken }: UseTrackSearchProps): UseTrackSe
   const [isDirectLookup, setIsDirectLookup] = useState(false)
   const [hasSearched, setHasSearched] = useState(false)
 
-  const spotifyApi = accessToken ? new SpotifyApi(accessToken) : null
+  const spotifyApi = accessToken ? createSpotifyApiWrapper() : null
 
   // Helper function to extract Spotify ID from URL or return as-is if already an ID
   const extractSpotifyId = (input: string): { id: string; type: string } | null => {

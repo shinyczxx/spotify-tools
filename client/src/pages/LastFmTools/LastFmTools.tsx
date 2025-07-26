@@ -12,7 +12,7 @@ import { useLastFm } from '@hooks/data/useLastFm'
 import { WireframePanel, WireframeButton, WireframeSingleStateSwitch } from '@components/wireframe'
 import { LastFmTagSelector } from '@components/LastFmTagSelector/LastFmTagSelector'
 import { PlaylistModal, PlaylistModalFormData } from '@components/PlaylistModal/PlaylistModal'
-import { SpotifyApi } from 'spotify-api-lib'
+import createSpotifyApiWrapper from '@utils/spotifyApiWrapper'
 import { LastFmSearchResult } from '@services/lastfm'
 import { getEnvVar } from '@utils/config/env'
 import '@styles/wireframe.css'
@@ -56,7 +56,7 @@ const LastFmTools: React.FC = () => {
   
   // Initialize Spotify API
   const spotifyApi = useMemo(() => {
-    return accessToken ? new SpotifyApi(accessToken) : null
+    return accessToken ? createSpotifyApiWrapper() : null
   }, [accessToken])
   
   // Modal state

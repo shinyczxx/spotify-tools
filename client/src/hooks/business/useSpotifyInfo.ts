@@ -7,7 +7,7 @@
  */
 
 import { useState, useCallback } from 'react'
-import { SpotifyApi } from 'spotify-api-lib'
+import createSpotifyApiWrapper from '@utils/spotifyApiWrapper'
 import { SearchResult } from 'types/track'
 
 export interface UseSpotifyInfoProps {
@@ -28,7 +28,7 @@ export const useSpotifyInfo = ({ accessToken }: UseSpotifyInfoProps): UseSpotify
   const [selectedItem, setSelectedItem] = useState<any | null>(null)
   const [selectedItemType, setSelectedItemType] = useState<'track' | 'album' | 'artist' | null>(null)
 
-  const spotifyApi = accessToken ? new SpotifyApi(accessToken) : null
+  const spotifyApi = accessToken ? createSpotifyApiWrapper() : null
 
   const formatDuration = useCallback((ms: number): string => {
     if (!ms) return 'N/A'

@@ -1,13 +1,13 @@
 /**
  * @file ColorVariablesModal.css
- * @description Modal overlay styling for color variable editor with circuit board aesthetic
+ * @description Modal overlay styling for color variable editor with terminal aesthetic
  * @author Caleb Price
  * @version 1.1.0
  * @date 2025-07-22
  *
  * @ChangeLog
  * - v1.1.0: Refactored to use shared modal base classes, removed duplication
- * - v1.0.0: Initial implementation with responsive modal layout and circuit board styling
+ * - v1.0.0: Initial implementation with responsive modal layout and terminal styling
  */
 
 @import '../../styles/modals.css';

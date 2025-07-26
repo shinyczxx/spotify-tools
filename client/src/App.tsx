@@ -11,7 +11,7 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { useSpotifyAuth } from '@hooks/auth/useSpotifyAuth'
 import { useCRTEffect } from '@hooks/ui/useCRTEffect'
 import { useGridBackground } from '@hooks/ui/useGridBackground'
-import { BetaWarning } from './components/BetaWarning'
+import { WireframePanel, WireframeButton } from '@components/wireframe'
 import { ErrorBanner } from './components/ErrorBanner'
 import CRTOverlay from './components/CRTOverlay'
 import { TIMING, STORAGE_KEYS } from './constants/app'
@@ -105,10 +105,25 @@ function App() {
     <div className="app" style={{ minHeight: '100vh' }}>
       {/* Beta warning banner for authenticated users */}
       {user && accessToken && !betaBannerDismissed && (
-        <BetaWarning 
-          variant="banner" 
-          onDismiss={handleDismissBetaBanner}
-        />
+        <div className="beta-warning-container beta-warning-container--banner">
+          <WireframePanel variant="warn" title="Warning">
+            <div className="beta-warning-content">
+              <div className="beta-warning-icon">⚠️</div>
+              <div className="beta-warning-text">
+                <div className="beta-warning-title">BETA BUILD</div>
+                <div className="beta-warning-message">
+                  Beta version - features may be incomplete or unstable
+                </div>
+              </div>
+              <WireframeButton
+                onClick={handleDismissBetaBanner}
+                variant="default"
+              >
+                Dismiss
+              </WireframeButton>
+            </div>
+          </WireframePanel>
+        </div>
       )}
       
       {/* Only show error banner when user is authenticated and not during authentication flow */}

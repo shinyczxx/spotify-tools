@@ -24,7 +24,7 @@
 .settings-section-title {
   font-size: 14px;
   font-weight: bold;
-  color: var(--circuit-color);
+  color: var(--primary);
   margin-bottom: 8px;
 }
 
@@ -126,8 +126,8 @@
 .tag-input-button {
   padding: 4px 8px;
   background-color: transparent;
-  border: 1px solid var(--circuit-color);
-  color: var(--circuit-color);
+  border: 1px solid var(--primary);
+  color: var(--primary);
   border-radius: 2px;
   cursor: pointer;
   font-size: 12px;
