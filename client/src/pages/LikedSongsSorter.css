@@ -1,0 +1,295 @@
+/**
+ * @file LikedSongsSorter.css
+ * @description Styles for the Liked Songs Sorter page
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-10-20
+ */
+
+.liked-songs-sorter {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.sorter-content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.info-section {
+  padding: 15px;
+  border: 1px solid var(--border-color, #00ff00);
+  border-radius: 4px;
+  background-color: rgba(0, 255, 0, 0.05);
+}
+
+.info-text {
+  color: var(--text-primary, #00ff00);
+  font-family: var(--font-terminal, monospace);
+  margin: 0;
+  font-size: 14px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  gap: 20px;
+}
+
+.loading-container p {
+  color: var(--text-primary, #00ff00);
+  font-family: var(--font-terminal, monospace);
+}
+
+.error-message {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid #ff0000;
+  color: #ff0000;
+  padding: 12px;
+  border-radius: 4px;
+  font-family: var(--font-terminal, monospace);
+  margin: 10px 0;
+}
+
+.lastfm-config {
+  padding: 20px;
+  border: 1px solid var(--border-color, #00ff00);
+  border-radius: 4px;
+  background-color: rgba(0, 255, 0, 0.02);
+}
+
+.lastfm-config h3 {
+  color: var(--text-primary, #00ff00);
+  font-family: var(--font-terminal, monospace);
+  margin: 0 0 10px 0;
+  font-size: 16px;
+}
+
+.help-text {
+  color: var(--text-secondary, #00cc00);
+  font-family: var(--font-terminal, monospace);
+  font-size: 12px;
+  margin: 0 0 15px 0;
+}
+
+.help-text a {
+  color: var(--accent-color, #00ff00);
+  text-decoration: underline;
+}
+
+.help-text a:hover {
+  color: var(--text-primary, #00ff00);
+}
+
+.config-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.config-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.playlist-options {
+  padding: 20px;
+  border: 1px solid var(--border-color, #00ff00);
+  border-radius: 4px;
+  background-color: rgba(0, 255, 0, 0.02);
+}
+
+.playlist-options h3 {
+  color: var(--text-primary, #00ff00);
+  font-family: var(--font-terminal, monospace);
+  margin: 0 0 15px 0;
+  font-size: 16px;
+}
+
+.playlist-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.results-section {
+  padding: 20px;
+  border: 1px solid var(--border-color, #00ff00);
+  border-radius: 4px;
+  background-color: rgba(0, 255, 0, 0.02);
+}
+
+.results-section h3 {
+  color: var(--text-primary, #00ff00);
+  font-family: var(--font-terminal, monospace);
+  margin: 0 0 15px 0;
+  font-size: 16px;
+}
+
+.tracks-table {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+
+.table-header,
+.track-row {
+  display: grid;
+  grid-template-columns: 50px 60px 2fr 1.5fr 1.5fr 120px 100px 120px;
+  gap: 10px;
+  padding: 10px;
+  align-items: center;
+  font-family: var(--font-terminal, monospace);
+  font-size: 12px;
+}
+
+.table-header {
+  border-bottom: 2px solid var(--border-color, #00ff00);
+  color: var(--text-primary, #00ff00);
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 10;
+}
+
+.track-row {
+  border-bottom: 1px solid rgba(0, 255, 0, 0.1);
+  color: var(--text-secondary, #00cc00);
+  transition: background-color 0.2s;
+}
+
+.track-row:hover {
+  background-color: rgba(0, 255, 0, 0.1);
+}
+
+.col-rank {
+  text-align: center;
+  color: var(--text-tertiary, #009900);
+}
+
+.col-artwork {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.track-artwork {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  object-fit: cover;
+  border: 1px solid var(--border-color, #00ff00);
+}
+
+.col-title {
+  font-weight: bold;
+  color: var(--text-primary, #00ff00);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.col-artist,
+.col-album {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.col-playcount {
+  text-align: right;
+  font-weight: bold;
+  color: var(--accent-color, #00ff00);
+}
+
+.col-duration,
+.col-added {
+  text-align: center;
+  color: var(--text-tertiary, #009900);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary, #00cc00);
+  font-family: var(--font-terminal, monospace);
+}
+
+.table-body {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+/* Scrollbar styling */
+.table-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-body::-webkit-scrollbar-track {
+  background: rgba(0, 255, 0, 0.05);
+  border-radius: 4px;
+}
+
+.table-body::-webkit-scrollbar-thumb {
+  background: var(--border-color, #00ff00);
+  border-radius: 4px;
+}
+
+.table-body::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color, #00ff00);
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .table-header,
+  .track-row {
+    grid-template-columns: 40px 50px 2fr 1.5fr 1fr 100px 80px 100px;
+    font-size: 11px;
+  }
+
+  .track-artwork {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .liked-songs-sorter {
+    padding: 10px;
+  }
+
+  .table-header,
+  .track-row {
+    grid-template-columns: 30px 40px 1fr 100px;
+    font-size: 10px;
+  }
+
+  .track-artwork {
+    width: 32px;
+    height: 32px;
+  }
+
+  .col-artist,
+  .col-album,
+  .col-duration,
+  .col-added {
+    display: none;
+  }
+
+  .config-actions {
+    flex-direction: column;
+  }
+
+  .config-actions button {
+    width: 100%;
+  }
+}

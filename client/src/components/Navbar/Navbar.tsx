@@ -46,6 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({
     { id: 'userinfo', label: 'user info' },
     { id: 'playlist-tools', label: 'playlist tools' },
     { id: 'like-songs-manager', label: 'Like Songs Manager' },
+    { id: 'liked-songs-sorter', label: 'Sort by Play Count' },
     { id: 'getTrackInfo', label: 'track info' },
     { id: 'settings', label: 'settings' },
     { id: 'logout', label: 'logout' },
