@@ -1,0 +1,288 @@
+/**
+ * @file LikeSongsManager.css
+ * @description Styles for the Like Songs Manager page
+ * @author Caleb Price
+ * @version 1.0.0
+ * @date 2025-10-20
+ */
+
+.like-songs-manager {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.manager-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color, #00ff00);
+}
+
+.info-text {
+  color: var(--text-primary, #00ff00);
+  font-family: var(--font-terminal, monospace);
+  margin: 0;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  gap: 20px;
+}
+
+.loading-container p {
+  color: var(--text-primary, #00ff00);
+  font-family: var(--font-terminal, monospace);
+}
+
+.error-message {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid #ff0000;
+  color: #ff0000;
+  padding: 12px;
+  border-radius: 4px;
+  font-family: var(--font-terminal, monospace);
+  margin: 10px 0;
+}
+
+.no-duplicates {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-primary, #00ff00);
+  font-family: var(--font-terminal, monospace);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 15px;
+  border: 1px solid var(--border-color, #00ff00);
+  border-radius: 4px;
+  background-color: rgba(0, 255, 0, 0.05);
+}
+
+.backup-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.backup-controls input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.duplicate-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.duplicate-group {
+  border: 1px solid var(--border-color, #00ff00);
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: rgba(0, 255, 0, 0.02);
+}
+
+.group-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid transparent;
+}
+
+.group-header:hover {
+  background-color: rgba(0, 255, 0, 0.1);
+}
+
+.expand-icon {
+  color: var(--text-primary, #00ff00);
+  font-size: 12px;
+  width: 16px;
+  text-align: center;
+}
+
+.track-thumbnail {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  object-fit: cover;
+  border: 1px solid var(--border-color, #00ff00);
+}
+
+.track-thumbnail-small {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
+  border: 1px solid var(--border-color, #00ff00);
+}
+
+.track-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.track-name {
+  color: var(--text-primary, #00ff00);
+  font-family: var(--font-terminal, monospace);
+  font-weight: bold;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-meta {
+  color: var(--text-secondary, #00cc00);
+  font-family: var(--font-terminal, monospace);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-details {
+  color: var(--text-tertiary, #009900);
+  font-family: var(--font-terminal, monospace);
+  font-size: 11px;
+}
+
+.duplicate-count {
+  color: var(--accent-color, #00ff00);
+  font-family: var(--font-terminal, monospace);
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border: 1px solid var(--accent-color, #00ff00);
+  border-radius: 4px;
+  background-color: rgba(0, 255, 0, 0.1);
+  white-space: nowrap;
+}
+
+.group-content {
+  border-top: 1px solid var(--border-color, #00ff00);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.duplicate-section {
+  border-bottom: 1px solid var(--border-color, #00ff00);
+}
+
+.duplicate-section:last-child {
+  border-bottom: none;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  background-color: rgba(0, 255, 0, 0.05);
+}
+
+.section-header:hover {
+  background-color: rgba(0, 255, 0, 0.1);
+}
+
+.section-title {
+  flex: 1;
+  color: var(--text-primary, #00ff00);
+  font-family: var(--font-terminal, monospace);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.section-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.select-all-btn {
+  padding: 4px 8px !important;
+  font-size: 11px !important;
+}
+
+.duplicate-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.duplicate-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px 10px 40px;
+  border-top: 1px solid rgba(0, 255, 0, 0.1);
+  transition: background-color 0.2s;
+}
+
+.duplicate-item:hover {
+  background-color: rgba(0, 255, 0, 0.05);
+}
+
+.duplicate-item:first-child {
+  border-top: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .like-songs-manager {
+    padding: 10px;
+  }
+
+  .manager-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .controls {
+    padding: 10px;
+  }
+
+  .backup-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .backup-controls input {
+    width: 100%;
+  }
+
+  .group-header {
+    flex-wrap: wrap;
+  }
+
+  .duplicate-count {
+    width: 100%;
+    text-align: center;
+  }
+
+  .track-info {
+    flex: 1 1 100%;
+  }
+}

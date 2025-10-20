@@ -21,6 +21,7 @@ import Login from './pages/Login'
 import PlaylistTools from './pages/PlaylistTools'
 import Settings from './pages/Settings'
 import CallbackPage from './pages/CallbackPage'
+import LikeSongsManager from './pages/LikeSongsManager'
 import PageLayout from './components/PageLayout/PageLayout'
 
 function App() {
@@ -101,6 +102,9 @@ function App() {
       case 'playlist-tools':
         navigate('/playlisttools')
         break
+      case 'like-songs-manager':
+        navigate('/likesongsmanager')
+        break
       case 'albumshuffle':
         navigate('/albumshuffle')
         break
@@ -128,6 +132,7 @@ function App() {
     if (path.startsWith('/settings')) return 'Settings'
     if (path.startsWith('/gettrackinfo')) return 'Track Info'
     if (path.startsWith('/playlisttools')) return 'Playlist Tools'
+    if (path.startsWith('/likesongsmanager')) return 'Like Songs Manager'
     if (path.startsWith('/albumshuffle')) return 'Album Shuffle'
     if (path.startsWith('/playlistcombiner')) return 'Playlist Combiner'
     return 'Dashboard'
@@ -198,6 +203,7 @@ function App() {
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/gettrackinfo" element={<GetTrackInfo />} />
                   <Route path="/playlisttools" element={<PlaylistTools />} />
+                  <Route path="/likesongsmanager" element={<LikeSongsManager />} />
                   <Route path="/albumshuffle" element={<PlaylistTools />} />
                   <Route path="/playlistcombiner" element={<PlaylistTools />} />
                   <Route path="*" element={<Dashboard />} />
