@@ -1,12 +1,13 @@
 /**
  * @file LikedSongsSorter.tsx
  * @description Page for sorting liked songs by play count using Last.fm data
+ * With proper rate limiting, caching, and cancel functionality for large libraries
  * @author Caleb Price
- * @version 1.0.0
+ * @version 2.0.0
  * @date 2025-10-20
  */
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { WireframePanel, WireframeButton, WireframeInput, WireframeCheckbox } from '../components/wireframe'
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner'
 import { useSpotifyAuth } from '@hooks/auth/useSpotifyAuth'
@@ -34,6 +35,10 @@ interface TrackWithPlayCount extends SavedTrack {
   playCount: number
 }
 
+const CACHE_KEY = 'lastfm-play-counts-cache'
+const CACHE_TIMESTAMP_KEY = 'lastfm-play-counts-cache-timestamp'
+const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000 // 7 days
+
 const LikedSongsSorter: React.FC = () => {
   const { accessToken, user } = useSpotifyAuth()
   const [loading, setLoading] = useState(false)
@@ -43,12 +48,18 @@ const LikedSongsSorter: React.FC = () => {
   const [lastfmApiKey, setLastfmApiKey] = useState('')
   const [lastfmUsername, setLastfmUsername] = useState('')
   const [fetchingPlayCounts, setFetchingPlayCounts] = useState(false)
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState({ current: 0, total: 0 })
+  const [estimatedTime, setEstimatedTime] = useState<string>('')
   const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc')
   const [createPlaylist, setCreatePlaylist] = useState(false)
   const [playlistName, setPlaylistName] = useState('Top Played Songs')
   const [playlistLimit, setPlaylistLimit] = useState(50)
   const [processing, setProcessing] = useState(false)
+  const [maxSongsToFetch, setMaxSongsToFetch] = useState<number | 'all'>('all')
+  const [useCachedData, setUseCachedData] = useState(true)
+
+  const cancelRef = useRef(false)
+  const startTimeRef = useRef<number>(0)
 
   // Initialize Spotify API
   const spotifyApi = useMemo(() => {
@@ -56,18 +67,55 @@ const LikedSongsSorter: React.FC = () => {
     return new SpotifyApi(accessToken)
   }, [accessToken])
 
-  // Load Last.fm credentials from localStorage
+  // Load Last.fm credentials and cache from localStorage
   useEffect(() => {
     const savedApiKey = localStorage.getItem('lastfm-api-key')
     const savedUsername = localStorage.getItem('lastfm-username')
     if (savedApiKey) setLastfmApiKey(savedApiKey)
     if (savedUsername) setLastfmUsername(savedUsername)
-  }, [])
+
+    // Load cached data if available and not expired
+    if (useCachedData) {
+      const cachedData = localStorage.getItem(CACHE_KEY)
+      const cacheTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY)
+
+      if (cachedData && cacheTimestamp) {
+        const age = Date.now() - parseInt(cacheTimestamp)
+        if (age < CACHE_DURATION) {
+          try {
+            const parsed = JSON.parse(cachedData)
+            if (parsed && parsed.length > 0) {
+              setSortedTracks(parsed)
+            }
+          } catch (e) {
+            console.error('Failed to parse cached data:', e)
+          }
+        }
+      }
+    }
+  }, [useCachedData])
 
   // Save Last.fm credentials to localStorage
   const saveLastFmCredentials = () => {
     if (lastfmApiKey) localStorage.setItem('lastfm-api-key', lastfmApiKey)
     if (lastfmUsername) localStorage.setItem('lastfm-username', lastfmUsername)
+  }
+
+  // Save play counts to cache
+  const cachePlayCounts = (tracks: TrackWithPlayCount[]) => {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify(tracks))
+      localStorage.setItem(CACHE_TIMESTAMP_KEY, Date.now().toString())
+    } catch (e) {
+      console.error('Failed to cache play counts:', e)
+    }
+  }
+
+  // Clear cache
+  const clearCache = () => {
+    localStorage.removeItem(CACHE_KEY)
+    localStorage.removeItem(CACHE_TIMESTAMP_KEY)
+    setSortedTracks([])
   }
 
   // Fetch all liked songs
@@ -103,7 +151,7 @@ const LikedSongsSorter: React.FC = () => {
     }
   }, [spotifyApi])
 
-  // Fetch play counts from Last.fm
+  // Fetch play counts from Last.fm with rate limiting and cancel support
   const fetchPlayCounts = useCallback(async () => {
     if (!lastfmApiKey || !allLikedSongs.length) {
       setError('Please provide Last.fm API key and fetch liked songs first')
@@ -113,47 +161,66 @@ const LikedSongsSorter: React.FC = () => {
     saveLastFmCredentials()
     setFetchingPlayCounts(true)
     setError(null)
-    setProgress(0)
+    setProgress({ current: 0, total: 0 })
+    cancelRef.current = false
+    startTimeRef.current = Date.now()
 
     try {
       const lastfmApi = new LastFmApi(lastfmApiKey, lastfmUsername || undefined)
-      const tracksWithCounts: TrackWithPlayCount[] = []
 
-      // Fetch play counts in batches
-      const batchSize = 5
-      for (let i = 0; i < allLikedSongs.length; i += batchSize) {
-        const batch = allLikedSongs.slice(i, i + batchSize)
+      // Determine how many songs to fetch
+      const songsToProcess =
+        maxSongsToFetch === 'all' ? allLikedSongs : allLikedSongs.slice(0, maxSongsToFetch)
 
-        const batchPromises = batch.map(async (savedTrack) => {
-          const artist = savedTrack.track.artists[0]?.name || ''
-          const track = savedTrack.track.name
+      setProgress({ current: 0, total: songsToProcess.length })
 
-          const result = await lastfmApi.getTrackInfo(artist, track)
+      // Estimate time (2 requests per second)
+      const estimatedSeconds = Math.ceil(songsToProcess.length / 2)
+      const estimatedMinutes = Math.floor(estimatedSeconds / 60)
+      setEstimatedTime(
+        estimatedMinutes > 0
+          ? `~${estimatedMinutes}min ${estimatedSeconds % 60}s`
+          : `~${estimatedSeconds}s`
+      )
 
-          let playCount = 0
-          if (result.success && result.data) {
-            // Prefer user play count, fallback to global play count
-            const count = result.data.userplaycount || result.data.playcount || '0'
-            playCount = parseInt(count, 10)
-          }
+      // Prepare tracks for batch processing
+      const tracksForApi = songsToProcess.map((savedTrack) => ({
+        artist: savedTrack.track.artists[0]?.name || '',
+        track: savedTrack.track.name,
+        id: savedTrack.track.id,
+      }))
 
-          return {
-            ...savedTrack,
-            playCount,
-          }
-        })
+      // Fetch play counts with progress callback and cancel check
+      const playCountMap = await lastfmApi.getBatchTrackPlayCounts(
+        tracksForApi,
+        (current, total) => {
+          setProgress({ current, total })
 
-        const batchResults = await Promise.all(batchPromises)
-        tracksWithCounts.push(...batchResults)
+          // Update time estimate based on actual progress
+          const elapsed = Date.now() - startTimeRef.current
+          const rate = current / (elapsed / 1000) // tracks per second
+          const remaining = total - current
+          const estimatedRemaining = Math.ceil(remaining / rate)
+          const minutes = Math.floor(estimatedRemaining / 60)
+          const seconds = Math.ceil(estimatedRemaining % 60)
+          setEstimatedTime(
+            minutes > 0 ? `~${minutes}min ${seconds}s remaining` : `~${seconds}s remaining`
+          )
+        },
+        () => cancelRef.current
+      )
 
-        // Update progress
-        setProgress(Math.round(((i + batchSize) / allLikedSongs.length) * 100))
-
-        // Small delay to avoid rate limiting
-        if (i + batchSize < allLikedSongs.length) {
-          await new Promise((resolve) => setTimeout(resolve, 200))
-        }
+      if (cancelRef.current) {
+        setError('Operation cancelled by user')
+        setFetchingPlayCounts(false)
+        return
       }
+
+      // Combine tracks with play counts
+      const tracksWithCounts: TrackWithPlayCount[] = songsToProcess.map((savedTrack) => ({
+        ...savedTrack,
+        playCount: playCountMap.get(savedTrack.track.id) || 0,
+      }))
 
       // Sort by play count
       const sorted = tracksWithCounts.sort((a, b) =>
@@ -161,20 +228,29 @@ const LikedSongsSorter: React.FC = () => {
       )
 
       setSortedTracks(sorted)
-      setProgress(100)
+      cachePlayCounts(sorted)
+      setProgress({ current: sorted.length, total: sorted.length })
+      setEstimatedTime('Complete!')
     } catch (err: any) {
       console.error('Error fetching play counts:', err)
-      setError('Failed to fetch play counts from Last.fm')
+      setError('Failed to fetch play counts from Last.fm. Please try again.')
     } finally {
       setFetchingPlayCounts(false)
     }
-  }, [lastfmApiKey, lastfmUsername, allLikedSongs, sortOrder])
+  }, [lastfmApiKey, lastfmUsername, allLikedSongs, sortOrder, maxSongsToFetch])
+
+  // Cancel fetching
+  const cancelFetching = () => {
+    cancelRef.current = true
+  }
 
   // Toggle sort order
   const toggleSortOrder = () => {
     setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')
     if (sortedTracks.length > 0) {
-      setSortedTracks([...sortedTracks].reverse())
+      const reversed = [...sortedTracks].reverse()
+      setSortedTracks(reversed)
+      cachePlayCounts(reversed)
     }
   }
 
@@ -250,8 +326,15 @@ const LikedSongsSorter: React.FC = () => {
         <div className="sorter-content">
           <div className="info-section">
             <p className="info-text">
-              Sort your liked songs by play count using Last.fm data. {allLikedSongs.length > 0 && `Found ${allLikedSongs.length} liked songs.`}
+              Sort your liked songs by play count using Last.fm data.{' '}
+              {allLikedSongs.length > 0 && `Found ${allLikedSongs.length} liked songs.`}
             </p>
+            {allLikedSongs.length > 1000 && (
+              <p className="warning-text">
+                ⚠️ You have {allLikedSongs.length} liked songs. Fetching play counts will take approximately{' '}
+                {Math.ceil(allLikedSongs.length / 2 / 60)} minutes due to Last.fm API rate limits (2 requests/second).
+              </p>
+            )}
           </div>
 
           {error && <div className="error-message">{error}</div>}
@@ -260,7 +343,10 @@ const LikedSongsSorter: React.FC = () => {
           <div className="lastfm-config">
             <h3>Last.fm Configuration</h3>
             <p className="help-text">
-              Get your API key from <a href="https://www.last.fm/api/account/create" target="_blank" rel="noopener noreferrer">Last.fm API</a>
+              Get your API key from{' '}
+              <a href="https://www.last.fm/api/account/create" target="_blank" rel="noopener noreferrer">
+                Last.fm API
+              </a>
             </p>
             <div className="config-inputs">
               <WireframeInput
@@ -275,21 +361,57 @@ const LikedSongsSorter: React.FC = () => {
                 onChange={(e) => setLastfmUsername(e.target.value)}
                 placeholder="Last.fm Username (optional for user-specific counts)"
               />
+              {allLikedSongs.length > 500 && (
+                <WireframeInput
+                  type="number"
+                  value={maxSongsToFetch === 'all' ? allLikedSongs.length : maxSongsToFetch}
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value)
+                    setMaxSongsToFetch(val > 0 ? val : 'all')
+                  }}
+                  placeholder={`Limit songs to fetch (default: all ${allLikedSongs.length})`}
+                  min={1}
+                  max={allLikedSongs.length}
+                />
+              )}
             </div>
             <div className="config-actions">
-              <WireframeButton
-                onClick={fetchPlayCounts}
-                disabled={!lastfmApiKey || allLikedSongs.length === 0 || fetchingPlayCounts}
-              >
-                {fetchingPlayCounts ? `Fetching... ${progress}%` : 'Fetch Play Counts'}
-              </WireframeButton>
-              <WireframeButton onClick={toggleSortOrder} disabled={sortedTracks.length === 0}>
-                Sort: {sortOrder === 'desc' ? 'Highest First' : 'Lowest First'}
-              </WireframeButton>
-              <WireframeButton onClick={fetchAllLikedSongs} disabled={loading}>
-                Refresh Liked Songs
-              </WireframeButton>
+              {!fetchingPlayCounts ? (
+                <>
+                  <WireframeButton
+                    onClick={fetchPlayCounts}
+                    disabled={!lastfmApiKey || allLikedSongs.length === 0}
+                  >
+                    Fetch Play Counts
+                  </WireframeButton>
+                  <WireframeButton onClick={toggleSortOrder} disabled={sortedTracks.length === 0}>
+                    Sort: {sortOrder === 'desc' ? 'Highest First' : 'Lowest First'}
+                  </WireframeButton>
+                  <WireframeButton onClick={fetchAllLikedSongs} disabled={loading}>
+                    Refresh Liked Songs
+                  </WireframeButton>
+                  {sortedTracks.length > 0 && (
+                    <WireframeButton onClick={clearCache}>Clear Cache</WireframeButton>
+                  )}
+                </>
+              ) : (
+                <WireframeButton onClick={cancelFetching}>Cancel</WireframeButton>
+              )}
             </div>
+            {fetchingPlayCounts && (
+              <div className="progress-info">
+                <p className="progress-text">
+                  Progress: {progress.current} / {progress.total} ({Math.round((progress.current / progress.total) * 100)}%)
+                </p>
+                <p className="time-estimate">{estimatedTime}</p>
+                <div className="progress-bar">
+                  <div
+                    className="progress-fill"
+                    style={{ width: `${(progress.current / progress.total) * 100}%` }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Playlist Creation Options */}

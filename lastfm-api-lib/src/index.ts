@@ -71,9 +71,13 @@ export default class LastFmApi {
   }
 
   /**
-   * Get track information including play count
+   * Get track information including play count with retry logic
    */
-  async getTrackInfo(artist: string, track: string): Promise<LastFmApiResponse<LastFmTrack>> {
+  async getTrackInfo(
+    artist: string,
+    track: string,
+    retries: number = 3
+  ): Promise<LastFmApiResponse<LastFmTrack>> {
     try {
       const params: any = {
         method: 'track.getInfo',
@@ -90,6 +94,13 @@ export default class LastFmApi {
       const response = await this.axiosInstance.get('', { params })
 
       if (response.data.error) {
+        // Handle rate limit errors
+        if (response.data.error === 29 && retries > 0) {
+          // Rate limit exceeded, wait and retry
+          await new Promise((resolve) => setTimeout(resolve, 2000))
+          return this.getTrackInfo(artist, track, retries - 1)
+        }
+
         return {
           data: null,
           success: false,
@@ -102,6 +113,13 @@ export default class LastFmApi {
         success: true,
       }
     } catch (error: any) {
+      // Handle network errors with retry
+      if (retries > 0 && (error.code === 'ECONNABORTED' || error.response?.status === 429)) {
+        const delay = (4 - retries) * 1000 // Exponential backoff: 1s, 2s, 3s
+        await new Promise((resolve) => setTimeout(resolve, delay))
+        return this.getTrackInfo(artist, track, retries - 1)
+      }
+
       return {
         data: null,
         success: false,
@@ -182,36 +200,60 @@ export default class LastFmApi {
   }
 
   /**
-   * Get multiple track play counts in batch
-   * This method attempts to fetch play counts for multiple tracks
-   * Returns a map of trackKey (artist-track) to play count
+   * Get multiple track play counts in batch with proper rate limiting
+   * Last.fm allows ~5 requests/second, we use 2/second to be safe
+   *
+   * @param tracks - Array of track objects with artist and track name
+   * @param onProgress - Optional callback for progress updates
+   * @param shouldCancel - Optional function that returns true to cancel operation
+   * @returns Map of trackKey to play count
    */
   async getBatchTrackPlayCounts(
-    tracks: Array<{ artist: string; track: string }>
+    tracks: Array<{ artist: string; track: string; id?: string }>,
+    onProgress?: (current: number, total: number) => void,
+    shouldCancel?: () => boolean
   ): Promise<Map<string, number>> {
     const playCountMap = new Map<string, number>()
 
-    // Process tracks in parallel with rate limiting
-    const batchSize = 5 // Limit concurrent requests
-    for (let i = 0; i < tracks.length; i += batchSize) {
-      const batch = tracks.slice(i, i + batchSize)
-      const promises = batch.map(async ({ artist, track }) => {
-        const trackKey = `${artist.toLowerCase()}-${track.toLowerCase()}`
-        const result = await this.getTrackInfo(artist, track)
+    // Conservative rate limiting: 2 requests per second
+    const batchSize = 2
+    const delayBetweenBatches = 1000 // 1 second
 
-        if (result.success && result.data) {
-          const playcount = result.data.userplaycount || result.data.playcount || '0'
-          playCountMap.set(trackKey, parseInt(playcount, 10))
-        } else {
+    for (let i = 0; i < tracks.length; i += batchSize) {
+      // Check if operation should be cancelled
+      if (shouldCancel && shouldCancel()) {
+        break
+      }
+
+      const batch = tracks.slice(i, i + batchSize)
+
+      // Process batch sequentially to avoid overwhelming the API
+      for (const { artist, track, id } of batch) {
+        const trackKey = id || `${artist.toLowerCase()}-${track.toLowerCase()}`
+
+        try {
+          const result = await this.getTrackInfo(artist, track)
+
+          if (result.success && result.data) {
+            const playcount = result.data.userplaycount || result.data.playcount || '0'
+            playCountMap.set(trackKey, parseInt(playcount, 10))
+          } else {
+            playCountMap.set(trackKey, 0)
+          }
+        } catch (error) {
+          // Set to 0 if there's an error
           playCountMap.set(trackKey, 0)
         }
-      })
 
-      await Promise.all(promises)
+        // Update progress
+        if (onProgress) {
+          onProgress(i + batch.indexOf({ artist, track, id }) + 1, tracks.length)
+        }
+      }
 
-      // Small delay between batches to avoid rate limiting
-      if (i + batchSize < tracks.length) {
-        await new Promise((resolve) => setTimeout(resolve, 200))
+      // Delay between batches (except for the last batch)
+      if (i + batchSize < tracks.length && (!shouldCancel || !shouldCancel())) {
+        await new Promise((resolve) => setTimeout(resolve, delayBetweenBatches))
       }
     }
 
