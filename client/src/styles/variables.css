@@ -1,0 +1,267 @@
+/**
+ * @file variables.css
+ * @description Consolidated CSS custom properties (variables) for the entire application
+ * @author Caleb Price
+ * @version 2.0.0
+ * @date 2025-07-17
+ *
+ * @description
+ * This file serves as the single source of truth for all CSS variables.
+ * Theme-specific colors are managed by themeManager.ts which sets these variables dynamically.
+ *
+ * @ChangeLog
+ * - 2.0.0: Consolidated all variables from index.css and App.css into single file
+ */
+
+:root {
+  /* ============================================
+     THEME COLORS (Dynamic - Set by themeManager.ts)
+     ============================================ */
+
+  /* Primary Colors */
+  --primary: #00ffff;
+  --primary-bright: #66ffff;
+  --primary-dim: #0099cc;
+  --primary-dark: #003366;
+
+  /* Terminal Colors (Legacy compatibility) */
+  --terminal-cyan: #00ffff;
+  --terminal-cyan-bright: #66ffff;
+  --terminal-cyan-dim: #0099cc;
+  --terminal-cyan-dark: #003366;
+
+  /* Circuit Colors (Circuit path animations) */
+  --circuit-color: var(--terminal-cyan);
+  --circuit-color-bright: var(--terminal-cyan-bright);
+  --circuit-color-dim: var(--terminal-cyan-dim);
+  --circuit-color-dark: var(--terminal-cyan-dark);
+
+  /* Background Colors */
+  --background: #000000;
+  --background-dark: #0a0a0a;
+  --background-medium: #1a1a1a;
+  --background-light: #2a2a2a;
+  --terminal-bg: #000000;
+  --terminal-dark: #0a0a0a;
+  --terminal-medium: #1a1a1a;
+  --terminal-border: #003366;
+
+  /* Text Colors */
+  --text: #00ffff;
+  --text-dim: #cccccc;
+  --text-muted: #666666;
+  --text-white: #ffffff;
+  --text-cyan: var(--terminal-cyan);
+
+  /* Status Colors */
+  --success: #00ff88;
+  --warning: #ffaa00;
+  --error: #ff4444;
+  --accent: #ff00ff;
+
+  /* Error Panel Colors */
+  --terminal-error: #ff4444;
+  --terminal-error-bg: #1a0606;
+  --terminal-error-border: #cc3333;
+
+  /* Glitch Effect Colors */
+  --glitch-magenta: #ff0080;
+  --glitch-cyan: #00ffff;
+
+  /* ============================================
+     SHADOWS & GLOWS
+     ============================================ */
+
+  /* Glow Effects */
+  --glow: 0 0 1px var(--primary);
+  --glow-bright: 0 0 2px var(--primary-bright);
+  --glow-intense: 0 0 4px var(--primary), 0 0 8px var(--primary-bright);
+  --glow-cyan: 0 0 1px var(--terminal-cyan);
+  --glow-cyan-bright: 0 0 2px var(--terminal-cyan-bright);
+  --glow-error: 0 0 10px var(--terminal-error);
+
+  /* Box Shadows */
+  --shadow-sm: 0 0 10px var(--terminal-cyan-dark);
+  --shadow-md: 0 0 15px var(--terminal-cyan-dark);
+  --shadow-lg: 0 0 20px var(--terminal-cyan-dark);
+  --shadow-xl: 0 0 30px var(--terminal-cyan-dark);
+  --shadow-inset-sm: inset 0 0 10px rgba(0, 255, 255, 0.05);
+  --shadow-inset-md: inset 0 0 20px rgba(0, 255, 255, 0.1);
+  --shadow-inset-lg: inset 0 0 30px rgba(0, 255, 255, 0.15);
+
+  /* Combined Shadows */
+  --shadow-panel: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  --shadow-dropdown: 0 4px 12px rgba(0, 255, 255, 0.2);
+
+  /* Text Shadows */
+  --text-shadow: 0 0 1px currentColor;
+  --text-shadow-bright: 0 0 2px currentColor, 0 0 4px currentColor;
+  --text-shadow-intense: 0 0 2px currentColor, 0 0 4px currentColor, 0 0 8px currentColor;
+
+  /* ============================================
+     SPACING SCALE
+     ============================================ */
+
+  --space-xs: 0.25rem;  /* 4px */
+  --space-sm: 0.5rem;   /* 8px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 1.5rem;   /* 24px */
+  --space-xl: 2rem;     /* 32px */
+  --space-xxl: 3rem;    /* 48px */
+
+  /* ============================================
+     TYPOGRAPHY
+     ============================================ */
+
+  /* Font Families */
+  --font-family: 'Fixedsys', 'OCR A Std', 'Courier New', monospace;
+  --terminal-font: 'Fixedsys', 'OCR A Std', 'Courier New', monospace;
+
+  /* Font Sizes */
+  --font-size: 14px;
+  --terminal-font-size: 14px;
+  --terminal-font-size-xsmall: calc(var(--terminal-font-size) * 0.66);  /* ~9px */
+  --terminal-font-size-small: calc(var(--terminal-font-size) * 0.75);   /* ~10.5px */
+  --terminal-font-size-base: var(--terminal-font-size);                 /* 14px */
+  --terminal-font-size-large: calc(var(--terminal-font-size) * 1.14);   /* ~16px */
+  --terminal-font-size-xl: calc(var(--terminal-font-size) * 1.43);      /* ~20px */
+  --terminal-font-size-xxl: calc(var(--terminal-font-size) * 1.71);     /* ~24px */
+
+  /* Line Height */
+  --line-height: 1.3;
+  --line-height-relaxed: 1.5;
+
+  /* Letter Spacing */
+  --letter-spacing: 1px;
+  --letter-spacing-wide: 2px;
+
+  /* Text Transform */
+  --text-transform: lowercase;
+
+  /* ============================================
+     TRANSITIONS & ANIMATIONS
+     ============================================ */
+
+  /* Durations */
+  --transition-fast: 0.15s;
+  --transition-base: 0.3s;
+  --transition-slow: 0.5s;
+  --animation-duration: 350ms;
+
+  /* Easing Functions */
+  --easing-linear: linear;
+  --easing-ease: ease;
+  --easing-ease-in: ease-in;
+  --easing-ease-out: ease-out;
+  --easing-ease-in-out: ease-in-out;
+  --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ============================================
+     GRID BACKGROUND
+     ============================================ */
+
+  --grid-size: 40px;
+  --grid-color: rgba(0, 255, 255, 0.15);
+  --grid-glitch-color: rgba(0, 255, 255, 0.3);
+  --grid-enabled: 1;
+  --grid-glitch-enabled: 0;
+
+  /* ============================================
+     CRT EFFECTS
+     ============================================ */
+
+  --crt-enabled: 0;
+  --crt-intensity: 0.8;
+  --crt-flicker-enabled: 1;
+  --crt-scanline-size: 2px;
+  --crt-scanline-opacity: 0.15;
+  --crt-glow-intensity: 0.8;
+  --crt-curvature: 0.02;
+  --crt-flicker: 1;
+
+  /* ============================================
+     LAYOUT
+     ============================================ */
+
+  /* Navbar Widths */
+  --navbar-width: 250px;
+  --navbar-width-lg: 220px;
+  --navbar-width-md: 200px;
+  --navbar-width-sm: 180px;
+  --navbar-width-xs: 160px;
+
+  /* Content Padding */
+  --content-padding: 40px;
+  --content-padding-md: 30px;
+  --content-padding-sm: 20px;
+
+  /* Border Radius (Retro aesthetic - keep at 0) */
+  --border-radius: 0;
+  --border-radius-sm: 0;
+  --border-radius-md: 0;
+  --border-radius-lg: 0;
+
+  /* ============================================
+     BREAKPOINTS (For JavaScript)
+     ============================================ */
+
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+
+  /* ============================================
+     Z-INDEX LAYERS
+     ============================================ */
+
+  --z-index-base: 1;
+  --z-index-dropdown: 100;
+  --z-index-navbar: 100;
+  --z-index-modal: 1000;
+  --z-index-overlay: 9999;
+  --z-index-crt: 10;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+/* Large screens */
+@media screen and (max-width: 1200px) {
+  :root {
+    --navbar-width: var(--navbar-width-lg);
+  }
+}
+
+/* Medium screens */
+@media screen and (max-width: 992px) {
+  :root {
+    --navbar-width: var(--navbar-width-md);
+  }
+}
+
+/* Tablets */
+@media screen and (max-width: 768px) {
+  :root {
+    --navbar-width: var(--navbar-width-sm);
+    --content-padding: var(--content-padding-md);
+    --grid-size: 30px;
+  }
+}
+
+/* Small phones */
+@media screen and (max-width: 576px) {
+  :root {
+    --navbar-width: var(--navbar-width-xs);
+    --content-padding: var(--content-padding-sm);
+  }
+}
+
+/* Extra small phones */
+@media screen and (max-width: 480px) {
+  :root {
+    --grid-size: 25px;
+  }
+}

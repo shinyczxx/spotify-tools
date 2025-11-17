@@ -2,8 +2,11 @@
  * @file LoadingSpinner.css
  * @description Styles for the LoadingSpinner component with terminal aesthetics
  * @author Caleb Price
- * @version 1.0.0
- * @date 2025-07-06
+ * @version 2.0.0
+ * @date 2025-07-17
+ *
+ * @ChangeLog
+ * - 2.0.0: Replaced hardcoded colors and fonts with CSS variables
  */
 
 .loading-spinner {
@@ -19,8 +22,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 9999;
+  background-color: var(--background-dark);
+  z-index: var(--z-index-overlay);
   min-height: 100vh;
 }
 
@@ -75,11 +78,11 @@
 
 .loading-spinner__message {
   color: var(--terminal-cyan);
-  font-family: 'Fixedsys', monospace;
+  font-family: var(--terminal-font);
   font-size: 0.9rem;
   margin: 0;
   text-align: center;
-  animation: loading-text-pulse 2s ease-in-out infinite;
+  animation: loading-text-pulse 2s var(--easing-ease-in-out) infinite;
 }
 
 /* Small size message */

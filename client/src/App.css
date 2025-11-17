@@ -1,27 +1,15 @@
-@import url('/fonts/fixedsys.css');
+/**
+ * @file App.css
+ * @description Main application styles
+ * @author Caleb Price
+ * @version 2.0.0
+ * @date 2025-07-17
+ *
+ * @ChangeLog
+ * - 2.0.0: Removed duplicate variables (now in variables.css), replaced hardcoded colors
+ */
 
-:root {
-  --terminal-cyan: #00ffff;
-  --terminal-cyan-bright: #66ffff;
-  --terminal-cyan-dim: #0099cc;
-  --terminal-cyan-dark: #003366;
-  --terminal-bg: #000000;
-  --terminal-dark: #0a0a0a;
-  --terminal-medium: #1a1a1a;
-  --terminal-border: #003366;
-  --text-white: #ffffff;
-  --text-dim: #cccccc;
-  --text-cyan: var(--terminal-cyan);
-  --glow-cyan: 0 0 1px var(--terminal-cyan);
-  --glow-cyan-bright: 0 0 2px var(--terminal-cyan-bright);
-  --terminal-font: 'Fixedsys', 'OCR A Std', 'Courier New', monospace;
-  --terminal-font-size: 14px;
-  --terminal-font-size-small: calc(var(--terminal-font-size) * 0.75);
-  --terminal-font-size-xsmall: calc(var(--terminal-font-size) * 0.66);
-  --terminal-font-size-large: calc(var(--terminal-font-size) * 1.14);
-  --terminal-font-size-xl: calc(var(--terminal-font-size) * 1.43);
-  --terminal-font-size-xxl: calc(var(--terminal-font-size) * 1.71);
-}
+@import url('/fonts/fixedsys.css');
 
 /* Base styles */
 * {
@@ -54,10 +42,10 @@ body {
 /* Main content layout */
 .main-content {
   flex: 1;
-  margin-left: 250px; /* Default margin matching navbar width */
-  padding: 40px;
+  margin-left: var(--navbar-width);
+  padding: var(--content-padding);
   overflow-y: auto;
-  transition: margin-left 0.3s ease; /* Smooth transition when margin changes */
+  transition: margin-left var(--transition-base) var(--easing-ease);
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -68,27 +56,27 @@ body {
 /* Responsive main content margin adjustments to match navbar width */
 @media screen and (max-width: 1200px) {
   .main-content {
-    margin-left: 220px;
+    margin-left: var(--navbar-width-lg);
   }
 }
 
 @media screen and (max-width: 992px) {
   .main-content {
-    margin-left: 200px;
+    margin-left: var(--navbar-width-md);
   }
 }
 
 @media screen and (max-width: 768px) {
   .main-content {
-    margin-left: 180px;
-    padding: 30px;
+    margin-left: var(--navbar-width-sm);
+    padding: var(--content-padding-md);
   }
 }
 
 @media screen and (max-width: 576px) {
   .main-content {
-    margin-left: 160px;
-    padding: 20px;
+    margin-left: var(--navbar-width-xs);
+    padding: var(--content-padding-sm);
   }
 }
 
@@ -113,15 +101,15 @@ button,
   color: var(--terminal-cyan);
   border-color: var(--terminal-cyan-dim);
   border-left-color: var(--terminal-cyan-dim);
-  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.05);
+  box-shadow: var(--shadow-inset-sm);
   transform: none;
 }
 
 /* Error banner */
 .error-banner {
-  background: rgba(255, 0, 0, 0.2);
-  border: 1px solid #ff4444;
-  color: #ff4444;
+  background: var(--terminal-error-bg);
+  border: 1px solid var(--terminal-error-border);
+  color: var(--terminal-error);
   padding: 15px;
   display: flex;
   justify-content: space-between;
@@ -129,16 +117,16 @@ button,
   margin-bottom: 20px;
   position: fixed;
   top: 0;
-  left: 250px;
+  left: var(--navbar-width);
   right: 0;
-  z-index: 1000;
+  z-index: var(--z-index-modal);
   text-transform: lowercase;
 }
 
 .error-banner button {
   background: none;
   border: none;
-  color: #ff4444;
+  color: var(--terminal-error);
   font-size: 18px;
   cursor: pointer;
   padding: 0;

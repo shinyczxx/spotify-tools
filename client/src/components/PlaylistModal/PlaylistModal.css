@@ -2,25 +2,27 @@
  * @file PlaylistModal.css
  * @description Styles for the reusable playlist modal component
  * @author Caleb Price
- * @version 1.0.0
- * @date 2025-07-07
- * 
+ * @version 2.0.0
+ * @date 2025-07-17
+ *
  * @ChangeLog
+ * - 2.0.0: Replaced hardcoded colors and fonts with CSS variables
  * - 1.0.0: Initial implementation with flexible layout and common modal patterns
  */
 
 /* Modal overlay and container */
+/* Note: Can be refactored to use .wireframe-modal-overlay from utilities.css */
 .playlist-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: var(--background-dark);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: var(--z-index-modal);
   padding: 1em;
 }
 
@@ -28,7 +30,7 @@
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  animation: modal-slide-in 0.3s ease-out;
+  animation: modal-slide-in var(--transition-base) var(--easing-ease-out);
 }
 
 @keyframes modal-slide-in {
@@ -46,7 +48,7 @@
 .playlist-modal-simple {
   background-color: var(--terminal-bg);
   border: 2px solid var(--terminal-cyan);
-  font-family: 'Courier New', monospace;
+  font-family: var(--terminal-font);
 }
 
 .playlist-modal-header {
@@ -71,9 +73,9 @@
 }
 
 .playlist-modal-summary {
-  background-color: rgba(0, 255, 255, 0.1);
-  border: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
-  border-radius: 2px;
+  background-color: var(--background-medium);
+  border: 1px solid var(--terminal-cyan-dim);
+  border-radius: var(--border-radius);
   padding: 0.75em;
 }
 
@@ -104,8 +106,8 @@
 .playlist-modal-preview {
   max-height: 300px;
   overflow-y: auto;
-  border: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
-  border-radius: 2px;
+  border: 1px solid var(--terminal-cyan-dim);
+  border-radius: var(--border-radius);
   padding: 0.75em;
 }
 
@@ -115,7 +117,7 @@
   gap: 1em;
   margin-top: 1em;
   padding-top: 1em;
-  border-top: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
+  border-top: 1px solid var(--terminal-cyan-dim);
 }
 
 /* Responsive design */
@@ -162,6 +164,6 @@
 }
 
 .playlist-modal-summary .track-description {
-  color: var(--terminal-text-dim, #888);
+  color: var(--text-dim);
   font-size: 0.9em;
 }

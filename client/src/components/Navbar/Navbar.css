@@ -1,15 +1,26 @@
+/**
+ * @file Navbar.css
+ * @description Navbar component styles
+ * @author Caleb Price
+ * @version 2.0.0
+ * @date 2025-07-17
+ *
+ * @ChangeLog
+ * - 2.0.0: Replaced hardcoded values with CSS variables, removed border-radius for retro aesthetic
+ */
+
 /* Navbar Component Styles */
 .navbar {
-  width: 250px; /* Default width for large screens */
+  width: var(--navbar-width);
   display: flex;
   flex-direction: column;
   position: fixed;
   height: 100vh;
   padding: 20px 0;
   background: transparent !important;
-  z-index: 100;
+  z-index: var(--z-index-navbar);
   justify-content: center;
-  transition: width 0.3s ease; /* Smooth transition when width changes */
+  transition: width var(--transition-base) var(--easing-ease);
 }
 
 .nav-items {
@@ -69,19 +80,19 @@
 /* Responsive sidebar width adjustments */
 @media screen and (max-width: 1200px) {
   .navbar {
-    width: 220px;
+    width: var(--navbar-width-lg);
   }
 }
 
 @media screen and (max-width: 992px) {
   .navbar {
-    width: 200px;
+    width: var(--navbar-width-md);
   }
 }
 
 @media screen and (max-width: 768px) {
   .navbar {
-    width: 180px;
+    width: var(--navbar-width-sm);
   }
 }
 
@@ -90,7 +101,7 @@
   position: fixed;
   top: 20px;
   left: 20px;
-  z-index: 1000;
+  z-index: var(--z-index-modal);
   background: var(--terminal-bg);
   border: 1px solid var(--circuit-color);
   color: var(--circuit-color);
@@ -98,14 +109,14 @@
   font-family: var(--terminal-font);
   font-size: var(--terminal-font-size);
   cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base) var(--easing-ease);
 }
 
 .mobile-menu-button:hover {
   background: var(--circuit-color);
   color: var(--terminal-bg);
-  box-shadow: 0 0 10px var(--circuit-color);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Mobile Fullscreen Menu */
@@ -115,24 +126,24 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 8, 17, 0.95);
+  background: var(--background-dark);
   backdrop-filter: blur(5px);
   z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn var(--transition-base) var(--easing-ease);
 }
 
 .mobile-menu {
   background: var(--terminal-bg);
   border: 2px solid var(--circuit-color);
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   width: 90vw;
   max-width: 400px;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 0 20px var(--circuit-color);
+  box-shadow: var(--shadow-lg);
 }
 
 .mobile-menu-header {
@@ -159,13 +170,13 @@
   font-family: var(--terminal-font);
   font-size: 1.2em;
   cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base) var(--easing-ease);
 }
 
 .mobile-menu-close:hover {
-  background: var(--terminal-red);
-  border-color: var(--terminal-red);
+  background: var(--error);
+  border-color: var(--error);
   color: var(--terminal-bg);
 }
 
@@ -183,15 +194,15 @@
   font-size: var(--terminal-font-size);
   text-transform: lowercase;
   cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 4px;
+  transition: all var(--transition-base) var(--easing-ease);
+  border-radius: var(--border-radius);
   text-align: center;
 }
 
 .mobile-nav-item:hover {
   background: var(--circuit-color);
   color: var(--terminal-bg);
-  box-shadow: 0 0 10px var(--circuit-color);
+  box-shadow: var(--shadow-sm);
 }
 
 .mobile-nav-item.active {
@@ -224,8 +235,8 @@
   font-family: var(--terminal-font);
   font-size: var(--terminal-font-size-small);
   cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base) var(--easing-ease);
 }
 
 .mobile-font-controls .font-btn:hover {
@@ -256,6 +267,6 @@
 /* For very small screens, consider a collapsible mobile menu */
 @media screen and (max-width: 576px) {
   .navbar {
-    width: 160px;
+    width: var(--navbar-width-xs);
   }
 }

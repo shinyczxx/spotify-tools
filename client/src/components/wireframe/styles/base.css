@@ -15,11 +15,12 @@
   z-index: 10;
   transition: all 0.2s ease;
   box-sizing: border-box; /* Include borders in width calculation */
+  contain: layout style; /* Performance optimization */
 }
 
 .wireframe-box:hover {
   border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  box-shadow: var(--shadow-panel);
 }
 
 .wireframe-default {
@@ -29,13 +30,14 @@
 
 .wireframe-double {
   border: 2px solid var(--terminal-cyan);
-  box-shadow: 0 0 10px var(--terminal-cyan-dark);
+  box-shadow: var(--shadow-sm);
   transition: all 0.2s ease;
+  contain: layout style; /* Performance optimization */
 }
 
 .wireframe-double:hover {
   border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  box-shadow: var(--shadow-panel);
 }
 
 .wireframe-panel {
@@ -44,13 +46,14 @@
   position: relative;
   z-index: 10;
   transition: all 0.2s ease;
-  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.05);
+  box-shadow: var(--shadow-inset-sm);
   box-sizing: border-box; /* Include borders in width calculation */
+  contain: layout style paint; /* Performance optimization */
 }
 
 .wireframe-panel:hover {
   border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  box-shadow: var(--shadow-panel);
 }
 
 .wireframe-header {
@@ -60,7 +63,8 @@
   position: relative;
   z-index: 10;
   transition: all 0.2s ease;
-  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.1);
+  box-shadow: var(--shadow-inset-sm);
+  contain: layout style paint; /* Performance optimization */
 }
 
 .wireframe-error-panel {
@@ -116,14 +120,15 @@
 }
 
 .wireframe-panel-content li::after {
-  content: '📋';
+  content: '[copy]';
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
   opacity: 0;
-  transition: opacity 0.3s ease;
-  font-size: 0.8em;
+  transition: opacity var(--transition-base) var(--easing-ease);
+  font-size: 0.7em;
+  color: var(--text-dim);
 }
 
 .wireframe-panel-content li:hover {
@@ -486,4 +491,42 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+}
+
+/* ============================================
+   FOCUS-VISIBLE STATES FOR ACCESSIBILITY
+   ============================================ */
+
+/* Button focus states */
+.wireframe-button:focus-visible {
+  outline: 2px solid var(--primary-bright);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-md);
+}
+
+/* Input focus states */
+.wireframe-input:focus-visible {
+  outline: 2px solid var(--primary-bright);
+  outline-offset: 2px;
+}
+
+/* Panel and box focus states */
+.wireframe-panel:focus-visible,
+.wireframe-box:focus-visible,
+.wireframe-info-panel:focus-visible {
+  outline: 2px solid var(--primary-bright);
+  outline-offset: 2px;
+}
+
+/* Dropdown button focus */
+.wireframe-dropdown-button:focus-visible {
+  outline: 2px solid var(--primary-bright);
+  outline-offset: 2px;
+}
+
+/* List item focus for keyboard navigation */
+.wireframe-panel-content li:focus-visible {
+  outline: 2px solid var(--primary-bright);
+  outline-offset: 2px;
+  border-color: var(--primary-bright);
 }
