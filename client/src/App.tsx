@@ -13,6 +13,8 @@ import { useCRTEffect } from '@hooks/ui/useCRTEffect'
 import { useGridBackground } from '@hooks/ui/useGridBackground'
 import { BetaWarning } from './components/BetaWarning'
 import CRTOverlay from './components/CRTOverlay'
+import { ToastProvider, ToastContainer } from '@components/Toast'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import './App.css'
 
 import Dashboard from './pages/Dashboard'
@@ -134,14 +136,17 @@ function App() {
   }
 
   return (
-    <div className="app" style={{ minHeight: '100vh' }}>
-      {/* Beta warning banner for authenticated users */}
-      {user && accessToken && !betaBannerDismissed && (
-        <BetaWarning 
-          variant="banner" 
-          onDismiss={handleDismissBetaBanner}
-        />
-      )}
+    <ErrorBoundary>
+      <ToastProvider>
+        <div className="app" style={{ minHeight: '100vh' }}>
+          <ToastContainer />
+        {/* Beta warning banner for authenticated users */}
+        {user && accessToken && !betaBannerDismissed && (
+          <BetaWarning
+            variant="banner"
+            onDismiss={handleDismissBetaBanner}
+          />
+        )}
       
       {/* Only show error banner when user is authenticated and not during authentication flow */}
       {error && user && !location.pathname.includes('/callback') && !loading && !recentCallbackRef.current && (
@@ -218,7 +223,9 @@ function App() {
         flickerEnabled={crtSettings.flickerEnabled}
         movingScanline={crtSettings.movingScanline}
       />
-    </div>
+        </div>
+      </ToastProvider>
+    </ErrorBoundary>
   )
 }
 

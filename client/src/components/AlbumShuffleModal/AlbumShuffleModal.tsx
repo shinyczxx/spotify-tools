@@ -9,7 +9,7 @@
  * - 1.0.0: Initial implementation with 6-panel structure
  */
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { WireframeButton, WireframePanel, WireframeCheckbox } from '@components/wireframe'
 import { TooltipIcon } from '@components/wireframe/TooltipIcon'
 import LoadingSpinner from '@components/LoadingSpinner'
@@ -103,23 +103,8 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
     }
   }, [isOpen, playlistName])
 
-  // Shuffle albums when settings change and we have all albums
-  useEffect(() => {
-    if (allRetrievedAlbums.length > 0) {
-      handleShuffleAndSelect()
-    }
-  }, [
-    allRetrievedAlbums,
-    shuffleConfig.allowSingles,
-    shuffleConfig.allowCompilations,
-    shuffleConfig.numberOfAlbums,
-    shuffleConfig.maxTracks,
-    shuffleConfig.trackLimitMode,
-    shuffleConfig.algorithm,
-  ])
-
   // Shuffle and select albums based on current settings
-  const handleShuffleAndSelect = async () => {
+  const handleShuffleAndSelect = useCallback(async () => {
     if (allRetrievedAlbums.length === 0) return
 
     console.debug('🎲 Starting shuffle with random seed:', Math.random())
@@ -199,7 +184,22 @@ export const AlbumShuffleModal: React.FC<AlbumShuffleModalProps> = ({
       limitReached: selectionResult.limitReached,
       firstThreeAlbums: selectionResult.selectedAlbums.slice(0, 3).map(a => a.name),
     })
-  }
+  }, [
+    allRetrievedAlbums,
+    shuffleConfig.allowSingles,
+    shuffleConfig.allowCompilations,
+    shuffleConfig.numberOfAlbums,
+    shuffleConfig.maxTracks,
+    shuffleConfig.trackLimitMode,
+    shuffleConfig.algorithm,
+  ])
+
+  // Shuffle albums when settings change and we have all albums
+  useEffect(() => {
+    if (allRetrievedAlbums.length > 0) {
+      handleShuffleAndSelect()
+    }
+  }, [allRetrievedAlbums, handleShuffleAndSelect])
 
   // Get Albums functionality
   const handleGetAlbums = async () => {

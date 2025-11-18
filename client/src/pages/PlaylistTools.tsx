@@ -16,6 +16,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { getCachedPlaylistsWithTTL, setCachedPlaylistsWithTTL } from '@utils/playlistCache'
 import { useSpotifyAuth } from '@hooks/auth/useSpotifyAuth'
+import { useToast } from '@components/Toast'
 import { WireframePanel, WireframeButton, WireframeCheckbox } from '@components/wireframe'
 import { TooltipIcon } from '@components/wireframe/TooltipIcon'
 import { AlbumShuffleModal } from '@components/AlbumShuffleModal'
@@ -36,6 +37,7 @@ type ModalType = 'album-shuffle' | 'playlist-combiner' | null
 
 const PlaylistTools: React.FC = () => {
   const { accessToken, user } = useSpotifyAuth()
+  const { showToast } = useToast()
   const [activeModal, setActiveModal] = useState<ModalType>(null)
   // Playlist creation state
   const [playlistName, setPlaylistName] = useState('shuffled playlist')
@@ -160,141 +162,7 @@ const PlaylistTools: React.FC = () => {
     if (spotifyApi && user) {
       loadDataWithCache()
     }
-  }, [spotifyApi, user]) // Removed loadDataWithCache from dependencies to prevent infinite loop
-
-  // Find the real album for a track by searching artist's albums
-  const findRealAlbum = async (track: SpotifyTrack): Promise<SpotifyTrack> => {
-    if (!spotifyApi || !track.artists?.[0]?.id) return track
-
-    try {
-      // Get all albums by the primary artist
-      const artistAlbums = await spotifyApi.artists.getAlbums(track.artists[0].id, {
-        include_groups: ['album'],
-        limit: 50,
-      })
-
-      // Search through each album for this track
-      for (const album of artistAlbums.items) {
-        const albumTracks = await spotifyApi.albums.getTracks(album.id, { limit: 50 })
-        const foundTrack = albumTracks.items.find(
-          (t: any) => t.name.toLowerCase() === track.name.toLowerCase(),
-        )
-
-        if (foundTrack) {
-          // Update track with real album info
-          return {
-            ...track,
-            album: album,
-          }
-        }
-      }
-    } catch (err) {
-      console.warn('Failed to find real album for track:', track.name)
-    }
-
-    return track
-  }
-
-  const shuffleAlbums = async () => {
-    if (!spotifyApi || selectedPlaylists.length === 0) return
-
-    setProcessing(true)
-    setError(null)
-
-    try {
-      const allTracks: ShuffledTrack[] = []
-
-      // Get tracks from each selected playlist
-      for (const playlistId of selectedPlaylists) {
-        let tracksResponse
-        if (playlistId === 'liked-songs') {
-          const savedTracks = await spotifyApi.tracks.getSavedTracks({ limit: 50 })
-          tracksResponse = { items: savedTracks.items.map((item: any) => ({ track: item.track })) }
-        } else {
-          tracksResponse = await spotifyApi.playlists.getTracks(playlistId, { limit: 50 })
-        }
-
-        // Convert to ShuffledTrack format with album info
-        let tracksWithAlbumInfo: ShuffledTrack[] = tracksResponse.items.map((item: any) => ({
-          ...item.track,
-          albumName: item.track.album?.name || 'Unknown Album',
-          albumId: item.track.album?.id || 'unknown',
-        }))
-
-        // If settings allow, find real albums for singles/compilations
-        if (albumShuffleSettings.allowSingles || albumShuffleSettings.allowCompilations) {
-          const processedTracks = []
-          for (const track of tracksWithAlbumInfo) {
-            if (track.album?.album_type === 'single' || track.album?.album_type === 'compilation') {
-              const realTrack = await findRealAlbum(track)
-              processedTracks.push({
-                ...realTrack,
-                albumName: realTrack.album?.name || track.albumName,
-                albumId: realTrack.album?.id || track.albumId,
-              })
-            } else {
-              processedTracks.push(track)
-            }
-          }
-          tracksWithAlbumInfo = processedTracks
-        }
-
-        allTracks.push(...tracksWithAlbumInfo)
-      }
-
-      // Group tracks by album
-      const albumGroups = new Map<string, ShuffledTrack[]>()
-      allTracks.forEach((track) => {
-        const albumKey = track.albumId
-        if (!albumGroups.has(albumKey)) {
-          albumGroups.set(albumKey, [])
-        }
-        albumGroups.get(albumKey)!.push(track)
-      })
-
-      // Filter albums based on settings
-      let albumKeys = Array.from(albumGroups.keys())
-
-      if (!albumShuffleSettings.allowSingles) {
-        albumKeys = albumKeys.filter((key) => {
-          const tracks = albumGroups.get(key) || []
-          return tracks.length > 3 // Assume albums with >3 tracks are not singles
-        })
-      }
-
-      if (!albumShuffleSettings.allowCompilations) {
-        albumKeys = albumKeys.filter((key) => {
-          const tracks = albumGroups.get(key) || []
-          const firstTrack = tracks[0]
-          return firstTrack?.album?.album_type !== 'compilation'
-        })
-      }
-
-      // Limit to specified number of albums
-      if (
-        albumShuffleSettings.numberOfAlbums > 0 &&
-        albumKeys.length > albumShuffleSettings.numberOfAlbums
-      ) {
-        albumKeys = albumKeys.slice(0, albumShuffleSettings.numberOfAlbums)
-      }
-
-      // Shuffle albums, then concatenate tracks in album order
-      const shuffledAlbumKeys = albumKeys.sort(() => Math.random() - 0.5)
-
-      const shuffledResult: ShuffledTrack[] = []
-      shuffledAlbumKeys.forEach((albumKey) => {
-        const albumTracks = albumGroups.get(albumKey) || []
-        shuffledResult.push(...albumTracks)
-      })
-
-      setShuffledTracks(shuffledResult)
-    } catch (err) {
-      console.error('Error shuffling albums:', err)
-      setError('Failed to shuffle albums')
-    } finally {
-      setProcessing(false)
-    }
-  }
+  }, [spotifyApi, user, loadDataWithCache])
 
   const combinePlaylists = async () => {
     if (!spotifyApi || selectedPlaylists.length === 0) return
@@ -367,10 +235,11 @@ const PlaylistTools: React.FC = () => {
       await loadDataWithCache()
       setActiveModal(null)
 
-      alert(`Playlist "${name}" created successfully with ${tracks.length} tracks!`)
+      showToast(`Playlist "${name}" created successfully with ${tracks.length} tracks!`, 'success')
     } catch (err) {
       console.error('Error creating playlist:', err)
       setError('Failed to create playlist')
+      showToast('Failed to create playlist. Please try again.', 'error')
     } finally {
       setProcessing(false)
     }
