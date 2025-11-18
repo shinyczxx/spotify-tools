@@ -17,6 +17,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { getCachedPlaylistsWithTTL, setCachedPlaylistsWithTTL } from '@utils/playlistCache'
 import { useSpotifyAuth } from '@hooks/auth/useSpotifyAuth'
 import { useToast } from '@components/Toast'
+import logger from '@utils/logger'
 import { WireframePanel, WireframeButton, WireframeCheckbox } from '@components/wireframe'
 import { TooltipIcon } from '@components/wireframe/TooltipIcon'
 import { AlbumShuffleModal } from '@components/AlbumShuffleModal'
@@ -34,6 +35,22 @@ import { saveAlbumHistory } from '@utils/albumHistory'
 import '@styles/wireframe.css'
 
 type ModalType = 'album-shuffle' | 'playlist-combiner' | null
+
+// Helper function to safely extract error messages
+function getErrorMessage(error: unknown): string {
+  if (typeof error === 'object' && error !== null) {
+    // Check for Axios-style errors
+    const axiosError = error as any
+    if (axiosError.response?.data?.error?.message) {
+      return axiosError.response.data.error.message
+    }
+    // Check for standard Error objects
+    if (error instanceof Error) {
+      return error.message
+    }
+  }
+  return 'Unknown error'
+}
 
 const PlaylistTools: React.FC = () => {
   const { accessToken, user } = useSpotifyAuth()
@@ -136,7 +153,7 @@ const PlaylistTools: React.FC = () => {
             owner: { display_name: 'You', id: 'me' },
             tracks: { total: likedTracksResp.total },
           }
-        } catch (err: any) {
+        } catch (err) {
           likedSongs = null
         }
         if (likedSongs) {
@@ -145,7 +162,9 @@ const PlaylistTools: React.FC = () => {
         setPlaylists(playlistItems)
         setCachedPlaylistsWithTTL(playlistItems)
       } catch (err) {
-        setError('Failed to load playlists')
+        const errorMessage = getErrorMessage(err)
+        setError(`Failed to load playlists: ${errorMessage}`)
+        showToast(`Could not load playlists: ${errorMessage}`, 'error')
       } finally {
         setLoading(false)
       }
@@ -199,8 +218,10 @@ const PlaylistTools: React.FC = () => {
 
       setCombinedTracks(finalTracks)
     } catch (err) {
-      console.error('Error combining playlists:', err)
-      setError('Failed to combine playlists')
+      const errorMessage = getErrorMessage(err)
+      logger.error('Error combining playlists:', err)
+      setError(`Failed to combine playlists: ${errorMessage}`)
+      showToast(`Could not combine playlists: ${errorMessage}`, 'error')
     } finally {
       setProcessing(false)
     }
@@ -237,9 +258,10 @@ const PlaylistTools: React.FC = () => {
 
       showToast(`Playlist "${name}" created successfully with ${tracks.length} tracks!`, 'success')
     } catch (err) {
-      console.error('Error creating playlist:', err)
-      setError('Failed to create playlist')
-      showToast('Failed to create playlist. Please try again.', 'error')
+      const errorMessage = getErrorMessage(err)
+      logger.error('Error creating playlist:', err)
+      setError(`Failed to create playlist: ${errorMessage}`)
+      showToast(`Could not create playlist: ${errorMessage}`, 'error')
     } finally {
       setProcessing(false)
     }

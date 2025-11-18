@@ -522,4 +522,4 @@ const PlaylistSelector: React.FC<PlaylistSelectorProps> = ({
   )
 }
 
-export default PlaylistSelector
+export default React.memo(PlaylistSelector)

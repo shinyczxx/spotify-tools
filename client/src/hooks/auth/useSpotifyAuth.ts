@@ -11,7 +11,9 @@
 import { useState, useEffect, useCallback } from 'react'
 import api, { setAuthToken, setTokenUpdateCallback } from '@utils/api'
 import { handleSpotifyCallback, refreshSpotifyToken } from '@utils/spotifyAuth'
+import logger from '@utils/logger'
 import type { SpotifyUser } from 'types/spotify-user'
+import { AxiosError } from 'axios'
 
 interface UseSpotifyAuthResult {
   user: SpotifyUser | null
@@ -38,7 +40,7 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
   // Set up token update callback for automatic refresh
   useEffect(() => {
     setTokenUpdateCallback((newAccessToken, newRefreshToken) => {
-      console.log('[Auth] Token updated automatically', { newAccessToken, newRefreshToken })
+      logger.debug('[Auth] Token updated automatically', { newAccessToken, newRefreshToken })
       setAccessToken(newAccessToken)
       setRefreshToken(newRefreshToken)
       setAuthToken(newAccessToken)
@@ -49,7 +51,7 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
   }, [])
 
   const handleLogout = useCallback(async () => {
-    console.log('[Auth] Logout initiated')
+    logger.log('[Auth] Logout initiated')
     setUser(null)
     setAccessToken(null)
     setRefreshToken(null)
@@ -61,7 +63,7 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
 
   const fetchUserProfile = useCallback(
     async (token: string) => {
-      console.log('[Auth] Fetching user profile', { token })
+      logger.debug('[Auth] Fetching user profile', { token })
       if (!token) {
         setUser(null)
         setError(null)
@@ -72,9 +74,9 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
         const response = await api.get('/me')
         setUser(response.data)
         setLoading(false)
-      } catch (error: any) {
-        console.error('Error fetching user profile:', error)
-        if (error.response?.status === 401) {
+      } catch (error) {
+        logger.error('Error fetching user profile:', error)
+        if (error instanceof AxiosError && error.response?.status === 401) {
           handleLogout()
         } else {
           const hadPreviousSession = !!localStorage.getItem('spotify_access_token')
@@ -91,7 +93,7 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
   )
 
   const handleRefreshToken = useCallback(async () => {
-    console.log('[Auth] Refreshing token')
+    logger.debug('[Auth] Refreshing token')
     try {
       const storedRefreshToken = localStorage.getItem('spotify_refresh_token')
       if (!storedRefreshToken) {
@@ -107,12 +109,12 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
       setAuthToken(newAccessToken)
       localStorage.setItem('spotify_access_token', newAccessToken)
       fetchUserProfile(newAccessToken)
-    } catch (error: any) {
-      console.error('Error refreshing token:', error)
+    } catch (error) {
+      logger.error('Error refreshing token:', error)
 
       // Handle specific refresh token revoked error
-      if (error.message === 'REFRESH_TOKEN_REVOKED') {
-        console.log(
+      if (error instanceof Error && error.message === 'REFRESH_TOKEN_REVOKED') {
+        logger.warn(
           '[Auth] Refresh token was revoked, clearing session and requiring re-authentication',
         )
         setError('Your session has expired. Please log in again.')
@@ -187,9 +189,9 @@ export function useSpotifyAuth(): UseSpotifyAuthResult {
     const validateToken = async () => {
       try {
         await api.get('/me')
-      } catch (error: any) {
-        if (error.response?.status === 401) {
-          console.log('Token expired, attempting refresh...')
+      } catch (error) {
+        if (error instanceof AxiosError && error.response?.status === 401) {
+          logger.debug('Token expired, attempting refresh...')
           handleRefreshToken()
         }
       }

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { refreshSpotifyToken } from './spotifyAuth'
+import logger from './logger'
 
 const api = axios.create({
   baseURL: 'https://api.spotify.com/v1',
@@ -41,10 +42,10 @@ api.interceptors.response.use(
         setTokens(newAccessToken, refreshToken)
         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
         return api(originalRequest)
-      } catch (refreshError: any) {
+      } catch (refreshError) {
         // Handle specific refresh token revoked error
-        if (refreshError.message === 'REFRESH_TOKEN_REVOKED') {
-          console.log('[API] Refresh token revoked, clearing auth and redirecting to login')
+        if (refreshError instanceof Error && refreshError.message === 'REFRESH_TOKEN_REVOKED') {
+          logger.warn('[API] Refresh token revoked, clearing auth and redirecting to login')
           // Clear tokens and force logout
           localStorage.removeItem('spotify_access_token')
           localStorage.removeItem('spotify_refresh_token')

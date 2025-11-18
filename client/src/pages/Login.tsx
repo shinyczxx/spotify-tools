@@ -22,7 +22,7 @@ const Login: React.FC = () => {
     try {
       const { initiateSpotifyAuth } = await import('../utils/spotifyAuth')
       await initiateSpotifyAuth()
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error initiating login:', error)
     }
   }

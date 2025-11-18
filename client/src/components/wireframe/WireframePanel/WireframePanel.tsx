@@ -21,7 +21,7 @@ export interface WireframePanelProps {
   style?: React.CSSProperties;
 }
 
-export function WireframePanel({
+export const WireframePanel = React.memo(function WireframePanel({
   title,
   className = "",
   children,
@@ -65,4 +65,4 @@ export function WireframePanel({
       </div>
     </WireframeBox>
   );
-}
+})

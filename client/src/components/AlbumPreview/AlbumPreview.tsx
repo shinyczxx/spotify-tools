@@ -93,4 +93,4 @@ const AlbumPreview: React.FC<AlbumPreviewProps> = ({
   )
 }
 
-export default AlbumPreview
+export default React.memo(AlbumPreview)
