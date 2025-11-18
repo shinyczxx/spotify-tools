@@ -64,6 +64,17 @@
   --terminal-error-bg: #1a0606;
   --terminal-error-border: #cc3333;
 
+  /* Additional Status Colors */
+  --terminal-orange: #ff8800;
+  --terminal-orange-bright: #ffaa44;
+  --terminal-green: #00ff88;
+  --terminal-red: #ff4444;
+  --terminal-red-bright: #ff6666;
+  --terminal-red-dim: #cc0000;
+
+  /* Gray Variants */
+  --terminal-gray-dim: #333333;
+
   /* Glitch Effect Colors */
   --glitch-magenta: #ff0080;
   --glitch-cyan: #00ffff;
@@ -97,6 +108,13 @@
   --text-shadow: 0 0 1px currentColor;
   --text-shadow-bright: 0 0 2px currentColor, 0 0 4px currentColor;
   --text-shadow-intense: 0 0 2px currentColor, 0 0 4px currentColor, 0 0 8px currentColor;
+
+  /* Wireframe Utility Patterns */
+  --wireframe-border: 1px solid var(--terminal-cyan);
+  --wireframe-border-bright: 1px solid var(--terminal-cyan-bright);
+  --wireframe-transition: all 0.2s ease;
+  --wireframe-box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.05);
+  --wireframe-box-shadow-hover: 0 0 15px var(--terminal-cyan-dark), inset 0 0 20px rgba(0, 255, 255, 0.1);
 
   /* ============================================
      SPACING SCALE

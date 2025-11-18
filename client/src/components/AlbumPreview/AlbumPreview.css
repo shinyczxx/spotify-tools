@@ -34,14 +34,14 @@
   gap: 0.75em;
   padding: 0.4em;
   border: 1px solid transparent;
-  border-radius: 2px;
-  transition: all 0.2s ease;
-  background: rgba(0, 255, 255, 0.02);
+  border-radius: var(--border-radius);
+  transition: var(--wireframe-transition);
+  background: var(--background-dark);
 }
 
 .album-preview__item:hover {
   border-color: var(--circuit-color-dim);
-  background: rgba(0, 255, 255, 0.08);
+  background: var(--background-medium);
   transform: translateX(2px);
 }
 
@@ -50,7 +50,7 @@
   height: 40px;
   flex-shrink: 0;
   border: 1px solid var(--circuit-color-dim);
-  border-radius: 2px;
+  border-radius: var(--border-radius);
   overflow: hidden;
   background: var(--terminal-dark);
   display: flex;
@@ -138,13 +138,13 @@
 
 /* Terminal theme specific adjustments */
 .theme-czxx-terminal .album-preview__item:hover {
-  box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+  box-shadow: var(--shadow-md);
 }
 
 .theme-spotify .album-preview__item:hover {
-  box-shadow: 0 2px 8px rgba(29, 185, 84, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
 .theme-discord .album-preview__item:hover {
-  box-shadow: 0 2px 8px rgba(114, 137, 218, 0.2);
+  box-shadow: var(--shadow-md);
 }

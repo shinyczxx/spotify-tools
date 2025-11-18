@@ -17,13 +17,13 @@
   font-family: var(--terminal-font);
   letter-spacing: 1px;
   text-transform: lowercase;
-  transition: all 0.3s ease;
+  transition: var(--wireframe-transition);
 }
 
 .font-size-changer.variant-panel {
   border: 1px solid var(--terminal-cyan-dim);
   background-color: var(--terminal-dark);
-  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.1);
+  box-shadow: var(--shadow-inset-sm);
 }
 
 .font-size-changer.variant-header {
@@ -81,26 +81,26 @@
   font-size: var(--terminal-font-size);
   letter-spacing: 1px;
   text-transform: lowercase;
-  transition: all 0.3s ease;
+  transition: var(--wireframe-transition);
   text-shadow: var(--glow-cyan);
-  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.1);
+  box-shadow: var(--shadow-inset-sm);
   border-left: 2px solid var(--terminal-cyan);
   position: relative;
 }
 
 .font-size-preset-btn:hover {
-  background-color: rgba(0, 255, 255, 0.1);
+  background-color: var(--background-medium);
   color: var(--terminal-cyan-bright);
   border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 10px var(--terminal-cyan-dark);
+  box-shadow: var(--shadow-sm);
   text-shadow: var(--glow-cyan-bright);
 }
 
 .font-size-preset-btn.active {
-  background-color: rgba(0, 255, 255, 0.2);
+  background-color: var(--background-medium);
   color: var(--terminal-cyan-bright);
   border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 15px var(--terminal-cyan-dark);
+  box-shadow: var(--shadow-md);
   text-shadow: var(--glow-cyan-bright);
 }
 
@@ -132,8 +132,8 @@
   letter-spacing: 1px;
   width: 80px;
   text-align: center;
-  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.2);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--shadow-inset-md);
+  transition: var(--wireframe-transition);
 }
 
 .font-size-input:focus {
@@ -152,7 +152,7 @@
   outline: none;
   border-radius: 0;
   cursor: pointer;
-  box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.2);
+  box-shadow: var(--shadow-inset-sm);
 }
 
 .font-size-slider::-webkit-slider-thumb {
@@ -199,7 +199,7 @@
   background: var(--terminal-medium);
   border: 1px solid var(--terminal-cyan);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: var(--wireframe-transition);
 }
 
 .font-size-toggle-switch::after {
@@ -215,7 +215,7 @@
 }
 
 .font-size-toggle-input:checked + .font-size-toggle-switch {
-  background: rgba(0, 255, 255, 0.2);
+  background: var(--background-medium);
   border-color: var(--terminal-cyan-bright);
 }
 
@@ -234,7 +234,7 @@
   margin-top: 20px;
   padding: 15px;
   border: 1px solid var(--terminal-cyan-dim);
-  background-color: rgba(0, 255, 255, 0.05);
+  background-color: var(--background-dark);
   text-align: center;
 }
 

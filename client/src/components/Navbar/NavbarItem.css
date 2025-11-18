@@ -20,7 +20,7 @@
   width: var(--nav-item-width);
   text-align: left;
   background-color: var(--terminal-bg);
-  transition: all 0.2s ease;
+  transition: var(--wireframe-transition);
   font-size: var(--terminal-font-size);
   letter-spacing: 1px;
   text-shadow: var(--glow-cyan);
@@ -34,18 +34,12 @@
 }
 
 .nav-item:hover {
-  transition: all 0.2s ease;
   padding: var(--nav-item-hover-padding);
-  background-color: var(--terminal-dark);
+  background-color: var(--background-medium);
   color: var(--terminal-cyan-bright);
   text-shadow: var(--glow-cyan-bright);
-  background-color: rgba(0, 255, 255, 0.1);
-  color: var(--terminal-cyan-bright);
   border-color: var(--terminal-cyan-bright);
-  text-shadow: var(--glow-cyan-bright);
-  box-shadow: 0 0 15px var(--terminal-cyan-dark),
-    inset 0 0 20px rgba(0, 255, 255, 0.2);
-
+  box-shadow: var(--shadow-md), var(--shadow-inset-md);
   width: var(--nav-item-hover-width);
 }
 
@@ -59,9 +53,7 @@
   color: var(--terminal-cyan-bright);
   text-shadow: var(--glow-cyan-bright);
   border-color: var(--terminal-cyan-bright);
-  box-shadow: 0 0 15px var(--terminal-cyan-dark),
-    inset 0 0 20px rgba(0, 255, 255, 0.2);
-
+  box-shadow: var(--shadow-md), var(--shadow-inset-md);
   width: var(--nav-item-active-width);
 }
 

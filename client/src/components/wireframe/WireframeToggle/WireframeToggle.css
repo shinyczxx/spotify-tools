@@ -58,7 +58,7 @@
   background: var(--terminal-dark);
   border: 2px solid var(--terminal-cyan);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: var(--wireframe-transition);
   user-select: none;
   overflow: hidden;
 }
@@ -113,7 +113,7 @@
 .wireframe-toggle-input:checked + .wireframe-toggle-track .wireframe-toggle-thumb {
   left: 52px;
   background: var(--terminal-cyan-bright);
-  box-shadow: -2px 0 4px rgba(0, 255, 255, 0.3);
+  box-shadow: var(--shadow-dropdown);
 }
 
 .wireframe-toggle-input:checked + .wireframe-toggle-track .wireframe-toggle-on {

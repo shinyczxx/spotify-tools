@@ -15,10 +15,10 @@
   background-color: var(--terminal-bg);
   border: 2px solid var(--terminal-cyan);
   color: var(--terminal-cyan);
-  font-family: 'Courier New', monospace;
+  font-family: var(--terminal-font);
   font-size: 0.85em;
   line-height: 1.4;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-dropdown);
   opacity: 0;
   animation: hoverDisplayFadeIn 0.2s ease-out forwards;
   pointer-events: none;

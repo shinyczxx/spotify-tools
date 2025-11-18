@@ -12,11 +12,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: var(--background-dark);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: var(--z-index-overlay);
   padding: 1em;
   box-sizing: border-box;
 }
@@ -27,7 +27,7 @@
   max-height: 80vh;
   overflow: hidden;
   border-radius: 0;
-  box-shadow: 0 0 20px var(--terminal-cyan), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  box-shadow: var(--shadow-lg), var(--shadow-inset-md);
 }
 
 .history-modal-panel {
@@ -48,7 +48,7 @@
 
 .no-history {
   text-align: center;
-  color: var(--terminal-text-dim, #888);
+  color: var(--text-dim);
   padding: 2em;
   flex: 1;
   display: flex;
@@ -89,19 +89,19 @@
 }
 
 .history-entry {
-  border: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
+  border: 1px solid var(--terminal-cyan-dim);
   background-color: var(--terminal-medium);
   padding: 1em;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--wireframe-transition);
   border-left: 3px solid var(--terminal-cyan-dim);
 }
 
 .history-entry:hover {
   border-color: var(--terminal-cyan);
   border-left-color: var(--terminal-cyan);
-  background-color: rgba(0, 255, 255, 0.05);
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2), inset 0 0 10px rgba(0, 255, 255, 0.1);
+  background-color: var(--background-dark);
+  box-shadow: var(--shadow-sm), var(--shadow-inset-sm);
   transform: translateX(2px);
 }
 
@@ -128,7 +128,7 @@
 }
 
 .playlist-names {
-  color: var(--terminal-text-dim, #888);
+  color: var(--text-dim);
   font-style: italic;
   white-space: nowrap;
   overflow: hidden;
@@ -140,7 +140,7 @@
   justify-content: flex-end;
   gap: 0.5em;
   padding-top: 1em;
-  border-top: 1px solid var(--terminal-cyan-dim, rgba(0, 255, 255, 0.3));
+  border-top: 1px solid var(--terminal-cyan-dim);
   flex-shrink: 0;
 }
 
